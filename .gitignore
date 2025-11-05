@@ -1,0 +1,37 @@
+
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md
+figma-docs/02-mcp-tools-deep-dive.md
+figma-docs/03-code-connect-concepts.md
+figma-docs/04-code-connect-setup.md
+figma-docs/05-figma-make-integration.md
+figma-docs/06-design-best-practices.md
+figma-docs/07-complete-workflow.md
+figma-docs/08-conclusion.md
+figma-docs/bootstrap-mapper-implementation/architecture-decisions.md
+figma-docs/bootstrap-mapper-implementation/bootstrap-analysis.md
+figma-docs/bootstrap-mapper-implementation/README.md
+figma-docs/bootstrap-mapper-implementation/task-01-mapping-config.md
+figma-docs/bootstrap-mapper-implementation/task-02-style-dictionary-extension.md
+figma-docs/bootstrap-mapper-implementation/task-03-build-target.md
+figma-docs/bootstrap-mapper-implementation/task-04-npm-scripts.md
+figma-docs/bootstrap-mapper-implementation/task-05-testing-validation.md
+figma-docs/bootstrap-mapper-implementation/token-mapping-strategy.md
+figma-docs/figma-code-connect/code-connect-analysis.md
+figma-docs/figma-code-connect/component-connections.md
+figma-docs/figma-code-connect/component-definitions.md
+figma-docs/figma-code-connect/configuration.md
+figma-docs/figma-code-connect/examples.md
+figma-docs/figma-code-connect/README.md
+figma-docs/figma-code-connect/troubleshooting.md
+figma-docs/figma-mcp-code-connect-complete-guide.md
+figma-docs/Home.md
+figma-docs/README.md
+figma-docs/talktofigma/demo.md
+figma-docs/talktofigma/installation.md
+figma-docs/talktofigma/prompts/035-Task - Design and Build Simple Form.md
+figma-docs/talktofigma/README.md
+figma-docs/talktofigma/requirements.md
+figma-docs/talktofigma/usage.md
+figma-docs/01-introduction-and-overview.md

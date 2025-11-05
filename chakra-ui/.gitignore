@@ -2,6 +2,7 @@
 # public/
 
 dist
+figma-docs
 node_modules/
 npm-debug.log
 packages/**/lib
