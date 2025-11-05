@@ -1,0 +1,169 @@
+---
+title: "CLI"
+description:
+  Learn more to use the Chakra CLI command to generate snippets, typings, and
+  download Pro blocks
+---
+
+The Chakra UI CLI can be used to generate typings for your custom theme tokens,
+like colors, semantic tokens, recipe variants, etc. You can also add community
+snippets and premium Pro blocks to your project.
+
+## Installation
+
+In order to use the CLI, you need to install it as a dev dependency in your
+project:
+
+:::code-group
+
+```bash [npm]
+npm i -D @chakra-ui/cli
+```
+
+```bash [pnpm]
+pnpm add -D @chakra-ui/cli
+```
+
+```bash [bun]
+bun add -d @chakra-ui/cli
+```
+
+:::
+
+:::warning
+
+To use the CLI tool, please ensure that the version of Node.js is `>= 20.6.0`.
+
+:::
+
+## Usage
+
+Use the Chakra CLI to run any of the commands listed below with your preferred
+package manager.
+
+```bash
+Usage: npx chakra [options] [command]
+
+The official CLI for Chakra UI projects
+
+Options:
+  -V, --version               output the version number
+  -h, --help                  display help for command
+
+Commands:
+  typegen [options] <source>  Generate theme and recipe typings
+  snippet                     Add snippets to your project for better DX
+  blocks                      Add Chakra UI Pro blocks to your project
+  eject [options]             Take control over the default theme tokens and recipes
+  help [command]              display help for command
+```
+
+## `chakra typegen`
+
+Generates theme and recipe typings for your custom theme. This helps to provide
+autocompletion and type safety in your project.
+
+```bash
+# Generate typings
+chakra typegen src/theme.ts
+
+# Watch for changes and rebuild
+chakra typegen src/theme.ts --watch
+
+# Generate strict types for props variant and size
+chakra typegen src/theme.ts --strict
+```
+
+## `chakra snippet`
+
+Generates useful component compositions that boost your development speed.
+
+```bash
+# Add all snippets
+chakra snippet add --all
+
+# Add a specific snippet
+chakra snippet add button
+
+# List all available snippets
+chakra snippet list
+
+# Specify a custom directory
+chakra snippet add dialog --outdir ./components/custom
+```
+
+## `chakra blocks`
+
+Add premium blocks from Chakra UI Pro to your project. These are professionally
+designed, fully responsive components that you can customize for your needs.
+
+```bash
+# Interactive block selection
+chakra blocks add
+
+# Add all variants of a specific block
+chakra blocks add hero
+
+# Add a specific variant of a block
+chakra blocks add hero --variant "simple"
+
+# List available blocks
+chakra blocks list
+
+# List blocks in a specific category
+chakra blocks list --category "marketing"
+
+# Preview blocks without downloading
+chakra blocks add --dry-run --category "marketing"
+
+# Specify output directory
+chakra blocks add --outdir ./components/blocks
+```
+
+### Pro API Key Setup
+
+To use Pro blocks, you need a Chakra UI Pro subscription and API key:
+
+1. Get your API key from [Chakra UI Pro](https://pro.chakra-ui.com)
+2. Set the environment variable:
+
+   ```bash
+   export CHAKRA_UI_PRO_API_KEY="your-api-key"
+   ```
+
+   Or create a `.env` file in your project root:
+
+   ```env
+   CHAKRA_UI_PRO_API_KEY=your-api-key
+   ```
+
+3. Add it to your shell profile (`.bashrc`, `.zshrc`, etc.) for persistence if
+   using environment variables
+
+### Available Options
+
+- `--variant <variant>`: Add a specific variant instead of all variants
+- `--outdir <dir>`: Specify output directory for blocks
+- `--force`: Overwrite existing files
+- `--dry-run`: Preview what will be downloaded without writing files
+- `--tsx`: Force TypeScript JSX format (auto-detected by default)
+
+## `chakra eject`
+
+Generated the file(s) that contain the default theme tokens and recipes so you
+can have full control over them.
+
+```bash
+# Copy the tokens and recipes to your project
+chakra eject --outdir src/theme
+```
+
+## FAQ
+
+### Autocomplete for custom tokens not working?
+
+After generating the typings, you need to "Restart TS Server" for the
+autocomplete to show up.
+
+Alternatively, you can install the `@chakra-ui/cli` package locally as a dev
+dependency and run the `chakra typegen` command to generate the typings.
