@@ -35,3 +35,7 @@ figma-docs/talktofigma/README.md
 figma-docs/talktofigma/requirements.md
 figma-docs/talktofigma/usage.md
 figma-docs/01-introduction-and-overview.md
+
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md

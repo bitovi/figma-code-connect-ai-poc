@@ -1,0 +1,47 @@
+{
+  "name": "figma-code-connect-utilities",
+  "version": "1.0.0",
+  "description": "Utility scripts for Figma Code Connect configuration and component data extraction",
+  "scripts": {
+    "fetch:components": "node scripts/fetchComponents.js",
+    "fetch:help": "node scripts/fetchComponents.js --help",
+    "build:config": "node scripts/buildFigmaConfig.js",
+    "build:config:file": "node scripts/buildFigmaConfig.js --output file",
+    "build:config:help": "node scripts/buildFigmaConfig.js --help",
+    "setup:chakra": "npm run build:config:file -- --include 'packages/react/**' --exclude 'packages/react/icons.tsx' --import-paths 'components/**=>@chakra-ui/react,theme/**=>@chakra-ui/react/theme'",
+    "setup:basic": "npm run build:config:file -- --include 'src/components/**' --import-paths 'src/components/*=>@ui/components'",
+    "workflow:complete": "npm run fetch:components && npm run build:config:file",
+    "workflow:chakra": "npm run fetch:components && npm run setup:chakra",
+    "dev:preview": "node scripts/buildFigmaConfig.js --output console",
+    "dev:check": "node -c scripts/buildFigmaConfig.js && node -c scripts/fetchComponents.js && echo '✅ All scripts syntax OK'",
+    "help": "echo 'Available commands:' && echo '' && echo 'Fetch Components:' && echo '  npm run fetch:components     - Extract components from Figma' && echo '  npm run fetch:help          - Show fetch options' && echo '' && echo 'Build Configuration:' && echo '  npm run build:config        - Generate config (console)' && echo '  npm run build:config:file   - Generate config file' && echo '  npm run build:config:help   - Show build options' && echo '' && echo 'Quick Setups:' && echo '  npm run setup:chakra        - Chakra UI style config' && echo '  npm run setup:basic         - Basic design system config' && echo '' && echo 'Complete Workflows:' && echo '  npm run workflow:complete   - Fetch + Generate config' && echo '  npm run workflow:chakra     - Fetch + Chakra setup' && echo '' && echo 'Development:' && echo '  npm run dev:preview         - Preview config (no file)' && echo '  npm run dev:check           - Check script syntax' && echo '' && echo 'For detailed usage, see scripts/README.md'"
+  },
+  "keywords": [
+    "figma",
+    "code-connect",
+    "design-system",
+    "component-extraction",
+    "configuration"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitovi/figma-code-connect-ai-poc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bitovi/figma-code-connect-ai-poc/issues"
+  },
+  "homepage": "https://github.com/bitovi/figma-code-connect-ai-poc#readme",
+  "config": {
+    "figmaFileKey": "Set FIGMA_FILE_KEY in .env file",
+    "figmaToken": "Set FIGMA_ACCESS_TOKEN in .env file"
+  }
+}

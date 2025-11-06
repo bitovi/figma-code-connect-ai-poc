@@ -6,7 +6,13 @@
  * This script downloads all variants from Figma components and saves them as JSON/YAML files.
  *
  * Usage:
- *   node figma-variants-extractor.js <fileKey> [options]
+ *   node figma-variants-extractor.js [fileKey] [options]
+ *
+ * File Key:
+ *   The fileKey can be provided in two ways:
+ *   1. As the first command line argument
+ *   2. Set FIGMA_FILE_KEY in a .env file in the parent directory
+ *   Command line argument takes precedence over .env file
  *
  * Options:
  *   --token       Figma API token (or set FIGMA_ACCESS_TOKEN env variable)
@@ -15,13 +21,44 @@
  *   --format      Output format: json, yaml, or both (default: both)
  *   --output      Output directory (default: ./figma-variants)
  *
- * Example:
+ * Examples:
+ *   # Using command line argument
  *   FIGMA_ACCESS_TOKEN=xxx node figma-variants-extractor.js abc123xyz
+ *   
+ *   # Using .env file (FIGMA_FILE_KEY=abc123xyz)
+ *   FIGMA_ACCESS_TOKEN=xxx node figma-variants-extractor.js
+ *   
+ *   # Both tokens can also be in .env file
+ *   node figma-variants-extractor.js
  */
 
 const https = require('https');
 const fs = require('fs');
 const path = require('path');
+
+// Load environment variables from .env file
+function loadEnvFile() {
+  const envPath = path.resolve(__dirname, '../.env');
+  
+  if (fs.existsSync(envPath)) {
+    const envContent = fs.readFileSync(envPath, 'utf8');
+    const lines = envContent.split('\n');
+    
+    for (const line of lines) {
+      const trimmedLine = line.trim();
+      if (trimmedLine && !trimmedLine.startsWith('#')) {
+        const [key, ...valueParts] = trimmedLine.split('=');
+        if (key && valueParts.length > 0) {
+          const value = valueParts.join('=').trim();
+          // Only set if not already defined in process.env
+          if (!process.env[key]) {
+            process.env[key] = value;
+          }
+        }
+      }
+    }
+  }
+}
 
 // YAML converter (simple implementation)
 function toYAML(obj, indent = 0) {
@@ -54,9 +91,12 @@ function toYAML(obj, indent = 0) {
 
 // Parse command line arguments
 function parseArgs() {
+  // Load .env file first
+  loadEnvFile();
+  
   const args = process.argv.slice(2);
   const config = {
-    fileKey: args[0],
+    fileKey: args[0] || process.env.FIGMA_FILE_KEY, // Use from args or env
     token: process.env.FIGMA_ACCESS_TOKEN,
     page: null,
     component: null,
@@ -227,7 +267,8 @@ async function main() {
   // Validate inputs
   if (!config.fileKey) {
     console.error('Error: Figma file key is required');
-    console.error('Usage: node figma-variants-extractor.js <fileKey> [options]');
+    console.error('Provide it as: node figma-variants-extractor.js <fileKey> [options]');
+    console.error('Or set FIGMA_FILE_KEY in your .env file');
     process.exit(1);
   }
 
