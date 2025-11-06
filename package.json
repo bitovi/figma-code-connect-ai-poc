@@ -13,8 +13,16 @@
     "workflow:complete": "npm run fetch:components && npm run build:config:file",
     "workflow:chakra": "npm run fetch:components && npm run setup:chakra",
     "dev:preview": "node scripts/buildFigmaConfig.js --output console",
-    "dev:check": "node -c scripts/buildFigmaConfig.js && node -c scripts/fetchComponents.js && echo '✅ All scripts syntax OK'",
-    "help": "echo 'Available commands:' && echo '' && echo 'Fetch Components:' && echo '  npm run fetch:components     - Extract components from Figma' && echo '  npm run fetch:help          - Show fetch options' && echo '' && echo 'Build Configuration:' && echo '  npm run build:config        - Generate config (console)' && echo '  npm run build:config:file   - Generate config file' && echo '  npm run build:config:help   - Show build options' && echo '' && echo 'Quick Setups:' && echo '  npm run setup:chakra        - Chakra UI style config' && echo '  npm run setup:basic         - Basic design system config' && echo '' && echo 'Complete Workflows:' && echo '  npm run workflow:complete   - Fetch + Generate config' && echo '  npm run workflow:chakra     - Fetch + Chakra setup' && echo '' && echo 'Development:' && echo '  npm run dev:preview         - Preview config (no file)' && echo '  npm run dev:check           - Check script syntax' && echo '' && echo 'For detailed usage, see scripts/README.md'"
+    "dev:check": "node -c scripts/buildFigmaConfig.js && node -c scripts/fetchComponents.js && node -c scripts/extractComponentProps.js && echo '✅ All scripts syntax OK'",
+    "extract:props": "node scripts/extractComponentProps.js",
+    "extract:props:preview": "node scripts/extractComponentProps.js --dry-run --verbose",
+    "extract:props:help": "node scripts/extractComponentProps.js --help",
+    "extract:accordion": "node scripts/extractComponentProps.js --filter 'Accordion' --verbose",
+    "extract:button": "node scripts/extractComponentProps.js --filter 'Button' --verbose",
+    "extract:overwrite": "node scripts/extractComponentProps.js --overwrite",
+    "workflow:props": "npm run extract:props && echo 'Component props extracted to components-props/ directory'",
+    "workflow:full": "npm run fetch:components && npm run build:config:file && npm run extract:props",
+    "help": "echo 'Available commands:' && echo '' && echo 'Fetch Components:' && echo '  npm run fetch:components     - Extract components from Figma' && echo '  npm run fetch:help          - Show fetch options' && echo '' && echo 'Build Configuration:' && echo '  npm run build:config        - Generate config (console)' && echo '  npm run build:config:file   - Generate config file' && echo '  npm run build:config:help   - Show build options' && echo '' && echo 'Extract Component Props:' && echo '  npm run extract:props        - Extract all component props' && echo '  npm run extract:props:preview - Preview extraction (dry-run)' && echo '  npm run extract:props:help   - Show extraction options' && echo '  npm run extract:accordion    - Extract accordion components' && echo '  npm run extract:button       - Extract button components' && echo '  npm run extract:overwrite    - Extract with overwrite' && echo '' && echo 'Quick Setups:' && echo '  npm run setup:chakra        - Chakra UI style config' && echo '  npm run setup:basic         - Basic design system config' && echo '' && echo 'Complete Workflows:' && echo '  npm run workflow:complete   - Fetch + Generate config' && echo '  npm run workflow:chakra     - Fetch + Chakra setup' && echo '  npm run workflow:props      - Extract component props' && echo '  npm run workflow:full       - Full pipeline (Figma + Config + Props)' && echo '' && echo 'Development:' && echo '  npm run dev:preview         - Preview config (no file)' && echo '  npm run dev:check           - Check script syntax' && echo '' && echo 'For detailed usage, see scripts/README.md'"
   },
   "keywords": [
     "figma",
@@ -29,9 +37,12 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "@typescript-eslint/typescript-estree": "^8.46.3",
+    "fs-extra": "^11.3.2",
+    "glob": "^8.1.0",
+    "js-yaml": "^4.1.0",
+    "yaml": "^2.8.1"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bitovi/figma-code-connect-ai-poc.git"
