@@ -1,0 +1,12 @@
+componentName: MenuItemGroup
+filePath: chakra-ui/apps/compositions/src/ui/menu.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/menu.tsx
+exportType: forwardRef
+exportName: MenuItemGroup
+interfaceName: MenuItemGroupProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

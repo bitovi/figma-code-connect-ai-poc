@@ -1,5 +1,6 @@
 {
   "codeConnect": {
+    "interactiveSetupFigmaFileUrl": "https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB",
     "include": ["packages/react/src/components/**/*", "packages/react/src/theme/**/*"],
     "exclude": ["packages/react/src/components/icons.tsx"],
     "parser": "react",

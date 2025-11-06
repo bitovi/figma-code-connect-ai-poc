@@ -1,0 +1,36 @@
+componentSetId: "398:10171"
+componentName: "Slider.MarkerGroup"
+description: ""
+variantProperties:
+  Steps:
+  - 3
+  - 4
+  - 5
+  Size:
+  - 1
+variants:
+- 
+  variantId: "398:10172"
+  name: "Steps=5, Size=1"
+  properties:
+    Steps: "5"
+    Size: "1"
+  description: ""
+  key: ""
+- 
+  variantId: "399:3036"
+  name: "Steps=4, Size=1"
+  properties:
+    Steps: "4"
+    Size: "1"
+  description: ""
+  key: ""
+- 
+  variantId: "400:3052"
+  name: "Steps=3, Size=1"
+  properties:
+    Steps: "3"
+    Size: "1"
+  description: ""
+  key: ""
+totalVariants: 3

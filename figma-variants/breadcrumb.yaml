@@ -1,0 +1,61 @@
+componentSetId: "163:6014"
+componentName: "Breadcrumb"
+description: ""
+variantProperties:
+  size:
+  - lg
+  - md
+  - sm
+  variant:
+  - plain
+  - underline
+variants:
+- 
+  variantId: "163:6003"
+  name: "size=sm, variant=plain"
+  properties:
+    size: "sm"
+    variant: "plain"
+  description: ""
+  key: ""
+- 
+  variantId: "163:6246"
+  name: "size=sm, variant=underline"
+  properties:
+    size: "sm"
+    variant: "underline"
+  description: ""
+  key: ""
+- 
+  variantId: "163:6099"
+  name: "size=md, variant=plain"
+  properties:
+    size: "md"
+    variant: "plain"
+  description: ""
+  key: ""
+- 
+  variantId: "163:6252"
+  name: "size=md, variant=underline"
+  properties:
+    size: "md"
+    variant: "underline"
+  description: ""
+  key: ""
+- 
+  variantId: "163:6162"
+  name: "size=lg, variant=plain"
+  properties:
+    size: "lg"
+    variant: "plain"
+  description: ""
+  key: ""
+- 
+  variantId: "163:6258"
+  name: "size=lg, variant=underline"
+  properties:
+    size: "lg"
+    variant: "underline"
+  description: ""
+  key: ""
+totalVariants: 6

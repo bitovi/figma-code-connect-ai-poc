@@ -1,0 +1,220 @@
+{
+  "componentSetId": "417:45229",
+  "componentName": "Pagination",
+  "description": "",
+  "variantProperties": {
+    "size": [
+      "lg",
+      "md",
+      "sm",
+      "xs"
+    ],
+    "variant": [
+      "plain",
+      "solid"
+    ],
+    ".isAttached?": [
+      "false",
+      "true"
+    ],
+    ".isCompact?": [
+      "False",
+      "True"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "417:45993",
+      "name": "size=xs, variant=plain, .isAttached?=false, .isCompact?=False",
+      "properties": {
+        "size": "xs",
+        "variant": "plain",
+        ".isAttached?": "false",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:46251",
+      "name": "size=xs, variant=solid, .isAttached?=false, .isCompact?=False",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        ".isAttached?": "false",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:46315",
+      "name": "size=xs, variant=plain, .isAttached?=true, .isCompact?=False",
+      "properties": {
+        "size": "xs",
+        "variant": "plain",
+        ".isAttached?": "true",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:46436",
+      "name": "size=xs, variant=plain, .isAttached?=false, .isCompact?=True",
+      "properties": {
+        "size": "xs",
+        "variant": "plain",
+        ".isAttached?": "false",
+        ".isCompact?": "True"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:47017",
+      "name": "size=sm, variant=plain, .isAttached?=false, .isCompact?=False",
+      "properties": {
+        "size": "sm",
+        "variant": "plain",
+        ".isAttached?": "false",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:47031",
+      "name": "size=sm, variant=solid, .isAttached?=false, .isCompact?=False",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        ".isAttached?": "false",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:47045",
+      "name": "size=sm, variant=plain, .isAttached?=true, .isCompact?=False",
+      "properties": {
+        "size": "sm",
+        "variant": "plain",
+        ".isAttached?": "true",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:47059",
+      "name": "size=sm, variant=plain, .isAttached?=false, .isCompact?=True",
+      "properties": {
+        "size": "sm",
+        "variant": "plain",
+        ".isAttached?": "false",
+        ".isCompact?": "True"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:46615",
+      "name": "size=md, variant=plain, .isAttached?=false, .isCompact?=False",
+      "properties": {
+        "size": "md",
+        "variant": "plain",
+        ".isAttached?": "false",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:46630",
+      "name": "size=md, variant=solid, .isAttached?=false, .isCompact?=False",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        ".isAttached?": "false",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:46644",
+      "name": "size=md, variant=plain, .isAttached?=true, .isCompact?=False",
+      "properties": {
+        "size": "md",
+        "variant": "plain",
+        ".isAttached?": "true",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:46658",
+      "name": "size=md, variant=plain, .isAttached?=false, .isCompact?=True",
+      "properties": {
+        "size": "md",
+        "variant": "plain",
+        ".isAttached?": "false",
+        ".isCompact?": "True"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:47418",
+      "name": "size=lg, variant=plain, .isAttached?=false, .isCompact?=False",
+      "properties": {
+        "size": "lg",
+        "variant": "plain",
+        ".isAttached?": "false",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:47432",
+      "name": "size=lg, variant=solid, .isAttached?=false, .isCompact?=False",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        ".isAttached?": "false",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:47446",
+      "name": "size=lg, variant=plain, .isAttached?=true, .isCompact?=False",
+      "properties": {
+        "size": "lg",
+        "variant": "plain",
+        ".isAttached?": "true",
+        ".isCompact?": "False"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:47460",
+      "name": "size=lg, variant=plain, .isAttached?=false, .isCompact?=True",
+      "properties": {
+        "size": "lg",
+        "variant": "plain",
+        ".isAttached?": "false",
+        ".isCompact?": "True"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 16
+}

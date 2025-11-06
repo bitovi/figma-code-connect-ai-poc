@@ -1,0 +1,39 @@
+componentSetId: "396:3279"
+componentName: "SwitchBase"
+description: ""
+variantProperties:
+  Size:
+  - lg
+  - md
+  - sm
+  - xs
+variants:
+- 
+  variantId: "396:3278"
+  name: "Size=xs"
+  properties:
+    Size: "xs"
+  description: ""
+  key: ""
+- 
+  variantId: "396:3280"
+  name: "Size=sm"
+  properties:
+    Size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "396:3295"
+  name: "Size=md"
+  properties:
+    Size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "396:3304"
+  name: "Size=lg"
+  properties:
+    Size: "lg"
+  description: ""
+  key: ""
+totalVariants: 4

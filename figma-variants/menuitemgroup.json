@@ -1,0 +1,240 @@
+{
+  "componentSetId": "377:9525",
+  "componentName": "MenuItemGroup",
+  "description": "",
+  "variantProperties": {
+    "size": [
+      "md",
+      "sm"
+    ],
+    "state": [
+      "default",
+      "disabled",
+      "highlighted"
+    ],
+    "variant": [
+      "default",
+      "solid",
+      "subtle"
+    ],
+    "orientation": [
+      "horizontal",
+      "vertical"
+    ],
+    ".isHighlighted?": [
+      "no",
+      "yes"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "377:9511",
+      "name": "size=sm, state=default, variant=default, orientation=horizontal, .isHighlighted?=no",
+      "properties": {
+        "size": "sm",
+        "state": "default",
+        "variant": "default",
+        "orientation": "horizontal",
+        ".isHighlighted?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:1382",
+      "name": "size=sm, state=disabled, variant=default, orientation=horizontal, .isHighlighted?=no",
+      "properties": {
+        "size": "sm",
+        "state": "disabled",
+        "variant": "default",
+        "orientation": "horizontal",
+        ".isHighlighted?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "377:9526",
+      "name": "size=sm, state=highlighted, variant=subtle, orientation=horizontal, .isHighlighted?=yes",
+      "properties": {
+        "size": "sm",
+        "state": "highlighted",
+        "variant": "subtle",
+        "orientation": "horizontal",
+        ".isHighlighted?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "377:9532",
+      "name": "size=sm, state=highlighted, variant=solid, orientation=horizontal, .isHighlighted?=yes",
+      "properties": {
+        "size": "sm",
+        "state": "highlighted",
+        "variant": "solid",
+        "orientation": "horizontal",
+        ".isHighlighted?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:1400",
+      "name": "size=md, state=default, variant=default, orientation=horizontal, .isHighlighted?=no",
+      "properties": {
+        "size": "md",
+        "state": "default",
+        "variant": "default",
+        "orientation": "horizontal",
+        ".isHighlighted?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:1424",
+      "name": "size=md, state=disabled, variant=default, orientation=horizontal, .isHighlighted?=no",
+      "properties": {
+        "size": "md",
+        "state": "disabled",
+        "variant": "default",
+        "orientation": "horizontal",
+        ".isHighlighted?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:1396",
+      "name": "size=md, state=highlighted, variant=subtle, orientation=horizontal, .isHighlighted?=yes",
+      "properties": {
+        "size": "md",
+        "state": "highlighted",
+        "variant": "subtle",
+        "orientation": "horizontal",
+        ".isHighlighted?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:1392",
+      "name": "size=md, state=highlighted, variant=solid, orientation=horizontal, .isHighlighted?=yes",
+      "properties": {
+        "size": "md",
+        "state": "highlighted",
+        "variant": "solid",
+        "orientation": "horizontal",
+        ".isHighlighted?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:3672",
+      "name": "size=sm, state=default, variant=default, orientation=vertical, .isHighlighted?=no",
+      "properties": {
+        "size": "sm",
+        "state": "default",
+        "variant": "default",
+        "orientation": "vertical",
+        ".isHighlighted?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:3682",
+      "name": "size=sm, state=disabled, variant=default, orientation=vertical, .isHighlighted?=no",
+      "properties": {
+        "size": "sm",
+        "state": "disabled",
+        "variant": "default",
+        "orientation": "vertical",
+        ".isHighlighted?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:3692",
+      "name": "size=sm, state=highlighted, variant=subtle, orientation=vertical, .isHighlighted?=yes",
+      "properties": {
+        "size": "sm",
+        "state": "highlighted",
+        "variant": "subtle",
+        "orientation": "vertical",
+        ".isHighlighted?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:3702",
+      "name": "size=sm, state=highlighted, variant=solid, orientation=vertical, .isHighlighted?=yes",
+      "properties": {
+        "size": "sm",
+        "state": "highlighted",
+        "variant": "solid",
+        "orientation": "vertical",
+        ".isHighlighted?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:3667",
+      "name": "size=md, state=default, variant=default, orientation=vertical, .isHighlighted?=no",
+      "properties": {
+        "size": "md",
+        "state": "default",
+        "variant": "default",
+        "orientation": "vertical",
+        ".isHighlighted?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:3677",
+      "name": "size=md, state=disabled, variant=default, orientation=vertical, .isHighlighted?=no",
+      "properties": {
+        "size": "md",
+        "state": "disabled",
+        "variant": "default",
+        "orientation": "vertical",
+        ".isHighlighted?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:3687",
+      "name": "size=md, state=highlighted, variant=subtle, orientation=vertical, .isHighlighted?=yes",
+      "properties": {
+        "size": "md",
+        "state": "highlighted",
+        "variant": "subtle",
+        "orientation": "vertical",
+        ".isHighlighted?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "379:3697",
+      "name": "size=md, state=highlighted, variant=solid, orientation=vertical, .isHighlighted?=yes",
+      "properties": {
+        "size": "md",
+        "state": "highlighted",
+        "variant": "solid",
+        "orientation": "vertical",
+        ".isHighlighted?": "yes"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 16
+}

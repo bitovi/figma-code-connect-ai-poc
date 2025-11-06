@@ -1,0 +1,32 @@
+{
+  "componentSetId": "405:15918",
+  "componentName": "WithLabel",
+  "description": "",
+  "variantProperties": {
+    "type": [
+      "infotip",
+      "inline"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "405:15917",
+      "name": "type=infotip",
+      "properties": {
+        "type": "infotip"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15916",
+      "name": "type=inline",
+      "properties": {
+        "type": "inline"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 2
+}

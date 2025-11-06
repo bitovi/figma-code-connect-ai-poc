@@ -1,0 +1,12 @@
+componentName: AccordionItemContent
+filePath: chakra-ui/apps/compositions/src/ui/accordion.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/accordion.tsx
+exportType: forwardRef
+exportName: AccordionItemContent
+interfaceName: AccordionItemContentProps
+extendsInterface: Accordion.ItemContentProps
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

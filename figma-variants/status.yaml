@@ -1,0 +1,236 @@
+componentSetId: "418:2651"
+componentName: "Status"
+description: ""
+variantProperties:
+  colorPalette:
+  - blue
+  - cyan
+  - green
+  - orange
+  - pink
+  - purple
+  - red
+  - teal
+  - yellow
+  size:
+  - lg
+  - md
+  - sm
+variants:
+- 
+  variantId: "418:2650"
+  name: "colorPalette=red, size=sm"
+  properties:
+    colorPalette: "red"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2664"
+  name: "colorPalette=red, size=md"
+  properties:
+    colorPalette: "red"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2676"
+  name: "colorPalette=red, size=lg"
+  properties:
+    colorPalette: "red"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2655"
+  name: "colorPalette=blue, size=sm"
+  properties:
+    colorPalette: "blue"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2667"
+  name: "colorPalette=blue, size=md"
+  properties:
+    colorPalette: "blue"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2679"
+  name: "colorPalette=blue, size=lg"
+  properties:
+    colorPalette: "blue"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2658"
+  name: "colorPalette=green, size=sm"
+  properties:
+    colorPalette: "green"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2670"
+  name: "colorPalette=green, size=md"
+  properties:
+    colorPalette: "green"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2682"
+  name: "colorPalette=green, size=lg"
+  properties:
+    colorPalette: "green"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2661"
+  name: "colorPalette=orange, size=sm"
+  properties:
+    colorPalette: "orange"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2673"
+  name: "colorPalette=orange, size=md"
+  properties:
+    colorPalette: "orange"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2685"
+  name: "colorPalette=orange, size=lg"
+  properties:
+    colorPalette: "orange"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2694"
+  name: "colorPalette=yellow, size=sm"
+  properties:
+    colorPalette: "yellow"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2691"
+  name: "colorPalette=yellow, size=md"
+  properties:
+    colorPalette: "yellow"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2688"
+  name: "colorPalette=yellow, size=lg"
+  properties:
+    colorPalette: "yellow"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2703"
+  name: "colorPalette=teal, size=sm"
+  properties:
+    colorPalette: "teal"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2700"
+  name: "colorPalette=teal, size=md"
+  properties:
+    colorPalette: "teal"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2697"
+  name: "colorPalette=teal, size=lg"
+  properties:
+    colorPalette: "teal"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2706"
+  name: "colorPalette=pink, size=sm"
+  properties:
+    colorPalette: "pink"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2709"
+  name: "colorPalette=pink, size=md"
+  properties:
+    colorPalette: "pink"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2712"
+  name: "colorPalette=pink, size=lg"
+  properties:
+    colorPalette: "pink"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2715"
+  name: "colorPalette=purple, size=sm"
+  properties:
+    colorPalette: "purple"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2718"
+  name: "colorPalette=purple, size=md"
+  properties:
+    colorPalette: "purple"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2721"
+  name: "colorPalette=purple, size=lg"
+  properties:
+    colorPalette: "purple"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2724"
+  name: "colorPalette=cyan, size=sm"
+  properties:
+    colorPalette: "cyan"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2727"
+  name: "colorPalette=cyan, size=md"
+  properties:
+    colorPalette: "cyan"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "418:2730"
+  name: "colorPalette=cyan, size=lg"
+  properties:
+    colorPalette: "cyan"
+    size: "lg"
+  description: ""
+  key: ""
+totalVariants: 27

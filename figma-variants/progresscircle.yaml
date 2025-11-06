@@ -1,0 +1,423 @@
+componentSetId: "406:1024"
+componentName: "ProgressCircle"
+description: ""
+variantProperties:
+  size:
+  - lg
+  - md
+  - sm
+  - xl
+  - xs
+  colorPalette:
+  - blue
+  - cyan
+  - gray
+  - green
+  - orange
+  - pink
+  - purple
+  - red
+  - teal
+  - yellow
+variants:
+- 
+  variantId: "406:1023"
+  name: "size=xs, colorPalette=gray"
+  properties:
+    size: "xs"
+    colorPalette: "gray"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1049"
+  name: "size=xs, colorPalette=red"
+  properties:
+    size: "xs"
+    colorPalette: "red"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1069"
+  name: "size=xs, colorPalette=pink"
+  properties:
+    size: "xs"
+    colorPalette: "pink"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1089"
+  name: "size=xs, colorPalette=purple"
+  properties:
+    size: "xs"
+    colorPalette: "purple"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1109"
+  name: "size=xs, colorPalette=cyan"
+  properties:
+    size: "xs"
+    colorPalette: "cyan"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1129"
+  name: "size=xs, colorPalette=blue"
+  properties:
+    size: "xs"
+    colorPalette: "blue"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1149"
+  name: "size=xs, colorPalette=teal"
+  properties:
+    size: "xs"
+    colorPalette: "teal"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1169"
+  name: "size=xs, colorPalette=green"
+  properties:
+    size: "xs"
+    colorPalette: "green"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1189"
+  name: "size=xs, colorPalette=yellow"
+  properties:
+    size: "xs"
+    colorPalette: "yellow"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1209"
+  name: "size=xs, colorPalette=orange"
+  properties:
+    size: "xs"
+    colorPalette: "orange"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1033"
+  name: "size=sm, colorPalette=gray"
+  properties:
+    size: "sm"
+    colorPalette: "gray"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1053"
+  name: "size=sm, colorPalette=red"
+  properties:
+    size: "sm"
+    colorPalette: "red"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1073"
+  name: "size=sm, colorPalette=pink"
+  properties:
+    size: "sm"
+    colorPalette: "pink"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1093"
+  name: "size=sm, colorPalette=purple"
+  properties:
+    size: "sm"
+    colorPalette: "purple"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1117"
+  name: "size=sm, colorPalette=cyan"
+  properties:
+    size: "sm"
+    colorPalette: "cyan"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1141"
+  name: "size=sm, colorPalette=blue"
+  properties:
+    size: "sm"
+    colorPalette: "blue"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1161"
+  name: "size=sm, colorPalette=teal"
+  properties:
+    size: "sm"
+    colorPalette: "teal"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1173"
+  name: "size=sm, colorPalette=green"
+  properties:
+    size: "sm"
+    colorPalette: "green"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1197"
+  name: "size=sm, colorPalette=yellow"
+  properties:
+    size: "sm"
+    colorPalette: "yellow"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1217"
+  name: "size=sm, colorPalette=orange"
+  properties:
+    size: "sm"
+    colorPalette: "orange"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1037"
+  name: "size=md, colorPalette=gray"
+  properties:
+    size: "md"
+    colorPalette: "gray"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1057"
+  name: "size=md, colorPalette=red"
+  properties:
+    size: "md"
+    colorPalette: "red"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1077"
+  name: "size=md, colorPalette=pink"
+  properties:
+    size: "md"
+    colorPalette: "pink"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1097"
+  name: "size=md, colorPalette=purple"
+  properties:
+    size: "md"
+    colorPalette: "purple"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1121"
+  name: "size=md, colorPalette=cyan"
+  properties:
+    size: "md"
+    colorPalette: "cyan"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1145"
+  name: "size=md, colorPalette=blue"
+  properties:
+    size: "md"
+    colorPalette: "blue"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1165"
+  name: "size=md, colorPalette=teal"
+  properties:
+    size: "md"
+    colorPalette: "teal"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1181"
+  name: "size=md, colorPalette=green"
+  properties:
+    size: "md"
+    colorPalette: "green"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1193"
+  name: "size=md, colorPalette=yellow"
+  properties:
+    size: "md"
+    colorPalette: "yellow"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1213"
+  name: "size=md, colorPalette=orange"
+  properties:
+    size: "md"
+    colorPalette: "orange"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1041"
+  name: "size=lg, colorPalette=gray"
+  properties:
+    size: "lg"
+    colorPalette: "gray"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1061"
+  name: "size=lg, colorPalette=red"
+  properties:
+    size: "lg"
+    colorPalette: "red"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1081"
+  name: "size=lg, colorPalette=pink"
+  properties:
+    size: "lg"
+    colorPalette: "pink"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1101"
+  name: "size=lg, colorPalette=purple"
+  properties:
+    size: "lg"
+    colorPalette: "purple"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1113"
+  name: "size=lg, colorPalette=cyan"
+  properties:
+    size: "lg"
+    colorPalette: "cyan"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1133"
+  name: "size=lg, colorPalette=blue"
+  properties:
+    size: "lg"
+    colorPalette: "blue"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1153"
+  name: "size=lg, colorPalette=teal"
+  properties:
+    size: "lg"
+    colorPalette: "teal"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1177"
+  name: "size=lg, colorPalette=green"
+  properties:
+    size: "lg"
+    colorPalette: "green"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1201"
+  name: "size=lg, colorPalette=yellow"
+  properties:
+    size: "lg"
+    colorPalette: "yellow"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1225"
+  name: "size=lg, colorPalette=orange"
+  properties:
+    size: "lg"
+    colorPalette: "orange"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1045"
+  name: "size=xl, colorPalette=gray"
+  properties:
+    size: "xl"
+    colorPalette: "gray"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1065"
+  name: "size=xl, colorPalette=red"
+  properties:
+    size: "xl"
+    colorPalette: "red"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1085"
+  name: "size=xl, colorPalette=pink"
+  properties:
+    size: "xl"
+    colorPalette: "pink"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1105"
+  name: "size=xl, colorPalette=purple"
+  properties:
+    size: "xl"
+    colorPalette: "purple"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1125"
+  name: "size=xl, colorPalette=cyan"
+  properties:
+    size: "xl"
+    colorPalette: "cyan"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1137"
+  name: "size=xl, colorPalette=blue"
+  properties:
+    size: "xl"
+    colorPalette: "blue"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1157"
+  name: "size=xl, colorPalette=teal"
+  properties:
+    size: "xl"
+    colorPalette: "teal"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1185"
+  name: "size=xl, colorPalette=green"
+  properties:
+    size: "xl"
+    colorPalette: "green"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1205"
+  name: "size=xl, colorPalette=yellow"
+  properties:
+    size: "xl"
+    colorPalette: "yellow"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1221"
+  name: "size=xl, colorPalette=orange"
+  properties:
+    size: "xl"
+    colorPalette: "orange"
+  description: ""
+  key: ""
+totalVariants: 50

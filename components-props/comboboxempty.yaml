@@ -1,0 +1,12 @@
+componentName: ComboboxEmpty
+filePath: chakra-ui/apps/compositions/src/ui/combobox.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/combobox.tsx
+exportType: null
+exportName: ComboboxEmpty
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

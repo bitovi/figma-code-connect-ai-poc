@@ -1,0 +1,12 @@
+componentName: PopoverBody
+filePath: chakra-ui/apps/compositions/src/ui/popover.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/popover.tsx
+exportType: null
+exportName: PopoverBody
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

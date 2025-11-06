@@ -1,0 +1,290 @@
+{
+  "componentSetId": "394:2275",
+  "componentName": "Separator",
+  "description": "",
+  "variantProperties": {
+    "variants": [
+      "dashed",
+      "dotted",
+      "solid"
+    ],
+    "orientation": [
+      "Default",
+      "Vertical"
+    ],
+    "size": [
+      "lg",
+      "md",
+      "s",
+      "sm",
+      "xs"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "394:2295",
+      "name": "variants=solid, orientation=Default, size=xs",
+      "properties": {
+        "variants": "solid",
+        "orientation": "Default",
+        "size": "xs"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2411",
+      "name": "variants=solid, orientation=Default, size=s",
+      "properties": {
+        "variants": "solid",
+        "orientation": "Default",
+        "size": "s"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2415",
+      "name": "variants=solid, orientation=Default, size=md",
+      "properties": {
+        "variants": "solid",
+        "orientation": "Default",
+        "size": "md"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2427",
+      "name": "variants=solid, orientation=Default, size=lg",
+      "properties": {
+        "variants": "solid",
+        "orientation": "Default",
+        "size": "lg"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2395",
+      "name": "variants=dashed, orientation=Default, size=xs",
+      "properties": {
+        "variants": "dashed",
+        "orientation": "Default",
+        "size": "xs"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2407",
+      "name": "variants=dashed, orientation=Default, size=s",
+      "properties": {
+        "variants": "dashed",
+        "orientation": "Default",
+        "size": "s"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2419",
+      "name": "variants=dashed, orientation=Default, size=md",
+      "properties": {
+        "variants": "dashed",
+        "orientation": "Default",
+        "size": "md"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2431",
+      "name": "variants=dashed, orientation=Default, size=lg",
+      "properties": {
+        "variants": "dashed",
+        "orientation": "Default",
+        "size": "lg"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2399",
+      "name": "variants=dotted, orientation=Default, size=xs",
+      "properties": {
+        "variants": "dotted",
+        "orientation": "Default",
+        "size": "xs"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2403",
+      "name": "variants=dotted, orientation=Default, size=s",
+      "properties": {
+        "variants": "dotted",
+        "orientation": "Default",
+        "size": "s"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2423",
+      "name": "variants=dotted, orientation=Default, size=md",
+      "properties": {
+        "variants": "dotted",
+        "orientation": "Default",
+        "size": "md"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2435",
+      "name": "variants=dotted, orientation=Default, size=lg",
+      "properties": {
+        "variants": "dotted",
+        "orientation": "Default",
+        "size": "lg"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2310",
+      "name": "variants=solid, orientation=Vertical, size=xs",
+      "properties": {
+        "variants": "solid",
+        "orientation": "Vertical",
+        "size": "xs"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2312",
+      "name": "variants=solid, orientation=Vertical, size=sm",
+      "properties": {
+        "variants": "solid",
+        "orientation": "Vertical",
+        "size": "sm"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2440",
+      "name": "variants=solid, orientation=Vertical, size=md",
+      "properties": {
+        "variants": "solid",
+        "orientation": "Vertical",
+        "size": "md"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2446",
+      "name": "variants=solid, orientation=Vertical, size=lg",
+      "properties": {
+        "variants": "solid",
+        "orientation": "Vertical",
+        "size": "lg"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2308",
+      "name": "variants=dashed, orientation=Vertical, size=xs",
+      "properties": {
+        "variants": "dashed",
+        "orientation": "Vertical",
+        "size": "xs"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2314",
+      "name": "variants=dashed, orientation=Vertical, size=sm",
+      "properties": {
+        "variants": "dashed",
+        "orientation": "Vertical",
+        "size": "sm"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2442",
+      "name": "variants=dashed, orientation=Vertical, size=md",
+      "properties": {
+        "variants": "dashed",
+        "orientation": "Vertical",
+        "size": "md"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2448",
+      "name": "variants=dashed, orientation=Vertical, size=lg",
+      "properties": {
+        "variants": "dashed",
+        "orientation": "Vertical",
+        "size": "lg"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2306",
+      "name": "variants=dotted, orientation=Vertical, size=xs",
+      "properties": {
+        "variants": "dotted",
+        "orientation": "Vertical",
+        "size": "xs"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2316",
+      "name": "variants=dotted, orientation=Vertical, size=sm",
+      "properties": {
+        "variants": "dotted",
+        "orientation": "Vertical",
+        "size": "sm"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2444",
+      "name": "variants=dotted, orientation=Vertical, size=md",
+      "properties": {
+        "variants": "dotted",
+        "orientation": "Vertical",
+        "size": "md"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "394:2450",
+      "name": "variants=dotted, orientation=Vertical, size=lg",
+      "properties": {
+        "variants": "dotted",
+        "orientation": "Vertical",
+        "size": "lg"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 24
+}

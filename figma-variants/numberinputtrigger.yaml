@@ -1,0 +1,61 @@
+componentSetId: "232:6882"
+componentName: "NumberInputTrigger"
+description: ""
+variantProperties:
+  Type:
+  - decrementTrigger
+  - incrementTrigger
+  State:
+  - Active
+  - Default
+  - Hover
+variants:
+- 
+  variantId: "232:6881"
+  name: "Type=decrementTrigger, State=Default"
+  properties:
+    Type: "decrementTrigger"
+    State: "Default"
+  description: ""
+  key: ""
+- 
+  variantId: "232:6971"
+  name: "Type=decrementTrigger, State=Hover"
+  properties:
+    Type: "decrementTrigger"
+    State: "Hover"
+  description: ""
+  key: ""
+- 
+  variantId: "232:7260"
+  name: "Type=decrementTrigger, State=Active"
+  properties:
+    Type: "decrementTrigger"
+    State: "Active"
+  description: ""
+  key: ""
+- 
+  variantId: "232:6880"
+  name: "Type=incrementTrigger, State=Default"
+  properties:
+    Type: "incrementTrigger"
+    State: "Default"
+  description: ""
+  key: ""
+- 
+  variantId: "232:6886"
+  name: "Type=incrementTrigger, State=Hover"
+  properties:
+    Type: "incrementTrigger"
+    State: "Hover"
+  description: ""
+  key: ""
+- 
+  variantId: "232:7258"
+  name: "Type=incrementTrigger, State=Active"
+  properties:
+    Type: "incrementTrigger"
+    State: "Active"
+  description: ""
+  key: ""
+totalVariants: 6

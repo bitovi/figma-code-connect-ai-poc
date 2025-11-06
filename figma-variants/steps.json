@@ -1,0 +1,92 @@
+{
+  "componentSetId": "452:3474",
+  "componentName": "Steps",
+  "description": "",
+  "variantProperties": {
+    "colorPalette": [
+      "blue",
+      "colorPallete7",
+      "cyan",
+      "gray",
+      "green",
+      "pink",
+      "purple",
+      "teal"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "452:3469",
+      "name": "colorPalette=pink",
+      "properties": {
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "452:3475",
+      "name": "colorPalette=purple",
+      "properties": {
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "452:3616",
+      "name": "colorPalette=cyan",
+      "properties": {
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "452:3670",
+      "name": "colorPalette=blue",
+      "properties": {
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "452:3724",
+      "name": "colorPalette=teal",
+      "properties": {
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "452:3778",
+      "name": "colorPalette=green",
+      "properties": {
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "452:3832",
+      "name": "colorPalette=colorPallete7",
+      "properties": {
+        "colorPalette": "colorPallete7"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "452:3886",
+      "name": "colorPalette=gray",
+      "properties": {
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 8
+}

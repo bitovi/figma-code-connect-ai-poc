@@ -1,0 +1,12 @@
+componentName: DataListItem
+filePath: chakra-ui/apps/compositions/src/ui/data-list.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/data-list.tsx
+exportType: forwardRef
+exportName: DataListItem
+interfaceName: DataListItemProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

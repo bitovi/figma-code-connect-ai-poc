@@ -1,0 +1,688 @@
+{
+  "componentSetId": "143:3735",
+  "componentName": "Alert",
+  "description": "",
+  "variantProperties": {
+    "size": [
+      "Default",
+      "lg",
+      "md"
+    ],
+    "variant": [
+      "outline",
+      "solid",
+      "subtle",
+      "surface"
+    ],
+    "status": [
+      "error",
+      "info",
+      "neutral",
+      "success",
+      "warning"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "143:3736",
+      "name": "size=Default, variant=solid, status=error",
+      "properties": {
+        "size": "Default",
+        "variant": "solid",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3742",
+      "name": "size=Default, variant=solid, status=neutral",
+      "properties": {
+        "size": "Default",
+        "variant": "solid",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3748",
+      "name": "size=Default, variant=solid, status=info",
+      "properties": {
+        "size": "Default",
+        "variant": "solid",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3754",
+      "name": "size=Default, variant=solid, status=warning",
+      "properties": {
+        "size": "Default",
+        "variant": "solid",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3760",
+      "name": "size=Default, variant=solid, status=success",
+      "properties": {
+        "size": "Default",
+        "variant": "solid",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3766",
+      "name": "size=Default, variant=subtle, status=error",
+      "properties": {
+        "size": "Default",
+        "variant": "subtle",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3772",
+      "name": "size=Default, variant=subtle, status=neutral",
+      "properties": {
+        "size": "Default",
+        "variant": "subtle",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3778",
+      "name": "size=Default, variant=subtle, status=info",
+      "properties": {
+        "size": "Default",
+        "variant": "subtle",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3784",
+      "name": "size=Default, variant=subtle, status=warning",
+      "properties": {
+        "size": "Default",
+        "variant": "subtle",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3790",
+      "name": "size=Default, variant=subtle, status=success",
+      "properties": {
+        "size": "Default",
+        "variant": "subtle",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3796",
+      "name": "size=Default, variant=surface, status=error",
+      "properties": {
+        "size": "Default",
+        "variant": "surface",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3802",
+      "name": "size=Default, variant=surface, status=neutral",
+      "properties": {
+        "size": "Default",
+        "variant": "surface",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3808",
+      "name": "size=Default, variant=surface, status=info",
+      "properties": {
+        "size": "Default",
+        "variant": "surface",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3814",
+      "name": "size=Default, variant=surface, status=warning",
+      "properties": {
+        "size": "Default",
+        "variant": "surface",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3820",
+      "name": "size=Default, variant=surface, status=success",
+      "properties": {
+        "size": "Default",
+        "variant": "surface",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3826",
+      "name": "size=Default, variant=outline, status=error",
+      "properties": {
+        "size": "Default",
+        "variant": "outline",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3832",
+      "name": "size=Default, variant=outline, status=neutral",
+      "properties": {
+        "size": "Default",
+        "variant": "outline",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3838",
+      "name": "size=Default, variant=outline, status=info",
+      "properties": {
+        "size": "Default",
+        "variant": "outline",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3844",
+      "name": "size=Default, variant=outline, status=warning",
+      "properties": {
+        "size": "Default",
+        "variant": "outline",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3850",
+      "name": "size=Default, variant=outline, status=success",
+      "properties": {
+        "size": "Default",
+        "variant": "outline",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3856",
+      "name": "size=md, variant=solid, status=error",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3862",
+      "name": "size=md, variant=solid, status=neutral",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3868",
+      "name": "size=md, variant=solid, status=info",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3874",
+      "name": "size=md, variant=solid, status=warning",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3880",
+      "name": "size=md, variant=solid, status=success",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3886",
+      "name": "size=md, variant=subtle, status=error",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3892",
+      "name": "size=md, variant=subtle, status=neutral",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3898",
+      "name": "size=md, variant=subtle, status=info",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3904",
+      "name": "size=md, variant=subtle, status=warning",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3910",
+      "name": "size=md, variant=subtle, status=success",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3916",
+      "name": "size=md, variant=surface, status=error",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3922",
+      "name": "size=md, variant=surface, status=neutral",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3928",
+      "name": "size=md, variant=surface, status=info",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3934",
+      "name": "size=md, variant=surface, status=warning",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3940",
+      "name": "size=md, variant=surface, status=success",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3946",
+      "name": "size=md, variant=outline, status=error",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3952",
+      "name": "size=md, variant=outline, status=neutral",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3958",
+      "name": "size=md, variant=outline, status=info",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3964",
+      "name": "size=md, variant=outline, status=warning",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3970",
+      "name": "size=md, variant=outline, status=success",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3976",
+      "name": "size=lg, variant=solid, status=error",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3982",
+      "name": "size=lg, variant=solid, status=neutral",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3988",
+      "name": "size=lg, variant=solid, status=info",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:3994",
+      "name": "size=lg, variant=solid, status=warning",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4000",
+      "name": "size=lg, variant=solid, status=success",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4006",
+      "name": "size=lg, variant=subtle, status=error",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4012",
+      "name": "size=lg, variant=subtle, status=neutral",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4018",
+      "name": "size=lg, variant=subtle, status=info",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4024",
+      "name": "size=lg, variant=subtle, status=warning",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4030",
+      "name": "size=lg, variant=subtle, status=success",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4036",
+      "name": "size=lg, variant=surface, status=error",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4042",
+      "name": "size=lg, variant=surface, status=neutral",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4048",
+      "name": "size=lg, variant=surface, status=info",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4054",
+      "name": "size=lg, variant=surface, status=warning",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4060",
+      "name": "size=lg, variant=surface, status=success",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4066",
+      "name": "size=lg, variant=outline, status=error",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "status": "error"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4072",
+      "name": "size=lg, variant=outline, status=neutral",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "status": "neutral"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4078",
+      "name": "size=lg, variant=outline, status=info",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "status": "info"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4084",
+      "name": "size=lg, variant=outline, status=warning",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "status": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "143:4090",
+      "name": "size=lg, variant=outline, status=success",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "status": "success"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 60
+}

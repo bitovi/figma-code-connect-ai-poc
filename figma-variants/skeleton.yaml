@@ -1,0 +1,61 @@
+componentSetId: "406:1729"
+componentName: "Skeleton"
+description: ""
+variantProperties:
+  part:
+  - circle
+  - skeleton
+  - text
+  variants:
+  - pulse
+  - shine
+variants:
+- 
+  variantId: "406:1691"
+  name: "part=skeleton, variants=pulse"
+  properties:
+    part: "skeleton"
+    variants: "pulse"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1730"
+  name: "part=skeleton, variants=shine"
+  properties:
+    part: "skeleton"
+    variants: "shine"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1719"
+  name: "part=text, variants=pulse"
+  properties:
+    part: "text"
+    variants: "pulse"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1733"
+  name: "part=text, variants=shine"
+  properties:
+    part: "text"
+    variants: "shine"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1718"
+  name: "part=circle, variants=pulse"
+  properties:
+    part: "circle"
+    variants: "pulse"
+  description: ""
+  key: ""
+- 
+  variantId: "406:1731"
+  name: "part=circle, variants=shine"
+  properties:
+    part: "circle"
+    variants: "shine"
+  description: ""
+  key: ""
+totalVariants: 6

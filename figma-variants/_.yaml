@@ -1,0 +1,23 @@
+componentSetId: "483:3683"
+componentName: "-"
+description: ""
+variantProperties:
+  Header:
+  - Component header
+  - Recipe header
+variants:
+- 
+  variantId: "482:16742"
+  name: "Header=Component header"
+  properties:
+    Header: "Component header"
+  description: ""
+  key: ""
+- 
+  variantId: "483:3684"
+  name: "Header=Recipe header"
+  properties:
+    Header: "Recipe header"
+  description: ""
+  key: ""
+totalVariants: 2

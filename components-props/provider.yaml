@@ -1,0 +1,12 @@
+componentName: Provider
+filePath: chakra-ui/apps/compositions/src/ui/provider.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/provider.tsx
+exportType: function
+exportName: Provider
+interfaceName: ProviderProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

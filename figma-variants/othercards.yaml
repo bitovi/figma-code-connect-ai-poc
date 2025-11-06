@@ -1,0 +1,31 @@
+componentSetId: "353:6938"
+componentName: "otherCards"
+description: ""
+variantProperties:
+  type:
+  - form
+  - horizontalImage
+  - verticalImage
+variants:
+- 
+  variantId: "342:16330"
+  name: "type=form"
+  properties:
+    type: "form"
+  description: ""
+  key: ""
+- 
+  variantId: "342:16307"
+  name: "type=horizontalImage"
+  properties:
+    type: "horizontalImage"
+  description: ""
+  key: ""
+- 
+  variantId: "342:16261"
+  name: "type=verticalImage"
+  properties:
+    type: "verticalImage"
+  description: ""
+  key: ""
+totalVariants: 3

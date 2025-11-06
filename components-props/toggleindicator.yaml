@@ -1,0 +1,12 @@
+componentName: ToggleIndicator
+filePath: chakra-ui/apps/compositions/src/ui/toggle.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/toggle.tsx
+exportType: null
+exportName: ToggleIndicator
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

@@ -1,0 +1,20 @@
+componentName: SkeletonCircle
+filePath: chakra-ui/apps/compositions/src/ui/skeleton.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/skeleton.tsx
+exportType: forwardRef
+exportName: SkeletonCircle
+interfaceName: SkeletonCircleProps
+extendsInterface: ChakraSkeletonProps
+description: ""
+props:
+  - name: size
+    type: TSIndexedAccessType
+    required: false
+    defaultValue: null
+    description: ""
+    category: layout
+    unionValues: []
+variantProperties: {}
+totalProps: 1
+potentialFigmaMapping:
+  size: figma.enum

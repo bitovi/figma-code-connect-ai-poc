@@ -1,0 +1,31 @@
+componentSetId: "360:1445"
+componentName: "Timeline.Title"
+description: ""
+variantProperties:
+  type:
+  - default
+  - span
+  - withAvatar
+variants:
+- 
+  variantId: "360:1440"
+  name: "type=default"
+  properties:
+    type: "default"
+  description: ""
+  key: ""
+- 
+  variantId: "360:1446"
+  name: "type=span"
+  properties:
+    type: "span"
+  description: ""
+  key: ""
+- 
+  variantId: "360:1462"
+  name: "type=withAvatar"
+  properties:
+    type: "withAvatar"
+  description: ""
+  key: ""
+totalVariants: 3

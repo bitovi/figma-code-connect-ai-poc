@@ -1,0 +1,12 @@
+componentName: DialogHeader
+filePath: chakra-ui/apps/compositions/src/ui/dialog.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/dialog.tsx
+exportType: null
+exportName: DialogHeader
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

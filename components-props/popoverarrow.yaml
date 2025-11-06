@@ -1,0 +1,12 @@
+componentName: PopoverArrow
+filePath: chakra-ui/apps/compositions/src/ui/popover.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/popover.tsx
+exportType: forwardRef
+exportName: PopoverArrow
+interfaceName: PopoverArrowProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

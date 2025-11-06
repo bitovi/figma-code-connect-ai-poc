@@ -1,0 +1,52 @@
+{
+  "componentSetId": "359:13474",
+  "componentName": "Toast",
+  "description": "",
+  "variantProperties": {
+    "state": [
+      "default",
+      "error",
+      "success",
+      "warning"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "359:13473",
+      "name": "state=default",
+      "properties": {
+        "state": "default"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "359:13475",
+      "name": "state=warning",
+      "properties": {
+        "state": "warning"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "359:13499",
+      "name": "state=success",
+      "properties": {
+        "state": "success"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "359:13587",
+      "name": "state=error",
+      "properties": {
+        "state": "error"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 4
+}

@@ -1,0 +1,39 @@
+componentSetId: "212:1723"
+componentName: "InputElement"
+description: ""
+variantProperties:
+  type:
+  - badge
+  - icon
+  - select
+  - text
+variants:
+- 
+  variantId: "212:1722"
+  name: "type=icon"
+  properties:
+    type: "icon"
+  description: ""
+  key: ""
+- 
+  variantId: "212:1767"
+  name: "type=text"
+  properties:
+    type: "text"
+  description: ""
+  key: ""
+- 
+  variantId: "212:1783"
+  name: "type=badge"
+  properties:
+    type: "badge"
+  description: ""
+  key: ""
+- 
+  variantId: "212:1956"
+  name: "type=select"
+  properties:
+    type: "select"
+  description: ""
+  key: ""
+totalVariants: 4

@@ -1,0 +1,12 @@
+componentName: PaginationEllipsis
+filePath: chakra-ui/apps/compositions/src/ui/pagination.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/pagination.tsx
+exportType: forwardRef
+exportName: PaginationEllipsis
+interfaceName: PaginationEllipsisProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

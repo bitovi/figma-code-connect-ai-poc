@@ -1,0 +1,375 @@
+componentSetId: "334:6617"
+componentName: "Select"
+description: ""
+variantProperties:
+  size:
+  - lg
+  - md
+  - sm
+  - xs
+  .isExpanded?:
+  - false
+  - true
+  state:
+  - default
+  - disabled
+  .isInvalid?:
+  - false
+  - true
+  variant:
+  - outline
+  - subtle
+variants:
+- 
+  variantId: "334:6224"
+  name: "size=xs, .isExpanded?=false, state=default, .isInvalid?=false, variant=outline"
+  properties:
+    size: "xs"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10400"
+  name: "size=xs, .isExpanded?=false, state=default, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "xs"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10233"
+  name: "size=xs, .isExpanded?=false, state=default, .isInvalid?=true, variant=outline"
+  properties:
+    size: "xs"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "true"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10416"
+  name: "size=xs, .isExpanded?=false, state=default, .isInvalid?=true, variant=subtle"
+  properties:
+    size: "xs"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "true"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:9159"
+  name: "size=xs, .isExpanded?=true, state=default, .isInvalid?=false, variant=outline"
+  properties:
+    size: "xs"
+    .isExpanded?: "true"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10432"
+  name: "size=xs, .isExpanded?=true, state=default, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "xs"
+    .isExpanded?: "true"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:9307"
+  name: "size=xs, .isExpanded?=false, state=disabled, .isInvalid?=false, variant=outline"
+  properties:
+    size: "xs"
+    .isExpanded?: "false"
+    state: "disabled"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10448"
+  name: "size=xs, .isExpanded?=false, state=disabled, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "xs"
+    .isExpanded?: "false"
+    state: "disabled"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6618"
+  name: "size=sm, .isExpanded?=false, state=default, .isInvalid?=false, variant=outline"
+  properties:
+    size: "sm"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10464"
+  name: "size=sm, .isExpanded?=false, state=default, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "sm"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10249"
+  name: "size=sm, .isExpanded?=false, state=default, .isInvalid?=true, variant=outline"
+  properties:
+    size: "sm"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "true"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10480"
+  name: "size=sm, .isExpanded?=false, state=default, .isInvalid?=true, variant=subtle"
+  properties:
+    size: "sm"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "true"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:9175"
+  name: "size=sm, .isExpanded?=true, state=default, .isInvalid?=false, variant=outline"
+  properties:
+    size: "sm"
+    .isExpanded?: "true"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10496"
+  name: "size=sm, .isExpanded?=true, state=default, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "sm"
+    .isExpanded?: "true"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:9291"
+  name: "size=sm, .isExpanded?=false, state=disabled, .isInvalid?=false, variant=outline"
+  properties:
+    size: "sm"
+    .isExpanded?: "false"
+    state: "disabled"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10512"
+  name: "size=sm, .isExpanded?=false, state=disabled, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "sm"
+    .isExpanded?: "false"
+    state: "disabled"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6645"
+  name: "size=md, .isExpanded?=false, state=default, .isInvalid?=false, variant=outline"
+  properties:
+    size: "md"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10528"
+  name: "size=md, .isExpanded?=false, state=default, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "md"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10265"
+  name: "size=md, .isExpanded?=false, state=default, .isInvalid?=true, variant=outline"
+  properties:
+    size: "md"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "true"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10544"
+  name: "size=md, .isExpanded?=false, state=default, .isInvalid?=true, variant=subtle"
+  properties:
+    size: "md"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "true"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:9191"
+  name: "size=md, .isExpanded?=true, state=default, .isInvalid?=false, variant=outline"
+  properties:
+    size: "md"
+    .isExpanded?: "true"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10560"
+  name: "size=md, .isExpanded?=true, state=default, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "md"
+    .isExpanded?: "true"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:9275"
+  name: "size=md, .isExpanded?=false, state=disabled, .isInvalid?=false, variant=outline"
+  properties:
+    size: "md"
+    .isExpanded?: "false"
+    state: "disabled"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10576"
+  name: "size=md, .isExpanded?=false, state=disabled, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "md"
+    .isExpanded?: "false"
+    state: "disabled"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6671"
+  name: "size=lg, .isExpanded?=false, state=default, .isInvalid?=false, variant=outline"
+  properties:
+    size: "lg"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10592"
+  name: "size=lg, .isExpanded?=false, state=default, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "lg"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10281"
+  name: "size=lg, .isExpanded?=false, state=default, .isInvalid?=true, variant=outline"
+  properties:
+    size: "lg"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "true"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10608"
+  name: "size=lg, .isExpanded?=false, state=default, .isInvalid?=true, variant=subtle"
+  properties:
+    size: "lg"
+    .isExpanded?: "false"
+    state: "default"
+    .isInvalid?: "true"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:9207"
+  name: "size=lg, .isExpanded?=true, state=default, .isInvalid?=false, variant=outline"
+  properties:
+    size: "lg"
+    .isExpanded?: "true"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10624"
+  name: "size=lg, .isExpanded?=true, state=default, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "lg"
+    .isExpanded?: "true"
+    state: "default"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "334:9259"
+  name: "size=lg, .isExpanded?=false, state=disabled, .isInvalid?=false, variant=outline"
+  properties:
+    size: "lg"
+    .isExpanded?: "false"
+    state: "disabled"
+    .isInvalid?: "false"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "336:10640"
+  name: "size=lg, .isExpanded?=false, state=disabled, .isInvalid?=false, variant=subtle"
+  properties:
+    size: "lg"
+    .isExpanded?: "false"
+    state: "disabled"
+    .isInvalid?: "false"
+    variant: "subtle"
+  description: ""
+  key: ""
+totalVariants: 32

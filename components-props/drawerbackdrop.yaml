@@ -1,0 +1,12 @@
+componentName: DrawerBackdrop
+filePath: chakra-ui/apps/compositions/src/ui/drawer.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/drawer.tsx
+exportType: null
+exportName: DrawerBackdrop
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

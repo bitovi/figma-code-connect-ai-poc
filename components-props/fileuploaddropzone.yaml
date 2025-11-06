@@ -1,0 +1,27 @@
+componentName: FileUploadDropzone
+filePath: chakra-ui/apps/compositions/src/ui/file-upload.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/file-upload.tsx
+exportType: forwardRef
+exportName: FileUploadDropzone
+interfaceName: FileUploadDropzoneProps
+extendsInterface: ChakraFileUpload.DropzoneProps
+description: ""
+props:
+  - name: label
+    type: TSTypeReference
+    required: true
+    defaultValue: null
+    description: ""
+    category: content
+    unionValues: []
+  - name: description
+    type: TSTypeReference
+    required: false
+    defaultValue: null
+    description: ""
+    category: content
+    unionValues: []
+variantProperties: {}
+totalProps: 2
+potentialFigmaMapping:
+  label: figma.string

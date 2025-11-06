@@ -1,0 +1,86 @@
+componentSetId: "454:2512"
+componentName: "Header Cells"
+description: ""
+variantProperties:
+  type:
+  - checkbox
+  - endAlign
+  - startAlign
+  size:
+  - lg
+  - md
+  - sm
+variants:
+- 
+  variantId: "454:2515"
+  name: "type=startAlign, size=sm"
+  properties:
+    type: "startAlign"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "454:2518"
+  name: "type=endAlign, size=sm"
+  properties:
+    type: "endAlign"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "454:2513"
+  name: "type=checkbox, size=sm"
+  properties:
+    type: "checkbox"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "454:3569"
+  name: "type=startAlign, size=md"
+  properties:
+    type: "startAlign"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "454:3567"
+  name: "type=endAlign, size=md"
+  properties:
+    type: "endAlign"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "454:3565"
+  name: "type=checkbox, size=md"
+  properties:
+    type: "checkbox"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "454:3571"
+  name: "type=startAlign, size=lg"
+  properties:
+    type: "startAlign"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "454:3573"
+  name: "type=endAlign, size=lg"
+  properties:
+    type: "endAlign"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "454:3575"
+  name: "type=checkbox, size=lg"
+  properties:
+    type: "checkbox"
+    size: "lg"
+  description: ""
+  key: ""
+totalVariants: 9

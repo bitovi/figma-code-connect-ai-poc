@@ -1,0 +1,34 @@
+componentName: Checkbox
+filePath: chakra-ui/apps/compositions/src/ui/checkbox.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/checkbox.tsx
+exportType: forwardRef
+exportName: Checkbox
+interfaceName: CheckboxProps
+extendsInterface: ChakraCheckbox.RootProps
+description: ""
+props:
+  - name: icon
+    type: TSTypeReference
+    required: false
+    defaultValue: null
+    description: ""
+    category: other
+    unionValues: []
+  - name: inputProps
+    type: TSTypeReference
+    required: false
+    defaultValue: null
+    description: ""
+    category: other
+    unionValues: []
+  - name: rootRef
+    type: TSTypeReference
+    required: false
+    defaultValue: null
+    description: ""
+    category: other
+    unionValues: []
+variantProperties: {}
+totalProps: 3
+potentialFigmaMapping:
+  icon: figma.instance

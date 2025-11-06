@@ -1,0 +1,111 @@
+componentSetId: "155:1473"
+componentName: "Accordion"
+description: ""
+variantProperties:
+  size:
+  - lg
+  - md
+  - sm
+  variant:
+  - enclosed
+  - outline
+  - plain
+  - subtle
+variants:
+- 
+  variantId: "155:1472"
+  name: "size=sm, variant=outline"
+  properties:
+    size: "sm"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "339:11937"
+  name: "size=md, variant=outline"
+  properties:
+    size: "md"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "339:12086"
+  name: "size=lg, variant=outline"
+  properties:
+    size: "lg"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "318:3592"
+  name: "size=sm, variant=subtle"
+  properties:
+    size: "sm"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "339:11941"
+  name: "size=md, variant=subtle"
+  properties:
+    size: "md"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "339:12090"
+  name: "size=lg, variant=subtle"
+  properties:
+    size: "lg"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "338:11868"
+  name: "size=sm, variant=enclosed"
+  properties:
+    size: "sm"
+    variant: "enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "339:11945"
+  name: "size=md, variant=enclosed"
+  properties:
+    size: "md"
+    variant: "enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "339:12094"
+  name: "size=lg, variant=enclosed"
+  properties:
+    size: "lg"
+    variant: "enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "339:11892"
+  name: "size=sm, variant=plain"
+  properties:
+    size: "sm"
+    variant: "plain"
+  description: ""
+  key: ""
+- 
+  variantId: "339:11949"
+  name: "size=md, variant=plain"
+  properties:
+    size: "md"
+    variant: "plain"
+  description: ""
+  key: ""
+- 
+  variantId: "339:12098"
+  name: "size=lg, variant=plain"
+  properties:
+    size: "lg"
+    variant: "plain"
+  description: ""
+  key: ""
+totalVariants: 12

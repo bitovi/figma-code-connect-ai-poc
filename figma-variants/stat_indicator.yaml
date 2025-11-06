@@ -1,0 +1,23 @@
+componentSetId: "450:21715"
+componentName: "Stat.Indicator"
+description: ""
+variantProperties:
+  type:
+  - indicatorDown
+  - indicatorUp
+variants:
+- 
+  variantId: "450:21714"
+  name: "type=indicatorUp"
+  properties:
+    type: "indicatorUp"
+  description: ""
+  key: ""
+- 
+  variantId: "450:21713"
+  name: "type=indicatorDown"
+  properties:
+    type: "indicatorDown"
+  description: ""
+  key: ""
+totalVariants: 2

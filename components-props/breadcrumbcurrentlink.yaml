@@ -1,0 +1,12 @@
+componentName: BreadcrumbCurrentLink
+filePath: chakra-ui/apps/compositions/src/ui/breadcrumb.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/breadcrumb.tsx
+exportType: null
+exportName: BreadcrumbCurrentLink
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

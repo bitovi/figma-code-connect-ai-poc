@@ -1,0 +1,750 @@
+{
+  "componentSetId": "431:1240",
+  "componentName": "Tabs.Trigger",
+  "description": "",
+  "variantProperties": {
+    ".isSelected?": [
+      "no",
+      "yes"
+    ],
+    "variants": [
+      "enclosed",
+      "line",
+      "outline",
+      "plain",
+      "subtle"
+    ],
+    "size": [
+      "lg",
+      "md",
+      "sm"
+    ],
+    ".isDisabled?": [
+      "no",
+      "yes"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "441:1262",
+      "name": ".isSelected?=no, variants=line, size=sm, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "line",
+        "size": "sm",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "441:1267",
+      "name": ".isSelected?=yes, variants=line, size=sm, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "line",
+        "size": "sm",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5599",
+      "name": ".isSelected?=no, variants=line, size=md, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "line",
+        "size": "md",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5603",
+      "name": ".isSelected?=yes, variants=line, size=md, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "line",
+        "size": "md",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5649",
+      "name": ".isSelected?=no, variants=line, size=lg, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "line",
+        "size": "lg",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5653",
+      "name": ".isSelected?=yes, variants=line, size=lg, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "line",
+        "size": "lg",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8416",
+      "name": ".isSelected?=no, variants=line, size=sm, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "line",
+        "size": "sm",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8431",
+      "name": ".isSelected?=yes, variants=line, size=sm, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "line",
+        "size": "sm",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8421",
+      "name": ".isSelected?=no, variants=line, size=md, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "line",
+        "size": "md",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8436",
+      "name": ".isSelected?=yes, variants=line, size=md, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "line",
+        "size": "md",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8426",
+      "name": ".isSelected?=no, variants=line, size=lg, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "line",
+        "size": "lg",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8441",
+      "name": ".isSelected?=yes, variants=line, size=lg, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "line",
+        "size": "lg",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:1272",
+      "name": ".isSelected?=no, variants=subtle, size=sm, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "subtle",
+        "size": "sm",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:1277",
+      "name": ".isSelected?=yes, variants=subtle, size=sm, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "subtle",
+        "size": "sm",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5567",
+      "name": ".isSelected?=no, variants=subtle, size=md, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "subtle",
+        "size": "md",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5587",
+      "name": ".isSelected?=yes, variants=subtle, size=md, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "subtle",
+        "size": "md",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5617",
+      "name": ".isSelected?=no, variants=subtle, size=lg, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "subtle",
+        "size": "lg",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5637",
+      "name": ".isSelected?=yes, variants=subtle, size=lg, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "subtle",
+        "size": "lg",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8296",
+      "name": ".isSelected?=no, variants=subtle, size=sm, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "subtle",
+        "size": "sm",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8371",
+      "name": ".isSelected?=yes, variants=subtle, size=sm, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "subtle",
+        "size": "sm",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8301",
+      "name": ".isSelected?=no, variants=subtle, size=md, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "subtle",
+        "size": "md",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8376",
+      "name": ".isSelected?=yes, variants=subtle, size=md, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "subtle",
+        "size": "md",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8306",
+      "name": ".isSelected?=no, variants=subtle, size=lg, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "subtle",
+        "size": "lg",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8381",
+      "name": ".isSelected?=yes, variants=subtle, size=lg, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "subtle",
+        "size": "lg",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5537",
+      "name": ".isSelected?=no, variants=enclosed, size=sm, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "enclosed",
+        "size": "sm",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5541",
+      "name": ".isSelected?=yes, variants=enclosed, size=sm, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "enclosed",
+        "size": "sm",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5571",
+      "name": ".isSelected?=no, variants=enclosed, size=md, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "enclosed",
+        "size": "md",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5591",
+      "name": ".isSelected?=yes, variants=enclosed, size=md, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "enclosed",
+        "size": "md",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5621",
+      "name": ".isSelected?=no, variants=enclosed, size=lg, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "enclosed",
+        "size": "lg",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5641",
+      "name": ".isSelected?=yes, variants=enclosed, size=lg, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "enclosed",
+        "size": "lg",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8311",
+      "name": ".isSelected?=no, variants=enclosed, size=sm, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "enclosed",
+        "size": "sm",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8386",
+      "name": ".isSelected?=yes, variants=enclosed, size=sm, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "enclosed",
+        "size": "sm",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8316",
+      "name": ".isSelected?=no, variants=enclosed, size=md, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "enclosed",
+        "size": "md",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8391",
+      "name": ".isSelected?=yes, variants=enclosed, size=md, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "enclosed",
+        "size": "md",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8321",
+      "name": ".isSelected?=no, variants=enclosed, size=lg, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "enclosed",
+        "size": "lg",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8396",
+      "name": ".isSelected?=yes, variants=enclosed, size=lg, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "enclosed",
+        "size": "lg",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5547",
+      "name": ".isSelected?=no, variants=outline, size=sm, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "outline",
+        "size": "sm",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5551",
+      "name": ".isSelected?=yes, variants=outline, size=sm, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "outline",
+        "size": "sm",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5575",
+      "name": ".isSelected?=no, variants=outline, size=md, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "outline",
+        "size": "md",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5595",
+      "name": ".isSelected?=yes, variants=outline, size=md, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "outline",
+        "size": "md",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5625",
+      "name": ".isSelected?=no, variants=outline, size=lg, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "outline",
+        "size": "lg",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5645",
+      "name": ".isSelected?=yes, variants=outline, size=lg, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "outline",
+        "size": "lg",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8326",
+      "name": ".isSelected?=no, variants=outline, size=sm, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "outline",
+        "size": "sm",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8401",
+      "name": ".isSelected?=yes, variants=outline, size=sm, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "outline",
+        "size": "sm",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8331",
+      "name": ".isSelected?=no, variants=outline, size=md, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "outline",
+        "size": "md",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8406",
+      "name": ".isSelected?=yes, variants=outline, size=md, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "outline",
+        "size": "md",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8336",
+      "name": ".isSelected?=no, variants=outline, size=lg, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "outline",
+        "size": "lg",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8411",
+      "name": ".isSelected?=yes, variants=outline, size=lg, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "outline",
+        "size": "lg",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5557",
+      "name": ".isSelected?=no, variants=plain, size=sm, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "plain",
+        "size": "sm",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5562",
+      "name": ".isSelected?=yes, variants=plain, size=sm, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "plain",
+        "size": "sm",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5579",
+      "name": ".isSelected?=no, variants=plain, size=md, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "plain",
+        "size": "md",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5583",
+      "name": ".isSelected?=yes, variants=plain, size=md, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "plain",
+        "size": "md",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5629",
+      "name": ".isSelected?=no, variants=plain, size=lg, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "plain",
+        "size": "lg",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:5633",
+      "name": ".isSelected?=yes, variants=plain, size=lg, .isDisabled?=no",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "plain",
+        "size": "lg",
+        ".isDisabled?": "no"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8341",
+      "name": ".isSelected?=no, variants=plain, size=sm, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "plain",
+        "size": "sm",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8356",
+      "name": ".isSelected?=yes, variants=plain, size=sm, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "plain",
+        "size": "sm",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8346",
+      "name": ".isSelected?=no, variants=plain, size=md, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "plain",
+        "size": "md",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8361",
+      "name": ".isSelected?=yes, variants=plain, size=md, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "plain",
+        "size": "md",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8351",
+      "name": ".isSelected?=no, variants=plain, size=lg, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "no",
+        "variants": "plain",
+        "size": "lg",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "442:8366",
+      "name": ".isSelected?=yes, variants=plain, size=lg, .isDisabled?=yes",
+      "properties": {
+        ".isSelected?": "yes",
+        "variants": "plain",
+        "size": "lg",
+        ".isDisabled?": "yes"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 60
+}

@@ -1,0 +1,12 @@
+componentName: ProgressBar
+filePath: chakra-ui/apps/compositions/src/ui/progress.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/progress.tsx
+exportType: forwardRef
+exportName: ProgressBar
+interfaceName: ProgressBarProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

@@ -1,0 +1,12 @@
+componentName: NumberInputScrubber
+filePath: chakra-ui/apps/compositions/src/ui/number-input.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/number-input.tsx
+exportType: null
+exportName: NumberInputScrubber
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

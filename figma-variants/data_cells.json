@@ -1,0 +1,110 @@
+{
+  "componentSetId": "454:2175",
+  "componentName": "Data Cells",
+  "description": "",
+  "variantProperties": {
+    "type": [
+      "checkbox",
+      "endAlign",
+      "startAlign"
+    ],
+    "size": [
+      "lg",
+      "md",
+      "sm"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "454:2182",
+      "name": "type=startAlign, size=sm",
+      "properties": {
+        "type": "startAlign",
+        "size": "sm"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "454:2479",
+      "name": "type=endAlign, size=sm",
+      "properties": {
+        "type": "endAlign",
+        "size": "sm"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "454:2176",
+      "name": "type=checkbox, size=sm",
+      "properties": {
+        "type": "checkbox",
+        "size": "sm"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "454:3549",
+      "name": "type=startAlign, size=md",
+      "properties": {
+        "type": "startAlign",
+        "size": "md"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "454:3552",
+      "name": "type=endAlign, size=md",
+      "properties": {
+        "type": "endAlign",
+        "size": "md"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "454:3547",
+      "name": "type=checkbox, size=md",
+      "properties": {
+        "type": "checkbox",
+        "size": "md"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "454:3559",
+      "name": "type=startAlign, size=lg",
+      "properties": {
+        "type": "startAlign",
+        "size": "lg"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "454:3557",
+      "name": "type=checkbox, size=lg",
+      "properties": {
+        "type": "checkbox",
+        "size": "lg"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "454:3562",
+      "name": "type=endAlign, size=lg",
+      "properties": {
+        "type": "endAlign",
+        "size": "lg"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 9
+}

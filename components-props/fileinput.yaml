@@ -1,0 +1,20 @@
+componentName: FileInput
+filePath: chakra-ui/apps/compositions/src/ui/file-upload.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/file-upload.tsx
+exportType: forwardRef
+exportName: FileInput
+interfaceName: FileInputProps
+extendsInterface: Assign
+description: ""
+props:
+  - name: placeholder
+    type: TSTypeReference
+    required: false
+    defaultValue: null
+    description: ""
+    category: content
+    unionValues: []
+variantProperties: {}
+totalProps: 1
+potentialFigmaMapping:
+  placeholder: figma.string

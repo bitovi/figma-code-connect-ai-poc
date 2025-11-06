@@ -1,0 +1,12 @@
+componentName: CarouselNextTrigger
+filePath: chakra-ui/apps/compositions/src/ui/carousel.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/carousel.tsx
+exportType: null
+exportName: CarouselNextTrigger
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

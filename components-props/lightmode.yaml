@@ -1,0 +1,12 @@
+componentName: LightMode
+filePath: chakra-ui/apps/compositions/src/ui/color-mode.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/color-mode.tsx
+exportType: forwardRef
+exportName: LightMode
+interfaceName: LightModeProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

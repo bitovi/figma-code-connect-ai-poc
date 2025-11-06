@@ -1,0 +1,342 @@
+fileName: "Chakra UI"
+fileKey: "mgzCV3zD3iWpctEI6UoUhB"
+version: "2283395277310535604"
+lastModified: "2025-11-06T19:33:24Z"
+exportDate: "2025-11-06T19:33:37.071Z"
+components:
+- 
+  name: "AccordionItem"
+  id: "153:2346"
+  variantCount: 21
+- 
+  name: "Accordion"
+  id: "155:1473"
+  variantCount: 12
+- 
+  name: "accordionItems"
+  id: "155:1904"
+  variantCount: 3
+- 
+  name: "ActionBar"
+  id: "163:3336"
+  variantCount: 2
+- 
+  name: "Alert"
+  id: "130:2296"
+  variantCount: 60
+- 
+  name: "Alert"
+  id: "143:3735"
+  variantCount: 60
+- 
+  name: "Avatar"
+  id: "109:14"
+  variantCount: 651
+- 
+  name: "avatar_items"
+  id: "119:3986"
+  variantCount: 14
+- 
+  name: "AvatarGroup"
+  id: "121:1731"
+  variantCount: 6
+- 
+  name: "Badge"
+  id: "128:1634"
+  variantCount: 80
+- 
+  name: "Breadcrumb"
+  id: "163:6014"
+  variantCount: 6
+- 
+  name: "Button"
+  id: "148:1720"
+  variantCount: 490
+- 
+  name: "Card"
+  id: "339:15634"
+  variantCount: 18
+- 
+  name: "otherCards"
+  id: "353:6938"
+  variantCount: 3
+- 
+  name: "Checkmark"
+  id: "163:6367"
+  variantCount: 1200
+- 
+  name: "Checkbox"
+  id: "163:6545"
+  variantCount: 8
+- 
+  name: "CheckboxCard"
+  id: "183:401"
+  variantCount: 96
+- 
+  name: "ColorPickerControl"
+  id: "482:15383"
+  variantCount: 28
+- 
+  name: "ColorPickerTrigger"
+  id: "482:15749"
+  variantCount: 3
+- 
+  name: "ColorSwatch"
+  id: "456:4235"
+  variantCount: 21
+- 
+  name: "DataListContent"
+  id: "379:11620"
+  variantCount: 2
+- 
+  name: "DatalistItem"
+  id: "380:1612"
+  variantCount: 9
+- 
+  name: "DataList"
+  id: "380:1754"
+  variantCount: 3
+- 
+  name: "Dialog"
+  id: "376:7174"
+  variantCount: 6
+- 
+  name: "Drawer"
+  id: "362:19370"
+  variantCount: 7
+- 
+  name: "EmptyState"
+  id: "353:4402"
+  variantCount: 6
+- 
+  name: "FileUpload"
+  id: "313:12322"
+  variantCount: 5
+- 
+  name: "HoverCardTrigger"
+  id: "363:3104"
+  variantCount: 2
+- 
+  name: "HoverCard"
+  id: "363:3153"
+  variantCount: 4
+- 
+  name: "IconButton"
+  id: "209:1206"
+  variantCount: 400
+- 
+  name: "Input"
+  id: "211:842"
+  variantCount: 315
+- 
+  name: "InputElement"
+  id: "212:1723"
+  variantCount: 4
+- 
+  name: "MenuItemGroup"
+  id: "377:9525"
+  variantCount: 16
+- 
+  name: "MenuContent"
+  id: "379:1462"
+  variantCount: 4
+- 
+  name: "NumberInput"
+  id: "219:2973"
+  variantCount: 60
+- 
+  name: "NumberInputTrigger"
+  id: "232:6882"
+  variantCount: 6
+- 
+  name: "PinInput"
+  id: "230:7806"
+  variantCount: 16
+- 
+  name: "Pagination"
+  id: "417:45229"
+  variantCount: 16
+- 
+  name: "PasswordInput"
+  id: "304:15942"
+  variantCount: 105
+- 
+  name: "PasswordStrength"
+  id: "313:9067"
+  variantCount: 3
+- 
+  name: "Popover"
+  id: "442:18346"
+  variantCount: 4
+- 
+  name: "Progress"
+  id: "405:961"
+  variantCount: 270
+- 
+  name: "WithLabel"
+  id: "405:15918"
+  variantCount: 2
+- 
+  name: "ProgressCircle"
+  id: "406:1024"
+  variantCount: 50
+- 
+  name: "QRCode"
+  id: "442:18204"
+  variantCount: 7
+- 
+  name: "RadioMark"
+  id: "185:2608"
+  variantCount: 960
+- 
+  name: "radio"
+  id: "373:6244"
+  variantCount: 8
+- 
+  name: "SegmentGroup.Indicator"
+  id: "359:112"
+  variantCount: 4
+- 
+  name: "SegmentedGroup.Control"
+  id: "359:124"
+  variantCount: 4
+- 
+  name: "Select"
+  id: "334:6617"
+  variantCount: 32
+- 
+  name: "Select.Item"
+  id: "334:2435"
+  variantCount: 8
+- 
+  name: "Select.Content"
+  id: "334:6574"
+  variantCount: 4
+- 
+  name: "Separator"
+  id: "394:2275"
+  variantCount: 24
+- 
+  name: "Skeleton"
+  id: "406:1729"
+  variantCount: 6
+- 
+  name: "Slider"
+  id: "398:10118"
+  variantCount: 192
+- 
+  name: "withMarker"
+  id: "398:11719"
+  variantCount: 3
+- 
+  name: "Slider.Marker"
+  id: "398:10155"
+  variantCount: 2
+- 
+  name: "Slider.MarkerGroup"
+  id: "398:10171"
+  variantCount: 3
+- 
+  name: "Spinner"
+  id: "406:1254"
+  variantCount: 50
+- 
+  name: "Stat.Indicator"
+  id: "450:21715"
+  variantCount: 2
+- 
+  name: "Stat"
+  id: "450:21985"
+  variantCount: 3
+- 
+  name: "Stat.Items"
+  id: "450:22125"
+  variantCount: 3
+- 
+  name: "Status"
+  id: "418:2651"
+  variantCount: 27
+- 
+  name: "Steps"
+  id: "452:3474"
+  variantCount: 8
+- 
+  name: "Steps.Indicator"
+  id: "450:23523"
+  variantCount: 216
+- 
+  name: "stepItems"
+  id: "450:23529"
+  variantCount: 8
+- 
+  name: "Steps.List"
+  id: "450:24884"
+  variantCount: 8
+- 
+  name: "Switch"
+  id: "395:995"
+  variantCount: 320
+- 
+  name: "SwitchBase"
+  id: "396:3279"
+  variantCount: 4
+- 
+  name: "Tabs.Trigger"
+  id: "431:1240"
+  variantCount: 60
+- 
+  name: "Tabs.List"
+  id: "442:5699"
+  variantCount: 15
+- 
+  name: "Data Cells"
+  id: "454:2175"
+  variantCount: 9
+- 
+  name: "Header Cells"
+  id: "454:2512"
+  variantCount: 9
+- 
+  name: "Columns"
+  id: "454:2693"
+  variantCount: 24
+- 
+  name: "Table"
+  id: "456:3137"
+  variantCount: 2
+- 
+  name: "Textarea"
+  id: "314:6655"
+  variantCount: 75
+- 
+  name: "Timeline"
+  id: "361:2072"
+  variantCount: 12
+- 
+  name: "Timeline.Title"
+  id: "360:1445"
+  variantCount: 3
+- 
+  name: "Timeline.Connector"
+  id: "360:1708"
+  variantCount: 9
+- 
+  name: "Timeline.Item"
+  id: "360:1756"
+  variantCount: 3
+- 
+  name: "Toast"
+  id: "359:13474"
+  variantCount: 4
+- 
+  name: "Tooltip"
+  id: "353:12052"
+  variantCount: 12
+- 
+  name: "-"
+  id: "483:3683"
+  variantCount: 2
+- 
+  name: "component_annotation"
+  id: "171:2730"
+  variantCount: 3

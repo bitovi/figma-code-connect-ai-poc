@@ -1,0 +1,12 @@
+componentName: Toaster
+filePath: chakra-ui/apps/compositions/src/ui/toaster.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/toaster.tsx
+exportType: const
+exportName: Toaster
+interfaceName: ToasterProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

@@ -1,0 +1,27 @@
+componentName: StepsItem
+filePath: chakra-ui/apps/compositions/src/ui/steps.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/steps.tsx
+exportType: forwardRef
+exportName: StepsItem
+interfaceName: StepsItemProps
+extendsInterface: Omit
+description: ""
+props:
+  - name: completedIcon
+    type: TSTypeReference
+    required: false
+    defaultValue: null
+    description: ""
+    category: other
+    unionValues: []
+  - name: icon
+    type: TSTypeReference
+    required: false
+    defaultValue: null
+    description: ""
+    category: other
+    unionValues: []
+variantProperties: {}
+totalProps: 2
+potentialFigmaMapping:
+  icon: figma.instance

@@ -1,0 +1,19 @@
+componentName: FileUploadRoot
+filePath: chakra-ui/apps/compositions/src/ui/file-upload.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/file-upload.tsx
+exportType: forwardRef
+exportName: FileUploadRoot
+interfaceName: FileUploadRootProps
+extendsInterface: ChakraFileUpload.RootProps
+description: ""
+props:
+  - name: inputProps
+    type: TSTypeReference
+    required: false
+    defaultValue: null
+    description: ""
+    category: other
+    unionValues: []
+variantProperties: {}
+totalProps: 1
+potentialFigmaMapping: {}

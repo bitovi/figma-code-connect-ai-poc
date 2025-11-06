@@ -1,0 +1,207 @@
+componentSetId: "153:2346"
+componentName: "AccordionItem"
+description: ""
+variantProperties:
+  state:
+  - closed
+  - open
+  size:
+  - lg
+  - md
+  - sm
+  variant:
+  - Plain
+  - enclosed
+  - outline
+  - subtle
+variants:
+- 
+  variantId: "153:2345"
+  name: "state=closed, size=sm, variant=outline"
+  properties:
+    state: "closed"
+    size: "sm"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1368"
+  name: "state=closed, size=sm, variant=subtle"
+  properties:
+    state: "closed"
+    size: "sm"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1404"
+  name: "state=closed, size=sm, variant=enclosed"
+  properties:
+    state: "closed"
+    size: "sm"
+    variant: "enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "154:1350"
+  name: "state=closed, size=md, variant=outline"
+  properties:
+    state: "closed"
+    size: "md"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1372"
+  name: "state=closed, size=md, variant=subtle"
+  properties:
+    state: "closed"
+    size: "md"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1408"
+  name: "state=closed, size=md, variant=enclosed"
+  properties:
+    state: "closed"
+    size: "md"
+    variant: "enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "154:1356"
+  name: "state=closed, size=lg, variant=outline"
+  properties:
+    state: "closed"
+    size: "lg"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1376"
+  name: "state=closed, size=lg, variant=subtle"
+  properties:
+    state: "closed"
+    size: "lg"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1412"
+  name: "state=closed, size=lg, variant=enclosed"
+  properties:
+    state: "closed"
+    size: "lg"
+    variant: "enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "153:2344"
+  name: "state=open, size=sm, variant=outline"
+  properties:
+    state: "open"
+    size: "sm"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1380"
+  name: "state=open, size=sm, variant=subtle"
+  properties:
+    state: "open"
+    size: "sm"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1416"
+  name: "state=open, size=sm, variant=enclosed"
+  properties:
+    state: "open"
+    size: "sm"
+    variant: "enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "339:11910"
+  name: "state=open, size=sm, variant=Plain"
+  properties:
+    state: "open"
+    size: "sm"
+    variant: "Plain"
+  description: ""
+  key: ""
+- 
+  variantId: "154:1344"
+  name: "state=open, size=md, variant=outline"
+  properties:
+    state: "open"
+    size: "md"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1386"
+  name: "state=open, size=md, variant=subtle"
+  properties:
+    state: "open"
+    size: "md"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1422"
+  name: "state=open, size=md, variant=enclosed"
+  properties:
+    state: "open"
+    size: "md"
+    variant: "enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "339:11916"
+  name: "state=open, size=md, variant=Plain"
+  properties:
+    state: "open"
+    size: "md"
+    variant: "Plain"
+  description: ""
+  key: ""
+- 
+  variantId: "154:1360"
+  name: "state=open, size=lg, variant=outline"
+  properties:
+    state: "open"
+    size: "lg"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1392"
+  name: "state=open, size=lg, variant=subtle"
+  properties:
+    state: "open"
+    size: "lg"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "155:1428"
+  name: "state=open, size=lg, variant=enclosed"
+  properties:
+    state: "open"
+    size: "lg"
+    variant: "enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "339:11922"
+  name: "state=open, size=lg, variant=Plain"
+  properties:
+    state: "open"
+    size: "lg"
+    variant: "Plain"
+  description: ""
+  key: ""
+totalVariants: 21

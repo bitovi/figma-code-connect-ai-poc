@@ -1,0 +1,12 @@
+componentName: StatValueUnit
+filePath: chakra-ui/apps/compositions/src/ui/stat.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/stat.tsx
+exportType: null
+exportName: StatValueUnit
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

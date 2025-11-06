@@ -1,0 +1,79 @@
+{
+  "componentSetId": "121:1731",
+  "componentName": "AvatarGroup",
+  "description": "",
+  "variantProperties": {
+    "stacking": [
+      "firstOnTop",
+      "lastOnTop",
+      "space"
+    ],
+    "number": [
+      "12",
+      "8"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "121:1660",
+      "name": "stacking=lastOnTop, number=8",
+      "properties": {
+        "stacking": "lastOnTop",
+        "number": "8"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "532:4919",
+      "name": "stacking=lastOnTop, number=12",
+      "properties": {
+        "stacking": "lastOnTop",
+        "number": "12"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "532:4712",
+      "name": "stacking=firstOnTop, number=8",
+      "properties": {
+        "stacking": "firstOnTop",
+        "number": "8"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "532:4901",
+      "name": "stacking=firstOnTop, number=12",
+      "properties": {
+        "stacking": "firstOnTop",
+        "number": "12"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "121:1730",
+      "name": "stacking=space, number=8",
+      "properties": {
+        "stacking": "space",
+        "number": "8"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "532:4910",
+      "name": "stacking=space, number=12",
+      "properties": {
+        "stacking": "space",
+        "number": "12"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 6
+}

@@ -1,0 +1,3277 @@
+{
+  "componentSetId": "405:961",
+  "componentName": "Progress",
+  "description": "",
+  "variantProperties": {
+    "size": [
+      "lg",
+      "md",
+      "sm",
+      "xl",
+      "xs"
+    ],
+    "variant": [
+      "outline",
+      "subtle"
+    ],
+    "shape": [
+      "full",
+      "rounded",
+      "square"
+    ],
+    "colorPalette": [
+      "blue",
+      "cyan",
+      "gray",
+      "green",
+      "pink",
+      "purple",
+      "red",
+      "teal",
+      "yellow"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "405:960",
+      "name": "size=xs, variant=outline, shape=square, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:6903",
+      "name": "size=xs, variant=outline, shape=square, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7893",
+      "name": "size=xs, variant=outline, shape=square, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9444",
+      "name": "size=xs, variant=outline, shape=square, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9873",
+      "name": "size=xs, variant=outline, shape=square, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10863",
+      "name": "size=xs, variant=outline, shape=square, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12447",
+      "name": "size=xs, variant=outline, shape=square, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13173",
+      "name": "size=xs, variant=outline, shape=square, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:14823",
+      "name": "size=xs, variant=outline, shape=square, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4788",
+      "name": "size=sm, variant=outline, shape=square, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:6936",
+      "name": "size=sm, variant=outline, shape=square, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8322",
+      "name": "size=sm, variant=outline, shape=square, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9114",
+      "name": "size=sm, variant=outline, shape=square, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9906",
+      "name": "size=sm, variant=outline, shape=square, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11490",
+      "name": "size=sm, variant=outline, shape=square, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12117",
+      "name": "size=sm, variant=outline, shape=square, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13206",
+      "name": "size=sm, variant=outline, shape=square, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:14856",
+      "name": "size=sm, variant=outline, shape=square, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4956",
+      "name": "size=md, variant=outline, shape=square, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:6969",
+      "name": "size=md, variant=outline, shape=square, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7926",
+      "name": "size=md, variant=outline, shape=square, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9345",
+      "name": "size=md, variant=outline, shape=square, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9939",
+      "name": "size=md, variant=outline, shape=square, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10929",
+      "name": "size=md, variant=outline, shape=square, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11853",
+      "name": "size=md, variant=outline, shape=square, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13272",
+      "name": "size=md, variant=outline, shape=square, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:14889",
+      "name": "size=md, variant=outline, shape=square, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5124",
+      "name": "size=lg, variant=outline, shape=square, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7002",
+      "name": "size=lg, variant=outline, shape=square, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8124",
+      "name": "size=lg, variant=outline, shape=square, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8949",
+      "name": "size=lg, variant=outline, shape=square, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9972",
+      "name": "size=lg, variant=outline, shape=square, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11028",
+      "name": "size=lg, variant=outline, shape=square, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12084",
+      "name": "size=lg, variant=outline, shape=square, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13470",
+      "name": "size=lg, variant=outline, shape=square, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:14922",
+      "name": "size=lg, variant=outline, shape=square, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5348",
+      "name": "size=xl, variant=outline, shape=square, colorPalette=gray",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7035",
+      "name": "size=xl, variant=outline, shape=square, colorPalette=red",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8157",
+      "name": "size=xl, variant=outline, shape=square, colorPalette=pink",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8982",
+      "name": "size=xl, variant=outline, shape=square, colorPalette=purple",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10005",
+      "name": "size=xl, variant=outline, shape=square, colorPalette=cyan",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10995",
+      "name": "size=xl, variant=outline, shape=square, colorPalette=blue",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12381",
+      "name": "size=xl, variant=outline, shape=square, colorPalette=teal",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12876",
+      "name": "size=xl, variant=outline, shape=square, colorPalette=green",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:14955",
+      "name": "size=xl, variant=outline, shape=square, colorPalette=yellow",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "square",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4088",
+      "name": "size=xs, variant=outline, shape=rounded, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7068",
+      "name": "size=xs, variant=outline, shape=rounded, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8355",
+      "name": "size=xs, variant=outline, shape=rounded, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9246",
+      "name": "size=xs, variant=outline, shape=rounded, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10038",
+      "name": "size=xs, variant=outline, shape=rounded, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11589",
+      "name": "size=xs, variant=outline, shape=rounded, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12249",
+      "name": "size=xs, variant=outline, shape=rounded, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13404",
+      "name": "size=xs, variant=outline, shape=rounded, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:14988",
+      "name": "size=xs, variant=outline, shape=rounded, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4816",
+      "name": "size=sm, variant=outline, shape=rounded, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7101",
+      "name": "size=sm, variant=outline, shape=rounded, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7959",
+      "name": "size=sm, variant=outline, shape=rounded, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9015",
+      "name": "size=sm, variant=outline, shape=rounded, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10071",
+      "name": "size=sm, variant=outline, shape=rounded, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11358",
+      "name": "size=sm, variant=outline, shape=rounded, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11952",
+      "name": "size=sm, variant=outline, shape=rounded, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13338",
+      "name": "size=sm, variant=outline, shape=rounded, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15021",
+      "name": "size=sm, variant=outline, shape=rounded, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4984",
+      "name": "size=md, variant=outline, shape=rounded, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7134",
+      "name": "size=md, variant=outline, shape=rounded, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8487",
+      "name": "size=md, variant=outline, shape=rounded, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9576",
+      "name": "size=md, variant=outline, shape=rounded, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10104",
+      "name": "size=md, variant=outline, shape=rounded, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11292",
+      "name": "size=md, variant=outline, shape=rounded, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11886",
+      "name": "size=md, variant=outline, shape=rounded, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13107",
+      "name": "size=md, variant=outline, shape=rounded, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15054",
+      "name": "size=md, variant=outline, shape=rounded, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5152",
+      "name": "size=lg, variant=outline, shape=rounded, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7167",
+      "name": "size=lg, variant=outline, shape=rounded, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8619",
+      "name": "size=lg, variant=outline, shape=rounded, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9741",
+      "name": "size=lg, variant=outline, shape=rounded, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10137",
+      "name": "size=lg, variant=outline, shape=rounded, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11391",
+      "name": "size=lg, variant=outline, shape=rounded, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11985",
+      "name": "size=lg, variant=outline, shape=rounded, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13008",
+      "name": "size=lg, variant=outline, shape=rounded, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15087",
+      "name": "size=lg, variant=outline, shape=rounded, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5320",
+      "name": "size=xl, variant=outline, shape=rounded, colorPalette=gray",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7200",
+      "name": "size=xl, variant=outline, shape=rounded, colorPalette=red",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8685",
+      "name": "size=xl, variant=outline, shape=rounded, colorPalette=pink",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9312",
+      "name": "size=xl, variant=outline, shape=rounded, colorPalette=purple",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10170",
+      "name": "size=xl, variant=outline, shape=rounded, colorPalette=cyan",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11424",
+      "name": "size=xl, variant=outline, shape=rounded, colorPalette=blue",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12051",
+      "name": "size=xl, variant=outline, shape=rounded, colorPalette=teal",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13041",
+      "name": "size=xl, variant=outline, shape=rounded, colorPalette=green",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15120",
+      "name": "size=xl, variant=outline, shape=rounded, colorPalette=yellow",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "rounded",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4200",
+      "name": "size=xs, variant=outline, shape=full, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7233",
+      "name": "size=xs, variant=outline, shape=full, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8652",
+      "name": "size=xs, variant=outline, shape=full, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9180",
+      "name": "size=xs, variant=outline, shape=full, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10203",
+      "name": "size=xs, variant=outline, shape=full, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11523",
+      "name": "size=xs, variant=outline, shape=full, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12579",
+      "name": "size=xs, variant=outline, shape=full, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13371",
+      "name": "size=xs, variant=outline, shape=full, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15153",
+      "name": "size=xs, variant=outline, shape=full, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4844",
+      "name": "size=sm, variant=outline, shape=full, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7266",
+      "name": "size=sm, variant=outline, shape=full, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8718",
+      "name": "size=sm, variant=outline, shape=full, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9774",
+      "name": "size=sm, variant=outline, shape=full, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10236",
+      "name": "size=sm, variant=outline, shape=full, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11226",
+      "name": "size=sm, variant=outline, shape=full, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12414",
+      "name": "size=sm, variant=outline, shape=full, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13437",
+      "name": "size=sm, variant=outline, shape=full, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15186",
+      "name": "size=sm, variant=outline, shape=full, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5012",
+      "name": "size=md, variant=outline, shape=full, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7299",
+      "name": "size=md, variant=outline, shape=full, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8751",
+      "name": "size=md, variant=outline, shape=full, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9807",
+      "name": "size=md, variant=outline, shape=full, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10269",
+      "name": "size=md, variant=outline, shape=full, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11094",
+      "name": "size=md, variant=outline, shape=full, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12150",
+      "name": "size=md, variant=outline, shape=full, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13140",
+      "name": "size=md, variant=outline, shape=full, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15219",
+      "name": "size=md, variant=outline, shape=full, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5180",
+      "name": "size=lg, variant=outline, shape=full, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7332",
+      "name": "size=lg, variant=outline, shape=full, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7992",
+      "name": "size=lg, variant=outline, shape=full, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9081",
+      "name": "size=lg, variant=outline, shape=full, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10302",
+      "name": "size=lg, variant=outline, shape=full, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11622",
+      "name": "size=lg, variant=outline, shape=full, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12645",
+      "name": "size=lg, variant=outline, shape=full, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13734",
+      "name": "size=lg, variant=outline, shape=full, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15252",
+      "name": "size=lg, variant=outline, shape=full, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5292",
+      "name": "size=xl, variant=outline, shape=full, colorPalette=gray",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7365",
+      "name": "size=xl, variant=outline, shape=full, colorPalette=red",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8190",
+      "name": "size=xl, variant=outline, shape=full, colorPalette=pink",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9279",
+      "name": "size=xl, variant=outline, shape=full, colorPalette=purple",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10335",
+      "name": "size=xl, variant=outline, shape=full, colorPalette=cyan",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11160",
+      "name": "size=xl, variant=outline, shape=full, colorPalette=blue",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12282",
+      "name": "size=xl, variant=outline, shape=full, colorPalette=teal",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12942",
+      "name": "size=xl, variant=outline, shape=full, colorPalette=green",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15285",
+      "name": "size=xl, variant=outline, shape=full, colorPalette=yellow",
+      "properties": {
+        "size": "xl",
+        "variant": "outline",
+        "shape": "full",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:962",
+      "name": "size=xs, variant=subtle, shape=square, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7398",
+      "name": "size=xs, variant=subtle, shape=square, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8421",
+      "name": "size=xs, variant=subtle, shape=square, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9543",
+      "name": "size=xs, variant=subtle, shape=square, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10368",
+      "name": "size=xs, variant=subtle, shape=square, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11556",
+      "name": "size=xs, variant=subtle, shape=square, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12348",
+      "name": "size=xs, variant=subtle, shape=square, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13569",
+      "name": "size=xs, variant=subtle, shape=square, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15318",
+      "name": "size=xs, variant=subtle, shape=square, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4872",
+      "name": "size=sm, variant=subtle, shape=square, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7431",
+      "name": "size=sm, variant=subtle, shape=square, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8256",
+      "name": "size=sm, variant=subtle, shape=square, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9411",
+      "name": "size=sm, variant=subtle, shape=square, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10401",
+      "name": "size=sm, variant=subtle, shape=square, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11325",
+      "name": "size=sm, variant=subtle, shape=square, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12513",
+      "name": "size=sm, variant=subtle, shape=square, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13305",
+      "name": "size=sm, variant=subtle, shape=square, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15351",
+      "name": "size=sm, variant=subtle, shape=square, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5040",
+      "name": "size=md, variant=subtle, shape=square, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7464",
+      "name": "size=md, variant=subtle, shape=square, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8454",
+      "name": "size=md, variant=subtle, shape=square, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9510",
+      "name": "size=md, variant=subtle, shape=square, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10434",
+      "name": "size=md, variant=subtle, shape=square, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11655",
+      "name": "size=md, variant=subtle, shape=square, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12678",
+      "name": "size=md, variant=subtle, shape=square, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13536",
+      "name": "size=md, variant=subtle, shape=square, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15384",
+      "name": "size=md, variant=subtle, shape=square, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5208",
+      "name": "size=lg, variant=subtle, shape=square, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7497",
+      "name": "size=lg, variant=subtle, shape=square, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8025",
+      "name": "size=lg, variant=subtle, shape=square, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9213",
+      "name": "size=lg, variant=subtle, shape=square, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10467",
+      "name": "size=lg, variant=subtle, shape=square, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11457",
+      "name": "size=lg, variant=subtle, shape=square, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12546",
+      "name": "size=lg, variant=subtle, shape=square, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13635",
+      "name": "size=lg, variant=subtle, shape=square, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15417",
+      "name": "size=lg, variant=subtle, shape=square, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5432",
+      "name": "size=xl, variant=subtle, shape=square, colorPalette=gray",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7530",
+      "name": "size=xl, variant=subtle, shape=square, colorPalette=red",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8553",
+      "name": "size=xl, variant=subtle, shape=square, colorPalette=pink",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9642",
+      "name": "size=xl, variant=subtle, shape=square, colorPalette=purple",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10500",
+      "name": "size=xl, variant=subtle, shape=square, colorPalette=cyan",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11688",
+      "name": "size=xl, variant=subtle, shape=square, colorPalette=blue",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12711",
+      "name": "size=xl, variant=subtle, shape=square, colorPalette=teal",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13767",
+      "name": "size=xl, variant=subtle, shape=square, colorPalette=green",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15450",
+      "name": "size=xl, variant=subtle, shape=square, colorPalette=yellow",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "square",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4116",
+      "name": "size=xs, variant=subtle, shape=rounded, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7563",
+      "name": "size=xs, variant=subtle, shape=rounded, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8586",
+      "name": "size=xs, variant=subtle, shape=rounded, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9675",
+      "name": "size=xs, variant=subtle, shape=rounded, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10533",
+      "name": "size=xs, variant=subtle, shape=rounded, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10896",
+      "name": "size=xs, variant=subtle, shape=rounded, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12612",
+      "name": "size=xs, variant=subtle, shape=rounded, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13701",
+      "name": "size=xs, variant=subtle, shape=rounded, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15483",
+      "name": "size=xs, variant=subtle, shape=rounded, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4900",
+      "name": "size=sm, variant=subtle, shape=rounded, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7596",
+      "name": "size=sm, variant=subtle, shape=rounded, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8784",
+      "name": "size=sm, variant=subtle, shape=rounded, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9378",
+      "name": "size=sm, variant=subtle, shape=rounded, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10566",
+      "name": "size=sm, variant=subtle, shape=rounded, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11721",
+      "name": "size=sm, variant=subtle, shape=rounded, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12744",
+      "name": "size=sm, variant=subtle, shape=rounded, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12909",
+      "name": "size=sm, variant=subtle, shape=rounded, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15516",
+      "name": "size=sm, variant=subtle, shape=rounded, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5068",
+      "name": "size=md, variant=subtle, shape=rounded, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7629",
+      "name": "size=md, variant=subtle, shape=rounded, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8817",
+      "name": "size=md, variant=subtle, shape=rounded, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9048",
+      "name": "size=md, variant=subtle, shape=rounded, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10599",
+      "name": "size=md, variant=subtle, shape=rounded, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10962",
+      "name": "size=md, variant=subtle, shape=rounded, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11919",
+      "name": "size=md, variant=subtle, shape=rounded, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13074",
+      "name": "size=md, variant=subtle, shape=rounded, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15549",
+      "name": "size=md, variant=subtle, shape=rounded, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5236",
+      "name": "size=lg, variant=subtle, shape=rounded, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7662",
+      "name": "size=lg, variant=subtle, shape=rounded, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8223",
+      "name": "size=lg, variant=subtle, shape=rounded, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9708",
+      "name": "size=lg, variant=subtle, shape=rounded, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10632",
+      "name": "size=lg, variant=subtle, shape=rounded, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11127",
+      "name": "size=lg, variant=subtle, shape=rounded, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12183",
+      "name": "size=lg, variant=subtle, shape=rounded, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13668",
+      "name": "size=lg, variant=subtle, shape=rounded, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15582",
+      "name": "size=lg, variant=subtle, shape=rounded, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5404",
+      "name": "size=xl, variant=subtle, shape=rounded, colorPalette=gray",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7695",
+      "name": "size=xl, variant=subtle, shape=rounded, colorPalette=red",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8388",
+      "name": "size=xl, variant=subtle, shape=rounded, colorPalette=pink",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9477",
+      "name": "size=xl, variant=subtle, shape=rounded, colorPalette=purple",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10665",
+      "name": "size=xl, variant=subtle, shape=rounded, colorPalette=cyan",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11754",
+      "name": "size=xl, variant=subtle, shape=rounded, colorPalette=blue",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12777",
+      "name": "size=xl, variant=subtle, shape=rounded, colorPalette=teal",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12975",
+      "name": "size=xl, variant=subtle, shape=rounded, colorPalette=green",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15615",
+      "name": "size=xl, variant=subtle, shape=rounded, colorPalette=yellow",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "rounded",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4228",
+      "name": "size=xs, variant=subtle, shape=full, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7728",
+      "name": "size=xs, variant=subtle, shape=full, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8289",
+      "name": "size=xs, variant=subtle, shape=full, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9147",
+      "name": "size=xs, variant=subtle, shape=full, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10698",
+      "name": "size=xs, variant=subtle, shape=full, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11193",
+      "name": "size=xs, variant=subtle, shape=full, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12216",
+      "name": "size=xs, variant=subtle, shape=full, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13239",
+      "name": "size=xs, variant=subtle, shape=full, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15648",
+      "name": "size=xs, variant=subtle, shape=full, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:4928",
+      "name": "size=sm, variant=subtle, shape=full, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7761",
+      "name": "size=sm, variant=subtle, shape=full, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8520",
+      "name": "size=sm, variant=subtle, shape=full, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9609",
+      "name": "size=sm, variant=subtle, shape=full, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10731",
+      "name": "size=sm, variant=subtle, shape=full, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11259",
+      "name": "size=sm, variant=subtle, shape=full, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12480",
+      "name": "size=sm, variant=subtle, shape=full, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13602",
+      "name": "size=sm, variant=subtle, shape=full, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15681",
+      "name": "size=sm, variant=subtle, shape=full, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5096",
+      "name": "size=md, variant=subtle, shape=full, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7794",
+      "name": "size=md, variant=subtle, shape=full, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8058",
+      "name": "size=md, variant=subtle, shape=full, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8883",
+      "name": "size=md, variant=subtle, shape=full, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10764",
+      "name": "size=md, variant=subtle, shape=full, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11787",
+      "name": "size=md, variant=subtle, shape=full, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12315",
+      "name": "size=md, variant=subtle, shape=full, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13503",
+      "name": "size=md, variant=subtle, shape=full, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15714",
+      "name": "size=md, variant=subtle, shape=full, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5264",
+      "name": "size=lg, variant=subtle, shape=full, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7827",
+      "name": "size=lg, variant=subtle, shape=full, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8850",
+      "name": "size=lg, variant=subtle, shape=full, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:9840",
+      "name": "size=lg, variant=subtle, shape=full, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10797",
+      "name": "size=lg, variant=subtle, shape=full, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11820",
+      "name": "size=lg, variant=subtle, shape=full, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12810",
+      "name": "size=lg, variant=subtle, shape=full, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:13800",
+      "name": "size=lg, variant=subtle, shape=full, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15747",
+      "name": "size=lg, variant=subtle, shape=full, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:5376",
+      "name": "size=xl, variant=subtle, shape=full, colorPalette=gray",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:7860",
+      "name": "size=xl, variant=subtle, shape=full, colorPalette=red",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8091",
+      "name": "size=xl, variant=subtle, shape=full, colorPalette=pink",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:8916",
+      "name": "size=xl, variant=subtle, shape=full, colorPalette=purple",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:10830",
+      "name": "size=xl, variant=subtle, shape=full, colorPalette=cyan",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:11061",
+      "name": "size=xl, variant=subtle, shape=full, colorPalette=blue",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12018",
+      "name": "size=xl, variant=subtle, shape=full, colorPalette=teal",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:12843",
+      "name": "size=xl, variant=subtle, shape=full, colorPalette=green",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "405:15780",
+      "name": "size=xl, variant=subtle, shape=full, colorPalette=yellow",
+      "properties": {
+        "size": "xl",
+        "variant": "subtle",
+        "shape": "full",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 270
+}

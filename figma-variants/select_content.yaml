@@ -1,0 +1,39 @@
+componentSetId: "334:6574"
+componentName: "Select.Content"
+description: ""
+variantProperties:
+  size:
+  - lg
+  - md
+  - sm
+  - xs
+variants:
+- 
+  variantId: "334:2477"
+  name: "size=xs"
+  properties:
+    size: "xs"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6575"
+  name: "size=md"
+  properties:
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6748"
+  name: "size=lg"
+  properties:
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6712"
+  name: "size=sm"
+  properties:
+    size: "sm"
+  description: ""
+  key: ""
+totalVariants: 4

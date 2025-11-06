@@ -1,0 +1,12 @@
+componentName: ColorModeProvider
+filePath: chakra-ui/apps/compositions/src/ui/color-mode.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/color-mode.tsx
+exportType: function
+exportName: ColorModeProvider
+interfaceName: ColorModeProviderProps
+extendsInterface: ThemeProviderProps
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

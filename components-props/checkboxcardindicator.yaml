@@ -1,0 +1,12 @@
+componentName: CheckboxCardIndicator
+filePath: chakra-ui/apps/compositions/src/ui/checkbox-card.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/checkbox-card.tsx
+exportType: null
+exportName: CheckboxCardIndicator
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

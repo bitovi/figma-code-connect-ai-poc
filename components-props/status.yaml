@@ -1,0 +1,19 @@
+componentName: Status
+filePath: chakra-ui/apps/compositions/src/ui/status.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/status.tsx
+exportType: forwardRef
+exportName: Status
+interfaceName: StatusProps
+extendsInterface: ChakraStatus.RootProps
+description: ""
+props:
+  - name: value
+    type: TSTypeReference
+    required: false
+    defaultValue: null
+    description: ""
+    category: content
+    unionValues: []
+variantProperties: {}
+totalProps: 1
+potentialFigmaMapping: {}

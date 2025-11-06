@@ -1,0 +1,31 @@
+componentSetId: "380:1754"
+componentName: "DataList"
+description: ""
+variantProperties:
+  size:
+  - lg
+  - md
+  - sm
+variants:
+- 
+  variantId: "380:1867"
+  name: "size=sm"
+  properties:
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "482:2592"
+  name: "size=md"
+  properties:
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "482:2693"
+  name: "size=lg"
+  properties:
+    size: "lg"
+  description: ""
+  key: ""
+totalVariants: 3

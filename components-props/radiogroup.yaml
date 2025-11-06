@@ -1,0 +1,12 @@
+componentName: RadioGroup
+filePath: chakra-ui/apps/compositions/src/ui/radio.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/radio.tsx
+exportType: null
+exportName: RadioGroup
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

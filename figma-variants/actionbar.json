@@ -1,0 +1,32 @@
+{
+  "componentSetId": "163:3336",
+  "componentName": "ActionBar",
+  "description": "",
+  "variantProperties": {
+    "type": [
+      "closeTrigger",
+      "withinDialog"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "163:3245",
+      "name": "type=withinDialog",
+      "properties": {
+        "type": "withinDialog"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "163:3373",
+      "name": "type=closeTrigger",
+      "properties": {
+        "type": "closeTrigger"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 2
+}

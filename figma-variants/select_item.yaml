@@ -1,0 +1,78 @@
+componentSetId: "334:2435"
+componentName: "Select.Item"
+description: ""
+variantProperties:
+  state:
+  - default
+  - hover
+  size:
+  - lg
+  - md
+  - sm
+  - xs
+variants:
+- 
+  variantId: "334:2434"
+  name: "state=default, size=xs"
+  properties:
+    state: "default"
+    size: "xs"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6636"
+  name: "state=default, size=sm"
+  properties:
+    state: "default"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6663"
+  name: "state=default, size=md"
+  properties:
+    state: "default"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6689"
+  name: "state=default, size=lg"
+  properties:
+    state: "default"
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "334:2436"
+  name: "state=hover, size=xs"
+  properties:
+    state: "hover"
+    size: "xs"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6639"
+  name: "state=hover, size=sm"
+  properties:
+    state: "hover"
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6666"
+  name: "state=hover, size=md"
+  properties:
+    state: "hover"
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "334:6692"
+  name: "state=hover, size=lg"
+  properties:
+    state: "hover"
+    size: "lg"
+  description: ""
+  key: ""
+totalVariants: 8

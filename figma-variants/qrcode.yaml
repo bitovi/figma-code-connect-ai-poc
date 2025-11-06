@@ -1,0 +1,63 @@
+componentSetId: "442:18204"
+componentName: "QRCode"
+description: ""
+variantProperties:
+  size:
+  - 2xl
+  - 2xs
+  - lg
+  - md
+  - sm
+  - xl
+  - xs
+variants:
+- 
+  variantId: "442:18232"
+  name: "size=2xs"
+  properties:
+    size: "2xs"
+  description: ""
+  key: ""
+- 
+  variantId: "442:18234"
+  name: "size=xs"
+  properties:
+    size: "xs"
+  description: ""
+  key: ""
+- 
+  variantId: "442:18243"
+  name: "size=sm"
+  properties:
+    size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "442:18252"
+  name: "size=md"
+  properties:
+    size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "442:18261"
+  name: "size=lg"
+  properties:
+    size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "442:18270"
+  name: "size=xl"
+  properties:
+    size: "xl"
+  description: ""
+  key: ""
+- 
+  variantId: "442:18279"
+  name: "size=2xl"
+  properties:
+    size: "2xl"
+  description: ""
+  key: ""
+totalVariants: 7

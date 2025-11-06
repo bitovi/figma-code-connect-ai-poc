@@ -1,0 +1,23 @@
+componentSetId: "398:10155"
+componentName: "Slider.Marker"
+description: ""
+variantProperties:
+  Size:
+  - 1
+  - 1.5
+variants:
+- 
+  variantId: "398:10157"
+  name: "Size=1"
+  properties:
+    Size: "1"
+  description: ""
+  key: ""
+- 
+  variantId: "398:10159"
+  name: "Size=1.5"
+  properties:
+    Size: "1.5"
+  description: ""
+  key: ""
+totalVariants: 2

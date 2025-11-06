@@ -1,0 +1,78 @@
+componentSetId: "450:23529"
+componentName: "stepItems"
+description: ""
+variantProperties:
+  Type:
+  - icon
+  - text
+  Size:
+  - lg
+  - md
+  - sm
+  - xs
+variants:
+- 
+  variantId: "450:23524"
+  name: "Type=text, Size=xs"
+  properties:
+    Type: "text"
+    Size: "xs"
+  description: ""
+  key: ""
+- 
+  variantId: "450:23688"
+  name: "Type=text, Size=sm"
+  properties:
+    Type: "text"
+    Size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "450:23690"
+  name: "Type=text, Size=md"
+  properties:
+    Type: "text"
+    Size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "450:23692"
+  name: "Type=text, Size=lg"
+  properties:
+    Type: "text"
+    Size: "lg"
+  description: ""
+  key: ""
+- 
+  variantId: "450:23528"
+  name: "Type=icon, Size=xs"
+  properties:
+    Type: "icon"
+    Size: "xs"
+  description: ""
+  key: ""
+- 
+  variantId: "450:23685"
+  name: "Type=icon, Size=sm"
+  properties:
+    Type: "icon"
+    Size: "sm"
+  description: ""
+  key: ""
+- 
+  variantId: "450:23679"
+  name: "Type=icon, Size=md"
+  properties:
+    Type: "icon"
+    Size: "md"
+  description: ""
+  key: ""
+- 
+  variantId: "450:23682"
+  name: "Type=icon, Size=lg"
+  properties:
+    Type: "icon"
+    Size: "lg"
+  description: ""
+  key: ""
+totalVariants: 8

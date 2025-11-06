@@ -1,0 +1,132 @@
+{
+  "componentSetId": "353:12052",
+  "componentName": "Tooltip",
+  "description": "",
+  "variantProperties": {
+    "placement": [
+      "bottom",
+      "bottom-end",
+      "bottom-start",
+      "left",
+      "left-end",
+      "left-start",
+      "right",
+      "right-end",
+      "right-start",
+      "top",
+      "top-end",
+      "top-start"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "353:12053",
+      "name": "placement=bottom",
+      "properties": {
+        "placement": "bottom"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12057",
+      "name": "placement=top",
+      "properties": {
+        "placement": "top"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12061",
+      "name": "placement=left",
+      "properties": {
+        "placement": "left"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12065",
+      "name": "placement=right",
+      "properties": {
+        "placement": "right"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12069",
+      "name": "placement=right-start",
+      "properties": {
+        "placement": "right-start"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12073",
+      "name": "placement=right-end",
+      "properties": {
+        "placement": "right-end"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12077",
+      "name": "placement=left-start",
+      "properties": {
+        "placement": "left-start"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12081",
+      "name": "placement=left-end",
+      "properties": {
+        "placement": "left-end"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12085",
+      "name": "placement=bottom-start",
+      "properties": {
+        "placement": "bottom-start"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12089",
+      "name": "placement=top-start",
+      "properties": {
+        "placement": "top-start"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12093",
+      "name": "placement=bottom-end",
+      "properties": {
+        "placement": "bottom-end"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "353:12097",
+      "name": "placement=top-end",
+      "properties": {
+        "placement": "top-end"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 12
+}

@@ -1,0 +1,2533 @@
+{
+  "componentSetId": "398:10118",
+  "componentName": "Slider",
+  "description": "",
+  "variantProperties": {
+    "size": [
+      "lg",
+      "md",
+      "sm"
+    ],
+    "colorPalette": [
+      "blue",
+      "cyan",
+      "gray",
+      "green",
+      "pink",
+      "purple",
+      "red",
+      "teal"
+    ],
+    ".isDisabled?": [
+      "false",
+      "true"
+    ],
+    "variant": [
+      "outline",
+      "solid"
+    ],
+    "orientation": [
+      "horizontal",
+      "vertical"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "398:10127",
+      "name": "size=sm, colorPalette=gray, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16132",
+      "name": "size=sm, colorPalette=red, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16396",
+      "name": "size=sm, colorPalette=pink, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16660",
+      "name": "size=sm, colorPalette=purple, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16924",
+      "name": "size=sm, colorPalette=cyan, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17188",
+      "name": "size=sm, colorPalette=blue, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17452",
+      "name": "size=sm, colorPalette=teal, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17848",
+      "name": "size=sm, colorPalette=green, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10253",
+      "name": "size=md, colorPalette=gray, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16138",
+      "name": "size=md, colorPalette=red, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16402",
+      "name": "size=md, colorPalette=pink, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16666",
+      "name": "size=md, colorPalette=purple, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16930",
+      "name": "size=md, colorPalette=cyan, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17194",
+      "name": "size=md, colorPalette=blue, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17458",
+      "name": "size=md, colorPalette=teal, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17854",
+      "name": "size=md, colorPalette=green, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10301",
+      "name": "size=md, colorPalette=gray, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16144",
+      "name": "size=md, colorPalette=red, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16408",
+      "name": "size=md, colorPalette=pink, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16672",
+      "name": "size=md, colorPalette=purple, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16936",
+      "name": "size=md, colorPalette=cyan, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17200",
+      "name": "size=md, colorPalette=blue, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17464",
+      "name": "size=md, colorPalette=teal, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17860",
+      "name": "size=md, colorPalette=green, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10277",
+      "name": "size=lg, colorPalette=gray, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16149",
+      "name": "size=lg, colorPalette=red, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16413",
+      "name": "size=lg, colorPalette=pink, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16677",
+      "name": "size=lg, colorPalette=purple, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16941",
+      "name": "size=lg, colorPalette=cyan, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17205",
+      "name": "size=lg, colorPalette=blue, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17469",
+      "name": "size=lg, colorPalette=teal, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17865",
+      "name": "size=lg, colorPalette=green, .isDisabled?=false, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10331",
+      "name": "size=lg, colorPalette=gray, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16155",
+      "name": "size=lg, colorPalette=red, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16419",
+      "name": "size=lg, colorPalette=pink, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16683",
+      "name": "size=lg, colorPalette=purple, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16947",
+      "name": "size=lg, colorPalette=cyan, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17211",
+      "name": "size=lg, colorPalette=blue, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17475",
+      "name": "size=lg, colorPalette=teal, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17871",
+      "name": "size=lg, colorPalette=green, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10241",
+      "name": "size=sm, colorPalette=gray, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16160",
+      "name": "size=sm, colorPalette=red, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16424",
+      "name": "size=sm, colorPalette=pink, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16688",
+      "name": "size=sm, colorPalette=purple, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16952",
+      "name": "size=sm, colorPalette=cyan, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17216",
+      "name": "size=sm, colorPalette=blue, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17480",
+      "name": "size=sm, colorPalette=teal, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17876",
+      "name": "size=sm, colorPalette=green, .isDisabled?=false, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10217",
+      "name": "size=sm, colorPalette=gray, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16165",
+      "name": "size=sm, colorPalette=red, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16429",
+      "name": "size=sm, colorPalette=pink, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16693",
+      "name": "size=sm, colorPalette=purple, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16957",
+      "name": "size=sm, colorPalette=cyan, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17221",
+      "name": "size=sm, colorPalette=blue, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17485",
+      "name": "size=sm, colorPalette=teal, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17881",
+      "name": "size=sm, colorPalette=green, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10259",
+      "name": "size=md, colorPalette=gray, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16171",
+      "name": "size=md, colorPalette=red, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16435",
+      "name": "size=md, colorPalette=pink, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16699",
+      "name": "size=md, colorPalette=purple, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16963",
+      "name": "size=md, colorPalette=cyan, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17227",
+      "name": "size=md, colorPalette=blue, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17491",
+      "name": "size=md, colorPalette=teal, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17887",
+      "name": "size=md, colorPalette=green, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10307",
+      "name": "size=md, colorPalette=gray, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16177",
+      "name": "size=md, colorPalette=red, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16441",
+      "name": "size=md, colorPalette=pink, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16705",
+      "name": "size=md, colorPalette=purple, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16969",
+      "name": "size=md, colorPalette=cyan, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17233",
+      "name": "size=md, colorPalette=blue, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17497",
+      "name": "size=md, colorPalette=teal, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17893",
+      "name": "size=md, colorPalette=green, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10283",
+      "name": "size=lg, colorPalette=gray, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16182",
+      "name": "size=lg, colorPalette=red, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16446",
+      "name": "size=lg, colorPalette=pink, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16710",
+      "name": "size=lg, colorPalette=purple, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16974",
+      "name": "size=lg, colorPalette=cyan, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17238",
+      "name": "size=lg, colorPalette=blue, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17502",
+      "name": "size=lg, colorPalette=teal, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17898",
+      "name": "size=lg, colorPalette=green, .isDisabled?=true, variant=solid, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10337",
+      "name": "size=lg, colorPalette=gray, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16188",
+      "name": "size=lg, colorPalette=red, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16452",
+      "name": "size=lg, colorPalette=pink, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16716",
+      "name": "size=lg, colorPalette=purple, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16980",
+      "name": "size=lg, colorPalette=cyan, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17244",
+      "name": "size=lg, colorPalette=blue, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17508",
+      "name": "size=lg, colorPalette=teal, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17904",
+      "name": "size=lg, colorPalette=green, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10235",
+      "name": "size=sm, colorPalette=gray, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16193",
+      "name": "size=sm, colorPalette=red, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16457",
+      "name": "size=sm, colorPalette=pink, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16721",
+      "name": "size=sm, colorPalette=purple, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16985",
+      "name": "size=sm, colorPalette=cyan, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17249",
+      "name": "size=sm, colorPalette=blue, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17513",
+      "name": "size=sm, colorPalette=teal, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17909",
+      "name": "size=sm, colorPalette=green, .isDisabled?=true, variant=solid, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "solid",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10144",
+      "name": "size=sm, colorPalette=gray, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16198",
+      "name": "size=sm, colorPalette=red, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16462",
+      "name": "size=sm, colorPalette=pink, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16726",
+      "name": "size=sm, colorPalette=purple, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16990",
+      "name": "size=sm, colorPalette=cyan, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17254",
+      "name": "size=sm, colorPalette=blue, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17518",
+      "name": "size=sm, colorPalette=teal, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17914",
+      "name": "size=sm, colorPalette=green, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10265",
+      "name": "size=md, colorPalette=gray, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16204",
+      "name": "size=md, colorPalette=red, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16468",
+      "name": "size=md, colorPalette=pink, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16732",
+      "name": "size=md, colorPalette=purple, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16996",
+      "name": "size=md, colorPalette=cyan, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17260",
+      "name": "size=md, colorPalette=blue, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17524",
+      "name": "size=md, colorPalette=teal, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17920",
+      "name": "size=md, colorPalette=green, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10319",
+      "name": "size=md, colorPalette=gray, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16210",
+      "name": "size=md, colorPalette=red, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16474",
+      "name": "size=md, colorPalette=pink, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16738",
+      "name": "size=md, colorPalette=purple, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17002",
+      "name": "size=md, colorPalette=cyan, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17266",
+      "name": "size=md, colorPalette=blue, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17530",
+      "name": "size=md, colorPalette=teal, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17926",
+      "name": "size=md, colorPalette=green, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10289",
+      "name": "size=lg, colorPalette=gray, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16215",
+      "name": "size=lg, colorPalette=red, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16479",
+      "name": "size=lg, colorPalette=pink, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16743",
+      "name": "size=lg, colorPalette=purple, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17007",
+      "name": "size=lg, colorPalette=cyan, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17271",
+      "name": "size=lg, colorPalette=blue, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17535",
+      "name": "size=lg, colorPalette=teal, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17931",
+      "name": "size=lg, colorPalette=green, .isDisabled?=false, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10343",
+      "name": "size=lg, colorPalette=gray, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16221",
+      "name": "size=lg, colorPalette=red, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16485",
+      "name": "size=lg, colorPalette=pink, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16749",
+      "name": "size=lg, colorPalette=purple, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17013",
+      "name": "size=lg, colorPalette=cyan, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17277",
+      "name": "size=lg, colorPalette=blue, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17541",
+      "name": "size=lg, colorPalette=teal, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17937",
+      "name": "size=lg, colorPalette=green, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10247",
+      "name": "size=sm, colorPalette=gray, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "gray",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16226",
+      "name": "size=sm, colorPalette=red, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "red",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16490",
+      "name": "size=sm, colorPalette=pink, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "pink",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16754",
+      "name": "size=sm, colorPalette=purple, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "purple",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17018",
+      "name": "size=sm, colorPalette=cyan, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "cyan",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17282",
+      "name": "size=sm, colorPalette=blue, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "blue",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17546",
+      "name": "size=sm, colorPalette=teal, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "teal",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17942",
+      "name": "size=sm, colorPalette=green, .isDisabled?=false, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "green",
+        ".isDisabled?": "false",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10223",
+      "name": "size=sm, colorPalette=gray, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16231",
+      "name": "size=sm, colorPalette=red, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16495",
+      "name": "size=sm, colorPalette=pink, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16759",
+      "name": "size=sm, colorPalette=purple, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17023",
+      "name": "size=sm, colorPalette=cyan, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17287",
+      "name": "size=sm, colorPalette=blue, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17551",
+      "name": "size=sm, colorPalette=teal, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17947",
+      "name": "size=sm, colorPalette=green, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10271",
+      "name": "size=md, colorPalette=gray, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16237",
+      "name": "size=md, colorPalette=red, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16501",
+      "name": "size=md, colorPalette=pink, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16765",
+      "name": "size=md, colorPalette=purple, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17029",
+      "name": "size=md, colorPalette=cyan, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17293",
+      "name": "size=md, colorPalette=blue, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17557",
+      "name": "size=md, colorPalette=teal, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17953",
+      "name": "size=md, colorPalette=green, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10325",
+      "name": "size=md, colorPalette=gray, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16243",
+      "name": "size=md, colorPalette=red, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16507",
+      "name": "size=md, colorPalette=pink, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16771",
+      "name": "size=md, colorPalette=purple, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17035",
+      "name": "size=md, colorPalette=cyan, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17299",
+      "name": "size=md, colorPalette=blue, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17563",
+      "name": "size=md, colorPalette=teal, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17959",
+      "name": "size=md, colorPalette=green, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10295",
+      "name": "size=lg, colorPalette=gray, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16248",
+      "name": "size=lg, colorPalette=red, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16512",
+      "name": "size=lg, colorPalette=pink, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16776",
+      "name": "size=lg, colorPalette=purple, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17040",
+      "name": "size=lg, colorPalette=cyan, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17304",
+      "name": "size=lg, colorPalette=blue, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17568",
+      "name": "size=lg, colorPalette=teal, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17964",
+      "name": "size=lg, colorPalette=green, .isDisabled?=true, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10349",
+      "name": "size=lg, colorPalette=gray, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16254",
+      "name": "size=lg, colorPalette=red, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16518",
+      "name": "size=lg, colorPalette=pink, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16782",
+      "name": "size=lg, colorPalette=purple, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17046",
+      "name": "size=lg, colorPalette=cyan, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17310",
+      "name": "size=lg, colorPalette=blue, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17574",
+      "name": "size=lg, colorPalette=teal, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17970",
+      "name": "size=lg, colorPalette=green, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "398:10229",
+      "name": "size=sm, colorPalette=gray, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "gray",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16259",
+      "name": "size=sm, colorPalette=red, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "red",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16523",
+      "name": "size=sm, colorPalette=pink, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "pink",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:16787",
+      "name": "size=sm, colorPalette=purple, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "purple",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17051",
+      "name": "size=sm, colorPalette=cyan, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "cyan",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17315",
+      "name": "size=sm, colorPalette=blue, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "blue",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17579",
+      "name": "size=sm, colorPalette=teal, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "teal",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "576:17975",
+      "name": "size=sm, colorPalette=green, .isDisabled?=true, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "colorPalette": "green",
+        ".isDisabled?": "true",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 192
+}

@@ -1,0 +1,4839 @@
+{
+  "componentSetId": "209:1206",
+  "componentName": "IconButton",
+  "description": "",
+  "variantProperties": {
+    "size": [
+      "lg",
+      "md",
+      "sm",
+      "xs"
+    ],
+    "variant": [
+      "ghost",
+      "outline",
+      "solid",
+      "subtle",
+      "surface"
+    ],
+    "state": [
+      "default",
+      "hover"
+    ],
+    "colorPalette": [
+      "blue",
+      "cyan",
+      "gray",
+      "green",
+      "orange",
+      "pink",
+      "purple",
+      "red",
+      "teal",
+      "yellow"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "209:1295",
+      "name": "size=xs, variant=solid, state=default, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:1383",
+      "name": "size=sm, variant=solid, state=default, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:1471",
+      "name": "size=md, variant=solid, state=default, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:1559",
+      "name": "size=lg, variant=solid, state=default, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2572",
+      "name": "size=xs, variant=solid, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2574",
+      "name": "size=sm, variant=solid, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2576",
+      "name": "size=md, variant=solid, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2578",
+      "name": "size=lg, variant=solid, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2736",
+      "name": "size=xs, variant=subtle, state=default, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2738",
+      "name": "size=sm, variant=subtle, state=default, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2740",
+      "name": "size=md, variant=subtle, state=default, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2742",
+      "name": "size=lg, variant=subtle, state=default, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2757",
+      "name": "size=xs, variant=subtle, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2759",
+      "name": "size=sm, variant=subtle, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2761",
+      "name": "size=md, variant=subtle, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2763",
+      "name": "size=lg, variant=subtle, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2778",
+      "name": "size=xs, variant=surface, state=default, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2780",
+      "name": "size=sm, variant=surface, state=default, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2782",
+      "name": "size=md, variant=surface, state=default, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2784",
+      "name": "size=lg, variant=surface, state=default, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2799",
+      "name": "size=xs, variant=surface, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2801",
+      "name": "size=sm, variant=surface, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2803",
+      "name": "size=md, variant=surface, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2805",
+      "name": "size=lg, variant=surface, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2820",
+      "name": "size=xs, variant=outline, state=default, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2822",
+      "name": "size=sm, variant=outline, state=default, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2824",
+      "name": "size=md, variant=outline, state=default, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2826",
+      "name": "size=lg, variant=outline, state=default, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2841",
+      "name": "size=xs, variant=outline, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2843",
+      "name": "size=sm, variant=outline, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2845",
+      "name": "size=md, variant=outline, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2847",
+      "name": "size=lg, variant=outline, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2862",
+      "name": "size=xs, variant=ghost, state=default, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2864",
+      "name": "size=sm, variant=ghost, state=default, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2866",
+      "name": "size=md, variant=ghost, state=default, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2868",
+      "name": "size=lg, variant=ghost, state=default, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2883",
+      "name": "size=xs, variant=ghost, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2887",
+      "name": "size=sm, variant=ghost, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2889",
+      "name": "size=md, variant=ghost, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "209:2891",
+      "name": "size=lg, variant=ghost, state=hover, colorPalette=gray",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "gray"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43332",
+      "name": "size=xs, variant=solid, state=default, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43336",
+      "name": "size=sm, variant=solid, state=default, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43350",
+      "name": "size=md, variant=solid, state=default, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43360",
+      "name": "size=lg, variant=solid, state=default, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43370",
+      "name": "size=xs, variant=solid, state=hover, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43380",
+      "name": "size=sm, variant=solid, state=hover, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43394",
+      "name": "size=md, variant=solid, state=hover, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43402",
+      "name": "size=lg, variant=solid, state=hover, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43330",
+      "name": "size=xs, variant=subtle, state=default, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43340",
+      "name": "size=sm, variant=subtle, state=default, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43354",
+      "name": "size=md, variant=subtle, state=default, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43356",
+      "name": "size=lg, variant=subtle, state=default, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43372",
+      "name": "size=xs, variant=subtle, state=hover, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43376",
+      "name": "size=sm, variant=subtle, state=hover, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43386",
+      "name": "size=md, variant=subtle, state=hover, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43398",
+      "name": "size=lg, variant=subtle, state=hover, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43334",
+      "name": "size=xs, variant=surface, state=default, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43344",
+      "name": "size=sm, variant=surface, state=default, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43346",
+      "name": "size=md, variant=surface, state=default, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43358",
+      "name": "size=lg, variant=surface, state=default, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43368",
+      "name": "size=xs, variant=surface, state=hover, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43384",
+      "name": "size=sm, variant=surface, state=hover, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43390",
+      "name": "size=md, variant=surface, state=hover, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43396",
+      "name": "size=lg, variant=surface, state=hover, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43326",
+      "name": "size=xs, variant=outline, state=default, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43338",
+      "name": "size=sm, variant=outline, state=default, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43352",
+      "name": "size=md, variant=outline, state=default, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43362",
+      "name": "size=lg, variant=outline, state=default, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43374",
+      "name": "size=xs, variant=outline, state=hover, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43382",
+      "name": "size=sm, variant=outline, state=hover, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43388",
+      "name": "size=md, variant=outline, state=hover, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43400",
+      "name": "size=lg, variant=outline, state=hover, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43328",
+      "name": "size=xs, variant=ghost, state=default, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43342",
+      "name": "size=sm, variant=ghost, state=default, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43348",
+      "name": "size=md, variant=ghost, state=default, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43364",
+      "name": "size=lg, variant=ghost, state=default, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43366",
+      "name": "size=xs, variant=ghost, state=hover, colorPalette=red",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43378",
+      "name": "size=sm, variant=ghost, state=hover, colorPalette=red",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43392",
+      "name": "size=md, variant=ghost, state=hover, colorPalette=red",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43404",
+      "name": "size=lg, variant=ghost, state=hover, colorPalette=red",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "red"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43572",
+      "name": "size=xs, variant=solid, state=default, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43582",
+      "name": "size=sm, variant=solid, state=default, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43590",
+      "name": "size=md, variant=solid, state=default, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43602",
+      "name": "size=lg, variant=solid, state=default, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43610",
+      "name": "size=xs, variant=solid, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43622",
+      "name": "size=sm, variant=solid, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43634",
+      "name": "size=md, variant=solid, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43636",
+      "name": "size=lg, variant=solid, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43570",
+      "name": "size=xs, variant=subtle, state=default, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43578",
+      "name": "size=sm, variant=subtle, state=default, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43594",
+      "name": "size=md, variant=subtle, state=default, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43598",
+      "name": "size=lg, variant=subtle, state=default, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43612",
+      "name": "size=xs, variant=subtle, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43624",
+      "name": "size=sm, variant=subtle, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43628",
+      "name": "size=md, variant=subtle, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43642",
+      "name": "size=lg, variant=subtle, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43574",
+      "name": "size=xs, variant=surface, state=default, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43584",
+      "name": "size=sm, variant=surface, state=default, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43592",
+      "name": "size=md, variant=surface, state=default, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43596",
+      "name": "size=lg, variant=surface, state=default, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43606",
+      "name": "size=xs, variant=surface, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43618",
+      "name": "size=sm, variant=surface, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43632",
+      "name": "size=md, variant=surface, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43638",
+      "name": "size=lg, variant=surface, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43566",
+      "name": "size=xs, variant=outline, state=default, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43580",
+      "name": "size=sm, variant=outline, state=default, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43586",
+      "name": "size=md, variant=outline, state=default, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43604",
+      "name": "size=lg, variant=outline, state=default, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43614",
+      "name": "size=xs, variant=outline, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43616",
+      "name": "size=sm, variant=outline, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43626",
+      "name": "size=md, variant=outline, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43644",
+      "name": "size=lg, variant=outline, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43568",
+      "name": "size=xs, variant=ghost, state=default, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43576",
+      "name": "size=sm, variant=ghost, state=default, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43588",
+      "name": "size=md, variant=ghost, state=default, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43600",
+      "name": "size=lg, variant=ghost, state=default, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43608",
+      "name": "size=xs, variant=ghost, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43620",
+      "name": "size=sm, variant=ghost, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43630",
+      "name": "size=md, variant=ghost, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43640",
+      "name": "size=lg, variant=ghost, state=hover, colorPalette=pink",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "pink"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43814",
+      "name": "size=xs, variant=solid, state=default, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43822",
+      "name": "size=sm, variant=solid, state=default, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43834",
+      "name": "size=md, variant=solid, state=default, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43842",
+      "name": "size=lg, variant=solid, state=default, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43848",
+      "name": "size=xs, variant=solid, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43856",
+      "name": "size=sm, variant=solid, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43872",
+      "name": "size=md, variant=solid, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43878",
+      "name": "size=lg, variant=solid, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43810",
+      "name": "size=xs, variant=subtle, state=default, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43816",
+      "name": "size=sm, variant=subtle, state=default, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43830",
+      "name": "size=md, variant=subtle, state=default, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43844",
+      "name": "size=lg, variant=subtle, state=default, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43850",
+      "name": "size=xs, variant=subtle, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43860",
+      "name": "size=sm, variant=subtle, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43870",
+      "name": "size=md, variant=subtle, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43876",
+      "name": "size=lg, variant=subtle, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43806",
+      "name": "size=xs, variant=surface, state=default, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43824",
+      "name": "size=sm, variant=surface, state=default, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43832",
+      "name": "size=md, variant=surface, state=default, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43840",
+      "name": "size=lg, variant=surface, state=default, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43846",
+      "name": "size=xs, variant=surface, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43862",
+      "name": "size=sm, variant=surface, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43866",
+      "name": "size=md, variant=surface, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43882",
+      "name": "size=lg, variant=surface, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43808",
+      "name": "size=xs, variant=outline, state=default, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43820",
+      "name": "size=sm, variant=outline, state=default, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43828",
+      "name": "size=md, variant=outline, state=default, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43838",
+      "name": "size=lg, variant=outline, state=default, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43854",
+      "name": "size=xs, variant=outline, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43858",
+      "name": "size=sm, variant=outline, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43868",
+      "name": "size=md, variant=outline, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43880",
+      "name": "size=lg, variant=outline, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43812",
+      "name": "size=xs, variant=ghost, state=default, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43818",
+      "name": "size=sm, variant=ghost, state=default, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43826",
+      "name": "size=md, variant=ghost, state=default, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43836",
+      "name": "size=lg, variant=ghost, state=default, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43852",
+      "name": "size=xs, variant=ghost, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43864",
+      "name": "size=sm, variant=ghost, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43874",
+      "name": "size=md, variant=ghost, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:43884",
+      "name": "size=lg, variant=ghost, state=hover, colorPalette=purple",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "purple"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44052",
+      "name": "size=xs, variant=solid, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44062",
+      "name": "size=sm, variant=solid, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44070",
+      "name": "size=md, variant=solid, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44080",
+      "name": "size=lg, variant=solid, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44094",
+      "name": "size=xs, variant=solid, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44100",
+      "name": "size=sm, variant=solid, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44112",
+      "name": "size=md, variant=solid, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44124",
+      "name": "size=lg, variant=solid, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44050",
+      "name": "size=xs, variant=subtle, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44060",
+      "name": "size=sm, variant=subtle, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44066",
+      "name": "size=md, variant=subtle, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44078",
+      "name": "size=lg, variant=subtle, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44090",
+      "name": "size=xs, variant=subtle, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44104",
+      "name": "size=sm, variant=subtle, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44114",
+      "name": "size=md, variant=subtle, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44122",
+      "name": "size=lg, variant=subtle, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44054",
+      "name": "size=xs, variant=surface, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44056",
+      "name": "size=sm, variant=surface, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44068",
+      "name": "size=md, variant=surface, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44082",
+      "name": "size=lg, variant=surface, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44086",
+      "name": "size=xs, variant=surface, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44102",
+      "name": "size=sm, variant=surface, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44110",
+      "name": "size=md, variant=surface, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44116",
+      "name": "size=lg, variant=surface, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44048",
+      "name": "size=xs, variant=outline, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44064",
+      "name": "size=sm, variant=outline, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44072",
+      "name": "size=md, variant=outline, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44076",
+      "name": "size=lg, variant=outline, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44088",
+      "name": "size=xs, variant=outline, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44098",
+      "name": "size=sm, variant=outline, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44108",
+      "name": "size=md, variant=outline, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44118",
+      "name": "size=lg, variant=outline, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44046",
+      "name": "size=xs, variant=ghost, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44058",
+      "name": "size=sm, variant=ghost, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44074",
+      "name": "size=md, variant=ghost, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44084",
+      "name": "size=lg, variant=ghost, state=default, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44092",
+      "name": "size=xs, variant=ghost, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44096",
+      "name": "size=sm, variant=ghost, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44106",
+      "name": "size=md, variant=ghost, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44120",
+      "name": "size=lg, variant=ghost, state=hover, colorPalette=cyan",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "cyan"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44260",
+      "name": "size=xs, variant=solid, state=default, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44264",
+      "name": "size=sm, variant=solid, state=default, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44278",
+      "name": "size=md, variant=solid, state=default, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44288",
+      "name": "size=lg, variant=solid, state=default, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44298",
+      "name": "size=xs, variant=solid, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44308",
+      "name": "size=sm, variant=solid, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44322",
+      "name": "size=md, variant=solid, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44330",
+      "name": "size=lg, variant=solid, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44258",
+      "name": "size=xs, variant=subtle, state=default, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44268",
+      "name": "size=sm, variant=subtle, state=default, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44282",
+      "name": "size=md, variant=subtle, state=default, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44284",
+      "name": "size=lg, variant=subtle, state=default, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44300",
+      "name": "size=xs, variant=subtle, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44304",
+      "name": "size=sm, variant=subtle, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44314",
+      "name": "size=md, variant=subtle, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44326",
+      "name": "size=lg, variant=subtle, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44262",
+      "name": "size=xs, variant=surface, state=default, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44272",
+      "name": "size=sm, variant=surface, state=default, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44274",
+      "name": "size=md, variant=surface, state=default, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44286",
+      "name": "size=lg, variant=surface, state=default, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44296",
+      "name": "size=xs, variant=surface, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44312",
+      "name": "size=sm, variant=surface, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44318",
+      "name": "size=md, variant=surface, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44324",
+      "name": "size=lg, variant=surface, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44254",
+      "name": "size=xs, variant=outline, state=default, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44266",
+      "name": "size=sm, variant=outline, state=default, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44280",
+      "name": "size=md, variant=outline, state=default, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44290",
+      "name": "size=lg, variant=outline, state=default, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44302",
+      "name": "size=xs, variant=outline, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44310",
+      "name": "size=sm, variant=outline, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44316",
+      "name": "size=md, variant=outline, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44328",
+      "name": "size=lg, variant=outline, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44256",
+      "name": "size=xs, variant=ghost, state=default, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44270",
+      "name": "size=sm, variant=ghost, state=default, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44276",
+      "name": "size=md, variant=ghost, state=default, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44292",
+      "name": "size=lg, variant=ghost, state=default, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44294",
+      "name": "size=xs, variant=ghost, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44306",
+      "name": "size=sm, variant=ghost, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44320",
+      "name": "size=md, variant=ghost, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44332",
+      "name": "size=lg, variant=ghost, state=hover, colorPalette=blue",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "blue"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44462",
+      "name": "size=xs, variant=solid, state=default, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44474",
+      "name": "size=sm, variant=solid, state=default, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44476",
+      "name": "size=md, variant=solid, state=default, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44492",
+      "name": "size=lg, variant=solid, state=default, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44496",
+      "name": "size=xs, variant=solid, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44514",
+      "name": "size=sm, variant=solid, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44520",
+      "name": "size=md, variant=solid, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44526",
+      "name": "size=lg, variant=solid, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44458",
+      "name": "size=xs, variant=subtle, state=default, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44472",
+      "name": "size=sm, variant=subtle, state=default, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44480",
+      "name": "size=md, variant=subtle, state=default, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44490",
+      "name": "size=lg, variant=subtle, state=default, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44500",
+      "name": "size=xs, variant=subtle, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44510",
+      "name": "size=sm, variant=subtle, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44516",
+      "name": "size=md, variant=subtle, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44528",
+      "name": "size=lg, variant=subtle, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44460",
+      "name": "size=xs, variant=surface, state=default, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44466",
+      "name": "size=sm, variant=surface, state=default, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44484",
+      "name": "size=md, variant=surface, state=default, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44494",
+      "name": "size=lg, variant=surface, state=default, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44502",
+      "name": "size=xs, variant=surface, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44512",
+      "name": "size=sm, variant=surface, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44522",
+      "name": "size=md, variant=surface, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44532",
+      "name": "size=lg, variant=surface, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44456",
+      "name": "size=xs, variant=outline, state=default, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44470",
+      "name": "size=sm, variant=outline, state=default, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44478",
+      "name": "size=md, variant=outline, state=default, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44486",
+      "name": "size=lg, variant=outline, state=default, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44504",
+      "name": "size=xs, variant=outline, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44508",
+      "name": "size=sm, variant=outline, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44524",
+      "name": "size=md, variant=outline, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44530",
+      "name": "size=lg, variant=outline, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44464",
+      "name": "size=xs, variant=ghost, state=default, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44468",
+      "name": "size=sm, variant=ghost, state=default, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44482",
+      "name": "size=md, variant=ghost, state=default, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44488",
+      "name": "size=lg, variant=ghost, state=default, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44498",
+      "name": "size=xs, variant=ghost, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44506",
+      "name": "size=sm, variant=ghost, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44518",
+      "name": "size=md, variant=ghost, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44534",
+      "name": "size=lg, variant=ghost, state=hover, colorPalette=teal",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "teal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44674",
+      "name": "size=xs, variant=solid, state=default, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44686",
+      "name": "size=sm, variant=solid, state=default, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44694",
+      "name": "size=md, variant=solid, state=default, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44710",
+      "name": "size=lg, variant=solid, state=default, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44722",
+      "name": "size=xs, variant=solid, state=hover, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44732",
+      "name": "size=sm, variant=solid, state=hover, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44736",
+      "name": "size=md, variant=solid, state=hover, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44744",
+      "name": "size=lg, variant=solid, state=hover, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44678",
+      "name": "size=xs, variant=subtle, state=default, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44684",
+      "name": "size=sm, variant=subtle, state=default, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44702",
+      "name": "size=md, variant=subtle, state=default, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44706",
+      "name": "size=lg, variant=subtle, state=default, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44716",
+      "name": "size=xs, variant=subtle, state=hover, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44726",
+      "name": "size=sm, variant=subtle, state=hover, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44742",
+      "name": "size=md, variant=subtle, state=hover, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44752",
+      "name": "size=lg, variant=subtle, state=hover, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44682",
+      "name": "size=xs, variant=surface, state=default, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44692",
+      "name": "size=sm, variant=surface, state=default, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44698",
+      "name": "size=md, variant=surface, state=default, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44708",
+      "name": "size=lg, variant=surface, state=default, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44718",
+      "name": "size=xs, variant=surface, state=hover, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44730",
+      "name": "size=sm, variant=surface, state=hover, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44738",
+      "name": "size=md, variant=surface, state=hover, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44746",
+      "name": "size=lg, variant=surface, state=hover, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44676",
+      "name": "size=xs, variant=outline, state=default, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44690",
+      "name": "size=sm, variant=outline, state=default, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44700",
+      "name": "size=md, variant=outline, state=default, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44712",
+      "name": "size=lg, variant=outline, state=default, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44720",
+      "name": "size=xs, variant=outline, state=hover, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44724",
+      "name": "size=sm, variant=outline, state=hover, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44740",
+      "name": "size=md, variant=outline, state=hover, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44750",
+      "name": "size=lg, variant=outline, state=hover, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44680",
+      "name": "size=xs, variant=ghost, state=default, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44688",
+      "name": "size=sm, variant=ghost, state=default, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44696",
+      "name": "size=md, variant=ghost, state=default, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44704",
+      "name": "size=lg, variant=ghost, state=default, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44714",
+      "name": "size=xs, variant=ghost, state=hover, colorPalette=green",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44728",
+      "name": "size=sm, variant=ghost, state=hover, colorPalette=green",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44734",
+      "name": "size=md, variant=ghost, state=hover, colorPalette=green",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44748",
+      "name": "size=lg, variant=ghost, state=hover, colorPalette=green",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "green"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44868",
+      "name": "size=xs, variant=solid, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44880",
+      "name": "size=sm, variant=solid, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44888",
+      "name": "size=md, variant=solid, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44900",
+      "name": "size=lg, variant=solid, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44910",
+      "name": "size=xs, variant=solid, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44922",
+      "name": "size=sm, variant=solid, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44932",
+      "name": "size=md, variant=solid, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44938",
+      "name": "size=lg, variant=solid, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44872",
+      "name": "size=xs, variant=subtle, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44878",
+      "name": "size=sm, variant=subtle, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44894",
+      "name": "size=md, variant=subtle, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44904",
+      "name": "size=lg, variant=subtle, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44908",
+      "name": "size=xs, variant=subtle, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44918",
+      "name": "size=sm, variant=subtle, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44930",
+      "name": "size=md, variant=subtle, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44940",
+      "name": "size=lg, variant=subtle, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44874",
+      "name": "size=xs, variant=surface, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44884",
+      "name": "size=sm, variant=surface, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44890",
+      "name": "size=md, variant=surface, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44902",
+      "name": "size=lg, variant=surface, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44912",
+      "name": "size=xs, variant=surface, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44924",
+      "name": "size=sm, variant=surface, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44936",
+      "name": "size=md, variant=surface, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44944",
+      "name": "size=lg, variant=surface, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44876",
+      "name": "size=xs, variant=outline, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44886",
+      "name": "size=sm, variant=outline, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44896",
+      "name": "size=md, variant=outline, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44906",
+      "name": "size=lg, variant=outline, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44914",
+      "name": "size=xs, variant=outline, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44920",
+      "name": "size=sm, variant=outline, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44928",
+      "name": "size=md, variant=outline, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44942",
+      "name": "size=lg, variant=outline, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44870",
+      "name": "size=xs, variant=ghost, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44882",
+      "name": "size=sm, variant=ghost, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44892",
+      "name": "size=md, variant=ghost, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44898",
+      "name": "size=lg, variant=ghost, state=default, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44916",
+      "name": "size=xs, variant=ghost, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44926",
+      "name": "size=sm, variant=ghost, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44934",
+      "name": "size=md, variant=ghost, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:44946",
+      "name": "size=lg, variant=ghost, state=hover, colorPalette=yellow",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "yellow"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45072",
+      "name": "size=xs, variant=solid, state=default, colorPalette=orange",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45074",
+      "name": "size=sm, variant=solid, state=default, colorPalette=orange",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45084",
+      "name": "size=md, variant=solid, state=default, colorPalette=orange",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45098",
+      "name": "size=lg, variant=solid, state=default, colorPalette=orange",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45112",
+      "name": "size=xs, variant=solid, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "xs",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45122",
+      "name": "size=sm, variant=solid, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "sm",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45128",
+      "name": "size=md, variant=solid, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "md",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45134",
+      "name": "size=lg, variant=solid, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "lg",
+        "variant": "solid",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45066",
+      "name": "size=xs, variant=subtle, state=default, colorPalette=orange",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45076",
+      "name": "size=sm, variant=subtle, state=default, colorPalette=orange",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45092",
+      "name": "size=md, variant=subtle, state=default, colorPalette=orange",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45096",
+      "name": "size=lg, variant=subtle, state=default, colorPalette=orange",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45106",
+      "name": "size=xs, variant=subtle, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "xs",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45114",
+      "name": "size=sm, variant=subtle, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45124",
+      "name": "size=md, variant=subtle, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45140",
+      "name": "size=lg, variant=subtle, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45070",
+      "name": "size=xs, variant=surface, state=default, colorPalette=orange",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45080",
+      "name": "size=sm, variant=surface, state=default, colorPalette=orange",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45090",
+      "name": "size=md, variant=surface, state=default, colorPalette=orange",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45102",
+      "name": "size=lg, variant=surface, state=default, colorPalette=orange",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45104",
+      "name": "size=xs, variant=surface, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "xs",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45120",
+      "name": "size=sm, variant=surface, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "sm",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45130",
+      "name": "size=md, variant=surface, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "md",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45136",
+      "name": "size=lg, variant=surface, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "lg",
+        "variant": "surface",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45068",
+      "name": "size=xs, variant=outline, state=default, colorPalette=orange",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45082",
+      "name": "size=sm, variant=outline, state=default, colorPalette=orange",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45086",
+      "name": "size=md, variant=outline, state=default, colorPalette=orange",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45094",
+      "name": "size=lg, variant=outline, state=default, colorPalette=orange",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45110",
+      "name": "size=xs, variant=outline, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "xs",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45118",
+      "name": "size=sm, variant=outline, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45126",
+      "name": "size=md, variant=outline, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45138",
+      "name": "size=lg, variant=outline, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45064",
+      "name": "size=xs, variant=ghost, state=default, colorPalette=orange",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45078",
+      "name": "size=sm, variant=ghost, state=default, colorPalette=orange",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45088",
+      "name": "size=md, variant=ghost, state=default, colorPalette=orange",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45100",
+      "name": "size=lg, variant=ghost, state=default, colorPalette=orange",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "default",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45108",
+      "name": "size=xs, variant=ghost, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "xs",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45116",
+      "name": "size=sm, variant=ghost, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "sm",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45132",
+      "name": "size=md, variant=ghost, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "md",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "417:45142",
+      "name": "size=lg, variant=ghost, state=hover, colorPalette=orange",
+      "properties": {
+        "size": "lg",
+        "variant": "ghost",
+        "state": "hover",
+        "colorPalette": "orange"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 400
+}

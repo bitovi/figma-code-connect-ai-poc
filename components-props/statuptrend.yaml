@@ -1,0 +1,12 @@
+componentName: StatUpTrend
+filePath: chakra-ui/apps/compositions/src/ui/stat.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/stat.tsx
+exportType: forwardRef
+exportName: StatUpTrend
+interfaceName: StatUpTrendProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

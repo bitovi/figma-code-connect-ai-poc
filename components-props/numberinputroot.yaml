@@ -1,0 +1,12 @@
+componentName: NumberInputRoot
+filePath: chakra-ui/apps/compositions/src/ui/number-input.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/number-input.tsx
+exportType: forwardRef
+exportName: NumberInputRoot
+interfaceName: NumberInputRootProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

@@ -1,0 +1,111 @@
+componentSetId: "361:2072"
+componentName: "Timeline"
+description: ""
+variantProperties:
+  size:
+  - lg
+  - md
+  - sm
+  - xl
+  variant:
+  - outline
+  - solid
+  - subtle
+variants:
+- 
+  variantId: "361:2033"
+  name: "size=sm, variant=subtle"
+  properties:
+    size: "sm"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "363:3713"
+  name: "size=sm, variant=solid"
+  properties:
+    size: "sm"
+    variant: "solid"
+  description: ""
+  key: ""
+- 
+  variantId: "363:5683"
+  name: "size=sm, variant=outline"
+  properties:
+    size: "sm"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "361:2315"
+  name: "size=md, variant=subtle"
+  properties:
+    size: "md"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "363:5695"
+  name: "size=md, variant=outline"
+  properties:
+    size: "md"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "362:3152"
+  name: "size=xl, variant=subtle"
+  properties:
+    size: "xl"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "363:3725"
+  name: "size=xl, variant=solid"
+  properties:
+    size: "xl"
+    variant: "solid"
+  description: ""
+  key: ""
+- 
+  variantId: "363:5701"
+  name: "size=xl, variant=outline"
+  properties:
+    size: "xl"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "362:2999"
+  name: "size=lg, variant=subtle"
+  properties:
+    size: "lg"
+    variant: "subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "363:3731"
+  name: "size=lg, variant=solid"
+  properties:
+    size: "lg"
+    variant: "solid"
+  description: ""
+  key: ""
+- 
+  variantId: "363:5689"
+  name: "size=lg, variant=outline"
+  properties:
+    size: "lg"
+    variant: "outline"
+  description: ""
+  key: ""
+- 
+  variantId: "363:3719"
+  name: "size=md, variant=solid"
+  properties:
+    size: "md"
+    variant: "solid"
+  description: ""
+  key: ""
+totalVariants: 12

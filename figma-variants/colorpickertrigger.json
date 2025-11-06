@@ -1,0 +1,42 @@
+{
+  "componentSetId": "482:15749",
+  "componentName": "ColorPickerTrigger",
+  "description": "",
+  "variantProperties": {
+    "state": [
+      "default",
+      "disabled",
+      "focus"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "482:15344",
+      "name": "state=default",
+      "properties": {
+        "state": "default"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "482:15753",
+      "name": "state=focus",
+      "properties": {
+        "state": "focus"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "482:15750",
+      "name": "state=disabled",
+      "properties": {
+        "state": "disabled"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 3
+}

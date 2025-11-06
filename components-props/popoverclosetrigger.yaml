@@ -1,0 +1,12 @@
+componentName: PopoverCloseTrigger
+filePath: chakra-ui/apps/compositions/src/ui/popover.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/popover.tsx
+exportType: forwardRef
+exportName: PopoverCloseTrigger
+interfaceName: PopoverCloseTriggerProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

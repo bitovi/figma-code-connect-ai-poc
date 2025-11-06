@@ -1,0 +1,12 @@
+componentName: CloseButton
+filePath: chakra-ui/apps/compositions/src/ui/close-button.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/close-button.tsx
+exportType: forwardRef
+exportName: CloseButton
+interfaceName: CloseButtonProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

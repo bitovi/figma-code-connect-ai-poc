@@ -1,0 +1,12 @@
+componentName: CarouselIndicators
+filePath: chakra-ui/apps/compositions/src/ui/carousel.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/carousel.tsx
+exportType: forwardRef
+exportName: CarouselIndicators
+interfaceName: CarouselIndicatorsProps
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

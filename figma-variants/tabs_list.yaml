@@ -1,0 +1,136 @@
+componentSetId: "442:5699"
+componentName: "Tabs.List"
+description: ""
+variantProperties:
+  size:
+  - lg
+  - md
+  - sm
+  variant:
+  - Enclosed
+  - Line
+  - Outline
+  - Plain
+  - Subtle
+variants:
+- 
+  variantId: "442:5698"
+  name: "size=sm, variant=Line"
+  properties:
+    size: "sm"
+    variant: "Line"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6598"
+  name: "size=sm, variant=Plain"
+  properties:
+    size: "sm"
+    variant: "Plain"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6184"
+  name: "size=sm, variant=Subtle"
+  properties:
+    size: "sm"
+    variant: "Subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6322"
+  name: "size=sm, variant=Outline"
+  properties:
+    size: "sm"
+    variant: "Outline"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6460"
+  name: "size=sm, variant=Enclosed"
+  properties:
+    size: "sm"
+    variant: "Enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "442:5700"
+  name: "size=md, variant=Line"
+  properties:
+    size: "md"
+    variant: "Line"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6604"
+  name: "size=md, variant=Plain"
+  properties:
+    size: "md"
+    variant: "Plain"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6190"
+  name: "size=md, variant=Subtle"
+  properties:
+    size: "md"
+    variant: "Subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6328"
+  name: "size=md, variant=Outline"
+  properties:
+    size: "md"
+    variant: "Outline"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6466"
+  name: "size=md, variant=Enclosed"
+  properties:
+    size: "md"
+    variant: "Enclosed"
+  description: ""
+  key: ""
+- 
+  variantId: "442:5746"
+  name: "size=lg, variant=Line"
+  properties:
+    size: "lg"
+    variant: "Line"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6610"
+  name: "size=lg, variant=Plain"
+  properties:
+    size: "lg"
+    variant: "Plain"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6196"
+  name: "size=lg, variant=Subtle"
+  properties:
+    size: "lg"
+    variant: "Subtle"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6334"
+  name: "size=lg, variant=Outline"
+  properties:
+    size: "lg"
+    variant: "Outline"
+  description: ""
+  key: ""
+- 
+  variantId: "442:6472"
+  name: "size=lg, variant=Enclosed"
+  properties:
+    size: "lg"
+    variant: "Enclosed"
+  description: ""
+  key: ""
+totalVariants: 15

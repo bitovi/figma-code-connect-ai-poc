@@ -1,0 +1,12 @@
+componentName: PopoverTrigger
+filePath: chakra-ui/apps/compositions/src/ui/popover.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/popover.tsx
+exportType: null
+exportName: PopoverTrigger
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

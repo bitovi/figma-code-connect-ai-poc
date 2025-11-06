@@ -1,0 +1,20 @@
+componentName: TagsInputControl
+filePath: chakra-ui/apps/compositions/src/ui/tags-input.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/tags-input.tsx
+exportType: forwardRef
+exportName: TagsInputControl
+interfaceName: TagsInputControlProps
+extendsInterface: ChakraTagsInput.ControlProps
+description: ""
+props:
+  - name: clearable
+    type: boolean
+    required: false
+    defaultValue: null
+    description: ""
+    category: other
+    unionValues: []
+variantProperties: {}
+totalProps: 1
+potentialFigmaMapping:
+  clearable: figma.boolean

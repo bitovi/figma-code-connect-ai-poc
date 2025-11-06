@@ -1,0 +1,12 @@
+componentName: RadioCardRoot
+filePath: chakra-ui/apps/compositions/src/ui/radio-card.tsx
+relativePath: ./chakra-ui/apps/compositions/src/ui/radio-card.tsx
+exportType: null
+exportName: RadioCardRoot
+interfaceName: ""
+extendsInterface: ""
+description: ""
+props: []
+variantProperties: {}
+totalProps: 0
+potentialFigmaMapping: {}

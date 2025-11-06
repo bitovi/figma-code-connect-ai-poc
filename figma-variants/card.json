@@ -1,0 +1,222 @@
+{
+  "componentSetId": "339:15634",
+  "componentName": "Card",
+  "description": "",
+  "variantProperties": {
+    "size": [
+      "lg",
+      "md",
+      "sm"
+    ],
+    "variant": [
+      "elevated",
+      "outline",
+      "subtle"
+    ],
+    "orientation": [
+      "horizontal",
+      "vertical"
+    ]
+  },
+  "variants": [
+    {
+      "variantId": "339:15631",
+      "name": "size=sm, variant=elevated, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "variant": "elevated",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:16034",
+      "name": "size=sm, variant=elevated, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "variant": "elevated",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:15914",
+      "name": "size=sm, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:16043",
+      "name": "size=sm, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:15992",
+      "name": "size=sm, variant=subtle, orientation=vertical",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:16052",
+      "name": "size=sm, variant=subtle, orientation=horizontal",
+      "properties": {
+        "size": "sm",
+        "variant": "subtle",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "339:15635",
+      "name": "size=md, variant=elevated, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "variant": "elevated",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:16061",
+      "name": "size=md, variant=elevated, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "variant": "elevated",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:15923",
+      "name": "size=md, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:16070",
+      "name": "size=md, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:15983",
+      "name": "size=md, variant=subtle, orientation=vertical",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:16079",
+      "name": "size=md, variant=subtle, orientation=horizontal",
+      "properties": {
+        "size": "md",
+        "variant": "subtle",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:15892",
+      "name": "size=lg, variant=elevated, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "variant": "elevated",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:16088",
+      "name": "size=lg, variant=elevated, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "variant": "elevated",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:15932",
+      "name": "size=lg, variant=outline, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:16097",
+      "name": "size=lg, variant=outline, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "variant": "outline",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:15974",
+      "name": "size=lg, variant=subtle, orientation=vertical",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "orientation": "vertical"
+      },
+      "description": "",
+      "key": ""
+    },
+    {
+      "variantId": "342:16106",
+      "name": "size=lg, variant=subtle, orientation=horizontal",
+      "properties": {
+        "size": "lg",
+        "variant": "subtle",
+        "orientation": "horizontal"
+      },
+      "description": "",
+      "key": ""
+    }
+  ],
+  "totalVariants": 18
+}
