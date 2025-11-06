@@ -23,7 +23,8 @@ const DEFAULT_CONFIG = {
   dryRun: false,
   verbose: false,
   overwrite: false,
-  filter: null
+  filter: null,
+  recipesPath: 'chakra-ui/packages/react/src/theme/recipes'
 };
 
 // Prop classification system
@@ -144,9 +145,166 @@ function scanDirectory(inputPath) {
 }
 
 /**
+ * Scan and parse recipe files to extract variant definitions
+ */
+function scanRecipeDirectory(recipesPath) {
+  const recipeCache = new Map();
+  
+  if (!fs.existsSync(recipesPath)) {
+    console.warn(`⚠️  Recipes directory not found: ${recipesPath}`);
+    return recipeCache;
+  }
+  
+  const pattern = path.join(recipesPath, '**/*.{ts,tsx}');
+  const files = glob.sync(pattern, { absolute: true });
+  
+  console.log(`🔍 Recipe scanning debug: Found ${files.length} files in ${recipesPath}`);
+  if (process.env.DEBUG) {
+    files.forEach(f => console.log(`   File: ${path.relative(process.cwd(), f)}`));
+  }
+  
+  for (const file of files) {
+    try {
+      const content = fs.readFileSync(file, 'utf8');
+      const ast = parse(content, {
+        jsx: true,
+        useJSXTextNode: true,
+        errorOnUnknownASTType: false,
+        errorOnTypeScriptSyntacticAndSemanticIssues: false
+      });
+      
+      // Extract recipe definitions
+      ast.body.forEach(node => {
+        if (process.env.DEBUG) {
+          console.log(`    Node type: ${node.type}`);
+        }
+        
+        if (node.type === 'VariableDeclaration') {
+          node.declarations.forEach(declarator => {
+            if (process.env.DEBUG) {
+              console.log(`  🔍 Found variable declaration: ${declarator?.id?.name}`);
+            }
+            if (declarator?.id?.name && declarator.id.name.endsWith('Recipe')) {
+              const recipeName = declarator.id.name.replace('Recipe', '').toLowerCase();
+              const variants = extractRecipeVariants(declarator.init);
+              
+              if (variants && Object.keys(variants).length > 0) {
+                recipeCache.set(recipeName, {
+                  name: recipeName,
+                  file: path.relative(process.cwd(), file),
+                  variants
+                });
+                
+                if (process.env.DEBUG) {
+                  console.log(`🍳 Found recipe: ${recipeName} with variants:`, Object.keys(variants));
+                }
+              }
+            }
+          });
+        } else if (node.type === 'ExportNamedDeclaration' && node.declaration) {
+          // Handle exported const declarations
+          if (node.declaration.type === 'VariableDeclaration') {
+            node.declaration.declarations.forEach(declarator => {
+              if (process.env.DEBUG) {
+                console.log(`  🔍 Found exported variable: ${declarator?.id?.name}`);
+              }
+              if (declarator?.id?.name && declarator.id.name.endsWith('Recipe')) {
+                const recipeName = declarator.id.name.replace('Recipe', '').toLowerCase();
+                const variants = extractRecipeVariants(declarator.init);
+                
+                if (variants && Object.keys(variants).length > 0) {
+                  recipeCache.set(recipeName, {
+                    name: recipeName,
+                    file: path.relative(process.cwd(), file),
+                    variants
+                  });
+                  
+                  if (process.env.DEBUG) {
+                    console.log(`🍳 Found recipe: ${recipeName} with variants:`, Object.keys(variants));
+                  }
+                }
+              }
+            });
+          }
+        }
+      });
+      
+    } catch (error) {
+      console.warn(`⚠️  Failed to parse recipe file ${file}:`, error.message);
+    }
+  }
+  
+  return recipeCache;
+}
+
+/**
+ * Extract variant definitions from a recipe object
+ */
+function extractRecipeVariants(recipeNode) {
+  if (!recipeNode || recipeNode.type !== 'CallExpression') {
+    return {};
+  }
+  
+  // Look for defineRecipe call
+  if (recipeNode.callee?.name === 'defineRecipe' && recipeNode.arguments[0]) {
+    const configObject = recipeNode.arguments[0];
+    
+    if (configObject.type === 'ObjectExpression') {
+      const variantsProperty = configObject.properties.find(
+        prop => prop.key?.name === 'variants'
+      );
+      
+      if (variantsProperty && variantsProperty.value.type === 'ObjectExpression') {
+        const variants = {};
+        
+        variantsProperty.value.properties.forEach(variantProp => {
+          if (variantProp.key?.name) {
+            const variantName = variantProp.key.name;
+            const variantValues = extractVariantValues(variantProp.value);
+            
+            if (variantValues.length > 0) {
+              variants[variantName] = {
+                type: 'enum',
+                values: variantValues,
+                required: false // Most recipe variants are optional
+              };
+            }
+          }
+        });
+        
+        return variants;
+      }
+    }
+  }
+  
+  return {};
+}
+
+/**
+ * Extract variant values from a variant definition
+ */
+function extractVariantValues(variantNode) {
+  const values = [];
+  
+  if (variantNode.type === 'ObjectExpression') {
+    variantNode.properties.forEach(prop => {
+      if (prop.key) {
+        if (prop.key.type === 'Identifier') {
+          values.push(prop.key.name);
+        } else if (prop.key.type === 'Literal') {
+          values.push(prop.key.value);
+        }
+      }
+    });
+  }
+  
+  return values;
+}
+
+/**
  * Extract component information from a TypeScript file
  */
-function parseComponent(filePath) {
+function parseComponent(filePath, recipeCache = new Map()) {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
     const ast = parse(content, {
@@ -189,7 +347,7 @@ function parseComponent(filePath) {
     
     // Extract component exports
     ast.body.forEach(node => {
-      const component = extractComponentFromNode(node, interfaces, filePath);
+      const component = extractComponentFromNode(node, interfaces, filePath, recipeCache);
       if (component) {
         components.push(component);
       }
@@ -206,7 +364,7 @@ function parseComponent(filePath) {
 /**
  * Extract component data from an AST node
  */
-function extractComponentFromNode(node, interfaces, filePath) {
+function extractComponentFromNode(node, interfaces, filePath, recipeCache = new Map()) {
   let componentName = null;
   let exportType = null;
   let interfaceName = null;
@@ -218,7 +376,7 @@ function extractComponentFromNode(node, interfaces, filePath) {
     if (decl.type === 'VariableDeclaration') {
       // export const ComponentName = ...
       const declarator = decl.declarations[0];
-      if (declarator && declarator.id) {
+      if (declarator?.id) {
         componentName = declarator.id.name;
         
         // Check if it's a React.forwardRef or forwardRef
@@ -253,6 +411,7 @@ function extractComponentFromNode(node, interfaces, filePath) {
   const props = [];
   const variantProperties = {};
   let extendsInterface = null;
+  let recipeVariants = [];
   
   if (interfaceName && interfaces.has(interfaceName)) {
     const interfaceNode = interfaces.get(interfaceName);
@@ -272,10 +431,11 @@ function extractComponentFromNode(node, interfaces, filePath) {
       console.log('  Has extends:', !!interfaceNode.extends);
     }
     
-    const extractedProps = extractPropsFromInterface(interfaceNode);
+    const extractedProps = extractPropsFromInterface(interfaceNode, recipeCache, componentName);
     props.push(...extractedProps.props);
     Object.assign(variantProperties, extractedProps.variantProperties);
     extendsInterface = extractedProps.extendsInterface;
+    recipeVariants = extractedProps.recipeVariants || [];
   }
   
   // Generate relative path
@@ -292,8 +452,9 @@ function extractComponentFromNode(node, interfaces, filePath) {
     description: "", // TODO: Extract JSDoc comments
     props,
     variantProperties,
+    recipeVariants,
     totalProps: props.length,
-    potentialFigmaMapping: generateFigmaMapping(props)
+    potentialFigmaMapping: generateFigmaMapping(props.concat(recipeVariants))
   };
 }
 
@@ -326,16 +487,52 @@ function isFunctionExpression(node) {
 /**
  * Extract props from an interface or type node
  */
-function extractPropsFromInterface(interfaceNode) {
+function extractPropsFromInterface(interfaceNode, recipeCache = new Map(), componentName = '') {
   const props = [];
   const variantProperties = {};
   let extendsInterface = null;
+  let recipeVariants = [];
   
   // Check for extends clause
   if (interfaceNode.extends && interfaceNode.extends.length > 0) {
     const extendedType = interfaceNode.extends[0];
     if (extendedType.expression) {
       extendsInterface = getTypeString(extendedType.expression);
+      
+      // Check if this extends RecipeProps<"componentName">
+      if (extendsInterface.includes('RecipeProps')) {
+        const recipeMatch = extendsInterface.match(/RecipeProps<["']([^"']+)["']>/);
+        if (recipeMatch) {
+          const recipeName = recipeMatch[1].toLowerCase();
+          
+          if (recipeCache.has(recipeName)) {
+            const recipe = recipeCache.get(recipeName);
+            
+            // Convert recipe variants to props format
+            for (const [variantName, variantDef] of Object.entries(recipe.variants)) {
+              const recipeProp = {
+                name: variantName,
+                type: variantDef.type === 'enum' ? variantDef.values.map(v => `"${v}"`).join(' | ') : variantDef.type,
+                required: variantDef.required || false,
+                defaultValue: null,
+                description: `Recipe variant: ${variantName}`,
+                category: 'variant',
+                unionValues: variantDef.values || [],
+                source: 'recipe'
+              };
+              
+              recipeVariants.push(recipeProp);
+              variantProperties[variantName] = variantDef.values || [];
+            }
+            
+            if (process.env.DEBUG) {
+              console.log(`🍳 Resolved RecipeProps<"${recipeName}"> with variants:`, Object.keys(recipe.variants));
+            }
+          } else {
+            console.warn(`⚠️  Recipe "${recipeName}" not found in cache for component ${componentName}`);
+          }
+        }
+      }
     }
   }
   
@@ -394,7 +591,7 @@ function extractPropsFromInterface(interfaceNode) {
     }
   }
   
-  return { props, variantProperties, extendsInterface };
+  return { props, variantProperties, extendsInterface, recipeVariants };
 }
 
 /**
@@ -513,8 +710,9 @@ function generateComponentYAML(componentData) {
     extendsInterface: componentData.extendsInterface || "",
     description: componentData.description || "",
     props: componentData.props || [],
+    recipeVariants: componentData.recipeVariants || [],
     variantProperties: componentData.variantProperties || {},
-    totalProps: componentData.totalProps || 0,
+    totalProps: (componentData.props?.length || 0) + (componentData.recipeVariants?.length || 0),
     potentialFigmaMapping: componentData.potentialFigmaMapping || {}
   };
 }
@@ -563,6 +761,18 @@ async function extractComponentProps(config) {
     process.exit(1);
   }
   
+  // Scan for recipe definitions first
+  console.log('🍳 Scanning for recipe definitions...');
+  const recipeCache = scanRecipeDirectory(config.recipesPath);
+  console.log(`📚 Found ${recipeCache.size} recipe definitions`);
+  
+  if (config.verbose && recipeCache.size > 0) {
+    console.log('   Recipe variants loaded:');
+    for (const [name, recipe] of recipeCache.entries()) {
+      console.log(`     ${name}: ${Object.keys(recipe.variants).join(', ')}`);
+    }
+  }
+  
   // Scan for files
   const files = scanDirectory(config.input);
   console.log(`📁 Found ${files.length} TypeScript files in ${config.input}`);
@@ -581,7 +791,7 @@ async function extractComponentProps(config) {
       console.log(`\n🔄 Processing: ${path.relative(process.cwd(), file)}`);
     }
     
-    const components = parseComponent(file);
+    const components = parseComponent(file, recipeCache);
     
     for (const component of components) {
       // Apply filter if specified
@@ -595,6 +805,7 @@ async function extractComponentProps(config) {
         console.log(`  📦 Found component: ${component.componentName}`);
         console.log(`     Props: ${component.props.length}`);
         console.log(`     Interface: ${component.interfaceName || 'none'}`);
+        console.log(`     Recipe variants: ${component.recipeVariants?.length || 0}`);
         
         if (Object.keys(component.variantProperties).length > 0) {
           console.log(`     Variants: ${Object.keys(component.variantProperties).join(', ')}`);
