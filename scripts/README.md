@@ -2,7 +2,7 @@
 
 This directory contains utility scripts for working with Figma Code Connect configuration and component data extraction.
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Available Scripts](#available-scripts)
@@ -11,7 +11,7 @@ This directory contains utility scripts for working with Figma Code Connect conf
 - [Examples](#examples)
 - [Troubleshooting](#troubleshooting)
 
-## 🎯 Overview
+## Overview
 
 This collection of scripts helps automate the process of:
 
@@ -19,7 +19,7 @@ This collection of scripts helps automate the process of:
 2. **Generating Figma Code Connect configurations**
 3. **Managing design system component mappings**
 
-## 🔧 Available Scripts
+## Available Scripts
 
 ### 1. `buildFigmaConfig.js` - Configuration Generator
 
@@ -27,11 +27,11 @@ This collection of scripts helps automate the process of:
 
 **Key Features**:
 
-- ✅ Beginner-friendly output with all configurable properties visible
-- ✅ Follows official Figma Code Connect standards
-- ✅ Supports command-line customization
-- ✅ Auto-generates `documentUrlSubstitutions` from YAML files
-- ✅ Proper node ID format conversion (colon to hyphen)
+- Beginner-friendly output with all configurable properties visible
+- Follows official Figma Code Connect standards
+- Supports command-line customization
+- Auto-generates `documentUrlSubstitutions` from YAML files
+- Proper node ID format conversion (colon to hyphen)
 
 ### 2. `fetchComponents.js` - Component Data Extractor
 
@@ -39,12 +39,12 @@ This collection of scripts helps automate the process of:
 
 **Key Features**:
 
-- ✅ Downloads all component variants from Figma
-- ✅ Supports multiple output formats (JSON, YAML, both)
-- ✅ Filters by page or specific components
-- ✅ Creates structured component metadata
+- Downloads all component variants from Figma
+- Supports multiple output formats (JSON, YAML, both)
+- Filters by page or specific components
+- Creates structured component metadata
 
-## ⚙️ Setup
+## Setup
 
 ### Prerequisites
 
@@ -66,7 +66,7 @@ FIGMA_FILE_KEY=your_figma_file_key_here
 From URL: `https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB/My-Design-System`
 File Key: `mgzCV3zD3iWpctEI6UoUhB`
 
-## 📖 Usage Guide
+## Usage Guide
 
 ### Building Figma Code Connect Configuration
 
@@ -147,7 +147,7 @@ node scripts/fetchComponents.js --format yaml --output ./components
 | `--format` | Output format: `json`, `yaml`, `both` | `--format both` |
 | `--output` | Output directory | `--output ./figma-variants` |
 
-## 🚀 Examples
+## Examples
 
 ### Example 1: Complete Workflow
 
@@ -194,7 +194,7 @@ node scripts/fetchComponents.js \
   --output ./button-variants
 ```
 
-## 🔍 Output Files
+## Output Files
 
 ### Generated YAML Files (from fetchComponents.js)
 
@@ -219,7 +219,7 @@ variants:
 - **Standards-compliant**: Follows official Figma documentation
 - **Customizable**: Populates with your values when provided
 
-## 🛠 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -273,7 +273,7 @@ Enable verbose logging by setting environment variable:
 DEBUG=1 node scripts/buildFigmaConfig.js --output console
 ```
 
-## 🎯 Best Practices
+## Best Practices
 
 ### 1. Workflow Recommendations
 
