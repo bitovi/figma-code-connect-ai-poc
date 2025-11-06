@@ -32,15 +32,15 @@ This project demonstrates automated Figma Code Connect integration using AI to b
 
 Update Figma file components to match Code Connect structure:
 
-- [ ] **Button Component**
-  - [ ] Recreate with proper variants matching `ButtonProps`
-  - [ ] Ensure variant properties align with code (size, variant, colorPalette, loading, disabled)
-  - [ ] Test Code Connect mapping
+- [x] **Button Component**
+  - [x] Recreate with proper variants matching `ButtonProps`
+  - [x] Ensure variant properties align with code (size, variant, colorPalette, loading, disabled)
+  - [x] Test Code Connect mapping
 
-- [ ] **Alert Component**
-  - [ ] Recreate with proper variants matching `AlertProps`
-  - [ ] Ensure variant properties align with code (startElement, endElement, title, icon)
-  - [ ] Test Code Connect mapping
+- [x] **Alert Component**
+  - [x] Recreate with proper variants matching `AlertProps`
+  - [x] Ensure variant properties align with code (startElement, endElement, title, icon)
+  - [x] Test Code Connect mapping
 
 - [ ] **Avatar Component**
   - [ ] Recreate with proper variants matching `AvatarProps`
