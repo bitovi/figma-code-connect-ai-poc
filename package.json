@@ -1,0 +1,19 @@
+{
+  "name": "figma-code-connect-ai-poc",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.1.30",
+    "@anthropic-ai/claude-code": "^2.0.35",
+    "@anthropic-ai/sdk": "^0.68.0",
+    "dotenv": "^17.2.3"
+  }
+}
