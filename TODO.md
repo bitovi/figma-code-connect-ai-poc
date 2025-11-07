@@ -52,22 +52,78 @@ Update Figma file components to match Code Connect structure:
   - [ ] Ensure variant properties align with code (variant, size, collapsible, etc.)
   - [ ] Test Code Connect mapping
 
+
+### Code Requirements
+
+- [ ] **Component Structure Organization**
+  - [ ] Reorganize project structure to group component artifacts together
+  - [ ] Create folder structure where each component has its own directory:
+
+    ```text
+    components/
+      button/
+        button.figma-variants.yaml
+        button.code-props.yaml
+      alert/
+        alert.figma-variants.yaml
+        alert.code-props.yaml
+      avatar/
+        avatar.figma-variants.yaml
+        avatar.code-props.yaml
+      accordion/
+        accordion.figma-variants.yaml
+        accordion.code-props.yaml
+    ```
+
+  - [ ] Migrate existing files from `figma-variants/` to new structure
+  - [ ] Migrate existing files from `components-props/` to new structure
+  - [ ] Update scripts to read/write from new organized structure
+  - [ ] Group primitive components under `components/primitives/` subfolder
+  - [ ] Benefits:
+    - All component artifacts in one place
+    - Easier to find related files
+    - Better scalability for large component libraries
+    - Clearer organization for automated Code Connect generation
+
 ### Design Requirements
 
-- [ ] Match extracted component props from `components-props/` YAML files
+- [ ] Match extracted component props from component folders (e.g., `components/button/button.code-props.yaml`)
 - [ ] Use consistent naming between Figma variants and code props
-- [ ] Ensure all boolean props have corresponding boolean variants
-- [ ] Align enum values between Figma and code
-- [ ] Test that Code Connect mappings work correctly
+- [ ] Ensure all boolean props have corresponding boolean variants in Figma
+- [ ] Align enum values between Figma variant options and code prop types
+- [ ] Document variant-to-prop mapping strategy for each component
+- [ ] Test that Code Connect mappings work correctly with new structure
+- [ ] Create Figma component naming convention guide
+- [ ] Ensure Figma component nodes match expected file structure
 
 ---
 
 ## Phase 4: Automated Code Connect Generation (PLANNED)
 
-- [ ] Create script to match `components-props/` with `figma-variants/`
-- [ ] Generate `.figma.tsx` Code Connect files automatically
-- [ ] Validate generated mappings
-- [ ] Test end-to-end workflow
+- [ ] **Script Development**
+  - [ ] Create script to scan organized `components/` folder structure
+  - [ ] Auto-match `*.code-props.yaml` with `*.figma-variants.yaml` per component
+  - [ ] Generate `.figma.tsx` Code Connect files
+  - [ ] Support both primitive and composite component types
+
+- [ ] **Mapping Logic**
+  - [ ] Implement intelligent prop-to-variant matching algorithm
+  - [ ] Handle type conversions (boolean, enum, string, number)
+  - [ ] Map nested props to nested Figma properties
+  - [ ] Generate proper import statements for component paths
+  - [ ] Handle optional vs required props correctly
+
+- [ ] **Validation & Testing**
+  - [ ] Validate generated `.figma.tsx` files against Code Connect schema
+  - [ ] Test mappings with Figma Dev Mode
+  - [ ] Verify all variants are properly mapped
+  - [ ] Create validation report for each component
+  - [ ] Test end-to-end workflow from code extraction to Figma connection
+
+- [ ] **Documentation**
+  - [ ] Document the automated generation process
+  - [ ] Create troubleshooting guide for common mapping issues
+  - [ ] Add examples of generated Code Connect files
 
 ---
 
