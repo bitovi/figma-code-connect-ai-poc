@@ -49,7 +49,7 @@ If examining existing code, verify these functionalities:
 ## Directory Structure
 
 ```
-/Users/michel/GitHub/figma-code-connect-ai-poc/
+./figma-code-connect-ai-poc/
 ├── scripts/
 │   ├── extractComponentProps.js        # IMPLEMENTED - Enhanced with recipe scanning
 │   ├── fetchComponents.js              # Existing Figma API script
