@@ -30,4 +30,12 @@ async function solvePrompt() {
 }
 
 // Run the function
-solvePrompt();
+	// solvePrompt();
+
+Promise.all([
+	solvePrompt(),
+	solvePrompt(),
+	solvePrompt(),
+	solvePrompt(),
+	solvePrompt(),
+]).then(res => {console.log("success")}).catch(e => console.log("failure",e))
