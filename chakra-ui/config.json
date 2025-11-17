@@ -1,0 +1,6 @@
+{
+  "components_dirs": [
+    "packages/chakra-ui/src",
+    "packages/theme/src"
+  ],
+}
