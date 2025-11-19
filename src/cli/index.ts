@@ -18,6 +18,7 @@ import {
   createFigmaClient,
   extractDesignComponents,
   loadDesignArtifact,
+  resolveDesignArtifactPath,
   writeDesignArtifact,
 } from "../figma";
 import {
@@ -26,8 +27,14 @@ import {
   discoverCodeComponents,
   loadCodeArtifact,
   loadCodeProject,
+  resolveCodeArtifactPath,
   writeCodeArtifact,
 } from "../code";
+import {
+  buildMappingArtifact,
+  loadMappingArtifact,
+  writeMappingArtifact,
+} from "../mapping";
 import type {
   CodeComponentsArtifact,
   CodeComponentRecord,
@@ -103,9 +110,19 @@ const commandDescriptors: CommandDescriptor[] = [
     handler: createInspectCodeCommandHandler(),
   },
   {
+    path: ["inspect", "mapping"],
+    summary: "Pretty-print a mapping component slice from the artifacts.",
+    handler: createInspectMappingCommandHandler(),
+  },
+  {
     path: ["code", "scan"],
     summary: "Scan the codebase for React components and write the artifact.",
     handler: createCodeScanCommandHandler(),
+  },
+  {
+    path: ["map", "build"],
+    summary: "Build component/property mappings from design and code artifacts.",
+    handler: createMapBuildCommandHandler(),
   },
 ];
 
@@ -590,6 +607,53 @@ function createInspectCodeCommandHandler(): CommandHandler {
   };
 }
 
+function createInspectMappingCommandHandler(): CommandHandler {
+  return async ({ args, io }: CommandContext): Promise<number> => {
+    const parseResult = parseInspectComponentArgs(args);
+    if ("error" in parseResult) {
+      io.stderr.write(`${parseResult.error}\n`);
+      return 1;
+    }
+    const { configPath, componentName } = parseResult.options;
+    const projectDir = process.cwd();
+    const resolvedConfigPath = resolvePathRelativeToCwd(configPath, projectDir);
+    const config = loadConfigSafe(resolvedConfigPath, io);
+    if (!config) {
+      return 1;
+    }
+    const artifactsDir = path.isAbsolute(config.paths.artifactsDir)
+      ? config.paths.artifactsDir
+      : path.join(projectDir, config.paths.artifactsDir);
+    let artifact;
+    try {
+      artifact = loadMappingArtifact({ baseDir: artifactsDir });
+    } catch (error) {
+      io.stderr.write(`Failed to load mapping artifact: ${String(error)}\n`);
+      return 1;
+    }
+    const target = componentName.trim().toLowerCase();
+    const match = artifact.components.find(
+      (component) => component.componentName.trim().toLowerCase() === target,
+    );
+    if (!match) {
+      const available = artifact.components.map((component) => component.componentName);
+      io.stderr.write(
+        [
+          `Component "${componentName}" not found in mapping artifact.`,
+          "Available components:",
+          ...available.map((name) => `  - ${name}`),
+        ].join("\n") + "\n",
+      );
+      return 1;
+    }
+    const yaml = renderYaml({
+      component: match,
+    });
+    io.stdout.write(yaml + "\n");
+    return 0;
+  };
+}
+
 function createCodeScanCommandHandler(): CommandHandler {
   return async ({ args, io }: CommandContext): Promise<number> => {
     const parseResult = parseBasicConfigArgs(args);
@@ -655,6 +719,69 @@ function createCodeScanCommandHandler(): CommandHandler {
       return 0;
     } catch (error) {
       io.stderr.write(`Code scan failed: ${String(error)}\n`);
+      return 1;
+    }
+  };
+}
+
+function createMapBuildCommandHandler(): CommandHandler {
+  return async ({ args, io }: CommandContext): Promise<number> => {
+    const parseResult = parseBasicConfigArgs(args);
+    if ("error" in parseResult) {
+      io.stderr.write(`${parseResult.error}\n`);
+      return 1;
+    }
+    const { configPath } = parseResult.options;
+    const projectDir = process.cwd();
+    const resolvedConfigPath = resolvePathRelativeToCwd(configPath, projectDir);
+    const config = loadConfigSafe(resolvedConfigPath, io);
+    if (!config) {
+      return 1;
+    }
+    const artifactsDir = path.isAbsolute(config.paths.artifactsDir)
+      ? config.paths.artifactsDir
+      : path.join(projectDir, config.paths.artifactsDir);
+
+    const designPaths = { baseDir: artifactsDir };
+    const codePaths = { baseDir: artifactsDir };
+
+    let designArtifact;
+    let codeArtifact;
+    try {
+      designArtifact = loadDesignArtifact(designPaths);
+    } catch (error) {
+      io.stderr.write(`Failed to load design artifact: ${String(error)}\n`);
+      return 1;
+    }
+    try {
+      codeArtifact = loadCodeArtifact(codePaths);
+    } catch (error) {
+      io.stderr.write(`Failed to load code artifact: ${String(error)}\n`);
+      return 1;
+    }
+
+    const designArtifactPath = resolveDesignArtifactPath(designPaths);
+    const codeArtifactPath = resolveCodeArtifactPath(codePaths);
+
+    try {
+      const result = buildMappingArtifact({
+        design: { artifact: designArtifact, path: designArtifactPath },
+        code: { artifact: codeArtifact, path: codeArtifactPath },
+      });
+      const artifactPath = writeMappingArtifact(result.artifact, {
+        baseDir: artifactsDir,
+      });
+      io.stdout.write(
+        `Wrote mapping artifact to ${path.relative(projectDir, artifactPath) || artifactPath}\n`,
+      );
+      if (result.warnings.length > 0) {
+        io.stderr.write(
+          ["Warnings:", ...result.warnings.map((warning) => `  - ${warning}`)].join("\n") + "\n",
+        );
+      }
+      return 0;
+    } catch (error) {
+      io.stderr.write(`Mapping build failed: ${String(error)}\n`);
       return 1;
     }
   };

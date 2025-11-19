@@ -3,6 +3,15 @@ export const MAPPING_ARTIFACT_VERSION = 1 as const;
 
 export type ComponentMappingStatus = "mapped" | "partial" | "unmapped";
 export type PropertyMappingStatus = "mapped" | "unmapped" | "conflict";
+export type PropertyValueMappingStatus = "mapped" | "unmapped";
+
+export interface PropertyValueMappingRecord {
+  designValue: string;
+  codeValue?: string;
+  status: PropertyValueMappingStatus;
+  confidence?: number;
+  reason?: string;
+}
 
 export interface PropertyMappingRecord {
   designProp: string;
@@ -11,6 +20,8 @@ export interface PropertyMappingRecord {
   confidence?: number;
   reason?: string;
   notes: string[];
+  valueMappings: PropertyValueMappingRecord[];
+  unmappedDesignValues: string[];
 }
 
 export interface ComponentMappingRecord {
@@ -191,6 +202,12 @@ function normalizePropertyMapping(
   const confidence = readOptionalConfidence(record, "confidence", context, issues);
   const reason = readOptionalString(record, "reason");
   const notes = readStringArray(record, "notes", context, issues) ?? [];
+  const valueMappingsRaw = readOptionalArray(record, "valueMappings", context, issues) ?? [];
+  const valueMappings = valueMappingsRaw.map((value, index) =>
+    normalizePropertyValueMapping(value, `${context}.valueMappings[${index}]`, issues),
+  );
+  const unmappedDesignValues =
+    readStringArray(record, "unmappedDesignValues", context, issues) ?? [];
   return {
     designProp,
     codeProp,
@@ -198,6 +215,28 @@ function normalizePropertyMapping(
     confidence,
     reason,
     notes,
+    valueMappings,
+    unmappedDesignValues,
+  };
+}
+
+function normalizePropertyValueMapping(
+  raw: unknown,
+  context: string,
+  issues: string[],
+): PropertyValueMappingRecord {
+  const record = asRecord(raw, context, issues);
+  const designValue = readRequiredString(record, "designValue", context, issues);
+  const codeValue = readOptionalString(record, "codeValue");
+  const status = readValueMappingStatus(record, "status", context, issues);
+  const confidence = readOptionalConfidence(record, "confidence", context, issues);
+  const reason = readOptionalString(record, "reason");
+  return {
+    designValue,
+    codeValue,
+    status,
+    confidence,
+    reason,
   };
 }
 
@@ -274,6 +313,23 @@ function readArray(
   if (!Array.isArray(raw)) {
     issues.push(`${context}.${key} must be an array`);
     return [];
+  }
+  return raw;
+}
+
+function readOptionalArray(
+  record: UnknownRecord,
+  key: string,
+  context: string,
+  issues: string[],
+): unknown[] | undefined {
+  const raw = record[key];
+  if (raw === undefined) {
+    return undefined;
+  }
+  if (!Array.isArray(raw)) {
+    issues.push(`${context}.${key} must be an array when provided`);
+    return undefined;
   }
   return raw;
 }
@@ -373,6 +429,20 @@ function readPropertyStatus(
   issues.push(
     `${context}.${key} must be one of: mapped, unmapped, conflict (received "${value}")`,
   );
+  return "unmapped";
+}
+
+function readValueMappingStatus(
+  record: UnknownRecord,
+  key: string,
+  context: string,
+  issues: string[],
+): PropertyValueMappingStatus {
+  const value = readRequiredString(record, key, context, issues);
+  if (value === "mapped" || value === "unmapped") {
+    return value;
+  }
+  issues.push(`${context}.${key} must be one of: mapped, unmapped (received "${value}")`);
   return "unmapped";
 }
 
