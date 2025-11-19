@@ -28,6 +28,7 @@ import {
   loadCodeArtifact,
   loadCodeProject,
   resolveCodeArtifactPath,
+  parseCodeArtifact,
   writeCodeArtifact,
 } from "../code";
 import {
@@ -35,6 +36,11 @@ import {
   loadMappingArtifact,
   writeMappingArtifact,
 } from "../mapping";
+import {
+  planModuleLayout,
+  runModuleSanityCheck,
+  writePlannedModules,
+} from "../generation";
 import type {
   CodeComponentsArtifact,
   CodeComponentRecord,
@@ -123,6 +129,12 @@ const commandDescriptors: CommandDescriptor[] = [
     path: ["map", "build"],
     summary: "Build component/property mappings from design and code artifacts.",
     handler: createMapBuildCommandHandler(),
+  },
+  {
+    path: ["connect", "generate"],
+    summary:
+      "Generate Code Connect modules from mapping and code artifacts, with TS sanity checks.",
+    handler: createConnectGenerateCommandHandler(),
   },
 ];
 
@@ -386,6 +398,11 @@ function createInitCommandHandler(): CommandHandler {
 interface AuthCheckOptions {
   configPath: string;
   envFilePath: string;
+}
+
+interface ConnectGenerateOptions {
+  configPath: string;
+  dryRun: boolean;
 }
 
 function createAuthCheckCommandHandler(): CommandHandler {
@@ -787,6 +804,94 @@ function createMapBuildCommandHandler(): CommandHandler {
   };
 }
 
+function createConnectGenerateCommandHandler(): CommandHandler {
+  return async ({ args, io }: CommandContext): Promise<number> => {
+    const parseResult = parseConnectGenerateArgs(args);
+    if ("error" in parseResult) {
+      io.stderr.write(`${parseResult.error}\n`);
+      return 1;
+    }
+    const { configPath, dryRun } = parseResult.options;
+    const projectDir = process.cwd();
+    const resolvedConfigPath = resolvePathRelativeToCwd(configPath, projectDir);
+    const config = loadConfigSafe(resolvedConfigPath, io);
+    if (!config) {
+      return 1;
+    }
+
+    const artifactsDir = path.isAbsolute(config.paths.artifactsDir)
+      ? config.paths.artifactsDir
+      : path.join(projectDir, config.paths.artifactsDir);
+    const modulesDir = path.isAbsolute(config.paths.modulesDir)
+      ? config.paths.modulesDir
+      : path.join(projectDir, config.paths.modulesDir);
+
+    let mappingArtifact;
+    try {
+      mappingArtifact = loadMappingArtifact({ baseDir: artifactsDir });
+    } catch (error) {
+      io.stderr.write(`Failed to load mapping artifact: ${String(error)}\n`);
+      return 1;
+    }
+
+    let codeArtifact: CodeComponentsArtifact;
+    try {
+      const codeArtifactPath = mappingArtifact.codeArtifactPath;
+      const payload = fs.readFileSync(codeArtifactPath, { encoding: "utf8" });
+      codeArtifact = parseCodeArtifact(payload, codeArtifactPath);
+    } catch (error) {
+      io.stderr.write(
+        `Failed to load code artifact referenced in mapping artifact: ${String(
+          error,
+        )}\n`,
+      );
+      return 1;
+    }
+
+    const generatorInput = {
+      mapping: mappingArtifact,
+      code: codeArtifact,
+    };
+
+    const layout = planModuleLayout(generatorInput, {
+      modulesDir,
+    });
+
+    const sanityResults = runModuleSanityCheck(layout);
+    const hasSyntaxError = sanityResults.some(
+      (result) => result.parseStatus === "syntax-error",
+    );
+
+    let writeResults;
+    if (!dryRun && !hasSyntaxError) {
+      writeResults = writePlannedModules(layout, { overwrite: true });
+    }
+
+    const summary = renderConnectGenerateSummary(
+      sanityResults,
+      writeResults,
+      projectDir,
+      dryRun,
+    );
+    io.stdout.write(summary);
+
+    if (hasSyntaxError) {
+      const diagnostics = sanityResults
+        .filter((result) => result.parseStatus === "syntax-error")
+        .flatMap((result) => result.diagnostics);
+      if (diagnostics.length > 0) {
+        io.stderr.write(
+          ["TypeScript parse errors in generated modules:", ...diagnostics].join("\n") +
+            "\n",
+        );
+      }
+      return 1;
+    }
+
+    return 0;
+  };
+}
+
 function parseAuthCheckArgs(
   args: readonly string[],
 ): { options: AuthCheckOptions } | { error: string } {
@@ -857,6 +962,37 @@ function parseBasicConfigArgs(
     }
     if (arg.startsWith("--config=")) {
       options.configPath = arg.slice("--config=".length);
+      continue;
+    }
+    return { error: `Unknown argument: ${arg}` };
+  }
+  return { options };
+}
+
+function parseConnectGenerateArgs(
+  args: readonly string[],
+): { options: ConnectGenerateOptions } | { error: string } {
+  const options: ConnectGenerateOptions = {
+    configPath: INIT_CONFIG_FILENAME,
+    dryRun: false,
+  };
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+    if (arg === "--config") {
+      const value = args[index + 1];
+      if (!value) {
+        return { error: "Missing value for --config" };
+      }
+      options.configPath = value;
+      index += 1;
+      continue;
+    }
+    if (arg.startsWith("--config=")) {
+      options.configPath = arg.slice("--config=".length);
+      continue;
+    }
+    if (arg === "--dry-run") {
+      options.dryRun = true;
       continue;
     }
     return { error: `Unknown argument: ${arg}` };
@@ -1247,6 +1383,79 @@ function formatYamlString(value: string): string {
     return value;
   }
   return JSON.stringify(value);
+}
+
+function renderConnectGenerateSummary(
+  sanityResults: readonly import("../generation").ModuleSanityCheckResult[],
+  writeResults: readonly import("../generation").GeneratedModuleFileInfo[] | undefined,
+  projectDir: string,
+  dryRun: boolean,
+): string {
+  const lines: string[] = [];
+
+  const componentRows = sanityResults.filter(
+    (result) => result.kind === "component",
+  );
+  const entryRow = sanityResults.find((result) => result.kind === "entry");
+
+  const writeIndex = new Map<string, import("../generation").GeneratedModuleFileInfo>();
+  if (writeResults) {
+    for (const result of writeResults) {
+      writeIndex.set(result.filePath, result);
+    }
+  }
+
+  lines.push("Code Connect generation summary:");
+  lines.push("");
+
+  if (componentRows.length > 0) {
+    lines.push("Components:");
+    lines.push("  Name        TS     Write    File");
+    for (const row of componentRows) {
+      const name = (row.componentName ?? "<unknown>").padEnd(11);
+      const tsStatus = (row.parseStatus === "ok" ? "ok" : "error").padEnd(7);
+      let writeStatus = dryRun ? "dry-run" : "-";
+      if (!dryRun && writeResults) {
+        const writeInfo = writeIndex.get(row.filePath);
+        if (writeInfo) {
+          writeStatus =
+            writeInfo.writeStatus === "written" ? "written" : "skipped";
+        }
+      }
+      const relativePath = path.relative(projectDir, row.filePath) || row.filePath;
+      lines.push(
+        `  ${name}${tsStatus}${writeStatus.padEnd(9)}${relativePath}`,
+      );
+    }
+    lines.push("");
+  }
+
+  if (entryRow) {
+    const tsStatus = (entryRow.parseStatus === "ok" ? "ok" : "error").padEnd(7);
+    let writeStatus = dryRun ? "dry-run" : "-";
+    if (!dryRun && writeResults) {
+      const writeInfo = writeIndex.get(entryRow.filePath);
+      if (writeInfo) {
+        writeStatus =
+          writeInfo.writeStatus === "written" ? "written" : "skipped";
+      }
+    }
+    const relativePath =
+      path.relative(projectDir, entryRow.filePath) || entryRow.filePath;
+    lines.push("Entry module:");
+    lines.push(
+      `  ${tsStatus}${writeStatus.padEnd(9)}${relativePath}`,
+    );
+  }
+
+  if (dryRun) {
+    lines.push("");
+    lines.push("Note: --dry-run enabled; no files were written.");
+  }
+
+  lines.push("");
+
+  return lines.join("\n");
 }
 
 function buildCodeArtifact(
