@@ -8,3 +8,9 @@ yarn-error.log*
 pnpm-debug.log*
 .DS_Store
 
+# Local beads database and runtime files (not versioned yet)
+.beads/
+
+# Local run artifacts generated during QA and demo runs
+artifacts/
+artifacts-*/

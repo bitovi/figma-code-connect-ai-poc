@@ -14,6 +14,26 @@ import {
 } from "../config";
 import { SecretError, resolveFigmaPat } from "../config/secrets";
 import type { EnvSource } from "../config/secrets";
+import {
+  createFigmaClient,
+  extractDesignComponents,
+  loadDesignArtifact,
+  writeDesignArtifact,
+} from "../figma";
+import {
+  CODE_ARTIFACT_KIND,
+  CODE_ARTIFACT_VERSION,
+  discoverCodeComponents,
+  loadCodeArtifact,
+  loadCodeProject,
+  writeCodeArtifact,
+} from "../code";
+import type {
+  CodeComponentsArtifact,
+  CodeComponentRecord,
+  CodeProject,
+  ComponentDiscoveryResult,
+} from "../code";
 
 type MaybePromise<T> = T | Promise<T>;
 
@@ -66,6 +86,26 @@ const commandDescriptors: CommandDescriptor[] = [
     path: ["auth", "check"],
     summary: "Resolve configuration and validate access to Figma using a PAT.",
     handler: createAuthCheckCommandHandler(),
+  },
+  {
+    path: ["figma", "pull"],
+    summary: "Fetch design components from Figma and write the artifact.",
+    handler: createFigmaPullCommandHandler(),
+  },
+  {
+    path: ["inspect", "design"],
+    summary: "Pretty-print a design component slice from the artifacts.",
+    handler: createInspectDesignCommandHandler(),
+  },
+  {
+    path: ["inspect", "code"],
+    summary: "Pretty-print a code component slice from the artifacts.",
+    handler: createInspectCodeCommandHandler(),
+  },
+  {
+    path: ["code", "scan"],
+    summary: "Scan the codebase for React components and write the artifact.",
+    handler: createCodeScanCommandHandler(),
   },
 ];
 
@@ -349,9 +389,7 @@ function createAuthCheckCommandHandler(): CommandHandler {
     }
 
     const envFile = await readDotEnvFile(resolvedEnvPath);
-    if (envFile.loaded) {
-      io.stdout.write(`Loaded environment variables from ${envFile.relativePath}\n`);
-    }
+    logEnvFileStatus(envFile, io);
 
     const mergedEnv: EnvSource = {
       ...envFile.values,
@@ -385,6 +423,238 @@ function createAuthCheckCommandHandler(): CommandHandler {
       return 0;
     } catch (error) {
       io.stderr.write(`Figma auth check failed: ${String(error)}\n`);
+      return 1;
+    }
+  };
+}
+
+function createFigmaPullCommandHandler(): CommandHandler {
+  return async ({ args, env, io }: CommandContext): Promise<number> => {
+    const optionsResult = parseFigmaPullArgs(args);
+    if ("error" in optionsResult) {
+      io.stderr.write(`${optionsResult.error}\n`);
+      return 1;
+    }
+    const { configPath, envFilePath } = optionsResult.options;
+    const projectDir = process.cwd();
+    const resolvedConfigPath = resolvePathRelativeToCwd(configPath, projectDir);
+    const resolvedEnvPath = resolvePathRelativeToCwd(envFilePath, projectDir);
+
+    const config = loadConfigSafe(resolvedConfigPath, io);
+    if (!config) {
+      return 1;
+    }
+
+    const envFile = await readDotEnvFile(resolvedEnvPath);
+    logEnvFileStatus(envFile, io);
+    const mergedEnv: EnvSource = { ...envFile.values, ...env };
+
+    try {
+      const pat = resolveFigmaPat(mergedEnv, config.figma.tokenEnv);
+      io.stdout.write(`Resolved Figma PAT from ${pat.redactedDescription}\n`);
+
+      const client = createFigmaClient(pat.value);
+      const extraction = await extractDesignComponents({
+        client,
+        figmaFile: config.figma.file,
+        components: config.run.components,
+      });
+
+      const artifactsDir = path.isAbsolute(config.paths.artifactsDir)
+        ? config.paths.artifactsDir
+        : path.join(projectDir, config.paths.artifactsDir);
+      const artifactPath = writeDesignArtifact(extraction.artifact, {
+        baseDir: artifactsDir,
+      });
+      io.stdout.write(
+        `Wrote design artifact to ${path.relative(projectDir, artifactPath) || artifactPath}\n`,
+      );
+
+      if (extraction.warnings.length > 0) {
+        io.stderr.write(
+          ["Warnings:", ...extraction.warnings.map((warning) => `  - ${warning}`)].join("\n") +
+            "\n",
+        );
+      }
+
+      return 0;
+    } catch (error) {
+      io.stderr.write(`Figma pull failed: ${String(error)}\n`);
+      return 1;
+    }
+  };
+}
+
+function createInspectDesignCommandHandler(): CommandHandler {
+  return async ({ args, io }: CommandContext): Promise<number> => {
+    const parseResult = parseInspectComponentArgs(args);
+    if ("error" in parseResult) {
+      io.stderr.write(`${parseResult.error}\n`);
+      return 1;
+    }
+    const { configPath, componentName } = parseResult.options;
+    const projectDir = process.cwd();
+    const resolvedConfigPath = resolvePathRelativeToCwd(configPath, projectDir);
+    const config = loadConfigSafe(resolvedConfigPath, io);
+    if (!config) {
+      return 1;
+    }
+    const artifactsDir = path.isAbsolute(config.paths.artifactsDir)
+      ? config.paths.artifactsDir
+      : path.join(projectDir, config.paths.artifactsDir);
+    let artifact;
+    try {
+      artifact = loadDesignArtifact({ baseDir: artifactsDir });
+    } catch (error) {
+      io.stderr.write(`Failed to load design artifact: ${String(error)}\n`);
+      return 1;
+    }
+    const target = componentName.trim().toLowerCase();
+    const match = artifact.components.find(
+      (component) => component.componentName.trim().toLowerCase() === target,
+    );
+    if (!match) {
+      const available = artifact.components.map((component) => component.componentName);
+      io.stderr.write(
+        [
+          `Component "${componentName}" not found in design artifact.`,
+          "Available components:",
+          ...available.map((name) => `  - ${name}`),
+        ].join("\n") + "\n",
+      );
+      return 1;
+    }
+    const yaml = renderYaml({
+      componentName: match.componentName,
+      pageName: match.pageName,
+      componentNodeId: match.componentNodeId,
+      variants: match.variants,
+      description: match.description,
+      warnings: artifact.warnings,
+    });
+    io.stdout.write(yaml + "\n");
+    return 0;
+  };
+}
+
+function createInspectCodeCommandHandler(): CommandHandler {
+  return async ({ args, io }: CommandContext): Promise<number> => {
+    const parseResult = parseInspectComponentArgs(args);
+    if ("error" in parseResult) {
+      io.stderr.write(`${parseResult.error}\n`);
+      return 1;
+    }
+    const { configPath, componentName } = parseResult.options;
+    const projectDir = process.cwd();
+    const resolvedConfigPath = resolvePathRelativeToCwd(configPath, projectDir);
+    const config = loadConfigSafe(resolvedConfigPath, io);
+    if (!config) {
+      return 1;
+    }
+    const artifactsDir = path.isAbsolute(config.paths.artifactsDir)
+      ? config.paths.artifactsDir
+      : path.join(projectDir, config.paths.artifactsDir);
+
+    let artifact;
+    try {
+      artifact = loadCodeArtifact({ baseDir: artifactsDir });
+    } catch (error) {
+      io.stderr.write(`Failed to load code artifact: ${String(error)}\n`);
+      return 1;
+    }
+
+    const match = findCodeComponent(artifact.components, componentName);
+    if (!match) {
+      const available = artifact.components.map((component) => component.componentName);
+      io.stderr.write(
+        [
+          `Component "${componentName}" not found in code artifact.`,
+          "Available components:",
+          ...available.map((name) => `  - ${name}`),
+        ].join("\n") + "\n",
+      );
+      return 1;
+    }
+
+    const yaml = renderYaml({
+      componentName: match.componentName,
+      exportName: match.exportName,
+      modulePath: match.modulePath,
+      props: match.props,
+      description: match.description,
+      notes: match.notes,
+      warnings: artifact.warnings,
+    });
+    io.stdout.write(yaml + "\n");
+    return 0;
+  };
+}
+
+function createCodeScanCommandHandler(): CommandHandler {
+  return async ({ args, io }: CommandContext): Promise<number> => {
+    const parseResult = parseBasicConfigArgs(args);
+    if ("error" in parseResult) {
+      io.stderr.write(`${parseResult.error}\n`);
+      return 1;
+    }
+    const { configPath } = parseResult.options;
+    const projectDir = process.cwd();
+    const resolvedConfigPath = resolvePathRelativeToCwd(configPath, projectDir);
+    const config = loadConfigSafe(resolvedConfigPath, io);
+    if (!config) {
+      return 1;
+    }
+
+    const artifactsDir = path.isAbsolute(config.paths.artifactsDir)
+      ? config.paths.artifactsDir
+      : path.join(projectDir, config.paths.artifactsDir);
+
+    const resolvedCodeRoot = path.resolve(projectDir, config.code.root);
+    const resolvedTsconfig = path.resolve(projectDir, config.code.tsconfig);
+
+    try {
+      let project = loadCodeProject({
+        codeRoot: resolvedCodeRoot,
+        tsconfigPath: resolvedTsconfig,
+        components: config.run.components,
+        cwd: projectDir,
+      });
+      let discovery = discoverCodeComponents(project);
+
+      if (discovery.components.length === 0) {
+        io.stderr.write("No components discovered; retrying after reloading project...\n");
+        project = loadCodeProject({
+          codeRoot: resolvedCodeRoot,
+          tsconfigPath: resolvedTsconfig,
+          components: config.run.components,
+          cwd: projectDir,
+        });
+        discovery = discoverCodeComponents(project);
+      }
+
+      const artifact = buildCodeArtifact(project, discovery);
+      if (artifact.components.length === 0) {
+        io.stderr.write("Code scan produced no components after retry.\n");
+        return 1;
+      }
+
+      const artifactPath = writeCodeArtifact(artifact, {
+        baseDir: artifactsDir,
+      });
+      io.stdout.write(
+        `Wrote code artifact to ${path.relative(projectDir, artifactPath) || artifactPath}\n`,
+      );
+
+      if (artifact.warnings.length > 0) {
+        io.stderr.write(
+          ["Warnings:", ...artifact.warnings.map((warning) => `  - ${warning}`)].join("\n") +
+            "\n",
+        );
+      }
+
+      return 0;
+    } catch (error) {
+      io.stderr.write(`Code scan failed: ${String(error)}\n`);
       return 1;
     }
   };
@@ -432,6 +702,129 @@ function parseAuthCheckArgs(
   return { options };
 }
 
+interface FigmaPullOptions {
+  configPath: string;
+  envFilePath: string;
+}
+
+interface BasicConfigOptions {
+  configPath: string;
+}
+
+function parseBasicConfigArgs(
+  args: readonly string[],
+): { options: BasicConfigOptions } | { error: string } {
+  const options: BasicConfigOptions = {
+    configPath: INIT_CONFIG_FILENAME,
+  };
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+    if (arg === "--config") {
+      const value = args[index + 1];
+      if (!value) {
+        return { error: "Missing value for --config" };
+      }
+      options.configPath = value;
+      index += 1;
+      continue;
+    }
+    if (arg.startsWith("--config=")) {
+      options.configPath = arg.slice("--config=".length);
+      continue;
+    }
+    return { error: `Unknown argument: ${arg}` };
+  }
+  return { options };
+}
+
+function parseFigmaPullArgs(
+  args: readonly string[],
+): { options: FigmaPullOptions } | { error: string } {
+  const options: FigmaPullOptions = {
+    configPath: INIT_CONFIG_FILENAME,
+    envFilePath: DOT_ENV_FILENAME,
+  };
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+    if (arg === "--config") {
+      const value = args[index + 1];
+      if (!value) {
+        return { error: "Missing value for --config" };
+      }
+      options.configPath = value;
+      index += 1;
+      continue;
+    }
+    if (arg.startsWith("--config=")) {
+      options.configPath = arg.slice("--config=".length);
+      continue;
+    }
+    if (arg === "--env-file") {
+      const value = args[index + 1];
+      if (!value) {
+        return { error: "Missing value for --env-file" };
+      }
+      options.envFilePath = value;
+      index += 1;
+      continue;
+    }
+    if (arg.startsWith("--env-file=")) {
+      options.envFilePath = arg.slice("--env-file=".length);
+      continue;
+    }
+    return { error: `Unknown argument: ${arg}` };
+  }
+  return { options };
+}
+
+interface InspectDesignOptions {
+  configPath: string;
+  componentName: string;
+}
+
+function parseInspectComponentArgs(
+  args: readonly string[],
+): { options: InspectDesignOptions } | { error: string } {
+  const options: InspectDesignOptions = {
+    configPath: INIT_CONFIG_FILENAME,
+    componentName: "",
+  };
+  for (let index = 0; index < args.length; index += 1) {
+    const arg = args[index];
+    if (arg === "--config") {
+      const value = args[index + 1];
+      if (!value) {
+        return { error: "Missing value for --config" };
+      }
+      options.configPath = value;
+      index += 1;
+      continue;
+    }
+    if (arg.startsWith("--config=")) {
+      options.configPath = arg.slice("--config=".length);
+      continue;
+    }
+    if (arg === "--component") {
+      const value = args[index + 1];
+      if (!value) {
+        return { error: "Missing value for --component" };
+      }
+      options.componentName = value;
+      index += 1;
+      continue;
+    }
+    if (arg.startsWith("--component=")) {
+      options.componentName = arg.slice("--component=".length);
+      continue;
+    }
+    return { error: `Unknown argument: ${arg}` };
+  }
+  if (!options.componentName) {
+    return { error: "--component is required" };
+  }
+  return { options };
+}
+
 interface DotEnvLoadResult {
   loaded: boolean;
   values: Record<string, string>;
@@ -456,6 +849,16 @@ async function readDotEnvFile(envPath: string): Promise<DotEnvLoadResult> {
       };
     }
     throw error;
+  }
+}
+
+function logEnvFileStatus(result: DotEnvLoadResult, io: CliIO): void {
+  if (result.loaded) {
+    io.stdout.write(`Loaded environment variables from ${result.relativePath}\n`);
+  } else {
+    io.stdout.write(
+      `Environment file not found at ${result.relativePath}; falling back to process env.\n`,
+    );
   }
 }
 
@@ -661,6 +1064,93 @@ function isNotFound(error: unknown): boolean {
     error !== null &&
     "code" in error &&
     (error as NodeJS.ErrnoException).code === "ENOENT"
+  );
+}
+
+function renderYaml(value: unknown, indent = 0): string {
+  const indentStr = " ".repeat(indent);
+  if (Array.isArray(value)) {
+    if (value.length === 0) {
+      return indentStr + "[]";
+    }
+    return value
+      .map((item) => {
+        const formatted = renderYaml(item, indent + 2).trimStart();
+        if (typeof item === "object" && item !== null && !Array.isArray(item)) {
+          return `${indentStr}-\n${renderYaml(item, indent + 2)}`;
+        }
+        return `${indentStr}- ${formatted}`;
+      })
+      .join("\n");
+  }
+  if (value && typeof value === "object") {
+    const entries = Object.entries(value as Record<string, unknown>).filter(
+      ([, entryValue]) => entryValue !== undefined,
+    );
+    if (entries.length === 0) {
+      return indentStr + "{}";
+    }
+    return entries
+      .map(([key, entryValue]) => {
+        const formatted = renderYaml(entryValue, indent + 2);
+        if (entryValue && typeof entryValue === "object") {
+          return `${indentStr}${key}:\n${formatted}`;
+        }
+        return `${indentStr}${key}: ${formatted.trimStart()}`;
+      })
+      .join("\n");
+  }
+  if (typeof value === "string") {
+    return indentStr + formatYamlString(value);
+  }
+  if (typeof value === "number" || typeof value === "boolean") {
+    return indentStr + String(value);
+  }
+  if (value === null) {
+    return indentStr + "null";
+  }
+  return indentStr + JSON.stringify(value);
+}
+
+function formatYamlString(value: string): string {
+  if (value === "") {
+    return JSON.stringify(value);
+  }
+  if (/^[A-Za-z0-9_\-]+$/.test(value)) {
+    return value;
+  }
+  return JSON.stringify(value);
+}
+
+function buildCodeArtifact(
+  project: CodeProject,
+  discovery: ComponentDiscoveryResult,
+): CodeComponentsArtifact {
+  const warnings: string[] = [];
+  if (discovery.missing.length > 0) {
+    warnings.push(
+      `Missing components from run.components: ${discovery.missing.join(", ")}`,
+    );
+  }
+
+  return {
+    kind: CODE_ARTIFACT_KIND,
+    version: CODE_ARTIFACT_VERSION,
+    codeRoot: project.projectRoot,
+    tsconfigPath: project.tsconfigPath,
+    generatedAt: new Date().toISOString(),
+    components: discovery.components,
+    warnings,
+  };
+}
+
+function findCodeComponent(
+  components: readonly CodeComponentRecord[],
+  name: string,
+): CodeComponentRecord | undefined {
+  const target = name.trim().toLowerCase();
+  return components.find(
+    (component) => component.componentName.trim().toLowerCase() === target,
   );
 }
 
