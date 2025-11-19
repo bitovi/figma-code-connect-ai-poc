@@ -1,0 +1,32 @@
+{
+  "name": "figma-code-connect-ai-poc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Figma Code Connect Superconnector POC",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -p tsconfig.json --watch",
+    "start": "node dist/cli/index.js",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "figma",
+    "code-connect",
+    "design-system",
+    "react"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bin": {
+    "superconnect": "dist/cli/index.js"
+  },
+  "dependencies": {
+    "toml": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.6.0"
+  }
+}
