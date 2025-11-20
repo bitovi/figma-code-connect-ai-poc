@@ -1,7 +1,0 @@
-packages:
-  - packages/**/**
-  - sandbox/**
-  - apps/**
-
-onlyBuiltDependencies:
-  - sharp

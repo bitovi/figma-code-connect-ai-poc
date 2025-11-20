@@ -1,9 +1,0 @@
-{
-  "extends": ["./tsconfig.build.json"],
-  "include": ["vitest.setup.ts", "packages", "apps/compositions", "**/*.mjs"],
-  "compilerOptions": {
-    "paths": {
-      "compositions/*": ["./apps/compositions/src/*"]
-    }
-  }
-}
