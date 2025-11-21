@@ -1,12 +1,12 @@
 # CodeGen Run Guide
 
-Purpose: generate Code Connect `.figma.tsx` files (or, for now, validate inputs with the stub) using manifest, mappings, and the YAML artifacts.
+Purpose: generate Code Connect `.figma.tsx` files (or, for now, validate inputs with the stub) using manifest, mappings, and the JSON artifacts.
 
 Inputs:
 - Manifest: `artifacts/codeconnect-manifest.json`
 - Mappings: `artifacts/mappings.json`
-- React YAMLs: `artifacts/react-components`
-- Figma YAMLs: `artifacts/figma-components`
+- React JSON: `artifacts/react-components`
+- Figma JSON: `artifacts/figma-components`
 
 Step 1: validate inputs with the stub
 ```
@@ -21,12 +21,12 @@ Expected: a summary of planned `.figma.tsx` files and confirmation of import str
 
 Step 2: ask an agent to generate files (manual example)
 ```
-codex exec --cd artifacts --model gpt-5.1-codex <<'EOF'
+codex exec --cd artifacts --model gpt-5.1-codex-max <<'EOF'
 Use ../prompts/codegen.md.
 Manifest: codeconnect-manifest.json
 Mappings: mappings.json
-React YAMLs: react-components
-Figma YAMLs: figma-components
+React JSONs: react-components
+Figma JSONs: figma-components
 Output dir: codeconnect/
 EOF
 ```

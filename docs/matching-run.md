@@ -3,8 +3,8 @@
 Purpose: run the matching agent to produce high-confidence and uncertain mappings between Figma and React components.
 
 Inputs:
-- Figma YAML directory (e.g., `artifacts/figma-components`).
-- React YAML directory (e.g., `artifacts/react-components`).
+- Figma JSON directory (e.g., `artifacts/figma-components`).
+- React JSON directory (e.g., `artifacts/react-components`).
 - Manifest JSON (required; e.g., `artifacts/codeconnect-manifest.json` from orientation).
 - Optional: target component list to focus on (reduce scope).
 
@@ -18,10 +18,10 @@ Agent instructions:
 
 Manual invocation (example with codex exec):
 ```
-codex exec --cd . --model gpt-5.1-codex <<'EOF'
+codex exec --cd . --model gpt-5.1-codex-max <<'EOF'
 Use prompts/matching.md.
-Figma YAMLs: artifacts/figma-components
-React YAMLs: artifacts/react-components
+Figma JSONs: artifacts/figma-components
+React JSONs: artifacts/react-components
 Manifest (context): artifacts/codeconnect-manifest.json
 Produce match-candidates.jsonl in artifacts/.
 EOF

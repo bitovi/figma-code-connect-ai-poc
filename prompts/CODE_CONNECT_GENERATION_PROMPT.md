@@ -1,4 +1,5 @@
-# AI Agent Task: Figma Code Connect Generation Script
+# (Legacy) AI Agent Task: Figma Code Connect Generation Script
+# Note: Current pipeline uses `scripts/generateCodeConnect.js` + `prompts/codegen.md` and is JSON-only. Keep this for historical reference only.
 
 ## 🎯 Your Mission
 
@@ -135,4 +136,3 @@ export const ButtonFigma = (props: ButtonFigmaProps) => <Button {...props} />
 ---
 
 **Build this script to be production-ready with robust error handling, clear logging, and the exact output structure shown above. The script should add the relevant `.figma.tsx` file to the relevant component folder.**
-

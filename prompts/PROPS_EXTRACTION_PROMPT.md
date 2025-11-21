@@ -1,4 +1,5 @@
-# AI Agent Task: Component Props Extraction Script
+# (Legacy) AI Agent Task: Component Props Extraction Script
+# Note: Current pipeline uses `scripts/extractComponentProps.js`; this prompt is archived for reference and mentions YAML, but the live pipeline is JSON-only.
 
 ## 🎯 Your Mission
 

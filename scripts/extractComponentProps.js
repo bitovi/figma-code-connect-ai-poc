@@ -4,7 +4,7 @@
  * Extract Component Props Script
  * 
  * Scans React TypeScript files to extract component props and metadata,
- * generating YAML files compatible with Figma Code Connect integration.
+ * generating JSON files compatible with Figma Code Connect integration.
  * 
  * @author AI Assistant
  * @date 2025-11-06
@@ -14,7 +14,6 @@ const fs = require('fs-extra');
 const path = require('path');
 const glob = require('glob');
 const { parse } = require('@typescript-eslint/typescript-estree');
-const YAML = require('yaml');
 
 // Configuration
 const DEFAULT_CONFIG = {
@@ -24,7 +23,6 @@ const DEFAULT_CONFIG = {
   verbose: false,
   overwrite: false,
   filter: null,
-  format: 'yaml', // yaml | json
   recipesPath: 'chakra-ui/packages/react/src/theme/recipes'
 };
 
@@ -65,10 +63,6 @@ function parseArgs() {
         break;
       case '--output':
         config.output = nextArg;
-        i++;
-        break;
-      case '--format':
-        config.format = nextArg.toLowerCase();
         i++;
         break;
       case '--manifest':
@@ -113,18 +107,14 @@ function parseArgs() {
 }
 
 /**
- * Load a manifest from YAML (preferred) or JSON.
+ * Load a manifest from JSON.
  */
 function loadManifestFile(manifestPath) {
   const raw = fs.readFileSync(manifestPath, 'utf8');
   try {
-    return YAML.parse(raw);
-  } catch (yamlErr) {
-    try {
-      return JSON.parse(raw);
-    } catch (jsonErr) {
-      throw new Error(`Unable to parse manifest (YAML/JSON) at ${manifestPath}`);
-    }
+    return JSON.parse(raw);
+  } catch (err) {
+    throw new Error(`Unable to parse manifest (JSON) at ${manifestPath}`);
   }
 }
 
@@ -142,9 +132,8 @@ USAGE:
 
 OPTIONS:
   --input <path>     Input directory to scan (default: chakra-ui/apps/compositions/src/ui)
-  --output <path>    Output directory for YAML files (default: components-props)
-  --format <fmt>     Output format: yaml | json (default: yaml)
-  --manifest <path>  Manifest JSON/YAML with componentRoot/recipesPath overrides
+  --output <path>    Output directory for JSON files (default: components-props)
+  --manifest <path>  Manifest JSON with componentRoot/recipesPath overrides
   --filter <name>    Filter by component name (e.g., "Accordion")
   --dry-run          Preview without writing files
   --verbose          Detailed logging
@@ -735,9 +724,9 @@ function generateFigmaMapping(props) {
 }
 
 /**
- * Generate YAML structure for a component
+ * Generate JSON-ready structure for a component
  */
-function generateComponentYAML(componentData) {
+function generateComponentData(componentData) {
   return {
     componentName: componentData.componentName,
     filePath: componentData.filePath,
@@ -756,11 +745,10 @@ function generateComponentYAML(componentData) {
 }
 
 /**
- * Write component data to YAML file
+ * Write component data to JSON file
  */
-async function writeComponentFile(config, componentName, yamlData) {
-  const ext = config.format === 'json' ? 'json' : 'yaml';
-  const fileName = `${componentName.toLowerCase()}.${ext}`;
+async function writeComponentFile(config, componentName, componentData) {
+  const fileName = `${componentName.toLowerCase()}.json`;
   const outputPath = path.join(config.output, fileName);
   
   if (!config.overwrite && fs.existsSync(outputPath)) {
@@ -771,20 +759,14 @@ async function writeComponentFile(config, componentName, yamlData) {
   if (config.dryRun) {
     console.log(`📝 Would write: ${fileName}`);
     if (config.verbose) {
-      const serialized = ext === 'json'
-        ? JSON.stringify(yamlData, null, 2)
-        : YAML.stringify(yamlData, { indent: 2 });
-      console.log(serialized);
+      console.log(JSON.stringify(componentData, null, 2));
     }
     return true;
   }
   
   try {
     await fs.ensureDir(config.output);
-    const serialized = ext === 'json'
-      ? JSON.stringify(yamlData, null, 2)
-      : YAML.stringify(yamlData, { indent: 2 });
-    await fs.writeFile(outputPath, serialized, 'utf8');
+    await fs.writeFile(outputPath, JSON.stringify(componentData, null, 2), 'utf8');
     console.log(`✅ Generated: ${fileName}`);
     return true;
   } catch (error) {
@@ -856,9 +838,9 @@ async function extractComponentProps(config) {
         }
       }
       
-      // Generate and write YAML
-      const yamlData = generateComponentYAML(component);
-      const success = await writeComponentFile(config, component.componentName, yamlData);
+      // Generate and write JSON
+      const componentData = generateComponentData(component);
+      const success = await writeComponentFile(config, component.componentName, componentData);
       if (success) successfulWrites++;
     }
   }
@@ -867,7 +849,7 @@ async function extractComponentProps(config) {
   console.log(`\n📊 Extraction Summary:`);
   console.log(`   Files processed: ${files.length}`);
   console.log(`   Components found: ${totalComponents}`);
-  console.log(`   YAML files ${config.dryRun ? 'previewed' : 'written'}: ${successfulWrites}`);
+  console.log(`   JSON files ${config.dryRun ? 'previewed' : 'written'}: ${successfulWrites}`);
   
   if (config.dryRun) {
     console.log(`\n💡 Run without --dry-run to write files to ${config.output}/`);

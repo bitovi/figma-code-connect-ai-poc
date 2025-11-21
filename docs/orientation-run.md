@@ -11,7 +11,7 @@ Steps (manual agent invocation):
 
 Example (codex exec):
 ```
-codex exec --cd . --model gpt-5.1-codex <<'EOF'
+codex exec --cd . --model gpt-5.1-codex-max <<'EOF'
 Use prompts/orientation.md.
 Target repo: ../chakra-ui
 Write manifest to artifacts/codeconnect-manifest.json.

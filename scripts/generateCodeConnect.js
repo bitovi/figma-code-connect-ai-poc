@@ -10,7 +10,6 @@
 
 const fs = require('fs');
 const path = require('path');
-const YAML = require('yaml');
 
 const DEFAULTS = {
   manifest: 'artifacts/codeconnect-manifest.json',
@@ -30,10 +29,10 @@ Usage:
   node scripts/generateCodeConnect.js [options]
 
 Options:
-  --manifest <path>   Manifest YAML/JSON (default: ${DEFAULTS.manifest})
+  --manifest <path>   Manifest JSON (default: ${DEFAULTS.manifest})
   --mappings <path>   Approved mappings JSON (default: ${DEFAULTS.mappings})
-  --figma <dir>       Figma YAML directory (default: ${DEFAULTS.figmaDir})
-  --react <dir>       React YAML directory (default: ${DEFAULTS.reactDir})
+  --figma <dir>       Figma JSON directory (default: ${DEFAULTS.figmaDir})
+  --react <dir>       React JSON directory (default: ${DEFAULTS.reactDir})
   --out <dir>         Output directory for .figma.tsx files (default: ${DEFAULTS.outputDir})
   --help              Show this help message
 `;
@@ -111,11 +110,7 @@ function loadJson(filePath, label) {
 function loadManifest(filePath) {
   try {
     const raw = fs.readFileSync(filePath, 'utf8');
-    try {
-      return YAML.parse(raw);
-    } catch (yamlErr) {
-      return JSON.parse(raw);
-    }
+    return JSON.parse(raw);
   } catch (err) {
     throw new Error(`Failed to read manifest (${filePath}): ${err.message}`);
   }
@@ -156,8 +151,8 @@ function formatSummary(paths, planned) {
     '=== Code Connect Codegen (stub) ===',
     `Manifest: ${paths.manifest}`,
     `Mappings: ${paths.mappings}`,
-    `Figma YAMLs: ${paths.figmaDir}`,
-    `React YAMLs: ${paths.reactDir}`,
+    `Figma JSONs: ${paths.figmaDir}`,
+    `React JSONs: ${paths.reactDir}`,
     `Planned output dir: ${paths.outputDir}`,
     '',
     'Planned files:',
@@ -174,8 +169,8 @@ function main() {
 
     assertFileExists(paths.manifest, 'Manifest');
     assertFileExists(paths.mappings, 'Mappings');
-    assertDirExists(paths.figmaDir, 'Figma YAML');
-    assertDirExists(paths.reactDir, 'React YAML');
+    assertDirExists(paths.figmaDir, 'Figma JSON');
+    assertDirExists(paths.reactDir, 'React JSON');
 
     const manifest = loadManifest(paths.manifest);
     const mappings = loadJson(paths.mappings, 'mappings');

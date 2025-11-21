@@ -1,104 +1,105 @@
 # Figma Code Connect - AI POC
 
-This project provides utilities for working with Figma Code Connect configuration and component data extraction.
+A minimal pipeline to go from a Figma file + a React component repo to Code Connect outputs. Artifacts live under `artifacts/` (gitignored).
 
-**Three-Phase Pipeline:**
+## One-shot pipeline (beta)
 
-1. **Props Extraction** (`extractComponentProps.js`) - Analyze React/TypeScript components to extract props and recipe variants
-2. **Figma Data** (`fetchComponents.js`) - Extract component variants from Figma design files
-3. **Config Generation** (`buildFigmaConfig.js`) - Generate Figma Code Connect configuration files
-
-## 🚀 Quick Start
+Run the whole pipeline with three inputs (Figma URL/key, repo path, and token):
 
 ```bash
-# Install dependencies
-npm install
+npm run pipeline:one-shot -- \
+  --figma-url "https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB/Chakra-UI?node-id=12-184&m=dev" \
+  --repo-path ../chakra-ui \
+  --figma-token "$FIGMA_ACCESS_TOKEN" \
+  --agent-runner "codex exec --model gpt-5.1-codex-max"
+```
+Or use the CLI alias: `npx superconnect -- --figma-token "$FIGMA_ACCESS_TOKEN"` (reads defaults from `superconnect.toml`).
 
-# View all available commands
-npm run help
-
-# Extract component props from React source code
-npm run extract:props
-
-# Preview props extraction without writing files
-npm run extract:props:preview
-
-# Extract Figma component data + Generate config
-npm run workflow:complete
-
-# Full pipeline: Props + Figma + Config
-npm run workflow:full
-
-# Quick Chakra UI style setup
-npm run workflow:chakra
+### Install/link the CLI
+Use the local checkout without installing:
+```
+npx superconnect -- --figma-token "$FIGMA_ACCESS_TOKEN"
 ```
 
-## 📋 Available Commands
+Or install it globally from this repo:
+```
+npm install
+npm link   # creates the superconnect binary
+superconnect -- --figma-token "$FIGMA_ACCESS_TOKEN"
+```
 
-### Component Props Extraction (React/TypeScript)
+### Config via `superconnect.toml`
+Optional defaults live in `superconnect.toml` at the repo root:
+```toml
+[inputs]
+figma_url    = "https://www.figma.com/design/..."
+component_repo = "../your-repo"
 
-- `npm run extract:props` - Extract all component props from source code
-- `npm run extract:props:preview` - Preview extraction without writing files (dry-run)
-- `npm run extract:props:help` - Show props extraction options
-- `npm run extract:accordion` - Extract accordion components only
-- `npm run extract:button` - Extract button components only
-- `npm run extract:overwrite` - Extract and overwrite existing YAML files
+[outputs]
+output_dir = "artifacts"
+agents_log_directory = "artifacts/agent-logs"
 
-### Component Extraction (Figma)
+[config]
+agent_run_command = "codex exec --model gpt-5.1-codex-max"
+```
+- CLI flags override values from the file.
+- Agent steps run with cwd set automatically: orientation/matching from the repo, codegen from `artifacts/`.
+- Logs are written live if `agents_log_directory` is set; console output is suppressed by default (use `--agent-stream` or `--agent-filter` to surface lines).
 
-- `npm run fetch:components` - Extract component variants from Figma
-- `npm run fetch:help` - Show Figma component extraction options
+Notes:
+- Defaults can come from `superconnect.toml` (figma url/key, repo, artifacts dir, agent log dir, agent runner).
+- Chakra defaults are auto-applied when `--repo-path` includes `chakra-ui` (writes `artifacts/codeconnect-manifest.json` if missing).
+- Agent steps (orientation, matching, codegen) run via `--agent-runner` if provided; otherwise the script will prompt you to run them manually. Agent output is suppressed by default but streams to the log if `agents_log_directory` is set in `superconnect.toml`; use `--agent-stream` or `--agent-filter` to surface console output.
+- Existing artifacts are reused by default; add `--force` to re-run steps and regenerate outputs.
+- Helpful flags: `--dry-run` (plan only), `--non-interactive` (auto-accept certain matches), `--skip-codegen`.
+- See `docs/one-shot-run.md` for details.
 
-### Configuration Generation
+## Overview of the pipeline
 
-- `npm run build:config` - Generate config (console output)
-- `npm run build:config:file` - Generate figma.config.json file
-- `npm run build:config:help` - Show configuration options
+1) **Orientation (agent)** — Inspect the code repo, decide component root/import strategy, write `artifacts/codeconnect-manifest.json`. Prompt: `prompts/orientation.md`.
+2) **Figma fetch** — Download component variants to JSON: `npm run fetch:components -- "<FIGMA_URL_OR_KEY>" --output ./artifacts/figma-components`.
+3) **React props extraction** — Extract component metadata to JSON:  
+```
+node scripts/extractComponentProps.js \
+  --manifest artifacts/codeconnect-manifest.json \
+  --output artifacts/react-components \
+  --overwrite --verbose
+```
+4) **Matching (agent)** — Propose Figma→React matches: `prompts/matching.md`, write `artifacts/match-candidates.jsonl`.
+5) **Review matches** — Approve uncertain matches: `node scripts/review-matches.js` → `artifacts/mappings.json`.
+6) **Codegen (agent)** — Generate `.figma.tsx` files from mappings + JSONs: run agent from `artifacts/` with `prompts/codegen.md`; outputs `artifacts/codeconnect/*.figma.tsx`.
+7) **Config builder** — Produce `artifacts/codeconnect/figma.config.json` (uses manifest for import/paths):  
+```
+node scripts/buildFigmaConfig.js \
+  --input artifacts/figma-components \
+  --manifest artifacts/codeconnect-manifest.json \
+  --file-key <FIGMA_URL_OR_KEY> \
+  --output file \
+  --output-file artifacts/codeconnect/figma.config.json
+```
 
-### Quick Setups
+See `docs/pipeline-run.md` for the full golden-path commands.
 
-- `npm run setup:chakra` - Generate Chakra UI style configuration
-- `npm run setup:basic` - Generate basic design system configuration
+## Key scripts
+- `scripts/fetchComponents.js` — Figma variants → JSON (`npm run fetch:components`).
+- `scripts/extractComponentProps.js` — React component metadata → JSON.
+- `scripts/review-matches.js` — CLI to approve uncertain matches.
+- `scripts/generateCodeConnect.js` — Stub validator (plans codegen outputs).
+- `scripts/buildFigmaConfig.js` — Writes `figma.config.json` (under `artifacts/codeconnect/` by default) using manifest defaults (CLI flags override).
 
-### Complete Workflows
+## Artifacts layout
+- `artifacts/codeconnect-manifest.json` — Component root/import strategy discovered in orientation.
+- `artifacts/figma-components/` — Figma variant JSON files.
+- `artifacts/react-components/` — React component JSON files.
+- `artifacts/match-candidates.jsonl` — Suggested matches (certain + uncertain).
+- `artifacts/mappings.json` — Approved matches.
+- `artifacts/codeconnect/` — Generated `.figma.tsx` files and `figma.config.json` (+ README).
 
-- `npm run workflow:props` - Extract component props from source code
-- `npm run workflow:complete` - Extract Figma components → Generate config
-- `npm run workflow:chakra` - Extract Figma components → Chakra UI setup
-- `npm run workflow:full` - **Full pipeline**: Figma + Config + Props extraction
+## Prereqs
+- Node.js (>=14)
+- Figma token in `.env`: `FIGMA_ACCESS_TOKEN=...`
+- Access to the target code repo (e.g., sibling `../chakra-ui`) and a Figma file URL/key.
 
-### Development Tools
-
-- `npm run dev:preview` - Preview configuration without generating file
-- `npm run dev:check` - Check all scripts syntax
-
-## � Output Directories
-
-- **`components-props/`** - Component props extracted from React/TypeScript source (150+ YAML files)
-  - Contains: Props, recipe variants, TypeScript types, Figma mapping suggestions
-  - Generated by: `npm run extract:props`
-
-- **`figma-variants/`** - Component variants extracted from Figma design files
-  - Contains: Figma component structure, variant properties, node IDs
-  - Generated by: `npm run fetch:components`
-
-- **`figma.config.json`** - Figma Code Connect configuration file
-  - Contains: Parser settings, path mappings, document URL substitutions
-  - Generated by: `npm run build:config:file`
-
-## �📖 Detailed Documentation
-
-For comprehensive usage instructions, examples, and troubleshooting, see [`scripts/README.md`](scripts/README.md).
-
-## ⚙️ Setup
-
-1. **Clone the repository**
-2. **Install dependencies**: `npm install`
-3. **Configure environment**: Create `.env` file with:
-
-   ```bash
-   FIGMA_ACCESS_TOKEN=your_figma_token
-   FIGMA_FILE_KEY=your_figma_file_key
-   ```
-
-4. **Run commands**: Use `npm run help` to see all available options
+## References
+- Run guides: `docs/pipeline-run.md`, `docs/orientation-run.md`, `docs/extraction-run.md`, `docs/matching-run.md`, `docs/review-run.md`, `docs/codegen-run.md`, `docs/config-run.md`.
+- Prompts for agents: `prompts/orientation.md`, `prompts/matching.md`, `prompts/codegen.md`.

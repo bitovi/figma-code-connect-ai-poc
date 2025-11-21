@@ -1,51 +1,46 @@
 # Pipeline Run Guide (Manual)
 
-Goal: run the full (manual) pipeline end-to-end to produce Code Connect outputs. Each step consumes artifacts from the previous step. When ready, an orchestrator can script these commands.
+Manual, step-by-step run of the full pipeline. Prefer the single-command runner? See `docs/one-shot-run.md`. Each step consumes artifacts from the previous one (JSON-only pipeline).
 
-Prereqs:
-- Figma access token in `.env` (`FIGMA_ACCESS_TOKEN=...`).
+## Prerequisites
+- Figma token in `.env` (`FIGMA_ACCESS_TOKEN=...`).
 - Figma file key or URL.
-- Sibling Chakra repo present at `../chakra-ui` (or adjust paths in manifest/orientation).
+- Chakra repo at `../chakra-ui` (or adjust paths/manifest).
 
-Steps:
+## Steps
 
-1) Orientation (produce manifest)
-- Purpose: discover component root/import strategy; emits `artifacts/codeconnect-manifest.json`.
-- Run (agent example):
+### 1) Orientation (agent) → manifest
+Purpose: discover component root/import strategy; writes `artifacts/codeconnect-manifest.json`.
 ```
-codex exec --cd . --model gpt-5.1-codex <<'EOF'
+codex exec --cd . --model gpt-5.1-codex-max <<'EOF'
 Use prompts/orientation.md.
 Target repo: ../chakra-ui
 Write manifest to artifacts/codeconnect-manifest.json.
 EOF
 ```
-Outputs: `artifacts/codeconnect-manifest.json`.
+Output: `artifacts/codeconnect-manifest.json`.
 
-2) Figma fetch
-- Purpose: pull Figma component variants into JSON.
-- Run:
+### 2) Figma fetch → figma JSONs
+Purpose: pull Figma component variants into JSON.
 ```
-npm run fetch:components -- "https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB/Chakra-UI?node-id=12-184&m=dev" --format json --output ./artifacts/figma-components
+npm run fetch:components -- "https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB/Chakra-UI?node-id=12-184&m=dev" --output ./artifacts/figma-components
 ```
-Outputs: `artifacts/figma-components/*.json` 
+Output: `artifacts/figma-components/*.json`.
 
-3) React props extraction
-- Purpose: extract component props/variants from the React codebase.
-- Run:
+### 3) React props extraction → react JSONs
+Purpose: extract component props/variants from the React codebase.
 ```
 node scripts/extractComponentProps.js \
   --manifest artifacts/codeconnect-manifest.json \
   --output artifacts/react-components \
-  --format json
   --overwrite --verbose
 ```
-Outputs: `artifacts/react-components/*.json`.
+Output: `artifacts/react-components/*.json`.
 
-4) Matching
-- Purpose: propose Figma→React matches.
-- Run (agent):
+### 4) Matching (agent) → match candidates
+Purpose: propose Figma→React matches.
 ```
-codex exec --cd . --model gpt-5.1-codex <<'EOF'
+codex exec --cd . --model gpt-5.1-codex-max <<'EOF'
 Use prompts/matching.md.
 Figma JSONs: artifacts/figma-components
 React JSONs: artifacts/react-components
@@ -53,21 +48,19 @@ Manifest (context): artifacts/codeconnect-manifest.json
 Produce match-candidates.jsonl in artifacts/.
 EOF
 ```
-Outputs: `artifacts/match-candidates.jsonl`.
+Output: `artifacts/match-candidates.jsonl`.
 
-5) Review matches
-- Purpose: approve uncertain matches; combine with certain.
-- Run:
+### 5) Review matches → mappings
+Purpose: approve uncertain matches; combine with certain.
 ```
 node scripts/review-matches.js
 ```
-Outputs: `artifacts/mappings.json`.
+Output: `artifacts/mappings.json`.
 
-6) Codegen
-- Purpose: generate Code Connect `.figma.tsx` files from mappings + JSONs.
-- Run (agent from artifacts dir to stay scoped):
+### 6) Codegen (agent, run from artifacts/) → Code Connect files
+Purpose: generate `.figma.tsx` files from mappings + JSONs.
 ```
-codex exec --cd artifacts --model gpt-5.1-codex <<'EOF'
+codex exec --cd artifacts --model gpt-5.1-codex-max <<'EOF'
 Use ../prompts/codegen.md.
 Manifest: codeconnect-manifest.json
 Mappings: mappings.json
@@ -76,21 +69,21 @@ Figma JSONs: figma-components
 Output dir: codeconnect/
 EOF
 ```
-Outputs: `artifacts/codeconnect/*.figma.tsx`.
+Output: `artifacts/codeconnect/*.figma.tsx`.
 
-7) Config builder
-- Purpose: produce `figma.config.json` with URL substitutions and import/path defaults.
-- Run:
+### 7) Config builder → figma.config.json
+Purpose: produce `artifacts/codeconnect/figma.config.json` with URL substitutions and import/path defaults.
 ```
 node scripts/buildFigmaConfig.js \
   --input artifacts/figma-components \
   --manifest artifacts/codeconnect-manifest.json \
   --file-key <FIGMA_URL_OR_KEY> \
-  --output file
+  --output file \
+  --output-file artifacts/codeconnect/figma.config.json
 ```
-Outputs: `figma.config.json` (repo root).
+Output: `artifacts/codeconnect/figma.config.json`.
 
-Notes:
-- Manifest is the single source of truth for component root/import style/paths; downstream steps read it, CLI flags can override.
-- Artifacts live under `artifacts/` (gitignored). Ensure the directory exists before running steps that write there.
-- Models: examples use `--model gpt-5.1-codex`; adjust per availability. Keep agent working dir to artifacts for codegen to limit context. 
+## Notes
+- Manifest is the source of truth for component root/import style/paths; downstream steps read it (CLI flags can override).
+- Artifacts live under `artifacts/` (gitignored). Ensure the directory exists before writing.
+- Models: examples use `--model gpt-5.1-codex-max`; adjust per availability. Keep codegen cwd to `artifacts/` to stay scoped.

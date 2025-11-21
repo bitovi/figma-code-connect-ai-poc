@@ -1,9 +1,20 @@
 
-# Node.js dependencies
+# Dependencies and builds
 node_modules/
+dist/
+coverage/
 
-#Ignore vscode AI rules
-.github/instructions/codacy.instructions.md
+# Logs and temp
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.DS_Store
+
+# Env/config (keep sample)
 .env
 
+# Generated artifacts
 artifacts/
+
+# Ignore vscode AI rules
+.github/instructions/codacy.instructions.md

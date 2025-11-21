@@ -1,4 +1,5 @@
-# Component Props Extraction Script - AI Agent Instructions
+# (Legacy) Component Props Extraction Script - AI Agent Instructions
+# Note: Current pipeline relies on `scripts/extractComponentProps.js`; this prompt is archived for reference and the active pipeline is JSON-only.
 
 ## CRITICAL CONTEXT
 

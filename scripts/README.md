@@ -1,6 +1,7 @@
 # Scripts Directory
 
 This directory contains utility scripts for working with Figma Code Connect configuration and component data extraction.
+Note: The active pipeline is JSON-only; any mentions of YAML below are legacy/archival.
 
 ## Table of Contents
 
@@ -24,39 +25,39 @@ This collection of scripts helps automate the process of:
 
 ### 1. `extractComponentProps.js` - React Props Extractor
 
-**Purpose**: Extracts React component properties and metadata from TypeScript files to generate YAML files for Figma Code Connect integration.
+**Purpose**: Extracts React component properties and metadata from TypeScript files to generate JSON files for Figma Code Connect integration.
 
 **Key Features**:
 
 - Parses TypeScript/React components using AST analysis
 - Extracts props with accurate TypeScript types and union values
 - Integrates with Chakra UI recipe system for variant definitions
-- Generates structured YAML files for each component
+- Generates structured JSON files for each component
 - Supports multiple export patterns (forwardRef, function, re-exports)
 - CLI with dry-run, filter, and verbose modes
 
-**Output**: YAML files in `components-props/` directory with complete prop metadata, recipe variants, and Figma mapping suggestions.
+**Output**: JSON files in `components-props/` directory with complete prop metadata, recipe variants, and Figma mapping suggestions.
 
 ### 2. `buildFigmaConfig.js` - Configuration Generator
 
-**Purpose**: Generates `figma.config.json` files from YAML component data following Figma Code Connect standards.
+**Purpose**: Generates `figma.config.json` files from JSON component data following Figma Code Connect standards (default output: `artifacts/codeconnect/figma.config.json`).
 
 **Key Features**:
 
 - Beginner-friendly output with all configurable properties visible
 - Follows official Figma Code Connect standards
 - Supports command-line customization
-- Auto-generates `documentUrlSubstitutions` from YAML files
+- Auto-generates `documentUrlSubstitutions` from JSON files
 - Proper node ID format conversion (colon to hyphen)
 
 ### 3. `fetchComponents.js` - Component Data Extractor
 
-**Purpose**: Extracts component variant data from Figma files and saves as YAML/JSON files.
+**Purpose**: Extracts component variant data from Figma files and saves as JSON files.
 
 **Key Features**:
 
 - Downloads all component variants from Figma
-- Supports multiple output formats (JSON, YAML, both)
+- JSON-only output (old format flags removed)
 - Filters by page or specific components
 - Creates structured component metadata
 
@@ -102,7 +103,7 @@ node scripts/extractComponentProps.js --dry-run --verbose
 # Filter specific components
 node scripts/extractComponentProps.js --filter button --verbose
 
-# Overwrite existing YAML files
+# Overwrite existing JSON files
 node scripts/extractComponentProps.js --overwrite
 
 # View all options
@@ -114,59 +115,71 @@ node scripts/extractComponentProps.js --help
 | Option | Description | Example |
 |--------|-------------|---------|
 | `--input` | Component directory to scan | `--input chakra-ui/apps/compositions/src/ui` |
-| `--output` | Output directory for YAML files | `--output components-props` |
+| `--output` | Output directory for JSON files | `--output components-props` |
 | `--recipes` | Recipe directory path | `--recipes chakra-ui/packages/react/src/theme/recipes` |
 | `--filter` | Filter by component name | `--filter accordion` |
 | `--dry-run` | Preview without writing files | `--dry-run` |
 | `--verbose` | Show detailed logging | `--verbose` |
 | `--overwrite` | Overwrite existing files | `--overwrite` |
 
-#### Generated YAML Structure
+#### Generated JSON Structure
 
 The script generates comprehensive component metadata:
 
-```yaml
-componentName: "Button"
-filePath: "chakra-ui/apps/compositions/src/ui/button.tsx"
-relativePath: "./chakra-ui/apps/compositions/src/ui/button.tsx"
-exportType: "forwardRef"
-exportName: "Button"
-interfaceName: "ButtonProps"
-extendsInterface: "HTMLChakraProps<'button', ButtonBaseProps>"
-description: ""
-props:
-  - name: "loading"
-    type: "boolean"
-    required: false
-    defaultValue: null
-    description: "If true, the button will show a loading spinner"
-    category: "behavior"
-    unionValues: []
-recipeVariants:
-  - name: "size"
-    type: '"2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl"'
-    required: false
-    defaultValue: null
-    description: "Recipe variant: size"
-    category: "variant"
-    unionValues: ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"]
-    source: "recipe"
-  - name: "variant"
-    type: '"solid" | "subtle" | "surface" | "outline" | "ghost" | "plain"'
-    required: false
-    defaultValue: null
-    description: "Recipe variant: variant"
-    category: "variant"
-    unionValues: ["solid", "subtle", "surface", "outline", "ghost", "plain"]
-    source: "recipe"
-variantProperties:
-  size: ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"]
-  variant: ["solid", "subtle", "surface", "outline", "ghost", "plain"]
-totalProps: 3
-potentialFigmaMapping:
-  size: "figma.enum"
-  variant: "figma.enum"
-  loading: "figma.boolean"
+```json
+{
+  "componentName": "Button",
+  "filePath": "chakra-ui/apps/compositions/src/ui/button.tsx",
+  "relativePath": "./chakra-ui/apps/compositions/src/ui/button.tsx",
+  "exportType": "forwardRef",
+  "exportName": "Button",
+  "interfaceName": "ButtonProps",
+  "extendsInterface": "HTMLChakraProps<'button', ButtonBaseProps>",
+  "description": "",
+  "props": [
+    {
+      "name": "loading",
+      "type": "boolean",
+      "required": false,
+      "defaultValue": null,
+      "description": "If true, the button will show a loading spinner",
+      "category": "behavior",
+      "unionValues": []
+    }
+  ],
+  "recipeVariants": [
+    {
+      "name": "size",
+      "type": "\"2xs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\"",
+      "required": false,
+      "defaultValue": null,
+      "description": "Recipe variant: size",
+      "category": "variant",
+      "unionValues": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+      "source": "recipe"
+    },
+    {
+      "name": "variant",
+      "type": "\"solid\" | \"subtle\" | \"surface\" | \"outline\" | \"ghost\" | \"plain\"",
+      "required": false,
+      "defaultValue": null,
+      "description": "Recipe variant: variant",
+      "category": "variant",
+      "unionValues": ["solid", "subtle", "surface", "outline", "ghost", "plain"],
+      "source": "recipe"
+    }
+  ],
+  "variantProperties": {
+    "size": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+    "variant": ["solid", "subtle", "surface", "outline", "ghost", "plain"]
+  },
+  "totalProps": 3,
+  "potentialFigmaMapping": {
+    "size": "figma.enum",
+    "variant": "figma.enum",
+    "loading": "figma.boolean"
+  }
+}
 ```
 
 ### Building Figma Code Connect Configuration
@@ -188,8 +201,9 @@ node scripts/buildFigmaConfig.js --help
 
 | Option | Description | Example |
 |--------|-------------|---------|
-| `--input` | Input directory with YAML files | `--input ./figma-variants` |
+| `--input` | Input directory with JSON files | `--input ./figma-variants` |
 | `--output` | Output format: `console`, `json`, `file` | `--output file` |
+| `--output-file` | Path for the config file when `--output file` | `--output-file artifacts/codeconnect/figma.config.json` |
 | `--file-key` | Figma file key or full Figma URL (required) | `--file-key https://www.figma.com/design/abc123xyz` |
 | `--parser` | Parser type: `react`, `html`, `swift`, `compose` | `--parser react` |
 | `--include` | Include paths (comma-separated) | `--include "src/**,packages/**"` |
@@ -235,7 +249,7 @@ node scripts/fetchComponents.js <fileKey|Figma URL>
 node scripts/fetchComponents.js mgzCV3zD3iWpctEI6UoUhB
 
 # Extract with options
-node scripts/fetchComponents.js https://www.figma.com/design/abc123xyz --format yaml --output ./components
+node scripts/fetchComponents.js https://www.figma.com/design/abc123xyz --output ./components
 ```
 
 #### Fetching Options
@@ -246,7 +260,7 @@ node scripts/fetchComponents.js https://www.figma.com/design/abc123xyz --format 
 | `--token` | Figma API token (overrides .env) | `--token figd_xxx` |
 | `--page` | Specific page name to process | `--page "Components"` |
 | `--component` | Specific component name | `--component "Button"` |
-| `--format` | Output format: `json`, `yaml`, `both` | `--format both` |
+| (no format flag) | Output format: JSON only | n/a |
 | `--output` | Output directory | `--output ./figma-variants` |
 
 ## Examples
@@ -258,7 +272,7 @@ node scripts/fetchComponents.js https://www.figma.com/design/abc123xyz --format 
 node scripts/extractComponentProps.js --verbose --overwrite
 
 # Step 2: Extract component data from Figma
-node scripts/fetchComponents.js mgzCV3zD3iWpctEI6UoUhB --format yaml
+node scripts/fetchComponents.js mgzCV3zD3iWpctEI6UoUhB --output ./components
 
 # Step 3: Generate Figma Code Connect configuration
 node scripts/buildFigmaConfig.js --output file
@@ -305,41 +319,39 @@ node scripts/buildFigmaConfig.js \
 node scripts/fetchComponents.js \
   --page "Design System" \
   --component "Button" \
-  --format yaml \
   --output ./button-variants
 ```
 
 ## Output Files
 
-### Generated YAML Files from extractComponentProps.js
+### Generated JSON Files from extractComponentProps.js
 
 Located in `components-props/` directory:
 
-```yaml
-componentName: Button
-filePath: chakra-ui/apps/compositions/src/ui/button.tsx
-relativePath: ./chakra-ui/apps/compositions/src/ui/button.tsx
-exportType: forwardRef
-props:
-  - name: loading
-    type: boolean
-    required: false
-    category: behavior
-recipeVariants:
-  - name: size
-    unionValues: ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"]
-    source: recipe
-  - name: variant
-    unionValues: ["solid", "subtle", "surface", "outline", "ghost", "plain"]
-    source: recipe
-variantProperties:
-  size: ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"]
-  variant: ["solid", "subtle", "surface", "outline", "ghost", "plain"]
-totalProps: 3
-potentialFigmaMapping:
-  size: figma.enum
-  variant: figma.enum
-  loading: figma.boolean
+```json
+{
+  "componentName": "Button",
+  "filePath": "chakra-ui/apps/compositions/src/ui/button.tsx",
+  "relativePath": "./chakra-ui/apps/compositions/src/ui/button.tsx",
+  "exportType": "forwardRef",
+  "props": [
+    { "name": "loading", "type": "boolean", "required": false, "category": "behavior" }
+  ],
+  "recipeVariants": [
+    { "name": "size", "unionValues": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"], "source": "recipe" },
+    { "name": "variant", "unionValues": ["solid", "subtle", "surface", "outline", "ghost", "plain"], "source": "recipe" }
+  ],
+  "variantProperties": {
+    "size": ["2xs", "xs", "sm", "md", "lg", "xl", "2xl"],
+    "variant": ["solid", "subtle", "surface", "outline", "ghost", "plain"]
+  },
+  "totalProps": 3,
+  "potentialFigmaMapping": {
+    "size": "figma.enum",
+    "variant": "figma.enum",
+    "loading": "figma.boolean"
+  }
+}
 ```
 
 **Key Features**:
@@ -348,23 +360,24 @@ potentialFigmaMapping:
 - Figma mapping suggestions for Code Connect
 - Handles re-exports (0 props is correct for re-exported components)
 
-### Generated YAML Files from fetchComponents.js
+### Generated JSON Files from fetchComponents.js
 
 Located in `figma-variants/` directory:
 
-```yaml
-componentName: Button
-componentSetId: 148:1720
-description: Primary button component
-variants:
-  - name: Default
-    properties:
-      State: default
-      Size: medium
-  - name: Hover
-    properties:
-      State: hover
-      Size: medium
+```json
+{
+  "componentName": "Button",
+  "componentSetId": "148:1720",
+  "description": "Primary button component",
+  "variantProperties": {
+    "State": ["default", "hover"],
+    "Size": ["medium"]
+  },
+  "variants": [
+    { "name": "Default", "properties": { "State": "default", "Size": "medium" } },
+    { "name": "Hover", "properties": { "State": "hover", "Size": "medium" } }
+  ]
+}
 ```
 
 ### Generated figma.config.json from buildFigmaConfig.js
@@ -385,7 +398,7 @@ variants:
 
 ```bash
 # Provide the file key on the CLI
-node scripts/fetchComponents.js <fileKey|Figma URL> --format yaml
+node scripts/fetchComponents.js <fileKey|Figma URL> --output ./figma-components
 
 # Ensure your token is present in .env
 FIGMA_ACCESS_TOKEN=your_token_here
@@ -417,9 +430,9 @@ FIGMA_ACCESS_TOKEN=your_token_here
 
 **Solution**:
 
-- For `buildFigmaConfig.js`: Check if YAML files exist in input directory
+- For `buildFigmaConfig.js`: Check if JSON files exist in input directory
 - For `extractComponentProps.js`: Verify input directory path is correct
-- Verify YAML files have required fields (`componentName`, `componentSetId`)
+- Verify JSON files have required fields (`componentName`, `componentSetId`)
 - Run `fetchComponents.js` first to generate Figma variant data
 - Run `extractComponentProps.js` to generate component props data
 
@@ -440,7 +453,7 @@ DEBUG=1 node scripts/buildFigmaConfig.js --output console
 3. **Generate configuration**: Run `buildFigmaConfig.js` to create Code Connect config
 4. **Test configuration**: Use `--output console` or `--dry-run` to preview before generating files
 5. **Iterate on settings**: Use command-line options to customize before committing to files
-6. **Version control**: Include generated `figma.config.json` and YAML files in your repository
+6. **Version control**: Include generated `figma.config.json` and JSON files in your repository
 
 ### 2. Understanding Component Props Output
 
@@ -466,10 +479,10 @@ DEBUG=1 node scripts/buildFigmaConfig.js --output console
 The scripts work together to prepare your codebase for Figma Code Connect:
 
 1. **`extractComponentProps.js`**: Analyzes React components to extract props and recipe variants
-   - Output: `components-props/*.yaml` - Complete prop metadata for each component
+   - Output: `components-props/*.json` - Complete prop metadata for each component
 
 2. **`fetchComponents.js`**: Downloads Figma component variant data
-   - Output: `figma-variants/*.yaml` - Figma component structure and variants
+   - Output: `figma-variants/*.json` - Figma component structure and variants
 
 3. **`buildFigmaConfig.js`**: Generates the configuration file
    - Output: `figma.config.json` - Figma Code Connect configuration

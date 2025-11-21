@@ -1,10 +1,10 @@
 # Matching Agent Prompt
 
-Goal: Map Figma components to React components using artifacts and manifest. Produce high-confidence matches and a list of uncertain cases with candidate suggestions.
+Goal: Map Figma components to React components using JSON artifacts and manifest. Produce high-confidence matches and a list of uncertain cases with candidate suggestions.
 
 Inputs:
-- Figma variants directory (YAMLs from fetchComponents).
-- React components directory (YAMLs from extractComponentProps).
+- Figma variants directory (JSON from fetchComponents).
+- React components directory (JSON from extractComponentProps).
 - Manifest JSON for import strategy and component root context (required).
 - Optional: target component list to focus on (skip or deprioritize others).
 
@@ -25,8 +25,8 @@ Output: JSONL file (one object per line) at `artifacts/match-candidates.jsonl`:
 
 Agent tasks:
 1) Load manifest for context (import alias/target and roots).
-2) Read component names from Figma YAMLs (`componentName`).
-3) Read component names from React YAMLs (`componentName`) and collect optional path info.
+2) Read component names from Figma JSON (`componentName`).
+3) Read component names from React JSON (`componentName`) and collect optional path info.
 4) Apply heuristics to produce `certain` and `uncertain` lists.
 5) Write one JSON object per line to `artifacts/match-candidates.jsonl` (or specified path) following the schema above.
 6) Emit a brief summary: counts, examples of certain and uncertain.
