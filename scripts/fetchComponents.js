@@ -9,10 +9,9 @@
  *   node figma-variants-extractor.js [fileKey] [options]
  *
  * File Key:
- *   The fileKey can be provided in two ways:
- *   1. As the first command line argument
- *   2. Set FIGMA_FILE_KEY in a .env file in the parent directory
- *   Command line argument takes precedence over .env file
+ *   Provide as either:
+ *   1. The first command line argument (file key or full Figma URL)
+ *   2. With --file-key <value> (file key or full Figma URL)
  *
  * Options:
  *   --token       Figma API token (or set FIGMA_ACCESS_TOKEN env variable)
@@ -25,11 +24,11 @@
  *   # Using command line argument
  *   FIGMA_ACCESS_TOKEN=xxx node figma-variants-extractor.js abc123xyz
  *   
- *   # Using .env file (FIGMA_FILE_KEY=abc123xyz)
- *   FIGMA_ACCESS_TOKEN=xxx node figma-variants-extractor.js
- *   
- *   # Both tokens can also be in .env file
- *   node figma-variants-extractor.js
+ *   # Token can also be in .env file
+ *   node figma-variants-extractor.js abc123xyz
+ * 
+ *   # Using a full Figma URL
+ *   node figma-variants-extractor.js https://www.figma.com/design/abc123xyz/My-Design?node-id=1-2
  */
 
 const https = require('https');
@@ -37,6 +36,12 @@ const fs = require('fs');
 const path = require('path');
 
 // Load environment variables from .env file
+function parseFileKey(input) {
+  if (!input) return '';
+  const urlMatch = input.match(/figma\.com\/(?:file|design)\/([a-zA-Z0-9]{10,})/);
+  return urlMatch ? urlMatch[1] : input;
+}
+
 function loadEnvFile() {
   const envPath = path.resolve(__dirname, '../.env');
   
@@ -95,8 +100,9 @@ function parseArgs() {
   loadEnvFile();
   
   const args = process.argv.slice(2);
+  const inlineFileKey = args[0] && !args[0].startsWith('--') ? parseFileKey(args[0]) : null;
   const config = {
-    fileKey: args[0] || process.env.FIGMA_FILE_KEY, // Use from args or env
+    fileKey: inlineFileKey || '', // Must come from CLI
     token: process.env.FIGMA_ACCESS_TOKEN,
     page: null,
     component: null,
@@ -104,7 +110,7 @@ function parseArgs() {
     output: './figma-variants'
   };
 
-  for (let i = 1; i < args.length; i += 2) {
+  for (let i = inlineFileKey ? 1 : 0; i < args.length; i += 2) {
     const flag = args[i];
     const value = args[i + 1];
 
@@ -123,6 +129,9 @@ function parseArgs() {
         break;
       case '--output':
         config.output = value;
+        break;
+      case '--file-key':
+        config.fileKey = parseFileKey(value);
         break;
     }
   }
@@ -267,8 +276,8 @@ async function main() {
   // Validate inputs
   if (!config.fileKey) {
     console.error('Error: Figma file key is required');
-    console.error('Provide it as: node figma-variants-extractor.js <fileKey> [options]');
-    console.error('Or set FIGMA_FILE_KEY in your .env file');
+    console.error('Provide it as: node figma-variants-extractor.js <fileKey|Figma URL> [options]');
+    console.error('Or: node figma-variants-extractor.js --file-key <fileKey|Figma URL> [options]');
     process.exit(1);
   }
 

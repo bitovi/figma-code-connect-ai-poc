@@ -52,7 +52,7 @@
   },
   "homepage": "https://github.com/bitovi/figma-code-connect-ai-poc#readme",
   "config": {
-    "figmaFileKey": "Set FIGMA_FILE_KEY in .env file",
+    "figmaFileKey": "Pass via CLI --file-key",
     "figmaToken": "Set FIGMA_ACCESS_TOKEN in .env file"
   }
 }

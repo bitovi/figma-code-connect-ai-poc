@@ -51,6 +51,7 @@ const FIGMA_MAPPING_HINTS = {
 function parseArgs() {
   const args = process.argv.slice(2);
   const config = { ...DEFAULT_CONFIG };
+  let manifestPath = null;
   
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -63,6 +64,10 @@ function parseArgs() {
         break;
       case '--output':
         config.output = nextArg;
+        i++;
+        break;
+      case '--manifest':
+        manifestPath = nextArg;
         i++;
         break;
       case '--filter':
@@ -89,7 +94,33 @@ function parseArgs() {
     }
   }
   
+  if (manifestPath) {
+    try {
+      const manifest = loadManifestFile(manifestPath);
+      if (manifest.componentRoot) config.input = manifest.componentRoot;
+      if (manifest.recipesPath) config.recipesPath = manifest.recipesPath;
+    } catch (err) {
+      console.warn(`⚠️  Could not load manifest at ${manifestPath}: ${err.message}`);
+    }
+  }
+  
   return config;
+}
+
+/**
+ * Load a manifest from YAML (preferred) or JSON.
+ */
+function loadManifestFile(manifestPath) {
+  const raw = fs.readFileSync(manifestPath, 'utf8');
+  try {
+    return YAML.parse(raw);
+  } catch (yamlErr) {
+    try {
+      return JSON.parse(raw);
+    } catch (jsonErr) {
+      throw new Error(`Unable to parse manifest (YAML/JSON) at ${manifestPath}`);
+    }
+  }
 }
 
 /**
@@ -107,6 +138,7 @@ USAGE:
 OPTIONS:
   --input <path>     Input directory to scan (default: chakra-ui/apps/compositions/src/ui)
   --output <path>    Output directory for YAML files (default: components-props)
+  --manifest <path>  Manifest JSON/YAML with componentRoot/recipesPath overrides
   --filter <name>    Filter by component name (e.g., "Accordion")
   --dry-run          Preview without writing files
   --verbose          Detailed logging

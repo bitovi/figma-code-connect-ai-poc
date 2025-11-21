@@ -75,8 +75,9 @@ Create a `.env` file in the project root:
 ```bash
 # Required: Figma API credentials
 FIGMA_ACCESS_TOKEN=figd_your_access_token_here
-FIGMA_FILE_KEY=your_figma_file_key_here
 ```
+
+Provide the Figma file key at runtime via CLI (`<fileKey>` arg or `--file-key <fileKey|URL>`).
 
 **Finding Your Figma File Key**:
 From URL: `https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB/My-Design-System`
@@ -189,7 +190,7 @@ node scripts/buildFigmaConfig.js --help
 |--------|-------------|---------|
 | `--input` | Input directory with YAML files | `--input ./figma-variants` |
 | `--output` | Output format: `console`, `json`, `file` | `--output file` |
-| `--file-key` | Figma file key (overrides .env) | `--file-key abc123xyz` |
+| `--file-key` | Figma file key or full Figma URL (required) | `--file-key https://www.figma.com/design/abc123xyz` |
 | `--parser` | Parser type: `react`, `html`, `swift`, `compose` | `--parser react` |
 | `--include` | Include paths (comma-separated) | `--include "src/**,packages/**"` |
 | `--exclude` | Exclude paths (comma-separated) | `--exclude "**/*.test.js,docs/**"` |
@@ -227,20 +228,21 @@ The script generates a standards-compliant `figma.config.json`:
 #### Fetching Commands
 
 ```bash
-# Extract all components (uses .env file)
-node scripts/fetchComponents.js
+# Extract all components (file key required)
+node scripts/fetchComponents.js <fileKey|Figma URL>
 
-# Extract with specific file key
+# Extract with a specific file key
 node scripts/fetchComponents.js mgzCV3zD3iWpctEI6UoUhB
 
 # Extract with options
-node scripts/fetchComponents.js --format yaml --output ./components
+node scripts/fetchComponents.js https://www.figma.com/design/abc123xyz --format yaml --output ./components
 ```
 
 #### Fetching Options
 
 | Option | Description | Example |
 |--------|-------------|---------|
+| `--file-key` | Figma file key or full Figma URL (positional arg also supported) | `--file-key mgzCV3zD3iWpctEI6UoUhB` |
 | `--token` | Figma API token (overrides .env) | `--token figd_xxx` |
 | `--page` | Specific page name to process | `--page "Components"` |
 | `--component` | Specific component name | `--component "Button"` |
@@ -382,8 +384,10 @@ variants:
 **Solution**:
 
 ```bash
-# Add to .env file
-FIGMA_FILE_KEY=your_file_key_here
+# Provide the file key on the CLI
+node scripts/fetchComponents.js <fileKey|Figma URL> --format yaml
+
+# Ensure your token is present in .env
 FIGMA_ACCESS_TOKEN=your_token_here
 ```
 

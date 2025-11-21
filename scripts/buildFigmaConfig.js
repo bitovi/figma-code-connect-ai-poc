@@ -12,12 +12,13 @@
  * Options:
  *   --input       Input directory with YAML files (default: ./figma-variants)
  *   --output      Output format: json, console, or file (default: console)
- *   --file-key    Figma file key (or set FIGMA_FILE_KEY env variable)
+ *   --file-key    Figma file key or full Figma URL
  *   --parser      Parser type: react, html, swift, compose (default: react)
  *   --include     Include paths (comma-separated, shows as empty array if not provided)
  *   --exclude     Exclude paths (comma-separated, shows as empty array if not provided)
  *   --import-paths Import path mappings (format: "src=>@ui,components/**=>@ui/components")
  *   --paths       TypeScript path mappings (format: "@ui/*=>src/components/*,@theme/*=>src/theme/*")
+ *   --manifest    Manifest JSON/YAML (default: artifacts/codeconnect-manifest.json) for default import/paths
  *   --custom-subs Custom URL substitutions (format: "<FIGMA_ICONS_BASE>=>/design/file,<CUSTOM>=>/other")
  *
  * Generated Config Structure:
@@ -36,8 +37,17 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+const YAML = require('yaml');
+
+const DEFAULT_MANIFEST = 'artifacts/codeconnect-manifest.json';
 
 // Load environment variables from .env file
+function parseFileKey(input) {
+  if (!input) return '';
+  const urlMatch = input.match(/figma\.com\/(?:file|design)\/([a-zA-Z0-9]{10,})/);
+  return urlMatch ? urlMatch[1] : input;
+}
+
 function loadEnvFile() {
   const envPath = path.resolve(__dirname, '../.env');
   
@@ -97,8 +107,9 @@ function parseArgs() {
   const config = {
     input: './figma-variants',
     output: 'console',
-    fileKey: process.env.FIGMA_FILE_KEY || '',
+    fileKey: '',
     parser: 'react',
+    manifest: DEFAULT_MANIFEST,
     include: null, // Will be empty array only if user provides values
     exclude: null, // Will be empty array only if user provides values
     importPaths: null, // Will be empty object only if user provides values
@@ -118,7 +129,7 @@ function parseArgs() {
         config.output = value;
         break;
       case '--file-key':
-        config.fileKey = value;
+        config.fileKey = parseFileKey(value);
         break;
       case '--parser':
         config.parser = value;
@@ -128,6 +139,9 @@ function parseArgs() {
         break;
       case '--exclude':
         config.exclude = value ? value.split(',').map(s => s.trim()) : [];
+        break;
+      case '--manifest':
+        config.manifest = value;
         break;
       case '--import-paths':
         // Parse format: "src=>@ui,components/**=>@ui/components"
@@ -348,6 +362,42 @@ function generateFigmaConfig(components, fileKey, parser = 'react', options = {}
   return config;
 }
 
+function loadManifestIfAvailable(manifestPath) {
+  if (!manifestPath) return null;
+  const resolved = path.resolve(manifestPath);
+  if (!fs.existsSync(resolved)) {
+    console.warn(`ℹ️  Manifest not found at ${resolved}; proceeding without it.`);
+    return null;
+  }
+  try {
+    const raw = fs.readFileSync(resolved, 'utf8');
+    try {
+      return YAML.parse(raw);
+    } catch (yamlErr) {
+      return JSON.parse(raw);
+    }
+  } catch (err) {
+    console.warn(`⚠️  Could not read manifest at ${resolved}: ${err.message}`);
+    return null;
+  }
+}
+
+function deriveImportPathsFromManifest(manifest) {
+  if (!manifest) return null;
+  const importTarget = manifest.importTarget;
+  const componentRoot = manifest.componentRoot;
+  if (!importTarget || !componentRoot) return null;
+  const normalizedRoot = componentRoot.replace(/\\/g, '/').replace(/\/+$/, '');
+  const map = {};
+  map[`${normalizedRoot}/**`] = importTarget;
+  return map;
+}
+
+function derivePathsFromManifest(manifest) {
+  if (!manifest || !manifest.tsconfigPaths) return null;
+  return manifest.tsconfigPaths;
+}
+
 // Output results
 async function outputResults(figmaConfig, outputFormat, components) {
   switch (outputFormat) {
@@ -387,12 +437,12 @@ async function outputResults(figmaConfig, outputFormat, components) {
 // Main execution
 async function main() {
   const config = parseArgs();
+  const manifest = loadManifestIfAvailable(config.manifest);
 
   // Validate inputs
   if (!config.fileKey) {
     console.error('Error: Figma file key is required');
-    console.error('Provide it with: --file-key <key>');
-    console.error('Or set FIGMA_FILE_KEY in your .env file');
+    console.error('Provide it with: --file-key <key|Figma URL>');
     process.exit(1);
   }
 
@@ -400,7 +450,12 @@ async function main() {
   console.log(`File Key: ${config.fileKey}`);
   console.log(`Input Directory: ${config.input}`);
   console.log(`Output Format: ${config.output}`);
-  console.log(`Parser: ${config.parser}\n`);
+  console.log(`Parser: ${config.parser}`);
+  if (manifest) {
+    console.log(`Manifest: ${path.resolve(config.manifest)}\n`);
+  } else {
+    console.log('');
+  }
 
   try {
     // Process YAML files
@@ -415,8 +470,8 @@ async function main() {
     const figmaConfig = generateFigmaConfig(components, config.fileKey, config.parser, {
       include: config.include,
       exclude: config.exclude,
-      importPaths: config.importPaths,
-      paths: config.paths,
+      importPaths: config.importPaths || deriveImportPathsFromManifest(manifest),
+      paths: config.paths || derivePathsFromManifest(manifest),
       customSubstitutions: config.customSubstitutions
     });
     
