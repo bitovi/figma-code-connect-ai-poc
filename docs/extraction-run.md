@@ -15,15 +15,17 @@ node scripts/extractComponentProps.js --overwrite --verbose
 node scripts/extractComponentProps.js \
   --manifest artifacts/codeconnect-manifest.json \
   --output artifacts/react-components \
+  --format yaml \
   --overwrite --verbose
 ```
 - Reads `componentRoot` and `recipesPath` from the manifest JSON.
-- Writes YAMLs to the specified output directory.
+- Writes YAMLs (default) to the specified output directory.
 
 ## Flags
 - `--filter <name>`: limit to components matching the string.
 - `--dry-run`: preview without writing files.
 - `--overwrite`: replace existing YAMLs at the output path.
 - `--verbose`: log progress verbosely.
+- `--format <yaml|json>`: choose output format (default: yaml). Downstream steps expect YAML.
 
 Verify: output directory contains YAML files; logs show the input/output paths used.

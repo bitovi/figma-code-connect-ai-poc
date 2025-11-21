@@ -15,18 +15,19 @@ Steps:
 ```
 codex exec --cd . --model gpt-5.1-codex <<'EOF'
 Use prompts/orientation.md.
+Target repo: ../chakra-ui
 Write manifest to artifacts/codeconnect-manifest.json.
 EOF
 ```
 Outputs: `artifacts/codeconnect-manifest.json`.
 
-2) Figma fetch (variants)
-- Purpose: pull Figma component variants into YAML/JSON.
+2) Figma fetch
+- Purpose: pull Figma component variants into JSON.
 - Run:
 ```
-npm run fetch:components -- "<FIGMA_URL_OR_KEY>" --format yaml --output ./artifacts/figma-components
+npm run fetch:components -- "https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB/Chakra-UI?node-id=12-184&m=dev" --format json --output ./artifacts/figma-components
 ```
-Outputs: `artifacts/figma-components/*.yaml` (plus JSON if requested).
+Outputs: `artifacts/figma-components/*.json` 
 
 3) React props extraction
 - Purpose: extract component props/variants from the React codebase.
@@ -35,9 +36,10 @@ Outputs: `artifacts/figma-components/*.yaml` (plus JSON if requested).
 node scripts/extractComponentProps.js \
   --manifest artifacts/codeconnect-manifest.json \
   --output artifacts/react-components \
+  --format json
   --overwrite --verbose
 ```
-Outputs: `artifacts/react-components/*.yaml`.
+Outputs: `artifacts/react-components/*.json`.
 
 4) Matching
 - Purpose: propose Figma→React matches.
@@ -45,8 +47,8 @@ Outputs: `artifacts/react-components/*.yaml`.
 ```
 codex exec --cd . --model gpt-5.1-codex <<'EOF'
 Use prompts/matching.md.
-Figma YAMLs: artifacts/figma-components
-React YAMLs: artifacts/react-components
+Figma JSONs: artifacts/figma-components
+React JSONs: artifacts/react-components
 Manifest (context): artifacts/codeconnect-manifest.json
 Produce match-candidates.jsonl in artifacts/.
 EOF
@@ -62,15 +64,15 @@ node scripts/review-matches.js
 Outputs: `artifacts/mappings.json`.
 
 6) Codegen
-- Purpose: generate Code Connect `.figma.tsx` files from mappings + YAMLs.
+- Purpose: generate Code Connect `.figma.tsx` files from mappings + JSONs.
 - Run (agent from artifacts dir to stay scoped):
 ```
 codex exec --cd artifacts --model gpt-5.1-codex <<'EOF'
 Use ../prompts/codegen.md.
 Manifest: codeconnect-manifest.json
 Mappings: mappings.json
-React YAMLs: react-components
-Figma YAMLs: figma-components
+React JSONs: react-components
+Figma JSONs: figma-components
 Output dir: codeconnect/
 EOF
 ```

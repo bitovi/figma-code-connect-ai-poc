@@ -1,30 +1,35 @@
 # Orientation Agent Prompt
 
-Goal: infer component roots, recipes, and import strategy for an arbitrary repo with minimal user questions. Produce a self-documenting manifest JSON (include manifestVersion and notes) plus a short summary.
+Goal: locate the React component root/import strategy for a user-specified repo and write a manifest JSON. 
 
-Inputs available:
-- Files on disk (git worktree).
-- Tools: `rg`, `ast-grep`, `ls`, `cat`, `node` for small scripts, `jq` if needed.
+Inputs:
+- A target repo path provided by the user (treat as `<REPO_ROOT>`). Stay within it.
+- Tools: `ls`, `cat`, targeted `rg --files -g '*.tsx'`, small `node` snippets if needed.
 
-Tasks:
-1) Detect monorepo/workspaces: inspect root `package.json` (`workspaces`), `pnpm-workspace.yaml`, `turbo.json`. Note relevant package paths.
-2) Find candidate component roots:
-   - Search for directories rich in `.tsx`/`.ts` with React imports (`from "react"`, `forwardRef`, JSX).
-   - Common patterns: `src/components`, `apps/*/src/ui`, `packages/*/src`, `components/`.
-   - Rank by TSX count and presence of index/barrel files; prefer the densest React area.
-3) Optional recipes/theme variants: look for `theme/recipes` or `recipes` under `src`/`packages`; verify by sampling files.
-4) Determine import strategy:
-   - If a package likely owns the component root (package.json `name` aligned with root), choose `importStyle: package` and set `importTarget` to that name.
-   - Else, if tsconfig `paths` point to the root, choose `importStyle: alias`, set `importTarget` to the alias, and capture the relevant `paths`.
-   - Else fallback to `importStyle: relative` with `importTarget` as the base path.
-5) Emit manifest JSON with fields: manifestVersion, componentRoot, optional recipesPath, importStyle, importTarget, optional tsconfigPaths, optional notes. Save to `artifacts/codeconnect-manifest.json` (or a provided path).
-6) Output a brief summary explaining choices and any uncertainties.
+Constraints:
+- Do not run git status or broad scans of the current repo; focus on `<REPO_ROOT>`.
+- Keep commands minimal; avoid dumping large files/dirs.
+- Ensure `artifacts/` exists before writing the manifest.
+- Do not emit a separate plan; execute the steps directly.
 
-Heuristics:
-- Prefer a single componentRoot. If multiple tie, pick the one with highest React density/exports; if still ambiguous, list top two with rationale.
-- Keep paths workspace-relative where possible.
-- If recipes/theme not found, leave `recipesPath` unset and note it.
+Required manifest fields (JSON):
+- `manifestVersion`: 1
+- `componentRoot`: path to the component root (workspace-relative preferred)
+- `recipesPath`: optional path if recipes exist
+- `importStyle`: one of `package | alias | relative` (default to `package` unless evidence suggests alias/relative)
+- `importTarget`: package/alias/base path
+- `tsconfigPaths`: optional alias map if found in tsconfig
+- `notes`: short summary of assumptions/choices
+
+Do this directly (no planning output):
+1) Confirm `<REPO_ROOT>` exists.
+2) List likely component areas (e.g., `apps`, `packages`, `src`) and take a minimal sample of `.tsx` locations via `rg --files -g '*.tsx' <REPO_ROOT>` or targeted `find` to pick the densest React area as `componentRoot`.
+3) Look for recipes/theme under `<REPO_ROOT>` (e.g., `**/recipes`), sampling one or two files to confirm; set `recipesPath` or omit if absent.
+4) Inspect `<REPO_ROOT>/package.json` for a package `name` aligned with the component root; if present, prefer `importStyle: package` and `importTarget: <name>`. If tsconfig `paths` point to the root, choose `alias` and record them; else fallback to `relative`.
+5) Check `<REPO_ROOT>/tsconfig*.json` for `paths` aliases; include any found in `tsconfigPaths`.
+6) `mkdir -p artifacts` and write `artifacts/codeconnect-manifest.json` with the required fields.
+7) Print a brief summary (root, recipes, import style/target, paths, notes/uncertainties).
 
 Deliverables:
 - Manifest JSON saved to disk.
-- Text summary of detected roots, import strategy, and any open questions.
+- Text summary of detected roots, import strategy, path aliases (if any), and any open questions.

@@ -24,6 +24,7 @@ const DEFAULT_CONFIG = {
   verbose: false,
   overwrite: false,
   filter: null,
+  format: 'yaml', // yaml | json
   recipesPath: 'chakra-ui/packages/react/src/theme/recipes'
 };
 
@@ -64,6 +65,10 @@ function parseArgs() {
         break;
       case '--output':
         config.output = nextArg;
+        i++;
+        break;
+      case '--format':
+        config.format = nextArg.toLowerCase();
         i++;
         break;
       case '--manifest':
@@ -138,6 +143,7 @@ USAGE:
 OPTIONS:
   --input <path>     Input directory to scan (default: chakra-ui/apps/compositions/src/ui)
   --output <path>    Output directory for YAML files (default: components-props)
+  --format <fmt>     Output format: yaml | json (default: yaml)
   --manifest <path>  Manifest JSON/YAML with componentRoot/recipesPath overrides
   --filter <name>    Filter by component name (e.g., "Accordion")
   --dry-run          Preview without writing files
@@ -753,7 +759,8 @@ function generateComponentYAML(componentData) {
  * Write component data to YAML file
  */
 async function writeComponentFile(config, componentName, yamlData) {
-  const fileName = `${componentName.toLowerCase()}.yaml`;
+  const ext = config.format === 'json' ? 'json' : 'yaml';
+  const fileName = `${componentName.toLowerCase()}.${ext}`;
   const outputPath = path.join(config.output, fileName);
   
   if (!config.overwrite && fs.existsSync(outputPath)) {
@@ -764,15 +771,20 @@ async function writeComponentFile(config, componentName, yamlData) {
   if (config.dryRun) {
     console.log(`📝 Would write: ${fileName}`);
     if (config.verbose) {
-      console.log(YAML.stringify(yamlData, { indent: 2 }));
+      const serialized = ext === 'json'
+        ? JSON.stringify(yamlData, null, 2)
+        : YAML.stringify(yamlData, { indent: 2 });
+      console.log(serialized);
     }
     return true;
   }
   
   try {
     await fs.ensureDir(config.output);
-    const yamlContent = YAML.stringify(yamlData, { indent: 2 });
-    await fs.writeFile(outputPath, yamlContent, 'utf8');
+    const serialized = ext === 'json'
+      ? JSON.stringify(yamlData, null, 2)
+      : YAML.stringify(yamlData, { indent: 2 });
+    await fs.writeFile(outputPath, serialized, 'utf8');
     console.log(`✅ Generated: ${fileName}`);
     return true;
   } catch (error) {
