@@ -3,6 +3,7 @@
 ## Project Overview
 
 This project demonstrates automated Figma Code Connect integration using AI to bridge design and code.
+NOTE: The active pipeline is JSON-only; any YAML references below are legacy/backlog items.
 
 ---
 
@@ -17,7 +18,7 @@ This project demonstrates automated Figma Code Connect integration using AI to b
 
 ## Phase 2: Code Analysis (COMPLETED)
 
-- [x] Create component props extraction script (`extractComponentProps.js`)
+- [x] Create component props extraction script (`code-component-scanner.js`, replacing `extractComponentProps.js`)
 - [x] Scan React TypeScript components in `chakra-ui/apps/compositions/src/ui/`
 - [x] Extract component interfaces and prop types
 - [x] Generate YAML files in `components-props/` directory (226 components extracted)
@@ -57,24 +58,7 @@ Update Figma file components to match Code Connect structure:
 
 - [ ] **Component Structure Organization**
   - [ ] Reorganize project structure to group component artifacts together
-  - [ ] Create folder structure where each component has its own directory:
-
-    ```text
-    components/
-      button/
-        button.figma-variants.yaml
-        button.code-props.yaml
-      alert/
-        alert.figma-variants.yaml
-        alert.code-props.yaml
-      avatar/
-        avatar.figma-variants.yaml
-        avatar.code-props.yaml
-      accordion/
-        accordion.figma-variants.yaml
-        accordion.code-props.yaml
-    ```
-
+  - [ ] Create folder structure where each component has its own directory (JSON artifacts)
   - [ ] Migrate existing files from `figma-variants/` to new structure
   - [ ] Migrate existing files from `components-props/` to new structure
   - [ ] Update scripts to read/write from new organized structure
@@ -87,7 +71,7 @@ Update Figma file components to match Code Connect structure:
 
 ### Design Requirements
 
-- [ ] Match extracted component props from component folders (e.g., `components/button/button.code-props.yaml`)
+  - [ ] Match extracted component props from component folders (e.g., `components/button/button.code-props.json`)
 - [ ] Use consistent naming between Figma variants and code props
 - [ ] Ensure all boolean props have corresponding boolean variants in Figma
 - [ ] Align enum values between Figma variant options and code prop types
@@ -102,7 +86,7 @@ Update Figma file components to match Code Connect structure:
 
 - [ ] **Script Development**
   - [ ] Create script to scan organized `components/` folder structure
-  - [ ] Auto-match `*.code-props.yaml` with `*.figma-variants.yaml` per component
+  - [ ] Auto-match `*.code-props.json` with `*.figma-variants.json` per component
   - [ ] Generate `.figma.tsx` Code Connect files
   - [ ] Support both primitive and composite component types
 

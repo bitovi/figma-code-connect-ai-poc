@@ -84,6 +84,10 @@ async function main() {
     console.log('We need to link each Figma component to its code component to generate CodeConnect files.');
     console.log(`Input: ${INPUT_PATH}`);
     console.log(`Auto-approved matches: ${certain.length}`);
+    certain.forEach(e => {
+      const reason = e.reason ? ` (${e.reason})` : '';
+      console.log(`  - ${e.figmaName} -> ${e.reactName}${reason}`);
+    });
     console.log(`Needs your decision: ${uncertain.length} (unmapped items will be skipped).`);
     console.log('For each unresolved Figma component, pick which code component to connect: number = approve, Enter = skip, s = skip all remaining.');
 

@@ -4,7 +4,7 @@ Goal: Map Figma components to React components using JSON artifacts and manifest
 
 Inputs:
 - Figma variants directory (JSON from fetchComponents).
-- React components directory (JSON from extractComponentProps).
+- React components directory (JSON from code-component-scanner).
 - Manifest JSON for import strategy and component root context (required).
 - Optional: target component list to focus on (skip or deprioritize others).
 

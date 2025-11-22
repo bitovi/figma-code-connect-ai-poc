@@ -13,14 +13,15 @@ This project automates the generation of `.figma.tsx` files for React components
 - **Output Directory:** `figma-variants/`
 - **Purpose:**
   - Extracts variant and property data from Figma components.
-  - Stores results as JSON/YAML files in `figma-variants/`.
+  - Stores results as JSON files in `figma-variants/`.
 - **How to Run:**
-  - Execute `node fetchComponents.js --format <json|yaml> --token <figmaApiToken>`
-  - Required CLI flags:
-    - `--format <json|yaml>`: Output format (choose `json` or `yaml`)
-    - `--token <figmaApiToken>`: Your Figma API access token
+  - Execute `node fetchComponents.js <fileKey|Figma URL> --token <figmaApiToken>`
+  - Required inputs:
+    - `<fileKey|Figma URL>`: The file key or a full Figma URL (first positional arg)
+    - Output format: JSON only
+    - `--token <figmaApiToken>`: Your Figma API access token (or set `FIGMA_ACCESS_TOKEN` in `.env`)
   - Example:
-    - `node fetchComponents.js --format json --token <your_token>`
+    - `node fetchComponents.js https://www.figma.com/design/abc123xyz/My-Design --token <your_token>`
   - Ensure you have Figma API credentials set up if required.
 
 ### **Phase 2: Extract Component Props and Recipe Variants**
@@ -28,7 +29,7 @@ This project automates the generation of `.figma.tsx` files for React components
 - **Output Directory:** `components-props/`
 - **Purpose:**
   - Extracts TypeScript prop definitions, recipe variants, and mapping hints from Chakra UI components.
-  - Stores results as YAML files in `components-props/`.
+  - Stores results as JSON files in `components-props/`.
 - **How to Run:**
   - Follow the instructions in `PROPS_EXTRACTIONS_PROMPS.md` to run the extraction script.
   - The script will parse component source files and output prop metadata.
@@ -48,8 +49,8 @@ This project automates the generation of `.figma.tsx` files for React components
 
 ## Output Structure
 
-- **`figma-variants/`**: Contains Figma variant data for each component (JSON/YAML).
-- **`components-props/`**: Contains extracted prop definitions and mapping hints (YAML).
+- **`figma-variants/`**: Contains Figma variant data for each component (JSON).
+- **`components-props/`**: Contains extracted prop definitions and mapping hints (JSON).
 - **`chakra-ui/packages/react/src/components/<component>/<component>.figma.tsx`**: Auto-generated wrapper files mapping Figma variants to React props.
 
 ---
@@ -69,7 +70,7 @@ This project automates the generation of `.figma.tsx` files for React components
 
 - **Node.js & TypeScript:** Basic knowledge is helpful but not required; scripts are self-contained and documented.
 - **Figma API:** You may need an access token for Phase 1.
-- **YAML/JSON:** Familiarity with these formats will help in understanding the output files.
+- **JSON:** Familiarity will help in understanding the output files.
 - **Error Handling:** All scripts are designed to log errors and warnings clearly. Use `--verbose` for more details.
 - **Customization:** You can filter components or preview output before writing files using CLI options.
 

@@ -1,105 +1,357 @@
-# Figma Code Connect - AI POC
+# Superconnect: Figma ↔ React Code Connect Generator
 
-A minimal pipeline to go from a Figma file + a React component repo to Code Connect outputs. Artifacts live under `artifacts/` (gitignored).
+Superconnect is an AI-enhanced tool that writes your Figma Code Connect files for you. It takes these inputs:
 
-## One-shot pipeline (beta)
+- A Figma design system file
+- A React (TypeScript) component repo
 
-Run the whole pipeline with three inputs (Figma URL/key, repo path, and token):
+and produces:
+
+- Figma Code Connect `.figma.tsx` files
+- A `figma.config.json` configured for that run
+
+It harnesses the power of your favorite coding agent (Claude Code or Codex) to handle fuzzy decisions that require judgment, and leans on small scripts for the deterministic, repeatable work.
+
+- Agents (LLM prompts) do orientation, matching, and code generation.
+- Scripts fetch Figma, scan React components, and build config.
+
+---
+
+# Quick Start
+
+## Prerequisites
+
+- Node.js ≥ 14
+- A Figma file URL or file key
+- An associated React/TS code repo you've cloned locally (e.g. `../chakra-ui`)
+- A Figma access token (PAT)
+
+## Setup
+
+From this project’s root:
 
 ```bash
-npm run pipeline:one-shot -- \
-  --figma-url "https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB/Chakra-UI?node-id=12-184&m=dev" \
+# Install dependencies
+npm install
+
+# Link the CLI globally (adds `superconnect` to your PATH)
+npm link
+```
+
+Set your Figma token (in shell or `.env`):
+
+```bash
+export FIGMA_ACCESS_TOKEN=figd_your_token_here
+# or in .env at repo root:
+# FIGMA_ACCESS_TOKEN=figd_your_token_here
+```
+
+## Run
+
+From this repo’s root:
+
+```bash
+superconnect \
+  --figma-url "https://www.figma.com/design/...." \
   --repo-path ../chakra-ui \
   --figma-token "$FIGMA_ACCESS_TOKEN" \
   --agent-runner "codex exec --model gpt-5.1-codex-max"
 ```
-Or use the CLI alias: `npx superconnect -- --figma-token "$FIGMA_ACCESS_TOKEN"` (reads defaults from `superconnect.toml`).
 
-### Install/link the CLI
-Use the local checkout without installing:
+# Configuration
+
+You can configure the pipeline **via CLI flags** or **via a TOML file**, with CLI flags always winning if both are present.
+
+## CLI flags (see `superconnect --help`)
+
 ```
-npx superconnect -- --figma-token "$FIGMA_ACCESS_TOKEN"
+  --figma-url <value>      Figma file URL or key (required)
+  --repo-path <path>       Path to code repo (default: /Users/brandonharvey/src/chakra-ui)
+  --figma-token <token>    Figma API token (or FIGMA_ACCESS_TOKEN env/.env)
+  --agent-runner <cmd>     Command to run agent steps (reads prompt from stdin)
+  --agent-stream           Stream full agent stdout/stderr to console (default: suppressed)
+  --agent-filter <regex>   When suppressed, echo only lines matching this regex
+  --agent-quiet            Suppress agent stdout in console (log file still written if configured)
+  --artifacts <dir>        Artifacts root (default: /Users/brandonharvey/src/figma-code-connect-ai-poc/artifacts)
+  --non-interactive        Auto-accept only certain matches (skip uncertain prompts)
+  --force                  Re-run steps even if artifacts exist
+  --dry-run                Print commands without executing them
+  --skip-codegen           Skip codegen validation/agent handoff
 ```
 
-Or install it globally from this repo:
+## `superconnect.toml`
+
+Most of these flags can be set in `superconnect.toml` at this repo’s root.
+
+When both TOML and CLI flags are present:
+
+- CLI flags win over `superconnect.toml`.
+- `superconnect.toml` wins over hard-coded defaults (e.g., default `repo-path` and `artifacts` dir).
+
+The one-shot runner (`superconnect` / `npm run pipeline:one-shot`) will:
+
+- Read defaults from `superconnect.toml` (`[inputs]`, `[outputs]`, `[config]`).
+- Run orientation → Figma fetch → React props extraction → matching → review → codegen → config builder.
+- Reuse existing artifacts (manifest, match-candidates, mappings, codeconnect outputs, `figma.config.json`) unless you pass `--force` or change `--artifacts`.
+
+
+# Using the Generated Files in Your Design System
+
+Once the pipeline runs, you’ll have:
+
+- `artifacts/codeconnect/*.figma.tsx`
+- `artifacts/codeconnect/figma.config.json`
+
+There are two basic integration paths: **copying these into your design system repo**, or **treating this repo as the “Code Connect project”** and pointing Figma at it.
+
+## Copying into your design system repo
+
+In your design system repo:
+
+1. **Install Code Connect**
+
+   ```bash
+   npm install @figma/code-connect --save-dev
+   ```
+
+2. **Copy outputs**
+
+   - Copy `artifacts/codeconnect/*.figma.tsx` into whatever folder you use for Code Connect files (e.g. `codeconnect/` or `src/codeconnect/` in your DS repo).
+   - Copy `artifacts/codeconnect/figma.config.json` to the repo root or wherever your Code Connect tooling expects it.
+
+3. **Wire into your build**
+
+   - Ensure your bundler / test setup picks up `.figma.tsx` files (they’re just TSX).
+   - If your DS has its own Code Connect config, merge or adjust the generated `figma.config.json` rather than overwriting blindly.
+
+## Treating this repo as the Code Connect project
+
+You can also leave the outputs here and point Figma directly at this repository:
+
+1. Ensure `artifacts/codeconnect/figma.config.json` is present and correct.
+2. Ensure the `.figma.tsx` files are where `figma.config.json` expects them (by default, in `artifacts/codeconnect/`).
+
+Exactly how you expose this project to Figma (GitHub URL, local dev server, CI artifact, etc.) depends on your Code Connect setup, but the generated config + TSX files are all you need.
+
+## What to look for in Figma to confirm it’s working
+
+Once your Code Connect project is reachable from Figma:
+
+- Open your design system file in Figma.
+- Switch to Dev Mode.
+- Select a component instance that should have a mapping.
+- In the code panel / Code Connect plugin:
+  - You should see the mapped React component name (e.g. `Button`).
+  - The props panel should reflect enum mappings and booleans derived from the pipeline (e.g. `size`, `variant`, `disabled`).
+  - Changing variant controls in Figma (e.g. toggling `size` or `variant`) should correspond to props that appear in your generated `.figma.tsx` file.
+
+If you don’t see the expected mapping:
+
+- Check that `mappings.json` actually includes that Figma component.
+- Confirm there’s a `.figma.tsx` file for the mapped React component in `artifacts/codeconnect/`.
+- Verify `figma.config.json` points at the correct Figma file key and includes the paths where `.figma.tsx` files live.
+- If the React component name changed after you generated artifacts, rerun the pipeline.
+
+
+# Pipeline overview
+
+## Orientation (agent)
+- Uses prompt file `prompts/orientation.md`.
+- Inspects (for example) `../chakra-ui`.
+- Discovers where React components live, recipes, import style, and tsconfig path.
+- Writes `artifacts/codeconnect-manifest.json`.
+
+## Figma fetch (script)
+- Given a Figma file + token, discovers all the components and writes out a directory of JSON files to describe them.
+- Calls `scripts/fetchComponents.js`.
+- Writes JSON files to `artifacts/figma-components/`.
+
+## React props extraction (script)
+- Given a repo file path, and using the manifest file for guidance, discovers all the React components and writes out a directory of JSON files to describe them.
+- Calls `scripts/code-component-scanner.js`.
+- Writes JSON files to `artifacts/react-components/`.
+
+## Matching (agent)
+- Given the Figma + React JSON directories and the manifest, proposes Figma ↔ React component matches.
+- Uses prompt file `prompts/matching.md`.
+- Reads JSON from `artifacts/figma-components/` and `artifacts/react-components/`.
+- Writes match candidates to `artifacts/match-candidates.jsonl`.
+
+## Review (script)
+- Reviews and approves the proposed matches, producing a clean mappings file.
+- Calls `scripts/review-matches.js`.
+- Reads `artifacts/match-candidates.jsonl`.
+- Gets approval for each match from the user.
+- Writes approved mappings to `artifacts/mappings.json`.
+
+## Codegen (agent)
+- Given mappings + JSONs + manifest, generates Code Connect `.figma.tsx` files.
+- Uses prompt file `prompts/codegen.md`.
+- Reads manifest, `artifacts/mappings.json`, and JSONs from `artifacts/figma-components/` and `artifacts/react-components/`.
+- Writes `.figma.tsx` files to `artifacts/codeconnect/`.
+
+## Config builder (script)
+- Given Figma JSON + manifest + file key, generates a `figma.config.json` suitable for Code Connect.
+- Calls `scripts/buildFigmaConfig.js`.
+- Reads `artifacts/figma-components/` and `artifacts/codeconnect-manifest.json`.
+- Writes `artifacts/codeconnect/figma.config.json`.
+
+At the end you have:
+
+- `artifacts/react-components/` — React-side component metadata (props, variants, hints)
+- `artifacts/figma-components/` — Figma-side components and variants
+- `artifacts/mappings.json` — Figma ↔ React mappings
+- `artifacts/codeconnect/*.figma.tsx` — Code Connect files
+- `artifacts/codeconnect/figma.config.json` — Config for those files
+
+
+# Running Each Step A La Carte
+
+You don’t have to run the whole pipeline end to end. Each stage can be run manually.
+
+All commands below assume you’re in this repo root unless noted.
+
+## Orientation (agent) → manifest
+
+Goal: produce `artifacts/codeconnect-manifest.json`.
+
+```bash
+codex exec --cd . --model gpt-5.1-codex-max <<'EOF'
+Use prompts/orientation.md.
+Target repo: ../chakra-ui
+Write manifest to artifacts/codeconnect-manifest.json.
+EOF
 ```
-npm install
-npm link   # creates the superconnect binary
-superconnect -- --figma-token "$FIGMA_ACCESS_TOKEN"
+
+Check:
+
+- `artifacts/codeconnect-manifest.json` exists.
+- It includes `componentRoot`, `importStyle`, `importTarget`, and `tsconfigPath`.
+
+See: `docs/orientation-run.md`.
+
+## Figma fetch → Figma JSON
+
+```bash
+npm run fetch:components -- \
+  "https://www.figma.com/design/...." \
+  --output ./artifacts/figma-components
 ```
 
-### Config via `superconnect.toml`
-Optional defaults live in `superconnect.toml` at the repo root:
-```toml
-[inputs]
-figma_url    = "https://www.figma.com/design/..."
-component_repo = "../your-repo"
+Outputs: `artifacts/figma-components/*.json`.
 
-[outputs]
-output_dir = "artifacts"
-agents_log_directory = "artifacts/agent-logs"
+See: `docs/pipeline-run.md`, `scripts/fetchComponents.js`.
 
-[config]
-agent_run_command = "codex exec --model gpt-5.1-codex-max"
-```
-- CLI flags override values from the file.
-- Agent steps run with cwd set automatically: orientation/matching from the repo, codegen from `artifacts/`.
-- Logs are written live if `agents_log_directory` is set; console output is suppressed by default (use `--agent-stream` or `--agent-filter` to surface lines).
+## React props extraction → React JSON
 
-Notes:
-- Defaults can come from `superconnect.toml` (figma url/key, repo, artifacts dir, agent log dir, agent runner).
-- Chakra defaults are auto-applied when `--repo-path` includes `chakra-ui` (writes `artifacts/codeconnect-manifest.json` if missing).
-- Agent steps (orientation, matching, codegen) run via `--agent-runner` if provided; otherwise the script will prompt you to run them manually. Agent output is suppressed by default but streams to the log if `agents_log_directory` is set in `superconnect.toml`; use `--agent-stream` or `--agent-filter` to surface console output.
-- Existing artifacts are reused by default; add `--force` to re-run steps and regenerate outputs.
-- Helpful flags: `--dry-run` (plan only), `--non-interactive` (auto-accept certain matches), `--skip-codegen`.
-- See `docs/one-shot-run.md` for details.
+Preferred: use the manifest so the scanner gets the right root and tsconfig.
 
-## Overview of the pipeline
-
-1) **Orientation (agent)** — Inspect the code repo, decide component root/import strategy, write `artifacts/codeconnect-manifest.json`. Prompt: `prompts/orientation.md`.
-2) **Figma fetch** — Download component variants to JSON: `npm run fetch:components -- "<FIGMA_URL_OR_KEY>" --output ./artifacts/figma-components`.
-3) **React props extraction** — Extract component metadata to JSON:  
-```
-node scripts/extractComponentProps.js \
+```bash
+node scripts/code-component-scanner.js \
   --manifest artifacts/codeconnect-manifest.json \
   --output artifacts/react-components \
   --overwrite --verbose
 ```
-4) **Matching (agent)** — Propose Figma→React matches: `prompts/matching.md`, write `artifacts/match-candidates.jsonl`.
-5) **Review matches** — Approve uncertain matches: `node scripts/review-matches.js` → `artifacts/mappings.json`.
-6) **Codegen (agent)** — Generate `.figma.tsx` files from mappings + JSONs: run agent from `artifacts/` with `prompts/codegen.md`; outputs `artifacts/codeconnect/*.figma.tsx`.
-7) **Config builder** — Produce `artifacts/codeconnect/figma.config.json` (uses manifest for import/paths):  
+
+If you don’t want a manifest, you must provide explicit paths:
+
+```bash
+node scripts/code-component-scanner.js \
+  --input path/to/components \
+  --tsconfig path/to/tsconfig.json \
+  --output components-props \
+  --overwrite --verbose
 ```
+
+Outputs: `artifacts/react-components/*.json` (or `components-props/*.json`).
+
+See: `docs/extraction-run.md`, `scripts/code-component-scanner.js`.
+
+## Matching (agent) → match candidates
+
+```bash
+codex exec --cd . --model gpt-5.1-codex-max <<'EOF'
+Use prompts/matching.md.
+Figma JSONs: artifacts/figma-components
+React JSONs: artifacts/react-components
+Manifest (context): artifacts/codeconnect-manifest.json
+Produce match-candidates.jsonl in artifacts/.
+EOF
+```
+
+Outputs: `artifacts/match-candidates.jsonl`.
+
+See: `prompts/matching.md`.
+
+## Review → mappings
+
+```bash
+node scripts/review-matches.js
+```
+
+- Reads `artifacts/match-candidates.jsonl`.
+- Writes `artifacts/mappings.json`.
+
+Supports non-interactive mode via the one-shot runner (`--non-interactive`).
+
+See: `scripts/review-matches.js`.
+
+## Codegen (agent) → Code Connect files
+
+Run from `artifacts/` so the agent only sees generated files:
+
+```bash
+cd artifacts
+
+codex exec --cd . --model gpt-5.1-codex-max <<'EOF'
+Use ../prompts/codegen.md.
+Manifest: codeconnect-manifest.json
+Mappings: mappings.json
+React JSONs: react-components
+Figma JSONs: figma-components
+Output dir: codeconnect/
+EOF
+```
+
+Outputs: `artifacts/codeconnect/*.figma.tsx`.
+
+See: `prompts/codegen.md`.
+
+## Config builder → figma.config.json
+
+```bash
 node scripts/buildFigmaConfig.js \
   --input artifacts/figma-components \
   --manifest artifacts/codeconnect-manifest.json \
-  --file-key <FIGMA_URL_OR_KEY> \
+  --file-key "<FIGMA_URL_OR_KEY>" \
   --output file \
   --output-file artifacts/codeconnect/figma.config.json
 ```
 
-See `docs/pipeline-run.md` for the full golden-path commands.
+Outputs: `artifacts/codeconnect/figma.config.json`.
 
-## Key scripts
-- `scripts/fetchComponents.js` — Figma variants → JSON (`npm run fetch:components`).
-- `scripts/extractComponentProps.js` — React component metadata → JSON.
-- `scripts/review-matches.js` — CLI to approve uncertain matches.
-- `scripts/generateCodeConnect.js` — Stub validator (plans codegen outputs).
-- `scripts/buildFigmaConfig.js` — Writes `figma.config.json` (under `artifacts/codeconnect/` by default) using manifest defaults (CLI flags override).
+See: `scripts/buildFigmaConfig.js`.
 
-## Artifacts layout
-- `artifacts/codeconnect-manifest.json` — Component root/import strategy discovered in orientation.
-- `artifacts/figma-components/` — Figma variant JSON files.
-- `artifacts/react-components/` — React component JSON files.
-- `artifacts/match-candidates.jsonl` — Suggested matches (certain + uncertain).
-- `artifacts/mappings.json` — Approved matches.
-- `artifacts/codeconnect/` — Generated `.figma.tsx` files and `figma.config.json` (+ README).
 
-## Prereqs
-- Node.js (>=14)
-- Figma token in `.env`: `FIGMA_ACCESS_TOKEN=...`
-- Access to the target code repo (e.g., sibling `../chakra-ui`) and a Figma file URL/key.
+# Development Notes
 
-## References
-- Run guides: `docs/pipeline-run.md`, `docs/orientation-run.md`, `docs/extraction-run.md`, `docs/matching-run.md`, `docs/review-run.md`, `docs/codegen-run.md`, `docs/config-run.md`.
-- Prompts for agents: `prompts/orientation.md`, `prompts/matching.md`, `prompts/codegen.md`.
+Helpful npm scripts:
+
+```bash
+# Check script syntax
+npm run dev:check
+
+# One-shot pipeline
+npm run pipeline:one-shot -- --figma-url ... --repo-path ... --figma-token ...
+
+# Figma-only
+npm run fetch:components -- "<FIGMA_URL_OR_KEY>" --output ./artifacts/figma-components
+
+# React-only (scanner)
+npm run extract:props
+```
+
+For more details, see:
+
+- `docs/pipeline-run.md` — manual golden-path commands.
+- `scripts/README.md` — script-by-script details.

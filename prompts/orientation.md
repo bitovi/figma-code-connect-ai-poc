@@ -18,6 +18,7 @@ Required manifest fields (JSON):
 - `recipesPath`: optional path if recipes exist
 - `importStyle`: one of `package | alias | relative` (default to `package` unless evidence suggests alias/relative)
 - `importTarget`: package/alias/base path
+- `tsconfigPath`: path to the tsconfig the extractor should use (resolve to the best-fit config; prefer the one that includes the component root; if multiple, pick and note the choice)
 - `tsconfigPaths`: optional alias map if found in tsconfig
 - `notes`: short summary of assumptions/choices
 
@@ -26,7 +27,7 @@ Do this directly (no planning output):
 2) List likely component areas (e.g., `apps`, `packages`, `src`) and take a minimal sample of `.tsx` locations via `rg --files -g '*.tsx' <REPO_ROOT>` or targeted `find` to pick the densest React area as `componentRoot`.
 3) Look for recipes/theme under `<REPO_ROOT>` (e.g., `**/recipes`), sampling one or two files to confirm; set `recipesPath` or omit if absent.
 4) Inspect `<REPO_ROOT>/package.json` for a package `name` aligned with the component root; if present, prefer `importStyle: package` and `importTarget: <name>`. If tsconfig `paths` point to the root, choose `alias` and record them; else fallback to `relative`.
-5) Check `<REPO_ROOT>/tsconfig*.json` for `paths` aliases; include any found in `tsconfigPaths`.
+5) Check `<REPO_ROOT>/tsconfig*.json` to select a `tsconfigPath` that covers the component root. If multiple, pick the best-fit and mention in `notes`. Also capture any `paths` aliases in `tsconfigPaths`.
 6) `mkdir -p artifacts` and write `artifacts/codeconnect-manifest.json` with the required fields.
 7) Print a brief summary (root, recipes, import style/target, paths, notes/uncertainties).
 

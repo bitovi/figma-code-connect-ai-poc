@@ -12,30 +12,19 @@ This repo is built to demo against the Chakra UI design system. [Chakra UI](http
 The purpose of this project is to create a demo and a blog post -- it is illustrative, a teaching tool.  Elegance, simplicity, succinctness, and approachability are the most important features. Robustness and production-quality is NOT an important feature. We'll only implement the golden path.
 
 # Planning
-(IMPORTANT): This project uses **bd (beads)** for planning software engineering tasks. Run `bd quickstart` to learn the tool. For one-off requests I make to you, don't worry about beads. But if I tell you to plan a feature or file a bug, do it with beads.
-
-# Find ready work
-bd ready --json | jq '.[0]'
-
-# Create issues during work
-bd create "Discovered bug" -t bug -p 0 --json
-
-# Link discovered work back to parent
-bd dep add <new-id> <parent-id> --type discovered-from
-
-# Update status
-bd update <issue-id> --status in_progress --json
-
-# Complete work
-bd close <issue-id> --reason "Implemented" --json
+- (IMPORTANT): This project uses **bd (beads)** for planning software engineering tasks. 
+- Run `bd prime` now and read the output to learn the tool.  
+- You call bd yourself, without my permission! It's your planning tool.
+- For one-off requests I make to you, don't worry about beads. But if I tell you to plan a feature or file a bug, do it with beads.
 
 ## Repo guidance
 - Secrets are in .env-rename
 - Chakra-UI repo, which our project uses as its paradigmatic example, is cloned into a sibling directory (../chakrai-ui)
 
 ## Tool guidance
-- PLEASE use the full "git status" command, NOT "git status -sb", otherwise you won't see the git state that I see, and it will cause confusion. This is important.
+- PLEASE use the full "git status" command, NOT "git status -sb". I call "git status" myself, and if you don't, you won't see the git state that I see, and it will cause confusion between us. This is important.
 - I use Mac, zsh, homebrew
+- You should feel free to write small ephemeral scripts to accomplish tasks, and lean heavily on smart CLI tools such as ast-grp and ripgrep
 
 ### ast-grep vs ripgrep
 

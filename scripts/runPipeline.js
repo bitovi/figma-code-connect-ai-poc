@@ -194,10 +194,12 @@ function looksLikeChakra(repoPath) {
 function defaultManifestConfig(repoPath) {
   if (!looksLikeChakra(repoPath)) return null;
   return {
+    manifestVersion: 1,
     componentRoot: path.join(repoPath, 'packages/react/src'),
     recipesPath: path.join(repoPath, 'packages/react/src/theme/recipes'),
     importStyle: 'package',
     importTarget: '@chakra-ui/react',
+    tsconfigPath: path.join(repoPath, 'tsconfig.base.json'),
     tsconfigPaths: []
   };
 }
@@ -207,6 +209,11 @@ function writeManifest(manifestPath, manifestConfig) {
   fs.writeFileSync(manifestPath, JSON.stringify(manifestConfig, null, 2), 'utf8');
 }
 
+function readManifest(manifestPath) {
+  const raw = fs.readFileSync(manifestPath, 'utf8');
+  return JSON.parse(raw);
+}
+
 function runCommand(label, command, options, context) {
   const { dryRun } = context;
   console.log(`• ${label}`);
@@ -214,10 +221,14 @@ function runCommand(label, command, options, context) {
     console.log(`  (dry-run) ${command}`);
     return { ok: true, skipped: true };
   }
-  const result = spawnSync(command, {
+  const spawnOptions = {
     stdio: 'inherit',
     shell: true,
-    env: { ...process.env, FIGMA_ACCESS_TOKEN: context.figmaToken }
+    env: { ...process.env, FIGMA_ACCESS_TOKEN: context.figmaToken },
+    ...(options || {})
+  };
+  const result = spawnSync(command, {
+    ...spawnOptions
   });
   if (result.status !== 0) {
     return { ok: false, code: result.status };
@@ -309,6 +320,18 @@ function parseFileKey(figmaUrlOrKey) {
 async function ensureManifestStep(config, context) {
   if (fs.existsSync(config.manifest)) {
     if (!context.force) {
+      try {
+        const manifest = readManifest(config.manifest);
+        if (!manifest.tsconfigPath) {
+          console.error(
+            `❌ Manifest missing tsconfigPath: ${config.manifest}. Re-run orientation (use --force) or add the field manually.`,
+          );
+          return { ok: false, code: 1 };
+        }
+      } catch (err) {
+        console.error(`❌ Unable to read manifest at ${config.manifest}: ${err.message}`);
+        return { ok: false, code: 1 };
+      }
       console.log(`• Manifest exists: ${config.manifest} (skipped, use --force to regenerate)`);
       return { ok: true, skipped: true };
     }
@@ -352,14 +375,35 @@ function reactExtractStep(config, context) {
     console.log(`• React props extraction skipped; artifacts present at ${config.reactDir} (use --force to re-extract)`);
     return { ok: true, skipped: true };
   }
+  let manifest;
+  try {
+    manifest = readManifest(config.manifest);
+  } catch (err) {
+    console.error(`❌ Unable to read manifest at ${config.manifest}: ${err.message}`);
+    return { ok: false, code: 1 };
+  }
+  if (!manifest.tsconfigPath) {
+    console.error(
+      '❌ Manifest missing tsconfigPath; rerun orientation with the updated prompt or add tsconfigPath manually.',
+    );
+    return { ok: false, code: 1 };
+  }
+  const tsconfigResolved = path.isAbsolute(manifest.tsconfigPath)
+    ? manifest.tsconfigPath
+    : path.join(config.repoPath, manifest.tsconfigPath);
+  if (!fs.existsSync(tsconfigResolved)) {
+    console.error(`❌ tsconfig not found at ${tsconfigResolved} (from manifest.tsconfigPath).`);
+    return { ok: false, code: 1 };
+  }
   const cmd = [
-    'node scripts/extractComponentProps.js',
+    'node scripts/code-component-scanner.js',
     `--manifest "${config.manifest}"`,
     `--output "${config.reactDir}"`,
+    `--tsconfig "${tsconfigResolved}"`,
     '--overwrite',
     '--verbose'
   ].join(' ');
-  return runCommand('React props extraction', cmd, {}, context);
+  return runCommand('React props extraction', cmd, { cwd: config.repoPath }, context);
 }
 
 function matchingStep(config, context) {

@@ -16,7 +16,7 @@ npm run pipeline:one-shot -- \
 
 What happens:
 - Writes a manifest using Chakra defaults if `artifacts/codeconnect-manifest.json` is missing.
-- Runs Figma fetch → React props extraction → matching agent → review → codegen validation + agent → config builder.
+- Runs Figma fetch → React props extraction (via `code-component-scanner`, needs `tsconfigPath`) → matching agent → review → codegen validation + agent → config builder.
 - Artifacts land under `artifacts/` (`figma-components/`, `react-components/`, `match-candidates.jsonl`, `mappings.json`, `codeconnect/`).
 
 ## Flags

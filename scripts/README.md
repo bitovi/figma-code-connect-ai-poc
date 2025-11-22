@@ -23,20 +23,19 @@ This collection of scripts helps automate the process of:
 
 ## Available Scripts
 
-### 1. `extractComponentProps.js` - React Props Extractor
+### 1. `code-component-scanner.js` - React Props Scanner (replacement for `extractComponentProps.js`)
 
-**Purpose**: Extracts React component properties and metadata from TypeScript files to generate JSON files for Figma Code Connect integration.
+**Purpose**: Extracts React component properties and metadata from TypeScript using the TypeScript checker. Outputs JSON compatible with the pipeline (same shape as the legacy extractor).
 
 **Key Features**:
 
-- Parses TypeScript/React components using AST analysis
-- Extracts props with accurate TypeScript types and union values
-- Integrates with Chakra UI recipe system for variant definitions
+- Resolves exported components via the TypeScript program (fewer false positives)
+- Extracts props with union values and basic JSDoc descriptions
+- Integrates with Chakra recipe variants when a recipes path is provided
 - Generates structured JSON files for each component
-- Supports multiple export patterns (forwardRef, function, re-exports)
-- CLI with dry-run, filter, and verbose modes
+- Supports `--manifest` (preferred) plus dry-run, filter, verbose modes
 
-**Output**: JSON files in `components-props/` directory with complete prop metadata, recipe variants, and Figma mapping suggestions.
+**Output**: JSON files in `components-props/` (or chosen output) with prop metadata, recipe variants, and Figma mapping hints.
 
 ### 2. `buildFigmaConfig.js` - Configuration Generator
 
@@ -92,22 +91,22 @@ File Key: `mgzCV3zD3iWpctEI6UoUhB`
 
 ```bash
 # Extract all components with default settings
-node scripts/extractComponentProps.js
+node scripts/code-component-scanner.js
 
 # Extract with verbose output
-node scripts/extractComponentProps.js --verbose
+node scripts/code-component-scanner.js --verbose
 
 # Preview without writing files (dry run)
-node scripts/extractComponentProps.js --dry-run --verbose
+node scripts/code-component-scanner.js --dry-run --verbose
 
 # Filter specific components
-node scripts/extractComponentProps.js --filter button --verbose
+node scripts/code-component-scanner.js --filter button --verbose
 
 # Overwrite existing JSON files
-node scripts/extractComponentProps.js --overwrite
+node scripts/code-component-scanner.js --overwrite
 
 # View all options
-node scripts/extractComponentProps.js --help
+node scripts/code-component-scanner.js --help
 ```
 
 #### Command Line Options
@@ -116,8 +115,9 @@ node scripts/extractComponentProps.js --help
 |--------|-------------|---------|
 | `--input` | Component directory to scan | `--input chakra-ui/apps/compositions/src/ui` |
 | `--output` | Output directory for JSON files | `--output components-props` |
-| `--recipes` | Recipe directory path | `--recipes chakra-ui/packages/react/src/theme/recipes` |
+| `--manifest` | Manifest with componentRoot/recipesPath/tsconfigPath | `--manifest artifacts/codeconnect-manifest.json` |
 | `--filter` | Filter by component name | `--filter accordion` |
+| `--tsconfig` | Path to tsconfig (required if no manifest) | `--tsconfig tsconfig.json` |
 | `--dry-run` | Preview without writing files | `--dry-run` |
 | `--verbose` | Show detailed logging | `--verbose` |
 | `--overwrite` | Overwrite existing files | `--overwrite` |
@@ -269,7 +269,7 @@ node scripts/fetchComponents.js https://www.figma.com/design/abc123xyz --output 
 
 ```bash
 # Step 1: Extract component props from React/TypeScript source
-node scripts/extractComponentProps.js --verbose --overwrite
+node scripts/code-component-scanner.js --manifest artifacts/codeconnect-manifest.json --verbose --overwrite
 
 # Step 2: Extract component data from Figma
 node scripts/fetchComponents.js mgzCV3zD3iWpctEI6UoUhB --output ./components
@@ -282,10 +282,10 @@ node scripts/buildFigmaConfig.js --output file
 
 ```bash
 # Extract only accordion components
-node scripts/extractComponentProps.js --filter accordion --verbose
+node scripts/code-component-scanner.js --manifest artifacts/codeconnect-manifest.json --filter accordion --verbose
 
 # Dry run to preview button component extraction
-node scripts/extractComponentProps.js --filter button --dry-run --verbose
+node scripts/code-component-scanner.js --manifest artifacts/codeconnect-manifest.json --filter button --dry-run --verbose
 ```
 
 ### Example 3: Custom Design System Setup
@@ -324,7 +324,7 @@ node scripts/fetchComponents.js \
 
 ## Output Files
 
-### Generated JSON Files from extractComponentProps.js
+### Generated JSON Files from code-component-scanner.js (same shape as legacy extractor)
 
 Located in `components-props/` directory:
 
@@ -431,10 +431,10 @@ FIGMA_ACCESS_TOKEN=your_token_here
 **Solution**:
 
 - For `buildFigmaConfig.js`: Check if JSON files exist in input directory
-- For `extractComponentProps.js`: Verify input directory path is correct
+- For `code-component-scanner.js`: Verify input directory path is correct and `tsconfigPath` resolves
 - Verify JSON files have required fields (`componentName`, `componentSetId`)
 - Run `fetchComponents.js` first to generate Figma variant data
-- Run `extractComponentProps.js` to generate component props data
+- Run `code-component-scanner.js` to generate component props data
 
 ### Debug Mode
 
@@ -448,7 +448,7 @@ DEBUG=1 node scripts/buildFigmaConfig.js --output console
 
 ### 1. Workflow Recommendations
 
-1. **Extract props from source code**: Run `extractComponentProps.js` to analyze React components
+1. **Extract props from source code**: Run `code-component-scanner.js` to analyze React components
 2. **Extract Figma variants**: Run `fetchComponents.js` to get Figma component data
 3. **Generate configuration**: Run `buildFigmaConfig.js` to create Code Connect config
 4. **Test configuration**: Use `--output console` or `--dry-run` to preview before generating files
@@ -478,11 +478,11 @@ DEBUG=1 node scripts/buildFigmaConfig.js --output console
 
 The scripts work together to prepare your codebase for Figma Code Connect:
 
-1. **`extractComponentProps.js`**: Analyzes React components to extract props and recipe variants
-   - Output: `components-props/*.json` - Complete prop metadata for each component
+1. **`code-component-scanner.js`**: Analyzes React components to extract props and recipe variants (requires `tsconfigPath`)
+   - Output: `react-components/*.json` (or `components-props/*.json`) - Complete prop metadata for each component
 
 2. **`fetchComponents.js`**: Downloads Figma component variant data
-   - Output: `figma-variants/*.json` - Figma component structure and variants
+   - Output: `figma-components/*.json` - Figma component structure and variants
 
 3. **`buildFigmaConfig.js`**: Generates the configuration file
    - Output: `figma.config.json` - Figma Code Connect configuration
