@@ -155,7 +155,8 @@ function saveJson(filePath, data) {
   const dir = path.dirname(filePath);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
-  console.log(`✓ Saved: ${filePath}`);
+  const relativePath = path.relative(process.cwd(), filePath) || filePath;
+  console.log(`      Saved: ${relativePath}`);
 }
 
 function sanitizeFilename(name) {
@@ -182,24 +183,23 @@ async function main() {
     console.log(`  Version: ${fileData.version}`);
     console.log(`  Last Modified: ${fileData.lastModified}`);
 
-    let allComponentSets = [];
-    for (const page of fileData.document.children) {
-      if (config.page && page.name !== config.page) continue;
-      console.log(`\n📄 Processing page: ${page.name}`);
-      const componentSets = findComponentSets(page);
-      allComponentSets = allComponentSets.concat(componentSets);
-    }
+    const pages = fileData.document.children.filter((page) => !config.page || page.name === config.page);
+    console.log('\nProcessing pages in Figma document:');
+    pages.forEach((page) => console.log(`  - ${page.name}`));
+
+    const allComponentSets = pages.flatMap((page) => findComponentSets(page));
 
     console.log(`\n✓ Found ${allComponentSets.length} component sets`);
 
     let processedCount = 0;
     for (const componentSet of allComponentSets) {
       if (config.component && componentSet.name !== config.component) continue;
-      console.log(`\n🔧 Processing: ${componentSet.name}`);
-
       const variantData = extractVariants(componentSet);
-      console.log(`  Variants: ${variantData.totalVariants}`);
-      console.log(`  Properties: ${Object.keys(variantData.variantProperties).join(', ')}`);
+      console.log(
+        `Processing: ${componentSet.name} (${variantData.totalVariants} variants) [properties: ${Object.keys(
+          variantData.variantProperties
+        ).join(', ')}]`
+      );
 
       const filename = sanitizeFilename(componentSet.name);
       const jsonPath = path.join(config.output, `${filename}.json`);

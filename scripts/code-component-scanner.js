@@ -41,7 +41,7 @@ const CODE_ARTIFACT_VERSION = 1;
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  const config = { ...DEFAULT_CONFIG };
+  const config = { ...DEFAULT_CONFIG, components: [], componentScope: null };
   let manifestPath = null;
   let tsconfigPath = null;
   for (let i = 0; i < args.length; i++) {
@@ -77,6 +77,10 @@ function parseArgs() {
         tsconfigPath = next;
         i++;
         break;
+      case "--component-scope":
+        config.componentScope = next;
+        i++;
+        break;
       case "--help":
         showHelp();
         process.exit(0);
@@ -97,6 +101,14 @@ function parseArgs() {
     }
   }
   config.tsconfigPath = tsconfigPath;
+  if (config.componentScope) {
+    try {
+      const scope = loadComponentScope(config.componentScope);
+      config.components = scope.components;
+    } catch (err) {
+      console.warn(`⚠️  Could not load component scope at ${config.componentScope}: ${err.message}`);
+    }
+  }
   return config;
 }
 
@@ -116,6 +128,7 @@ Options:
   --verbose          Detailed logging
   --overwrite        Overwrite existing files
   --tsconfig <path>  Tsconfig path (required unless manifest provides tsconfigPath)
+  --component-scope <path>  Component scope JSON (from orientation) to limit extraction
   --help             Show this help
 
 Examples:
@@ -126,6 +139,27 @@ Examples:
 function loadManifestFile(manifestPath) {
   const raw = fs.readFileSync(manifestPath, "utf8");
   return JSON.parse(raw);
+}
+
+function loadComponentScope(scopePath) {
+  const raw = fs.readFileSync(scopePath, "utf8");
+  const parsed = JSON.parse(raw);
+  const ensureArray = (value) => (Array.isArray(value) ? value : []);
+  const names = new Set();
+  const add = (name) => {
+    if (typeof name !== "string") return;
+    const trimmed = name.trim();
+    if (trimmed) names.add(trimmed);
+  };
+  ensureArray(parsed.reactComponents).forEach(add);
+  ensureArray(parsed.components).forEach(add);
+  ensureArray(parsed.fromFigma || parsed.scope).forEach((entry) => {
+    add(entry.reactComponent);
+    ensureArray(entry.reactCandidates).forEach(add);
+    ensureArray(entry.parents).forEach(add);
+    ensureArray(entry.children).forEach(add);
+  });
+  return { components: Array.from(names).sort() };
 }
 
 class CodeProjectError extends Error {
@@ -920,6 +954,9 @@ async function main() {
     console.log(`   Output: ${config.output}`);
     console.log(`   Dry run: ${config.dryRun}`);
     console.log(`   Filter: ${config.filter || "none"}`);
+    console.log(`   Component scope: ${config.componentScope || "none (auto-discover)"}`);
+    const componentCount = config.components.length;
+    console.log(`   Components: ${componentCount > 0 ? componentCount : "auto-discover"}`);
     console.log("");
   }
 
@@ -931,6 +968,7 @@ async function main() {
   const project = loadCodeProject({
     codeRoot: config.input,
     tsconfigPath: config.tsconfigPath,
+    components: config.components,
   });
   const { names: discoveredNames, exportsMap } = autoDiscoverComponentNames(
     project.program,
@@ -996,7 +1034,6 @@ async function writeComponentFile(config, component) {
   }
   try {
     fs.writeFileSync(outputPath, JSON.stringify(component, null, 2), "utf8");
-    console.log(`✅ Generated: ${fileName}`);
     return true;
   } catch (err) {
     console.error(`❌ Error writing ${fileName}: ${err.message}`);

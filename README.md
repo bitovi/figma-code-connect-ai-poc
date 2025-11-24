@@ -25,6 +25,11 @@ It harnesses the power of your favorite coding agent (Claude Code or Codex) to h
 - A Figma file URL or file key
 - An associated React/TS code repo you've cloned locally (e.g. `../chakra-ui`)
 - A Figma access token (PAT)
+- An agent runner CLI that can read a prompt from stdin (e.g., `codex exec` or similar)
+- CLI helpers used by agents/scripts (Mac/Homebrew assumed):
+  - `ast-grep`, `ripgrep`, `fd`, `jq`
+  - Install with: `brew install ast-grep ripgrep fd jq`
+  - Ensure your agent can invoke these while running in the target repo (they're used for fast repo inspection)
 
 ## Setup
 
@@ -36,6 +41,9 @@ npm install
 
 # Link the CLI globally (adds `superconnect` to your PATH)
 npm link
+
+# (Optional but recommended) verify helper CLIs are available
+which ast-grep ripgrep fd jq
 ```
 
 Set your Figma token (in shell or `.env`):
@@ -153,36 +161,37 @@ If you don’t see the expected mapping:
 - If the React component name changed after you generated artifacts, rerun the pipeline.
 
 
-# Pipeline overview
-
-## Orientation (agent)
-- Uses prompt file `prompts/orientation.md`.
-- Inspects (for example) `../chakra-ui`.
-- Discovers where React components live, recipes, import style, and tsconfig path.
-- Writes `artifacts/codeconnect-manifest.json`.
+# Pipeline overview (Figma-first + scoped)
 
 ## Figma fetch (script)
 - Given a Figma file + token, discovers all the components and writes out a directory of JSON files to describe them.
 - Calls `scripts/fetchComponents.js`.
 - Writes JSON files to `artifacts/figma-components/`.
 
+## Figma index (script)
+- Summarizes the fetched Figma components (names + ids + counts).
+- Writes `artifacts/figma-components-index.json`.
+
+## Orientation (agent)
+- Uses prompt file `prompts/orientation.md`.
+- Runs in the target repo only (blinders on) with the Figma component list supplied by the orchestrator.
+- Discovers component root, tsconfig, import style/target, and optional recipes path.
+- Writes `artifacts/codeconnect-manifest.json`, `artifacts/component-scope.json`, and an orientation report (`artifacts/orientation-report.json`).
+
 ## React props extraction (script)
-- Given a repo file path, and using the manifest file for guidance, discovers all the React components and writes out a directory of JSON files to describe them.
+- Uses the manifest and component scope to extract only the scoped React components (plus direct parents/children when provided).
 - Calls `scripts/code-component-scanner.js`.
 - Writes JSON files to `artifacts/react-components/`.
 
 ## Matching (agent)
-- Given the Figma + React JSON directories and the manifest, proposes Figma ↔ React component matches.
 - Uses prompt file `prompts/matching.md`.
-- Reads JSON from `artifacts/figma-components/` and `artifacts/react-components/`.
+- Reads Figma JSONs, scoped React JSONs, manifest, and component scope to propose Figma ↔ React matches.
 - Writes match candidates to `artifacts/match-candidates.jsonl`.
 
 ## Review (script)
 - Reviews and approves the proposed matches, producing a clean mappings file.
 - Calls `scripts/review-matches.js`.
-- Reads `artifacts/match-candidates.jsonl`.
-- Gets approval for each match from the user.
-- Writes approved mappings to `artifacts/mappings.json`.
+- Reads `artifacts/match-candidates.jsonl` and writes approved mappings to `artifacts/mappings.json`.
 
 ## Codegen (agent)
 - Given mappings + JSONs + manifest, generates Code Connect `.figma.tsx` files.
@@ -198,8 +207,11 @@ If you don’t see the expected mapping:
 
 At the end you have:
 
-- `artifacts/react-components/` — React-side component metadata (props, variants, hints)
 - `artifacts/figma-components/` — Figma-side components and variants
+- `artifacts/figma-components-index.json` — compact list of Figma component names/ids
+- `artifacts/codeconnect-manifest.json` — repo manifest for imports and roots
+- `artifacts/component-scope.json` — scoped React component list (with parents/children) derived from Figma
+- `artifacts/react-components/` — scoped React component metadata (props, variants, hints)
 - `artifacts/mappings.json` — Figma ↔ React mappings
 - `artifacts/codeconnect/*.figma.tsx` — Code Connect files
 - `artifacts/codeconnect/figma.config.json` — Config for those files
@@ -211,24 +223,16 @@ You don’t have to run the whole pipeline end to end. Each stage can be run man
 
 All commands below assume you’re in this repo root unless noted.
 
-## Orientation (agent) → manifest
+## Orientation (agent) → manifest + scope
 
-Goal: produce `artifacts/codeconnect-manifest.json`.
+Prereq: run the Figma fetch + index steps so `artifacts/figma-components-index.json` exists.
 
-```bash
-codex exec --cd . --model gpt-5.1-codex-max <<'EOF'
-Use prompts/orientation.md.
-Target repo: ../chakra-ui
-Write manifest to artifacts/codeconnect-manifest.json.
-EOF
-```
+Goal: produce:
+- `artifacts/codeconnect-manifest.json`
+- `artifacts/component-scope.json`
+- `artifacts/orientation-report.json`
 
-Check:
-
-- `artifacts/codeconnect-manifest.json` exists.
-- It includes `componentRoot`, `importStyle`, `importTarget`, and `tsconfigPath`.
-
-See: `docs/orientation-run.md`.
+The one-shot pipeline passes the Figma component list into the prompt automatically. For a manual run, copy the content of `artifacts/figma-components-index.json` into the prompt payload before invoking your agent with `prompts/orientation.md`.
 
 ## Figma fetch → Figma JSON
 
@@ -242,6 +246,10 @@ Outputs: `artifacts/figma-components/*.json`.
 
 See: `docs/pipeline-run.md`, `scripts/fetchComponents.js`.
 
+## Figma index → compact component list
+
+The orchestrator runs this automatically right after the fetch step. If you fetched manually, rerun `superconnect --force` (or rerun the fetch + index steps) to regenerate `artifacts/figma-components-index.json`.
+
 ## React props extraction → React JSON
 
 Preferred: use the manifest so the scanner gets the right root and tsconfig.
@@ -249,7 +257,9 @@ Preferred: use the manifest so the scanner gets the right root and tsconfig.
 ```bash
 node scripts/code-component-scanner.js \
   --manifest artifacts/codeconnect-manifest.json \
+  --component-scope artifacts/component-scope.json \
   --output artifacts/react-components \
+  --tsconfig ../chakra-ui/packages/react/tsconfig.json \
   --overwrite --verbose
 ```
 
@@ -275,6 +285,7 @@ Use prompts/matching.md.
 Figma JSONs: artifacts/figma-components
 React JSONs: artifacts/react-components
 Manifest (context): artifacts/codeconnect-manifest.json
+Component scope: artifacts/component-scope.json
 Produce match-candidates.jsonl in artifacts/.
 EOF
 ```
@@ -307,6 +318,7 @@ codex exec --cd . --model gpt-5.1-codex-max <<'EOF'
 Use ../prompts/codegen.md.
 Manifest: codeconnect-manifest.json
 Mappings: mappings.json
+Scoped codegen input: codegen-input.json
 React JSONs: react-components
 Figma JSONs: figma-components
 Output dir: codeconnect/

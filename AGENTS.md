@@ -7,7 +7,7 @@ The tool we are developing here will be able to
 2. build an understanding of the mapping between these
 3. use that understanding to automagically generate Code Connect modules
 
-This repo is built to demo against the Chakra UI design system. [Chakra UI](https://github.com/chakra-ui/chakra-ui)
+This repo is built to demo against the Chakra UI design system. [Chakra UI](https://github.com/chakra-ui/chakra-ui) but that is just an example -- we don't want to overfit to that repo! We want it to work against any similar repo.
 
 The purpose of this project is to create a demo and a blog post -- it is illustrative, a teaching tool.  Elegance, simplicity, succinctness, and approachability are the most important features. Robustness and production-quality is NOT an important feature. We'll only implement the golden path.
 

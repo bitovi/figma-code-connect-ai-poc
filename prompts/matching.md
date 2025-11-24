@@ -1,12 +1,12 @@
 # Matching Agent Prompt
 
-Goal: Map Figma components to React components using JSON artifacts and manifest. Produce high-confidence matches and a list of uncertain cases with candidate suggestions.
+Goal: Map Figma components to React components using JSON artifacts and manifest. Produce high-confidence matches and a list of uncertain cases with candidate suggestions. Stay scoped to the provided component list (from `component-scope.json`) so we only map what Figma actually uses.
 
 Inputs:
 - Figma variants directory (JSON from fetchComponents).
 - React components directory (JSON from code-component-scanner).
 - Manifest JSON for import strategy and component root context (required).
-- Optional: target component list to focus on (skip or deprioritize others).
+- Component scope JSON (from orientation) with `reactComponents` + per-Figma candidates.
 
 Heuristics:
 - Normalize names: lower, strip non-alphanumerics, split on dots/spaces/underscores, singularize where obvious.
@@ -25,12 +25,13 @@ Output: JSONL file (one object per line) at `artifacts/match-candidates.jsonl`:
 
 Agent tasks:
 1) Load manifest for context (import alias/target and roots).
-2) Read component names from Figma JSON (`componentName`).
-3) Read component names from React JSON (`componentName`) and collect optional path info.
-4) Apply heuristics to produce `certain` and `uncertain` lists.
-5) Write one JSON object per line to `artifacts/match-candidates.jsonl` (or specified path) following the schema above.
-6) Emit a brief summary: counts, examples of certain and uncertain.
+2) Load component scope JSON; use `reactComponents` to filter React JSON files and `fromFigma` to understand naming patterns (parents/children).
+3) Read component names from Figma JSON (`componentName`), but only match those listed in the scope.
+4) Read component names from React JSON (`componentName`) and collect optional path info; ignore components outside the scope unless clearly a parent/child that improves a match.
+5) Apply heuristics to produce `certain` and `uncertain` lists.
+6) Write one JSON object per line to `artifacts/match-candidates.jsonl` (or specified path) following the schema above.
+7) Emit a brief summary: counts, examples of certain and uncertain.
 
 Constraints:
 - Do not invent matches; if unsure, put in `uncertain` with candidates or skip.
-- If a target list is provided, limit matching to those; others can be noted as skipped.
+- Limit to scoped components; you may note skipped/out-of-scope items briefly.

@@ -1,20 +1,23 @@
 # CodeGen Agent Prompt
 
-Goal: Generate Code Connect `.figma.tsx` files linking Figma components to React components using only the files in your current working directory.
+Goal: Generate Code Connect `.figma.tsx` files linking Figma components to React components using only the files in your current working directory. Stay inside this directory; do not list or read outside it.
 
 Your Inputs:
 - Manifest JSON: `codeconnect-manifest.json` that captures where components live, recipes path, and how imports should be resolved.
 - Approved mappings JSON: `mappings.json` (array of `{figmaName, reactName, source?}`).
-- React component JSON: `react-components/` (props, filePath, relativePath, potentialFigmaMapping, variantProperties, recipeVariants).
-- Figma variant JSON: `figma-components/` (variantProperties, variants array).
+- Precomputed per-mapping context: `codegen-input.json` (contains manifest + for each mapping: figma/ react snippets, variantProperties, props, recipeVariants, and a suggested importPath).
+- React component JSON: `react-components/` (props, filePath, relativePath, potentialFigmaMapping, variantProperties, recipeVariants) — only read the files for the mapped components if you need details beyond `codegen-input.json`.
+- Figma variant JSON: `figma-components/` (variantProperties, variants array) — only read the files for the mapped components if you need details beyond `codegen-input.json`.
 
 Execution steps (be direct; no git/status/project scans, no new generator scripts):
-1) Use tiny `node -e` or short heredoc scripts to read only the fields you need—do not paste large artifacts.
-2) For each mapping, find the matching React entry and Figma entry. If either is missing, skip and note it.
-3) Derive the import path per manifest rules (package/alias/relative).
-4) Build props from React JSON + Figma variant keys using the mapping guidance.
-5) Write one `.figma.tsx` file per mapping directly to `codeconnect/`; create the directory if needed.
-6) Emit a concise summary (counts, skips). Do not create new helper scripts in the repo; write files inline from your snippets.
+1) Load `codegen-input.json` to get manifest + per-mapping slices (figma/react snippets, suggested importPath).
+2) For each mapping entry:
+   - Use the provided `importPath` if present; otherwise derive from the manifest (package/relative) and the React file path.
+   - Use the provided figma/react snippets to build props; only open per-component JSON files if you need more detail.
+   - If either side is missing, skip and note it.
+3) Build props using the mapping guidance below.
+4) Write one `.figma.tsx` file per mapping directly to `codeconnect/`; create the directory if needed.
+5) Emit a concise summary (counts, skips). Do not create new helper scripts in the repo; write files inline from your snippets.
 
 Output template (apply per mapping):
 ```ts
@@ -42,22 +45,23 @@ Import resolution:
 
 Variant/prop mapping guidance:
 - Start from the mapping pair `{figmaName, reactName}`.
-- Build props from React JSON:
-  - Use `props` entries and `potentialFigmaMapping` hints to choose `figma.string`, `figma.boolean`, `figma.enum`, `figma.instance`, etc.
-  - If Figma `variantProperties` keys (e.g., `status`, `size`) match React prop names (case-insensitive, strip non-alphanumerics), map them with `figma.enum` using the Figma variant values.
-  - If React `variantProperties` or `recipeVariants` are present, prefer their value sets for enums when they align with Figma variant names.
-- Treat remaining unmapped props as optional and omit unless clearly needed to render a sensible preview.
+- Prefer enum mappings when a React prop name matches a Figma variant key (case-insensitive, strip non-alphanumerics); use React `variantProperties`/`recipeVariants` value sets when available, otherwise Figma variant values.
+- Always include obvious text/boolean/instance props when present: `children/label/text`, `disabled/isDisabled`, `icon/startIcon/endIcon/leftIcon/rightIcon`, `aria-label`.
+- Include `size`/`variant` when present on either side; align to React value sets when available.
+- Skip state/control variant keys like `.isInvalid?`, `.isFilled?`, `.showImage?` unless a matching React boolean exists.
+- If React props are empty but the component name implies a standard pattern (e.g., IconButton), map sensible defaults: `aria-label` (string), `size`/`variant` enums if present on the Figma side.
+- Treat remaining unmapped props as optional; omit unless clearly needed to render a sensible preview.
 
 Output:
 - Write one file per approved mapping to `codeconnect/{reactName}.figma.tsx` (sanitize with alphanumerics/dashes; use the React name for the filename).
 - File shape:
   - Imports `connect` and `figma` from `@figma/code-connect`.
-  - Imports the React component per the manifest rule.
+  - Imports the React component per the manifest rule (or provided `importPath`).
   - `connect(Component, "FigmaName", { props: { ... } })` with enums/strings/instances based on the heuristics above.
 - Emit a short summary: count of files written and any mappings skipped due to missing data.
 
 Constraints:
-- Do not invent new components beyond the mappings list.
+- Do not invent new components beyond the mappings list. Use only files in this directory: `codegen-input.json`, manifest, mappings, the specific per-mapping JSONs under `figma-components/` and `react-components/`, and the `codeconnect/` output folder.
 - If a mapped component lacks a matching Figma JSON or React JSON, skip it and mention in the summary.
 - Keep output TypeScript valid and minimal; avoid placeholders that would fail type-checking.
 - Avoid repo mutations other than writing the `.figma.tsx` outputs; do not add new scripts or config. No git/bd/status housekeeping commands. Focus solely on generating the files.

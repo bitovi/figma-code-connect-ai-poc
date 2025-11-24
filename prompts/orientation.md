@@ -1,36 +1,67 @@
 # Orientation Agent Prompt
 
-Goal: locate the React component root/import strategy for a user-specified repo and write a manifest JSON. 
+You are given a codebase via your current working directory. Do NOT read any files outside this repo. Inspect only this repo to propose:
+- A manifest that downstream tools will use.
+- A component scope focused on the provided Figma components (listed below).
 
-Inputs:
-- A target repo path provided by the user (treat as `<REPO_ROOT>`). Stay within it.
-- Tools: `ls`, `cat`, targeted `rg --files -g '*.tsx'`, small `node` snippets if needed.
+You cannot write files; emit the JSON objects to stdout using the delimiters. Assume the only context you have is the repo and the Figma component list embedded in this prompt.
 
-Constraints:
-- Do not run git status or broad scans of the current repo; focus on `<REPO_ROOT>`.
-- Keep commands minimal; avoid dumping large files/dirs.
-- Ensure `artifacts/` exists before writing the manifest.
-- Do not emit a separate plan; execute the steps directly.
+## What to discover
+- `componentRoot`: directory containing the React components to scan.
+- `tsconfigPath`: the tsconfig that actually includes those components.
+- `importStyle`: `"package"` or `"relative"`.
+- `importTarget`: package name or path used when importing components (omit/empty if using relative imports).
+- Optional: `recipesPath` or theme/tokens path if it clearly exists. Leave missing if uncertain.
+- Keep `manifestVersion: 1` and `tsconfigPaths: []` unless you have confident path mappings.
 
-Required manifest fields (JSON):
-- `manifestVersion`: 1
-- `componentRoot`: path to the component root (workspace-relative preferred)
-- `recipesPath`: optional path if recipes exist
-- `importStyle`: one of `package | alias | relative` (default to `package` unless evidence suggests alias/relative)
-- `importTarget`: package/alias/base path
-- `tsconfigPath`: path to the tsconfig the extractor should use (resolve to the best-fit config; prefer the one that includes the component root; if multiple, pick and note the choice)
-- `tsconfigPaths`: optional alias map if found in tsconfig
-- `notes`: short summary of assumptions/choices
+Paths must be absolute and must exist. If you cannot choose a single value, set the manifest field to `null` and record candidates in the report.
 
-Do this directly (no planning output):
-1) Confirm `<REPO_ROOT>` exists.
-2) List likely component areas (e.g., `apps`, `packages`, `src`) and take a minimal sample of `.tsx` locations via `rg --files -g '*.tsx' <REPO_ROOT>` or targeted `find` to pick the densest React area as `componentRoot`.
-3) Look for recipes/theme under `<REPO_ROOT>` (e.g., `**/recipes`), sampling one or two files to confirm; set `recipesPath` or omit if absent.
-4) Inspect `<REPO_ROOT>/package.json` for a package `name` aligned with the component root; if present, prefer `importStyle: package` and `importTarget: <name>`. If tsconfig `paths` point to the root, choose `alias` and record them; else fallback to `relative`.
-5) Check `<REPO_ROOT>/tsconfig*.json` to select a `tsconfigPath` that covers the component root. If multiple, pick the best-fit and mention in `notes`. Also capture any `paths` aliases in `tsconfigPaths`.
-6) `mkdir -p artifacts` and write `artifacts/codeconnect-manifest.json` with the required fields.
-7) Print a brief summary (root, recipes, import style/target, paths, notes/uncertainties).
+## How to discover (minimal IO; stay scoped)
+- tsconfig: list `tsconfig*.json`, follow `extends`, and pick the config whose `include`/`files` cover the chosen component root. Prefer more specific configs. One or two `cat`/`rg` calls are enough.
+- component root: use directory listings and re-export index files to infer component names. Avoid opening implementation files; rely on index barrels and package metadata.
+- import target/style: infer from `package.json` and observed import patterns in the root index; keep to a few targeted reads.
+- recipes/theme: only set if you find a concrete path like `*/theme/recipes`, `*/theme`, `*/tokens`, etc., via `ls`/`rg`.
+- Use the provided Figma component list to stay scoped: propose React exports that likely map to those names. Only add direct parents/children needed for those Figma entries (e.g., TabsRoot for Tabs.Trigger, ButtonIcon for Button). Do NOT enumerate the full component tree beyond the scoped names.
+- Stop once you’ve inspected package metadata, the relevant tsconfig(s), the component root index(es), and enough re-export lines to cover the scoped Figma list. No deep dives into component implementations.
 
-Deliverables:
-- Manifest JSON saved to disk.
-- Text summary of detected roots, import strategy, path aliases (if any), and any open questions.
+## Output format (stdout)
+Emit THREE JSON blocks in this order, nothing else between them:
+
+---BEGIN MANIFEST---
+{ ...manifest json... }
+---END MANIFEST---
+---BEGIN COMPONENT-SCOPE---
+{
+  "fromFigma": [
+    {
+      "figmaName": "...",
+      "figmaId": "...",
+      "reactCandidates": ["...", "..."],
+      "parents": ["optional parent exports"],
+      "children": ["optional child exports"],
+      "notes": "optional brief note"
+    }
+  ],
+  "reactComponents": ["union of reactCandidates + parents + children, deduped"],
+  "generatedAt": "ISO timestamp",
+  "notes": ["anything notable about scoping, optional"]
+}
+---END COMPONENT-SCOPE---
+---BEGIN ORIENTATION-REPORT---
+{
+  "decisions": {
+    "componentRoot": { "value": "...", "confidence": "high|medium|low", "candidates": ["..."], "rationale": "..." },
+    "tsconfigPath": { "value": "...", "confidence": "...", "candidates": ["..."], "rationale": "..." },
+    "importStyle": { "value": "...", "confidence": "...", "candidates": ["..."], "rationale": "..." },
+    "importTarget": { "value": "...", "confidence": "...", "candidates": ["..."], "rationale": "..." },
+    "recipesPath": { "value": "... or null", "confidence": "...", "candidates": ["..."], "rationale": "..." },
+    "scoping": { "value": "summary of how you matched figma->react (with parents/children)", "confidence": "...", "candidates": [], "rationale": "..." }
+  },
+  "notes": ["anything notable or uncertain, optional"]
+}
+---END ORIENTATION-REPORT---
+
+Rules:
+- All chosen paths must exist; otherwise set the manifest field to null and list candidates with rationale.
+- Keep the scope tightly focused on the provided Figma list; do not enumerate unrelated components.
+- Be concise and deterministic; avoid guesses without evidence.
