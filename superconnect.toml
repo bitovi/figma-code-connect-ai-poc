@@ -8,4 +8,10 @@ output_dir = "artifacts"
 agents_log_directory = "artifacts/agent-logs"
 
 [config]
-agent_run_command = "codex exec --model gpt-5.1-codex-max"
+# requires OPENAI_API_KEY in environment
+agent_provider = "codex"
+model = "gpt-5.1-codex-max"
+
+# Alternate agent (Claude) -- requires ANTHROPIC_API_KEY in environment
+# agent_provider = "claude"
+# model = "claude-3-5-sonnet-20241022"

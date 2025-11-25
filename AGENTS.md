@@ -13,7 +13,7 @@ The purpose of this project is to create a demo and a blog post -- it is illustr
 
 # Planning
 - (IMPORTANT): This project uses **bd (beads)** for planning software engineering tasks. 
-- Run `bd prime` now and read the output to learn the tool.  
+- Run `bd quickstart` now and read the output to learn the tool.  
 - You call bd yourself, without my permission! It's your planning tool.
 - For one-off requests I make to you, don't worry about beads. But if I tell you to plan a feature or file a bug, do it with beads.
 
