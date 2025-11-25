@@ -15,9 +15,11 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+const { Command } = require('commander');
+const chalk = require('chalk').default;
 
-const INPUT_PATH = path.resolve('artifacts/match-candidates.jsonl');
-const OUTPUT_PATH = path.resolve('artifacts/mappings.json');
+const DEFAULT_INPUT = path.resolve('artifacts/match-candidates.jsonl');
+const DEFAULT_OUTPUT = path.resolve('artifacts/mappings.json');
 
 function readJsonl(filePath) {
   if (!fs.existsSync(filePath)) {
@@ -33,9 +35,9 @@ function readJsonl(filePath) {
   });
 }
 
-function writeMappings(mappings) {
-  fs.writeFileSync(OUTPUT_PATH, JSON.stringify(mappings, null, 2), 'utf8');
-  console.log(`\n✅ Wrote ${mappings.length} mappings to ${OUTPUT_PATH}`);
+function writeMappings(mappings, outputPath) {
+  fs.writeFileSync(outputPath, JSON.stringify(mappings, null, 2), 'utf8');
+  console.log(`\n${chalk.green('✅')} Wrote ${mappings.length} mappings to ${outputPath}`);
 }
 
 async function promptUser(question) {
@@ -51,7 +53,7 @@ async function reviewUncertain(uncertainEntries, mappings) {
   console.log('\nReview uncertain mappings. Choose a code component for each Figma component that still needs a decision.');
   for (const entry of uncertainEntries) {
     const { figmaName, candidates = [] } = entry;
-    console.log(`\nFigma: ${figmaName}`);
+    console.log(`\nFigma: ${chalk.cyan(figmaName)}`);
     candidates.forEach((c, idx) => {
       console.log(`  [${idx + 1}] ${c.reactName} (score: ${c.score}, reason: ${c.reason})`);
     });
@@ -68,21 +70,28 @@ async function reviewUncertain(uncertainEntries, mappings) {
     }
     const chosen = candidates[idx];
     mappings.push({ figmaName, reactName: chosen.reactName, source: 'review' });
-    console.log(`  Approved: ${figmaName} -> ${chosen.reactName}`);
+    console.log(`  ${chalk.green('Approved')}: ${figmaName} -> ${chosen.reactName}`);
   }
 }
 
 async function main() {
   try {
-    const entries = readJsonl(INPUT_PATH);
+    const program = new Command();
+    program
+      .option('--input <path>', 'Input match-candidates JSONL', DEFAULT_INPUT)
+      .option('--output <path>', 'Output mappings JSON', DEFAULT_OUTPUT);
+    program.parse(process.argv);
+    const opts = program.opts();
+
+    const entries = readJsonl(path.resolve(opts.input));
     const mappings = [];
     const certain = entries.filter(e => e.type === 'certain');
     const uncertain = entries.filter(e => e.type === 'uncertain');
 
     certain.forEach(e => mappings.push({ figmaName: e.figmaName, reactName: e.reactName, source: 'certain' }));
-    console.log('=== Match Review for Code Connect ===');
+    console.log(chalk.bold('=== Match Review for Code Connect ==='));
     console.log('We need to link each Figma component to its code component to generate CodeConnect files.');
-    console.log(`Input: ${INPUT_PATH}`);
+    console.log(`Input: ${path.resolve(opts.input)}`);
     console.log(`Auto-approved matches: ${certain.length}`);
     certain.forEach(e => {
       const reason = e.reason ? ` (${e.reason})` : '';
@@ -92,9 +101,9 @@ async function main() {
     console.log('For each unresolved Figma component, pick which code component to connect: number = approve, Enter = skip, s = skip all remaining.');
 
     await reviewUncertain(uncertain, mappings);
-    writeMappings(mappings);
+    writeMappings(mappings, path.resolve(opts.output));
   } catch (err) {
-    console.error('❌ Error:', err.message);
+    console.error(`${chalk.red('❌ Error:')} ${err.message}`);
     process.exit(1);
   }
 }

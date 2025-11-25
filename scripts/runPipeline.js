@@ -32,6 +32,7 @@ const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
 const { spawn } = require('child_process');
+const chalk = require('chalk').default;
 
 const DEFAULTS = {
   repoPath: path.resolve('../chakra-ui'),
@@ -290,7 +291,7 @@ function buildFigmaIndex(figmaDir) {
   const normalized = [];
   components.forEach((entry) => {
     const name = (entry.name || entry.componentName || '').trim();
-    if (!name) return;
+    if (!name || name === '-' || name === '_') return;
     const id = entry.id || entry.componentSetId || null;
     const key = `${name}::${id || ''}`;
     if (seen.has(key)) return;
@@ -391,25 +392,16 @@ function findFigmaComponentJson(figmaDir, name) {
   const slug = sanitizeComponentSlug(name);
   const direct = path.join(figmaDir, `${slug}.json`);
   if (fs.existsSync(direct)) return direct;
-  const files = fs.readdirSync(figmaDir).filter((f) => f.endsWith('.json') && f !== 'index.json');
-  const match = files.find((f) => f.replace(/\.json$/, '') === slug);
-  if (match) return path.join(figmaDir, match);
   return null;
 }
 
 function findReactComponentJson(reactDir, name) {
-  const slug = sanitizeComponentSlug(name).replace(/_/g, '');
+  const base = sanitizeComponentSlug(name).replace(/_/g, '');
   const candidates = [
-    path.join(reactDir, `${sanitizeComponentSlug(name)}.json`),
-    path.join(reactDir, `${slug}.json`),
-    path.join(reactDir, `${name.toLowerCase()}.json`)
+    path.join(reactDir, `${base}.json`),
+    path.join(reactDir, `${sanitizeComponentSlug(name)}.json`)
   ];
-  const found = candidates.find((p) => fs.existsSync(p));
-  if (found) return found;
-  const files = fs.readdirSync(reactDir).filter((f) => f.endsWith('.json'));
-  const match = files.find((f) => f.replace(/\.json$/, '') === name.toLowerCase());
-  if (match) return path.join(reactDir, match);
-  return null;
+  return candidates.find((p) => fs.existsSync(p)) || null;
 }
 
 function deriveImportPath(manifest, reactEntry, codeconnectDir) {
@@ -436,11 +428,12 @@ function buildCodegenInput(config) {
     const reactPath = findReactComponentJson(config.reactDir, mapping.reactName);
     const figma = figmaPath && fs.existsSync(figmaPath) ? readJsonSafe(figmaPath) : null;
     const react = reactPath && fs.existsSync(reactPath) ? readJsonSafe(reactPath) : null;
+    const importPath = deriveImportPath(manifest, react, config.codeconnectDir);
     return {
       figmaName: mapping.figmaName,
       reactName: mapping.reactName,
       source: mapping.source || null,
-      importPath: deriveImportPath(manifest, react, config.codeconnectDir),
+      importPath: importPath || null,
       figmaPath: figmaPath || null,
       reactPath: reactPath || null,
       figma: figma
@@ -510,9 +503,9 @@ function validateManifestPaths(manifest, repoPath) {
 
 function runCommand(label, command, options, context) {
   const { dryRun } = context;
-  console.log(`• ${label}`);
+  console.log(`${chalk.dim('•')} ${chalk.cyan(label)}`);
   if (dryRun) {
-    console.log(`  (dry-run) ${command}`);
+    console.log(`  ${chalk.yellow('(dry-run)')} ${command}`);
     return { ok: true, skipped: true };
   }
   const spawnOptions = {
@@ -536,8 +529,8 @@ function slugify(name) {
 
 function runAgentStep(name, promptPath, payloadLines, context, options = {}) {
   if (context.dryRun) {
-    console.log(`• ${name} (agent)`);
-    console.log(`  (dry-run) prompt: ${promptPath}`);
+    console.log(`${chalk.dim('•')} ${chalk.cyan(`${name} (agent)`)}`);
+    console.log(`  ${chalk.yellow('(dry-run)')} prompt: ${promptPath}`);
     return { ok: true, skipped: true };
   }
   const runner = options.runner || context.agentRunner;
@@ -677,8 +670,8 @@ async function ensureManifestStep(config, context) {
     promptContent,
     '',
     'Context:',
-    `- Repository root: ${config.repoPath}`,
-    `- Figma components (${figmaList.components.length}) from ${config.figmaIndex}:`,
+    '- Repository root: current working directory',
+    `- Figma components (${figmaList.components.length}) list:`,
     figmaJson,
     '- Emit the three JSON blocks with absolute paths using the required delimiters.'
   ];
@@ -876,7 +869,7 @@ async function matchingStep(config, context) {
 
 function reviewStep(config, context) {
   if (fs.existsSync(config.mappings) && !context.force) {
-    console.log(`• Review skipped; mappings exist at ${config.mappings} (use --force to re-review)`);
+    console.log(`${chalk.dim('•')} ${chalk.cyan('Review skipped; mappings exist')} at ${config.mappings} (use --force to re-review)`);
     return { ok: true, skipped: true };
   }
   const cmd = 'node scripts/review-matches.js';
@@ -899,7 +892,7 @@ function reviewStep(config, context) {
 function codegenStep(config, context) {
   if (context.skipCodegen) return { ok: true, skipped: true };
   if (dirHasFiles(config.codeconnectDir) && !context.force) {
-    console.log(`• Codegen skipped; outputs exist at ${config.codeconnectDir} (use --force to regenerate)`);
+    console.log(`${chalk.dim('•')} ${chalk.cyan('Codegen skipped; outputs exist')} at ${config.codeconnectDir} (use --force to regenerate)`);
     return { ok: true, skipped: true };
   }
   const validateCmd = [
@@ -910,7 +903,7 @@ function codegenStep(config, context) {
     `--react "${config.reactDir}"`,
     `--out "${config.codeconnectDir}"`
   ].join(' ');
-  const validation = runCommand('Codegen validation (stub)', validateCmd, {}, context);
+  const validation = runCommand('Codegen preflight', validateCmd, {}, context);
   if (!validation.ok || context.dryRun) return validation;
 
   let codegenInput = null;
@@ -942,6 +935,35 @@ function codegenStep(config, context) {
   );
 }
 
+function coverageStep(config, context) {
+  const cmd = [
+    'node scripts/generateCoverageReport.js',
+    `--figma-index "${config.figmaIndex}"`,
+    `--figma "${config.figmaDir}"`,
+    `--mappings "${config.mappings}"`,
+    `--codeconnect "${config.codeconnectDir}"`,
+    `--output "${config.runReport}"`
+  ].join(' ');
+  const result = runCommand('Coverage report', cmd, {}, context);
+  if (!result.ok) return result;
+  if (config.failOnCoverageGaps && fs.existsSync(config.runReport)) {
+    try {
+      const report = readJsonSafe(config.runReport);
+      const gaps =
+        (report.summary?.unmappedFigma || 0) +
+        (report.summary?.codegenFilesMissing || 0) +
+        (report.summary?.mappingsWithMissingVariantKeys || 0);
+      if (gaps > 0) {
+        console.error('❌ Coverage gaps detected. Failing run (set fail_on_coverage=false to skip).');
+        return { ok: false, code: 1 };
+      }
+    } catch (err) {
+      console.error(`⚠️  Unable to parse coverage report: ${err.message}`);
+    }
+  }
+  return result;
+}
+
 function configBuilderStep(config, context) {
   ensureDir(config.codeconnectDir);
   if (fs.existsSync(config.configFile) && !context.force) {
@@ -971,6 +993,7 @@ function planSteps(config, context) {
     { name: 'Matching', run: () => matchingStep(config, context) },
     { name: 'Review', run: () => reviewStep(config, context) },
     { name: 'Codegen', run: () => codegenStep(config, context) },
+    { name: 'Coverage', run: () => coverageStep(config, context) },
     { name: 'Config builder', run: () => configBuilderStep(config, context) }
   ];
 }
@@ -1006,7 +1029,7 @@ function ensureCodeconnectReadme(config, context) {
 }
 
 function printBanner(config, context) {
-  console.log('=== Figma Code Connect One-Shot ===');
+  console.log(chalk.bold('=== Figma Code Connect One-Shot ==='));
   console.log(`Figma URL/Key: ${config.figmaUrl}`);
   console.log(`Repo path:     ${config.repoPath}`);
   console.log(`Artifacts:     ${config.artifactsDir}`);
@@ -1065,6 +1088,7 @@ function resolveConfig(args) {
     mappings: path.join(artifactsDir, 'mappings.json'),
     codeconnectDir: path.join(artifactsDir, 'codeconnect'),
     codegenInput: path.join(artifactsDir, 'codegen-input.json'),
+    runReport: path.join(artifactsDir, 'run-report.json'),
     agentRunner: args.agentRunner || cfg.agent_run_command,
     agentLogDir: outputs.agents_log_directory ? path.resolve(outputs.agents_log_directory) : null,
     agentQuiet: args.flags.has('agentStream') ? false : true,
@@ -1077,7 +1101,8 @@ function resolveConfig(args) {
     configMeta: {
       superconnectPath: configLoad.path,
       superconnectUsed: configLoad.exists
-    }
+    },
+    failOnCoverageGaps: cfg.fail_on_coverage === 'true' || cfg.fail_on_coverage === true
   };
   return resolved;
 }
@@ -1126,9 +1151,9 @@ async function main() {
   const done = summary.filter((s) => s.status === 'done').map((s) => s.name);
   const skipped = summary.filter((s) => s.status === 'skipped').map((s) => s.name);
   console.log('\n✅ Pipeline completed.');
-  if (done.length) console.log(`  Ran:     ${done.join(', ')}`);
-  if (skipped.length) console.log(`  Skipped: ${skipped.join(', ')}`);
-  console.log('  Outputs: check artifacts/codeconnect (figma.config.json, .figma.tsx files)');
+  if (done.length) console.log(`  ${chalk.green('Ran')}:     ${done.join(', ')}`);
+  if (skipped.length) console.log(`  ${chalk.yellow('Skipped')}: ${skipped.join(', ')}`);
+  console.log(`  Outputs: check ${config.codeconnectDir} (figma.config.json, .figma.tsx files)`);
 }
 
 main().catch((err) => {

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 /**
- * Code Connect Codegen (stub)
+ * Code Connect Codegen Preflight
  *
  * Validates inputs for Code Connect generation and lists the files that would
- * be produced. Actual code generation will be handled by an agent; this script
- * only checks prerequisites.
+ * be produced. Actual code generation is handled by the codegen agent; this
+ * script only checks prerequisites.
  */
 
 const fs = require('fs');
@@ -20,7 +20,7 @@ const DEFAULTS = {
 };
 
 const HELP = `
-Code Connect Codegen (stub)
+Code Connect Codegen Preflight
 
 Validates inputs and prints the planned output locations for generated
 .figma.tsx files.
@@ -148,7 +148,7 @@ function formatSummary(paths, planned) {
     previewLines.push(`...and ${remaining} more`);
   }
   return [
-    '=== Code Connect Codegen (stub) ===',
+    '=== Code Connect Codegen Preflight ===',
     `Manifest: ${paths.manifest}`,
     `Mappings: ${paths.mappings}`,
     `Figma JSONs: ${paths.figmaDir}`,
@@ -158,7 +158,7 @@ function formatSummary(paths, planned) {
     'Planned files:',
     ...previewLines,
     '',
-    'No files were written (stub only).'
+    'No files were written. This is a preflight; generation is handled by the codegen agent.'
   ].join('\n');
 }
 

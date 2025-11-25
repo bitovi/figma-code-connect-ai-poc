@@ -16,9 +16,11 @@
  *   --file-key    Figma file key or full Figma URL
  */
 
-const https = require('https');
 const fs = require('fs');
 const path = require('path');
+const { fetch } = require('undici');
+const { Command } = require('commander');
+const chalk = require('chalk').default;
 
 function parseFileKey(input) {
   if (!input) return '';
@@ -44,61 +46,38 @@ function loadEnvFile() {
 
 function parseArgs() {
   loadEnvFile();
-  const args = process.argv.slice(2);
-  const inlineFileKey = args[0] && !args[0].startsWith('--') ? parseFileKey(args[0]) : null;
-  const config = {
-    fileKey: inlineFileKey || '',
-    token: process.env.FIGMA_ACCESS_TOKEN,
-    page: null,
-    component: null,
-    output: './figma-variants'
+  const program = new Command();
+  program
+    .argument('<fileKeyOrUrl>', 'Figma file key or URL')
+    .option('--token <token>', 'Figma API token (or set FIGMA_ACCESS_TOKEN)')
+    .option('--page <name>', 'Specific page name to process')
+    .option('--component <name>', 'Specific component name to process')
+    .option('--output <dir>', 'Output directory', './figma-variants');
+  program.parse(process.argv);
+  const opts = program.opts();
+  return {
+    fileKey: parseFileKey(program.args[0]),
+    token: opts.token || process.env.FIGMA_ACCESS_TOKEN,
+    page: opts.page || null,
+    component: opts.component || null,
+    output: opts.output
   };
-
-  for (let i = inlineFileKey ? 1 : 0; i < args.length; i += 2) {
-    const flag = args[i];
-    const value = args[i + 1];
-    switch (flag) {
-      case '--token':
-        config.token = value;
-        break;
-      case '--page':
-        config.page = value;
-        break;
-      case '--component':
-        config.component = value;
-        break;
-      case '--output':
-        config.output = value;
-        break;
-      case '--file-key':
-        config.fileKey = parseFileKey(value);
-        break;
-    }
-  }
-  return config;
 }
 
-function figmaRequest(pathname, token) {
-  return new Promise((resolve, reject) => {
-    const options = {
-      hostname: 'api.figma.com',
-      path: pathname,
-      method: 'GET',
-      headers: { 'X-Figma-Token': token }
-    };
-
-    https.get(options, (res) => {
-      let data = '';
-      res.on('data', (chunk) => (data += chunk));
-      res.on('end', () => {
-        if (res.statusCode === 200) {
-          resolve(JSON.parse(data));
-        } else {
-          reject(new Error(`Figma API error: ${res.statusCode} - ${data}`));
-        }
-      });
-    }).on('error', (err) => reject(err));
+async function figmaRequest(pathname, token) {
+  const res = await fetch(`https://api.figma.com${pathname}`, {
+    method: 'GET',
+    headers: { 'X-Figma-Token': token }
   });
+  const text = await res.text();
+  if (!res.ok) {
+    throw new Error(`Figma API error: ${res.status} - ${text}`);
+  }
+  try {
+    return JSON.parse(text);
+  } catch (err) {
+    throw new Error(`Figma API returned malformed JSON: ${err.message}`);
+  }
 }
 
 function findComponentSets(node, acc = []) {
@@ -151,12 +130,16 @@ function extractVariants(componentSet) {
   };
 }
 
-function saveJson(filePath, data) {
+function saveJson(filePath, data, options = {}) {
   const dir = path.dirname(filePath);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
   const relativePath = path.relative(process.cwd(), filePath) || filePath;
-  console.log(`      Saved: ${relativePath}`);
+  const { logMessage } = options;
+  if (logMessage !== false) {
+    const message = typeof logMessage === 'string' ? logMessage : `      Saved: ${relativePath}`;
+    console.log(message);
+  }
 }
 
 function sanitizeFilename(name) {
@@ -166,44 +149,44 @@ function sanitizeFilename(name) {
 async function main() {
   const config = parseArgs();
   if (!config.fileKey) {
-    console.error('Error: Figma file key is required');
+    console.error(chalk.red('Error: Figma file key is required'));
     process.exit(1);
   }
   if (!config.token) {
-    console.error('Error: Figma API token is required (set FIGMA_ACCESS_TOKEN or use --token)');
+    console.error(chalk.red('Error: Figma API token is required (set FIGMA_ACCESS_TOKEN or use --token)'));
     process.exit(1);
   }
 
-  console.log('🎨 Fetching Figma file...');
-  console.log(`File Key: ${config.fileKey}`);
+  console.log(chalk.bold('🎨 Fetching Figma file...'));
+  console.log(`File Key: ${chalk.cyan(config.fileKey)}`);
 
   try {
     const fileData = await figmaRequest(`/v1/files/${config.fileKey}`, config.token);
-    console.log(`✓ File loaded: ${fileData.name}`);
+    console.log(`${chalk.green('✓')} File loaded: ${fileData.name}`);
     console.log(`  Version: ${fileData.version}`);
     console.log(`  Last Modified: ${fileData.lastModified}`);
 
     const pages = fileData.document.children.filter((page) => !config.page || page.name === config.page);
     console.log('\nProcessing pages in Figma document:');
-    pages.forEach((page) => console.log(`  - ${page.name}`));
+    pages.forEach((page) => console.log(`  - ${chalk.cyan(page.name)}`));
 
     const allComponentSets = pages.flatMap((page) => findComponentSets(page));
 
-    console.log(`\n✓ Found ${allComponentSets.length} component sets`);
+    console.log(`\n${chalk.green('✓')} Found ${allComponentSets.length} component sets`);
 
     let processedCount = 0;
     for (const componentSet of allComponentSets) {
       if (config.component && componentSet.name !== config.component) continue;
       const variantData = extractVariants(componentSet);
-      console.log(
-        `Processing: ${componentSet.name} (${variantData.totalVariants} variants) [properties: ${Object.keys(
-          variantData.variantProperties
-        ).join(', ')}]`
-      );
+      const properties = Object.keys(variantData.variantProperties).join(', ');
 
       const filename = sanitizeFilename(componentSet.name);
       const jsonPath = path.join(config.output, `${filename}.json`);
-      saveJson(jsonPath, variantData);
+      saveJson(jsonPath, variantData, { logMessage: false });
+      const relativePath = path.relative(process.cwd(), jsonPath) || jsonPath;
+      console.log(
+        `${chalk.cyan(componentSet.name)} (${variantData.totalVariants} variants) [properties: ${properties}] => ${relativePath}`
+      );
       processedCount++;
     }
 
@@ -225,10 +208,10 @@ async function main() {
       saveJson(path.join(config.output, 'index.json'), indexData);
     }
 
-    console.log(`\n✅ Complete! Processed ${processedCount} component(s)`);
+    console.log(`\n${chalk.green('✅')} Complete! Processed ${processedCount} component(s)`);
     console.log(`📁 Output directory: ${config.output}`);
   } catch (error) {
-    console.error('\n❌ Error:', error.message);
+    console.error(`\n${chalk.red('❌ Error:')} ${error.message}`);
     process.exit(1);
   }
 }

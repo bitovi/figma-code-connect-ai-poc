@@ -9,6 +9,10 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const ts = require("typescript");
+const { Command } = require("commander");
+const chalk = require("chalk").default;
+const fg = require("fast-glob");
+const { z } = require("zod");
 
 const DEFAULT_CONFIG = {
   input: "chakra-ui/apps/compositions/src/ui",
@@ -40,56 +44,32 @@ const CODE_ARTIFACT_KIND = "code.components";
 const CODE_ARTIFACT_VERSION = 1;
 
 function parseArgs() {
-  const args = process.argv.slice(2);
-  const config = { ...DEFAULT_CONFIG, components: [], componentScope: null };
-  let manifestPath = null;
-  let tsconfigPath = null;
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i];
-    const next = args[i + 1];
-    switch (arg) {
-      case "--input":
-        config.input = next;
-        i++;
-        break;
-      case "--output":
-        config.output = next;
-        i++;
-        break;
-      case "--manifest":
-        manifestPath = next;
-        i++;
-        break;
-      case "--filter":
-        config.filter = next;
-        i++;
-        break;
-      case "--dry-run":
-        config.dryRun = true;
-        break;
-      case "--verbose":
-        config.verbose = true;
-        break;
-      case "--overwrite":
-        config.overwrite = true;
-        break;
-      case "--tsconfig":
-        tsconfigPath = next;
-        i++;
-        break;
-      case "--component-scope":
-        config.componentScope = next;
-        i++;
-        break;
-      case "--help":
-        showHelp();
-        process.exit(0);
-      default:
-        if (arg.startsWith("--")) {
-          console.warn(`Unknown option: ${arg}`);
-        }
-    }
-  }
+  const program = new Command();
+  program
+    .option("--input <path>", "Input code root", DEFAULT_CONFIG.input)
+    .option("--output <path>", "Output directory", DEFAULT_CONFIG.output)
+    .option("--manifest <path>", "Manifest JSON with componentRoot/recipesPath overrides")
+    .option("--filter <name>", "Filter by component name substring (case-insensitive)")
+    .option("--dry-run", "Preview without writing files")
+    .option("--verbose", "Detailed logging")
+    .option("--overwrite", "Overwrite existing files")
+    .option("--tsconfig <path>", "Tsconfig path (required unless manifest provides tsconfigPath)")
+    .option("--component-scope <path>", "Component scope JSON (from orientation) to limit extraction");
+  program.parse(process.argv);
+  const opts = program.opts();
+  const config = {
+    ...DEFAULT_CONFIG,
+    input: opts.input,
+    output: opts.output,
+    dryRun: !!opts.dryRun,
+    verbose: !!opts.verbose,
+    overwrite: !!opts.overwrite,
+    filter: opts.filter || null,
+    components: [],
+    componentScope: opts.componentScope || null
+  };
+  let manifestPath = opts.manifest || null;
+  let tsconfigPath = opts.tsconfig || null;
   if (manifestPath) {
     try {
       const manifest = loadManifestFile(manifestPath);
@@ -144,6 +124,19 @@ function loadManifestFile(manifestPath) {
 function loadComponentScope(scopePath) {
   const raw = fs.readFileSync(scopePath, "utf8");
   const parsed = JSON.parse(raw);
+  const ScopeSchema = z.object({
+    reactComponents: z.array(z.string()).optional(),
+    fromFigma: z.array(
+      z.object({
+        figmaName: z.string().optional(),
+        figmaId: z.string().optional(),
+        reactCandidates: z.array(z.string()).optional(),
+        parents: z.array(z.string()).optional(),
+        children: z.array(z.string()).optional(),
+      }),
+    ).optional(),
+  });
+  ScopeSchema.parse(parsed);
   const ensureArray = (value) => (Array.isArray(value) ? value : []);
   const names = new Set();
   const add = (name) => {
@@ -849,8 +842,8 @@ function scanRecipeDirectory(recipesPath) {
   if (!recipesPath || !fs.existsSync(recipesPath)) {
     return recipeCache;
   }
-  const files = walkFiles(recipesPath, [".ts", ".tsx"]);
-  files.forEach((file) => {
+  const pattern = path.join(recipesPath, "**/*.{ts,tsx}").replace(/\\/g, "/");
+  fg.sync(pattern, { onlyFiles: true }).forEach((file) => {
     try {
       const source = fs.readFileSync(file, "utf8");
       const ast = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true);
@@ -920,22 +913,6 @@ function readVariantsObject(objLiteral) {
   return variants;
 }
 
-function walkFiles(dir, extensions) {
-  const results = [];
-  const entries = fs.readdirSync(dir, { withFileTypes: true });
-  entries.forEach((entry) => {
-    const fullPath = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      results.push(...walkFiles(fullPath, extensions));
-    } else if (entry.isFile()) {
-      if (extensions.includes(path.extname(entry.name))) {
-        results.push(fullPath);
-      }
-    }
-  });
-  return results;
-}
-
 module.exports = {
   CODE_ARTIFACT_KIND,
   CODE_ARTIFACT_VERSION,
@@ -949,7 +926,7 @@ module.exports = {
 async function main() {
   const config = parseArgs();
   if (config.verbose) {
-    console.log("⚙️  Configuration:");
+    console.log(chalk.bold("⚙️  Configuration:"));
     console.log(`   Input: ${config.input}`);
     console.log(`   Output: ${config.output}`);
     console.log(`   Dry run: ${config.dryRun}`);

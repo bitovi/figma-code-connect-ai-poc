@@ -1,12 +1,14 @@
 # Orientation Agent Prompt
 
-You are given a codebase via your current working directory. Do NOT read any files outside this repo. Inspect only this repo to propose:
-- A manifest that downstream tools will use.
-- A component scope focused on the provided Figma components (listed below).
+You only care about one thing: map the Figma components I give you to their React counterparts in this repo. Be fast and token-frugal.
 
-You cannot write files; emit the JSON objects to stdout using the delimiters. Assume the only context you have is the repo and the Figma component list embedded in this prompt.
+# Task
+- Input: repo path (current working directory) + stdin. Stdin includes a JSON array of Figma components (deduped, sorted), each with `figmaName` and optional `figmaId`. If this list is missing or empty, stop and report an error.
+- Goal: find the React components that correspond to those Figma components and emit a structured summary of the mappings plus basic repo metadata.
 
-## What to discover
+Use only the provided list—do not wander beyond it.
+
+# What to discover
 - `componentRoot`: directory containing the React components to scan.
 - `tsconfigPath`: the tsconfig that actually includes those components.
 - `importStyle`: `"package"` or `"relative"`.
@@ -14,17 +16,20 @@ You cannot write files; emit the JSON objects to stdout using the delimiters. As
 - Optional: `recipesPath` or theme/tokens path if it clearly exists. Leave missing if uncertain.
 - Keep `manifestVersion: 1` and `tsconfigPaths: []` unless you have confident path mappings.
 
-Paths must be absolute and must exist. If you cannot choose a single value, set the manifest field to `null` and record candidates in the report.
+Paths must be absolute, within the repo, and must exist. If you cannot choose a single value, set the manifest field to null, list all candidates with reasoning in the report, and do not guess.
 
-## How to discover (minimal IO; stay scoped)
-- tsconfig: list `tsconfig*.json`, follow `extends`, and pick the config whose `include`/`files` cover the chosen component root. Prefer more specific configs. One or two `cat`/`rg` calls are enough.
-- component root: use directory listings and re-export index files to infer component names. Avoid opening implementation files; rely on index barrels and package metadata.
-- import target/style: infer from `package.json` and observed import patterns in the root index; keep to a few targeted reads.
-- recipes/theme: only set if you find a concrete path like `*/theme/recipes`, `*/theme`, `*/tokens`, etc., via `ls`/`rg`.
-- Use the provided Figma component list to stay scoped: propose React exports that likely map to those names. Only add direct parents/children needed for those Figma entries (e.g., TabsRoot for Tabs.Trigger, ButtonIcon for Button). Do NOT enumerate the full component tree beyond the scoped names.
-- Stop once you’ve inspected package metadata, the relevant tsconfig(s), the component root index(es), and enough re-export lines to cover the scoped Figma list. No deep dives into component implementations.
+# Your method (and your limitations)
+- Allowed reads: root tsconfig(s); package.json for import target; components index (e.g., components/index.ts); barrels (index.ts/index.tsx) for folders whose names match the Figma list (case/dash variants) or direct parents/children. Do NOT read any other files.
+- Extract export names and variant/recipe hints from those barrels only. Do not open implementation files. If a barrel is implementation-heavy or missing, do not read it—mark that mapping ambiguous/null and note candidates in the report.
+- One barrel per matching component. If unresolved after that, set the manifest field to null and move on. Never guess.
+- Stop as soon as componentRoot, tsconfigPath, importStyle/importTarget, and all scoped matches/ambiguities are recorded. No further crawling.
+- You are read-only and must emit only the three JSON blocks; no other stdout or side effects.
 
-## Output format (stdout)
+# Tools
+- Use rg (ripgrep) to find component folders/files matching the Figma names (case/dash variants) under the components root, and to locate candidate barrels (index.ts/index.tsx).
+- Use simple file reads (e.g., sed -n/cat) only on the allowed files above.
+
+# Output format
 Emit THREE JSON blocks in this order, nothing else between them:
 
 ---BEGIN MANIFEST---
@@ -60,8 +65,3 @@ Emit THREE JSON blocks in this order, nothing else between them:
   "notes": ["anything notable or uncertain, optional"]
 }
 ---END ORIENTATION-REPORT---
-
-Rules:
-- All chosen paths must exist; otherwise set the manifest field to null and list candidates with rationale.
-- Keep the scope tightly focused on the provided Figma list; do not enumerate unrelated components.
-- Be concise and deterministic; avoid guesses without evidence.

@@ -21,7 +21,7 @@ It harnesses the power of your favorite coding agent (Claude Code or Codex) to h
 
 ## Prerequisites
 
-- Node.js ≥ 14
+- Node.js ≥ 18
 - A Figma file URL or file key
 - An associated React/TS code repo you've cloned locally (e.g. `../chakra-ui`)
 - A Figma access token (PAT)
@@ -196,8 +196,13 @@ If you don’t see the expected mapping:
 ## Codegen (agent)
 - Given mappings + JSONs + manifest, generates Code Connect `.figma.tsx` files.
 - Uses prompt file `prompts/codegen.md`.
-- Reads manifest, `artifacts/mappings.json`, and JSONs from `artifacts/figma-components/` and `artifacts/react-components/`.
+- Reads manifest, `artifacts/mappings.json`, precomputed `artifacts/codegen-input.json`, and JSONs from `artifacts/figma-components/` and `artifacts/react-components/`.
 - Writes `.figma.tsx` files to `artifacts/codeconnect/`.
+
+## Coverage report (script)
+- Summarizes coverage: mapped vs unmapped Figma components, missing codegen files, and unmapped variant keys.
+- Calls `scripts/generateCoverageReport.js`.
+- Writes `artifacts/run-report.json`.
 
 ## Config builder (script)
 - Given Figma JSON + manifest + file key, generates a `figma.config.json` suitable for Code Connect.
@@ -214,6 +219,8 @@ At the end you have:
 - `artifacts/react-components/` — scoped React component metadata (props, variants, hints)
 - `artifacts/mappings.json` — Figma ↔ React mappings
 - `artifacts/codeconnect/*.figma.tsx` — Code Connect files
+- `artifacts/codegen-input.json` — precomputed per-mapping slices used by codegen
+- `artifacts/run-report.json` — coverage report (unmapped components, missing variant keys)
 - `artifacts/codeconnect/figma.config.json` — Config for those files
 
 
@@ -328,6 +335,21 @@ EOF
 Outputs: `artifacts/codeconnect/*.figma.tsx`.
 
 See: `prompts/codegen.md`.
+
+## Coverage report → run-report.json
+
+```bash
+node scripts/generateCoverageReport.js \
+  --figma-index artifacts/figma-components-index.json \
+  --figma artifacts/figma-components \
+  --mappings artifacts/mappings.json \
+  --codeconnect artifacts/codeconnect \
+  --output artifacts/run-report.json
+```
+
+Outputs: `artifacts/run-report.json` (mapped/unmapped components, missing codegen files, missing variant keys).
+
+See: `scripts/generateCoverageReport.js`.
 
 ## Config builder → figma.config.json
 
