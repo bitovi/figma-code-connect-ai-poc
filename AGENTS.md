@@ -11,12 +11,6 @@ This repo is built to demo against the Chakra UI design system. [Chakra UI](http
 
 The purpose of this project is to create a demo and a blog post -- it is illustrative, a teaching tool.  Elegance, simplicity, succinctness, and approachability are the most important features. Robustness and production-quality is NOT an important feature. We'll only implement the golden path.
 
-# Planning
-- (IMPORTANT): This project uses **bd (beads)** for planning software engineering tasks. 
-- Run `bd prime` now and read the output to learn the tool.  
-- You call bd yourself, without my permission! It's your planning tool.
-- For one-off requests I make to you, don't worry about beads. But if I tell you to plan a feature or file a bug, do it with beads.
-
 ## Repo guidance
 - Secrets are in .env-rename
 - Chakra-UI repo, which our project uses as its paradigmatic example, is cloned into a sibling directory (../chakrai-ui)
