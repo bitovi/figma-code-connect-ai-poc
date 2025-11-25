@@ -1,13 +1,13 @@
 # Scripts Directory
 
 This directory contains utility scripts for working with Figma Code Connect configuration and component data extraction.
-Note: The active pipeline is JSON-only; any mentions of YAML below are legacy/archival.
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Available Scripts](#available-scripts)
-- [Setup](#setup)
+ - [Available Scripts](#available-scripts)
+ - [Agent Runner (Codex/Claude)](#agent-runner-codexclaude)
+ - [Setup](#setup)
 - [Usage Guide](#usage-guide)
 - [Examples](#examples)
 - [Troubleshooting](#troubleshooting)
@@ -59,6 +59,28 @@ This collection of scripts helps automate the process of:
 - JSON-only output (old format flags removed)
 - Filters by page or specific components
 - Creates structured component metadata
+
+## Agent Runner (Codex/Claude)
+
+`scripts/agentRunner.js` is a provider-agnostic stdin/stdout harness used by the v3 pipeline. It keeps the pipeline contract steady while swapping agents and exposes a focused toolset when using Claude.
+
+- Providers: `--provider codex|claude` (default: `codex`). Set `--model <name>` as needed.
+- Tools (Claude): `list_files`, `read_file`, `rg_search`, `exec_shell` (default on; disable with `--no-exec`), `write_file`.
+- Guards: root defaults to cwd; pipeline sets `AGENT_ROOT` to `artifacts/` and allowlists the repo + artifacts. Override with `--root`, `--allow-read`, `--allow-write`.
+- Codex path: pipes stdin → codex CLI. Override command with `--codex-cmd "codex --exec --cd ."` if your local binary differs.
+- Claude path: requires `@anthropic-ai/claude-agent-sdk` and `ANTHROPIC_API_KEY`. Optional `--system-prompt` to override the default tool primer.
+- Defaults come from `superconnect.toml` (`config.agent_provider` + `config.model`); the v3 pipeline auto-builds `node scripts/agentRunner.js --provider=... --model=...`.
+
+Example with the v3 pipeline:
+
+```bash
+node scripts/runPipelineV3.js \
+  --figma-url <url|key> \
+  --figma-token <token> \
+  --repo-path ../chakra-ui
+```
+
+A ready-to-run default is already in `superconnect.toml` (Codex). A Claude variant is commented in that file if you want to flip providers without touching the CLI.
 
 ## Setup
 

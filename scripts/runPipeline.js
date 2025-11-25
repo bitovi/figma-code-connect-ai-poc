@@ -235,6 +235,15 @@ function extractJsonBlock(text, label) {
   try {
     return { value: JSON.parse(last) };
   } catch (err) {
+    // Attempt a minimal repair for missing commas between object literals (common LLM failure).
+    const repaired = last.replace(/}\s*{/g, '},{');
+    if (repaired !== last) {
+      try {
+        return { value: JSON.parse(repaired), repaired: true };
+      } catch (err2) {
+        return { error: `${label} block parse error: ${err.message} (repair failed: ${err2.message})` };
+      }
+    }
     return { error: `${label} block parse error: ${err.message}` };
   }
 }
@@ -261,7 +270,8 @@ function buildFigmaIndex(figmaDir) {
       baseMeta = {
         fileKey: parsed.fileKey || null,
         fileName: parsed.fileName || null,
-        version: parsed.version || null
+        version: parsed.version || null,
+        schemaVersion: parsed.schemaVersion || null
       };
       components = Array.isArray(parsed.components) ? parsed.components : [];
     } catch {
@@ -279,7 +289,14 @@ function buildFigmaIndex(figmaDir) {
         components.push({
           name: componentName,
           id: data.componentSetId || data.id || null,
-          variantCount: data.totalVariants || (Array.isArray(data.variants) ? data.variants.length : null)
+          variantCount: data.totalVariants || (Array.isArray(data.variants) ? data.variants.length : null),
+          checksum:
+            typeof data.checksum === 'string'
+              ? data.checksum
+              : data.checksum?.value || null,
+          schemaVersion: data.schemaVersion || null,
+          aliases: data.nameAliases?.candidates || data.aliases || [],
+          breadcrumbs: data.breadcrumbs?.trail || data.breadcrumbs || []
         });
       } catch {
         // skip unreadable files
@@ -303,7 +320,14 @@ function buildFigmaIndex(figmaDir) {
         entry.variantCount ??
         entry.totalVariants ??
         (Array.isArray(entry.variants) ? entry.variants.length : null) ??
-        null
+        null,
+      checksum:
+        typeof entry.checksum === 'string'
+          ? entry.checksum
+          : entry.checksum?.value || null,
+      schemaVersion: entry.schemaVersion || null,
+      aliases: entry.aliases || [],
+      breadcrumbs: entry.breadcrumbs || []
     });
   });
 
@@ -312,6 +336,7 @@ function buildFigmaIndex(figmaDir) {
   );
 
   return {
+    schemaVersion: baseMeta.schemaVersion || null,
     fileKey: baseMeta.fileKey || null,
     fileName: baseMeta.fileName || null,
     version: baseMeta.version || null,
@@ -917,11 +942,20 @@ function codegenStep(config, context) {
     return { ok: false, code: 1 };
   }
 
+  const promptPath = path.resolve('prompts/codegen.md');
+  if (!fs.existsSync(promptPath)) {
+    console.error(`❌ Missing codegen prompt at ${promptPath}`);
+    return { ok: false, code: 1 };
+  }
+  const promptContent = fs.readFileSync(promptPath, 'utf8');
+
   return runAgentStep(
     'Codegen',
-    'prompts/codegen.md',
+    promptPath,
     [
-      'Use prompts/codegen.md.',
+      promptContent,
+      '',
+      'Context:',
       `Manifest: ${config.manifest}`,
       `Mappings: ${config.mappings}`,
       `React JSONs: ${config.reactDir}`,
@@ -933,6 +967,16 @@ function codegenStep(config, context) {
     context,
     { runner: context.agentRunner, cwd: path.resolve(context.artifactsDir || '.') }
   );
+}
+
+function codegenValidateStep(config, context) {
+  const cmd = [
+    'node scripts/validateCodeconnect.js',
+    `--codeconnect "${config.codeconnectDir}"`,
+    `--react "${config.reactDir}"`,
+    '--quiet'
+  ].join(' ');
+  return runCommand('Codegen validate', cmd, {}, context);
 }
 
 function coverageStep(config, context) {
@@ -993,6 +1037,7 @@ function planSteps(config, context) {
     { name: 'Matching', run: () => matchingStep(config, context) },
     { name: 'Review', run: () => reviewStep(config, context) },
     { name: 'Codegen', run: () => codegenStep(config, context) },
+    { name: 'Codegen validate', run: () => codegenValidateStep(config, context) },
     { name: 'Coverage', run: () => coverageStep(config, context) },
     { name: 'Config builder', run: () => configBuilderStep(config, context) }
   ];

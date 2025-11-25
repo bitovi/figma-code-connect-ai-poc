@@ -18,9 +18,13 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const { fetch } = require('undici');
 const { Command } = require('commander');
 const chalk = require('chalk').default;
+
+const SCHEMA_VERSION = 'figma-component@1';
+const INDEX_SCHEMA_VERSION = 'figma-component-index@1';
 
 function parseFileKey(input) {
   if (!input) return '';
@@ -80,53 +84,144 @@ async function figmaRequest(pathname, token) {
   }
 }
 
-function findComponentSets(node, acc = []) {
-  if (node.type === 'COMPONENT_SET') acc.push(node);
-  if (node.children) node.children.forEach((child) => findComponentSets(child, acc));
+function findComponentSets(node, acc = [], breadcrumbs = []) {
+  if (!node) return acc;
+  const nextTrail = node.name ? [...breadcrumbs, node.name] : breadcrumbs;
+  if (node.type === 'COMPONENT_SET') {
+    acc.push({ node, breadcrumbs: nextTrail });
+  }
+  if (node.children) {
+    node.children.forEach((child) => findComponentSets(child, acc, nextTrail));
+  }
   return acc;
 }
 
-function extractVariants(componentSet) {
+const toCamelCase = (value) => {
+  const safe = (value || '').trim().toLowerCase();
+  if (!safe) return '';
+  const parts = safe.split(/[\s_-]+/).filter(Boolean);
+  return parts
+    .map((part, idx) => (idx === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
+    .join('');
+};
+
+const normalizeVariantKey = (raw) => toCamelCase(raw);
+
+const normalizeVariantValue = (raw) => (raw || '').trim().replace(/\s+/g, ' ');
+
+const toEnumValue = (raw) => normalizeVariantValue(raw).toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+
+const addOption = (options, normalizedKey, rawKey, normalizedValue, enumValue) => {
+  const next = options[normalizedKey] || { rawKeys: new Set(), values: new Set(), enums: new Set() };
+  next.rawKeys.add(rawKey);
+  next.values.add(normalizedValue);
+  next.enums.add(enumValue);
+  options[normalizedKey] = next;
+  return options;
+};
+
+const parseVariantProperties = (variantName, options) => {
+  const properties = {};
+  const rawProperties = {};
+  if (!variantName) return { properties, rawProperties };
+  const propertyPairs = variantName.split(',').map((p) => p.trim());
+  for (const pair of propertyPairs) {
+    const [rawKey, rawValue] = pair.split('=').map((s) => s.trim());
+    if (!rawKey || !rawValue) continue;
+    const normalizedKey = normalizeVariantKey(rawKey);
+    const normalizedValue = normalizeVariantValue(rawValue);
+    const enumValue = toEnumValue(rawValue);
+    properties[normalizedKey] = normalizedValue;
+    rawProperties[rawKey] = rawValue;
+    addOption(options, normalizedKey, rawKey, normalizedValue, enumValue);
+  }
+  return { properties, rawProperties };
+};
+
+const toSortedArray = (input) => Array.from(input || []).sort((a, b) => a.localeCompare(b));
+
+const buildAliases = (name) => {
+  const canonical = (name || '').trim();
+  const slashParts = canonical.split('/').map((p) => p.trim()).filter(Boolean);
+  const base = slashParts[slashParts.length - 1] || canonical;
+  const withoutParens = base.replace(/\s*\(.*?\)\s*$/, '').trim();
+  const trimmedSuffix = withoutParens.replace(/\b(component|components|default|base|new)\b/gi, '').replace(/\s{2,}/g, ' ').trim();
+  const alias = trimmedSuffix || withoutParens || base || canonical;
+  const candidates = Array.from(new Set([canonical, base, withoutParens, alias])).filter(Boolean);
+  return { canonical, alias, candidates };
+};
+
+const buildBreadcrumbs = (breadcrumbs = []) => {
+  const parents = breadcrumbs.slice(0, -1);
+  return {
+    page: parents[0] || null,
+    trail: parents,
+    fullPath: breadcrumbs,
+    path: parents.join(' / ')
+  };
+};
+
+const computeChecksum = (payload) => {
+  const stable = JSON.stringify(payload);
+  return crypto.createHash('sha256').update(stable).digest('hex');
+};
+
+function extractVariants(componentSet, breadcrumbs) {
   const variants = [];
   const propertyOptions = {};
 
   if (componentSet.children) {
     for (const variant of componentSet.children) {
       if (variant.type !== 'COMPONENT') continue;
-      const variantData = {
+      const { properties, rawProperties } = parseVariantProperties(variant.name, propertyOptions);
+      variants.push({
         variantId: variant.id,
         name: variant.name,
-        properties: {},
+        properties,
+        rawProperties,
         description: variant.description || '',
         key: variant.key || ''
-      };
-      if (variant.name) {
-        const propertyPairs = variant.name.split(',').map((p) => p.trim());
-        for (const pair of propertyPairs) {
-          const [prop, value] = pair.split('=').map((s) => s.trim());
-          if (prop && value) {
-            variantData.properties[prop] = value;
-            if (!propertyOptions[prop]) propertyOptions[prop] = new Set();
-            propertyOptions[prop].add(value);
-          }
-        }
-      }
-      variants.push(variantData);
+      });
     }
   }
 
-  const propertyOptionsArray = {};
-  Object.entries(propertyOptions).forEach(([prop, values]) => {
-    propertyOptionsArray[prop] = Array.from(values).sort();
-  });
+  const variantValueEnums = {};
+  const variantProperties = {};
+  Object.keys(propertyOptions)
+    .sort()
+    .forEach((prop) => {
+      const meta = propertyOptions[prop];
+      const values = toSortedArray(meta.values);
+      variantValueEnums[prop] = {
+        normalizedKey: prop,
+        rawKeys: toSortedArray(meta.rawKeys),
+        values,
+        enums: toSortedArray(meta.enums)
+      };
+      variantProperties[prop] = values;
+    });
 
-  return {
+  const basePayload = {
     componentSetId: componentSet.id,
     componentName: componentSet.name,
     description: componentSet.description || '',
-    variantProperties: propertyOptionsArray,
+    variantProperties,
+    variantValueEnums,
     variants,
-    totalVariants: variants.length
+    totalVariants: variants.length,
+    nameAliases: buildAliases(componentSet.name),
+    breadcrumbs: buildBreadcrumbs(breadcrumbs)
+  };
+
+  const checksum = computeChecksum(basePayload);
+
+  return {
+    schemaVersion: SCHEMA_VERSION,
+    checksum: {
+      algorithm: 'sha256',
+      value: checksum
+    },
+    ...basePayload
   };
 }
 
@@ -175,9 +270,10 @@ async function main() {
     console.log(`\n${chalk.green('✓')} Found ${allComponentSets.length} component sets`);
 
     let processedCount = 0;
-    for (const componentSet of allComponentSets) {
+    const componentsMeta = [];
+    for (const { node: componentSet, breadcrumbs } of allComponentSets) {
       if (config.component && componentSet.name !== config.component) continue;
-      const variantData = extractVariants(componentSet);
+      const variantData = extractVariants(componentSet, breadcrumbs);
       const properties = Object.keys(variantData.variantProperties).join(', ');
 
       const filename = sanitizeFilename(componentSet.name);
@@ -187,23 +283,38 @@ async function main() {
       console.log(
         `${chalk.cyan(componentSet.name)} (${variantData.totalVariants} variants) [properties: ${properties}] => ${relativePath}`
       );
+      componentsMeta.push({
+        name: variantData.componentName,
+        id: variantData.componentSetId,
+        variantCount: variantData.totalVariants,
+        checksum: variantData.checksum?.value || null,
+        schemaVersion: variantData.schemaVersion,
+        aliases: variantData.nameAliases?.candidates || [],
+        breadcrumbs: variantData.breadcrumbs?.trail || [],
+        fullBreadcrumbs: variantData.breadcrumbs?.fullPath || [],
+        breadcrumbPath: variantData.breadcrumbs?.path || ''
+      });
       processedCount++;
     }
 
     if (processedCount > 0) {
       const indexData = {
+        schemaVersion: INDEX_SCHEMA_VERSION,
         fileName: fileData.name,
         fileKey: config.fileKey,
         version: fileData.version,
         lastModified: fileData.lastModified,
         exportDate: new Date().toISOString(),
-        components: allComponentSets
-          .filter((cs) => !config.component || cs.name === config.component)
-          .map((cs) => ({
-            name: cs.name,
-            id: cs.id,
-            variantCount: cs.children ? cs.children.length : 0
-          }))
+        components:
+          componentsMeta.length > 0
+            ? componentsMeta
+            : allComponentSets
+                .filter(({ node }) => !config.component || node.name === config.component)
+                .map(({ node }) => ({
+                  name: node.name,
+                  id: node.id,
+                  variantCount: node.children ? node.children.length : 0
+                }))
       };
       saveJson(path.join(config.output, 'index.json'), indexData);
     }
