@@ -56,7 +56,8 @@ function parseArgs() {
     .option('--token <token>', 'Figma API token (or set FIGMA_ACCESS_TOKEN)')
     .option('--page <name>', 'Specific page name to process')
     .option('--component <name>', 'Specific component name to process')
-    .option('--output <dir>', 'Output directory', './figma-variants');
+    .option('--output <dir>', 'Output directory', './figma-variants')
+    .option('--index <file>', 'Canonical index output path (figma-components-index.json)');
   program.parse(process.argv);
   const opts = program.opts();
   return {
@@ -64,7 +65,8 @@ function parseArgs() {
     token: opts.token || process.env.FIGMA_ACCESS_TOKEN,
     page: opts.page || null,
     component: opts.component || null,
-    output: opts.output
+    output: opts.output,
+    indexPath: opts.index || null
   };
 }
 
@@ -112,15 +114,19 @@ const normalizeVariantValue = (raw) => (raw || '').trim().replace(/\s+/g, ' ');
 const toEnumValue = (raw) => normalizeVariantValue(raw).toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
 
 const addOption = (options, normalizedKey, rawKey, normalizedValue, enumValue) => {
-  const next = options[normalizedKey] || { rawKeys: new Set(), values: new Set(), enums: new Set() };
+  const next =
+    options[normalizedKey] || { rawKeys: new Set(), values: new Set(), enums: new Set(), firstRawKey: null };
   next.rawKeys.add(rawKey);
   next.values.add(normalizedValue);
   next.enums.add(enumValue);
+  if (!next.firstRawKey) {
+    next.firstRawKey = rawKey;
+  }
   options[normalizedKey] = next;
   return options;
 };
 
-const parseVariantProperties = (variantName, options) => {
+const parseVariantProperties = (variantName, options, logOptions) => {
   const properties = {};
   const rawProperties = {};
   if (!variantName) return { properties, rawProperties };
@@ -134,6 +140,11 @@ const parseVariantProperties = (variantName, options) => {
     properties[normalizedKey] = normalizedValue;
     rawProperties[rawKey] = rawValue;
     addOption(options, normalizedKey, rawKey, normalizedValue, enumValue);
+    if (logOptions?.debugRawKeys) {
+      console.log(
+        chalk.dim(`        rawKey="${rawKey}" normalizedKey="${normalizedKey}" rawValue="${rawValue}" enum="${enumValue}"`)
+      );
+    }
   }
   return { properties, rawProperties };
 };
@@ -166,14 +177,14 @@ const computeChecksum = (payload) => {
   return crypto.createHash('sha256').update(stable).digest('hex');
 };
 
-function extractVariants(componentSet, breadcrumbs) {
+function extractVariants(componentSet, breadcrumbs, options = {}) {
   const variants = [];
   const propertyOptions = {};
 
   if (componentSet.children) {
     for (const variant of componentSet.children) {
       if (variant.type !== 'COMPONENT') continue;
-      const { properties, rawProperties } = parseVariantProperties(variant.name, propertyOptions);
+      const { properties, rawProperties } = parseVariantProperties(variant.name, propertyOptions, options);
       variants.push({
         variantId: variant.id,
         name: variant.name,
@@ -189,16 +200,17 @@ function extractVariants(componentSet, breadcrumbs) {
   const variantProperties = {};
   Object.keys(propertyOptions)
     .sort()
-    .forEach((prop) => {
-      const meta = propertyOptions[prop];
+    .forEach((normalizedKey) => {
+      const meta = propertyOptions[normalizedKey];
       const values = toSortedArray(meta.values);
-      variantValueEnums[prop] = {
-        normalizedKey: prop,
+      const rawKey = meta.firstRawKey || normalizedKey;
+      variantValueEnums[rawKey] = {
+        normalizedKey,
         rawKeys: toSortedArray(meta.rawKeys),
         values,
         enums: toSortedArray(meta.enums)
       };
-      variantProperties[prop] = values;
+      variantProperties[rawKey] = values;
     });
 
   const basePayload = {
@@ -273,7 +285,7 @@ async function main() {
     const componentsMeta = [];
     for (const { node: componentSet, breadcrumbs } of allComponentSets) {
       if (config.component && componentSet.name !== config.component) continue;
-      const variantData = extractVariants(componentSet, breadcrumbs);
+      const variantData = extractVariants(componentSet, breadcrumbs, { debugRawKeys: Boolean(process.env.DEBUG_FIGMA_VARIANTS) });
       const properties = Object.keys(variantData.variantProperties).join(', ');
 
       const filename = sanitizeFilename(componentSet.name);
@@ -297,6 +309,7 @@ async function main() {
       processedCount++;
     }
 
+    // Write the canonical pipeline index: figma-components-index.json at repo root or provided path.
     if (processedCount > 0) {
       const indexData = {
         schemaVersion: INDEX_SCHEMA_VERSION,
@@ -316,7 +329,13 @@ async function main() {
                   variantCount: node.children ? node.children.length : 0
                 }))
       };
-      saveJson(path.join(config.output, 'index.json'), indexData);
+      const indexPath = config.indexPath
+        ? path.resolve(config.indexPath)
+        : path.join(path.dirname(path.resolve(config.output)), 'figma-components-index.json');
+      saveJson(indexPath, indexData);
+      if (indexPath !== path.join(config.output, 'index.json') && fs.existsSync(path.join(config.output, 'index.json'))) {
+        fs.unlinkSync(path.join(config.output, 'index.json'));
+      }
     }
 
     console.log(`\n${chalk.green('✅')} Complete! Processed ${processedCount} component(s)`);

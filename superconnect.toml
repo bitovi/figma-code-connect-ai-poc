@@ -5,7 +5,7 @@ component_repo_path = "../chakra-ui/"
 
 [outputs]
 output_dir = "artifacts"
-agents_log_directory = "artifacts/agent-logs"
+agents_log_directory = "superconnect/agent-logs"
 
-[config]
-agent_run_command = "codex exec --model gpt-5.1-codex-max"
+[agent]
+run_command = "codex exec --model gpt-5.1-codex-max --sandbox workspace-write"

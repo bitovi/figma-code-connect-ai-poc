@@ -26,11 +26,9 @@ It harnesses the power of your favorite coding agent (Claude Code or Codex) to h
 - An associated React/TS code repo you've cloned locally (e.g. `../chakra-ui`)
 - A Figma access token (PAT)
 - An agent runner CLI that can read a prompt from stdin (e.g., `codex exec` or similar)
-- CLI helpers used by agents/scripts (Mac/Homebrew assumed):
-  - `ast-grep`, `ripgrep`, `fd`, `jq`
-  - Install with: `brew install ast-grep ripgrep fd jq`
-  - Ensure your agent can invoke these while running in the target repo (they're used for fast repo inspection)
-
+- CLI tools the agent will use: `ast-grep`, `ripgrep`, `fd`, `jq`, `eslint`
+  - Install on Mac: `brew install ast-grep ripgrep fd jq eslint`
+  
 ## Setup
 
 From this project’s root:
@@ -389,3 +387,40 @@ For more details, see:
 
 - `docs/pipeline-run.md` — manual golden-path commands.
 - `scripts/README.md` — script-by-script details.
+
+
+
+# • Pipeline Stages (deterministic vs LLM)
+
+- Figma Fetch + Index (script)
+    - Parse CLI/config, load secrets, fetch Figma file, save per-component JSONs
+    - Build Figma components index (names/ids/counts), validate artifacts exist
+    
+- Orientation (LLM)
+    - List repo root, detect package.json; detect component root; choose tsconfig; infer import style/target; locate recipes/theme
+    - Produce manifest JSON, component scope (with parents/children), orientation report; validate scope consistency
+
+- React Extraction (scripts)
+    - Scan codebase for exports (TS checker), filter to scope, extract props/types, variantProperties/recipeVariants
+    - Generate mapping hints, write React component JSON artifacts
+
+- Matching (LLM + tools)
+    - Match Figma names to React names; handle subcomponent naming; score certain/uncertain; write match-candidates.jsonl
+
+- Review (deterministic + optional supervised)
+    - Auto-accept certain matches; optional interactive review; build mappings.json; compute import path per manifest
+
+- Autopilot Mapping + Codegen (LLM + tools)
+    - Align Figma variant keys to React props; choose enum/boolean/string/instance mappings; handle known patterns
+    - Detect unmapped variant keys; generate .figma.tsx per mapping; sanitize filenames; write codeconnect outputs
+
+- Finalize + Config + Coverage (scripts)
+    - Build figma.config.json; summarize coverage (mapped/unmapped/conflicts, missing variants/files)
+    - Validate artifacts (existence/schema); produce run-report; retry missing pieces; enforce blinder rules; log agent outputs
+
+## Superconnect v3 (direct-to-target repo)
+- Three stages: reuse existing Figma harvest (fetch + index), run the v3 agent with the target repo as `cwd`, then finalize inside the target repo (config + summary + optional validation).
+- CLI: `npm run pipeline:v3 -- --figma-url <url|key> --figma-token <token> --target ../chakra-ui --agent-runner "<agent command>" [--allowlist ...] [--denylist ...] [--confidence high]`.
+- Defaults: harvest outputs live in the target repo under `superconnect/` (`superconnect/figma-components`, `superconnect/figma-components-index.json`); the agent writes production files to `codeconnect/` and a single run log to `superconnect/superconnect-run.json`.
+- Finalizer owns `figma.config.json` (always rewrites it) and writes `superconnect/SUPERCONNECT_SUMMARY.md` in the target repo; it can validate `.figma.tsx` files against React metadata if provided (`--react-meta`).
+- Only high-confidence matches receive Code Connect files; skipped/uncertain items are logged in the run log and summary.
