@@ -3,9 +3,5 @@
 figma_url = "https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB/Chakra-UI?node-id=580-1767&p=f&m=dev"
 component_repo_path = "../chakra-ui/"
 
-[outputs]
-output_dir = "artifacts"
-agents_log_directory = "superconnect/agent-logs"
-
 [agent]
 run_command = "codex exec --model gpt-5.1-codex-max --sandbox workspace-write"

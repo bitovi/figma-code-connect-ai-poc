@@ -418,9 +418,9 @@ For more details, see:
     - Build figma.config.json; summarize coverage (mapped/unmapped/conflicts, missing variants/files)
     - Validate artifacts (existence/schema); produce run-report; retry missing pieces; enforce blinder rules; log agent outputs
 
-## Superconnect v3 (direct-to-target repo)
-- Three stages: reuse existing Figma harvest (fetch + index), run the v3 agent with the target repo as `cwd`, then finalize inside the target repo (config + summary + optional validation).
-- CLI: `npm run pipeline:v3 -- --figma-url <url|key> --figma-token <token> --target ../chakra-ui --agent-runner "<agent command>" [--allowlist ...] [--denylist ...] [--confidence high]`.
+## Superconnect (direct-to-target repo)
+- Three stages: reuse existing Figma harvest (fetch + index), run the agent with the target repo as `cwd`, then finalize inside the target repo (config + summary + optional validation).
+- CLI: `superconnect --figma-url <url|key> --figma-token <token> --target ../chakra-ui --components "Button,Accordion"`
 - Defaults: harvest outputs live in the target repo under `superconnect/` (`superconnect/figma-components`, `superconnect/figma-components-index.json`); the agent writes production files to `codeconnect/` and a single run log to `superconnect/superconnect-run.json`.
 - Finalizer owns `figma.config.json` (always rewrites it) and writes `superconnect/SUPERCONNECT_SUMMARY.md` in the target repo; it can validate `.figma.tsx` files against React metadata if provided (`--react-meta`).
 - Only high-confidence matches receive Code Connect files; skipped/uncertain items are logged in the run log and summary.

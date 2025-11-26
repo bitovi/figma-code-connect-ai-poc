@@ -3,17 +3,15 @@
 /**
  * Figma Component Variants Extractor (JSON-only)
  *
- * Downloads all variants from Figma components and saves them as JSON files.
+ * Downloads all variants from a Figma file and saves them as JSON plus an index.
  *
  * Usage:
- *   node scripts/fetchComponents.js [fileKey] [options]
+ *   node scripts/figma-scan.js <fileKeyOrUrl> [options]
  *
  * Options:
  *   --token       Figma API token (or set FIGMA_ACCESS_TOKEN env variable)
- *   --page        Specific page name to process (default: all pages)
- *   --component   Specific component name to process (default: all components)
- *   --output      Output directory (default: ./figma-variants)
- *   --file-key    Figma file key or full Figma URL
+ *   --output      Output directory
+ *   --index       Index output path (figma-components-index.json)
  */
 
 const fs = require('fs');
@@ -22,6 +20,7 @@ const crypto = require('crypto');
 const { fetch } = require('undici');
 const { Command } = require('commander');
 const chalk = require('chalk').default;
+const stringifyCompact = require('json-stringify-pretty-compact').default;
 
 const SCHEMA_VERSION = 'figma-component@1';
 const INDEX_SCHEMA_VERSION = 'figma-component-index@1';
@@ -32,30 +31,11 @@ function parseFileKey(input) {
   return urlMatch ? urlMatch[1] : input;
 }
 
-function loadEnvFile() {
-  const envPath = path.resolve(__dirname, '../.env');
-  if (fs.existsSync(envPath)) {
-    const envContent = fs.readFileSync(envPath, 'utf8');
-    envContent.split('\n').forEach((line) => {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('#')) return;
-      const [key, ...rest] = trimmed.split('=');
-      if (key && rest.length) {
-        const value = rest.join('=').trim();
-        if (!process.env[key]) process.env[key] = value;
-      }
-    });
-  }
-}
-
 function parseArgs() {
-  loadEnvFile();
   const program = new Command();
   program
     .argument('<fileKeyOrUrl>', 'Figma file key or URL')
     .option('--token <token>', 'Figma API token (or set FIGMA_ACCESS_TOKEN)')
-    .option('--page <name>', 'Specific page name to process')
-    .option('--component <name>', 'Specific component name to process')
     .option('--output <dir>', 'Output directory', './figma-variants')
     .option('--index <file>', 'Canonical index output path (figma-components-index.json)');
   program.parse(process.argv);
@@ -63,8 +43,6 @@ function parseArgs() {
   return {
     fileKey: parseFileKey(program.args[0]),
     token: opts.token || process.env.FIGMA_ACCESS_TOKEN,
-    page: opts.page || null,
-    component: opts.component || null,
     output: opts.output,
     indexPath: opts.index || null
   };
@@ -126,7 +104,7 @@ const addOption = (options, normalizedKey, rawKey, normalizedValue, enumValue) =
   return options;
 };
 
-const parseVariantProperties = (variantName, options, logOptions) => {
+const parseVariantProperties = (variantName, options) => {
   const properties = {};
   const rawProperties = {};
   if (!variantName) return { properties, rawProperties };
@@ -140,16 +118,32 @@ const parseVariantProperties = (variantName, options, logOptions) => {
     properties[normalizedKey] = normalizedValue;
     rawProperties[rawKey] = rawValue;
     addOption(options, normalizedKey, rawKey, normalizedValue, enumValue);
-    if (logOptions?.debugRawKeys) {
-      console.log(
-        chalk.dim(`        rawKey="${rawKey}" normalizedKey="${normalizedKey}" rawValue="${rawValue}" enum="${enumValue}"`)
-      );
-    }
   }
   return { properties, rawProperties };
 };
 
+const isHiddenComponent = (name) => {
+  const trimmed = (name || '').trim();
+  if (!trimmed) return true;
+  const first = trimmed.charAt(0);
+  if (first === '.' || first === '_') return true;
+  // Treat names that sanitize to a single underscore (punctuation-only) as hidden noise.
+  const sanitized = sanitizeFilename(trimmed);
+  return sanitized === '_';
+};
+
 const toSortedArray = (input) => Array.from(input || []).sort((a, b) => a.localeCompare(b));
+
+const stableStringify = (value) => {
+  if (value && typeof value === 'object') {
+    if (Array.isArray(value)) {
+      return `[${value.map((v) => stableStringify(v)).join(',')}]`;
+    }
+    const keys = Object.keys(value).sort();
+    return `{${keys.map((k) => `${JSON.stringify(k)}:${stableStringify(value[k])}`).join(',')}}`;
+  }
+  return JSON.stringify(value);
+};
 
 const buildAliases = (name) => {
   const canonical = (name || '').trim();
@@ -163,36 +157,38 @@ const buildAliases = (name) => {
 };
 
 const buildBreadcrumbs = (breadcrumbs = []) => {
-  const parents = breadcrumbs.slice(0, -1);
   return {
-    page: parents[0] || null,
-    trail: parents,
     fullPath: breadcrumbs,
-    path: parents.join(' / ')
+    path: breadcrumbs.join(' / ')
   };
 };
 
 const computeChecksum = (payload) => {
-  const stable = JSON.stringify(payload);
+  const stable = stableStringify(payload);
   return crypto.createHash('sha256').update(stable).digest('hex');
 };
 
-function extractVariants(componentSet, breadcrumbs, options = {}) {
+function extractVariants(componentSet, breadcrumbs) {
   const variants = [];
   const propertyOptions = {};
+  const seenVariantIds = new Set();
 
   if (componentSet.children) {
     for (const variant of componentSet.children) {
       if (variant.type !== 'COMPONENT') continue;
-      const { properties, rawProperties } = parseVariantProperties(variant.name, propertyOptions, options);
-      variants.push({
+      if (seenVariantIds.has(variant.id)) continue;
+      seenVariantIds.add(variant.id);
+      const { properties, rawProperties } = parseVariantProperties(variant.name, propertyOptions);
+      const entry = {
         variantId: variant.id,
         name: variant.name,
         properties,
-        rawProperties,
-        description: variant.description || '',
-        key: variant.key || ''
-      });
+        rawProperties
+      };
+      const desc = (variant.description || '').trim();
+      if (desc) entry.description = desc;
+      if (variant.key) entry.key = variant.key;
+      variants.push(entry);
     }
   }
 
@@ -216,7 +212,6 @@ function extractVariants(componentSet, breadcrumbs, options = {}) {
   const basePayload = {
     componentSetId: componentSet.id,
     componentName: componentSet.name,
-    description: componentSet.description || '',
     variantProperties,
     variantValueEnums,
     variants,
@@ -224,6 +219,8 @@ function extractVariants(componentSet, breadcrumbs, options = {}) {
     nameAliases: buildAliases(componentSet.name),
     breadcrumbs: buildBreadcrumbs(breadcrumbs)
   };
+  const compDesc = (componentSet.description || '').trim();
+  if (compDesc) basePayload.description = compDesc;
 
   const checksum = computeChecksum(basePayload);
 
@@ -240,7 +237,7 @@ function extractVariants(componentSet, breadcrumbs, options = {}) {
 function saveJson(filePath, data, options = {}) {
   const dir = path.dirname(filePath);
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+  fs.writeFileSync(filePath, stringifyCompact(data, { maxLength: 80 }), 'utf8');
   const relativePath = path.relative(process.cwd(), filePath) || filePath;
   const { logMessage } = options;
   if (logMessage !== false) {
@@ -273,7 +270,7 @@ async function main() {
     console.log(`  Version: ${fileData.version}`);
     console.log(`  Last Modified: ${fileData.lastModified}`);
 
-    const pages = fileData.document.children.filter((page) => !config.page || page.name === config.page);
+    const pages = fileData.document.children;
     console.log('\nProcessing pages in Figma document:');
     pages.forEach((page) => console.log(`  - ${chalk.cyan(page.name)}`));
 
@@ -281,62 +278,78 @@ async function main() {
 
     console.log(`\n${chalk.green('✓')} Found ${allComponentSets.length} component sets`);
 
-    let processedCount = 0;
-    const componentsMeta = [];
-    for (const { node: componentSet, breadcrumbs } of allComponentSets) {
-      if (config.component && componentSet.name !== config.component) continue;
-      const variantData = extractVariants(componentSet, breadcrumbs, { debugRawKeys: Boolean(process.env.DEBUG_FIGMA_VARIANTS) });
-      const properties = Object.keys(variantData.variantProperties).join(', ');
+  let processedCount = 0;
+  const componentsMeta = [];
+  const usedFilenames = new Set();
+  for (const { node: componentSet, breadcrumbs } of allComponentSets) {
+    if (isHiddenComponent(componentSet.name)) continue;
+    const variantData = extractVariants(componentSet, breadcrumbs);
+    const properties = Object.keys(variantData.variantProperties).join(', ');
 
-      const filename = sanitizeFilename(componentSet.name);
-      const jsonPath = path.join(config.output, `${filename}.json`);
+    const baseName = sanitizeFilename(componentSet.name) || 'component';
+    let filename = baseName;
+    let suffix = 1;
+    while (usedFilenames.has(filename)) {
+      filename = `${baseName}_${suffix}`;
+      suffix += 1;
+    }
+    usedFilenames.add(filename);
+
+    const jsonPath = path.join(config.output, `${filename}.json`);
       saveJson(jsonPath, variantData, { logMessage: false });
       const relativePath = path.relative(process.cwd(), jsonPath) || jsonPath;
       console.log(
         `${chalk.cyan(componentSet.name)} (${variantData.totalVariants} variants) [properties: ${properties}] => ${relativePath}`
       );
-      componentsMeta.push({
+      const componentName = variantData.componentName;
+      const meta = {
         name: variantData.componentName,
         id: variantData.componentSetId,
         variantCount: variantData.totalVariants,
         checksum: variantData.checksum?.value || null,
-        schemaVersion: variantData.schemaVersion,
-        aliases: variantData.nameAliases?.candidates || [],
-        breadcrumbs: variantData.breadcrumbs?.trail || [],
-        fullBreadcrumbs: variantData.breadcrumbs?.fullPath || [],
-        breadcrumbPath: variantData.breadcrumbs?.path || ''
-      });
+        schemaVersion: variantData.schemaVersion
+      };
+      if (variantData.description) meta.description = variantData.description;
+      const alias = variantData.nameAliases?.alias || '';
+      const aliasCandidates = Array.isArray(variantData.nameAliases?.candidates)
+        ? variantData.nameAliases.candidates.filter((a) => a && a !== componentName)
+        : [];
+      if (alias && alias !== componentName) meta.alias = alias;
+      if (aliasCandidates.length) meta.aliases = aliasCandidates;
+      const pathStr = variantData.breadcrumbs?.path || '';
+      if (pathStr) meta.breadcrumbPath = pathStr;
+      componentsMeta.push(meta);
       processedCount++;
     }
 
     // Write the canonical pipeline index: figma-components-index.json at repo root or provided path.
-    if (processedCount > 0) {
-      const indexData = {
-        schemaVersion: INDEX_SCHEMA_VERSION,
-        fileName: fileData.name,
-        fileKey: config.fileKey,
-        version: fileData.version,
-        lastModified: fileData.lastModified,
-        exportDate: new Date().toISOString(),
-        components:
-          componentsMeta.length > 0
-            ? componentsMeta
-            : allComponentSets
-                .filter(({ node }) => !config.component || node.name === config.component)
-                .map(({ node }) => ({
+    const indexData = {
+      schemaVersion: INDEX_SCHEMA_VERSION,
+      fileName: fileData.name,
+      fileKey: config.fileKey,
+      version: fileData.version,
+      lastModified: fileData.lastModified,
+      exportDate: new Date().toISOString(),
+      components:
+        componentsMeta.length > 0
+          ? componentsMeta
+          : allComponentSets
+              .filter(({ node }) => !isHiddenComponent(node.name))
+              .map(({ node }) => {
+                const entry = {
                   name: node.name,
                   id: node.id,
                   variantCount: node.children ? node.children.length : 0
-                }))
-      };
-      const indexPath = config.indexPath
-        ? path.resolve(config.indexPath)
-        : path.join(path.dirname(path.resolve(config.output)), 'figma-components-index.json');
-      saveJson(indexPath, indexData);
-      if (indexPath !== path.join(config.output, 'index.json') && fs.existsSync(path.join(config.output, 'index.json'))) {
-        fs.unlinkSync(path.join(config.output, 'index.json'));
-      }
-    }
+                };
+                const desc = (node.description || '').trim();
+                if (desc) entry.description = desc;
+                return entry;
+              })
+    };
+    const indexPath = config.indexPath
+      ? path.resolve(config.indexPath)
+      : path.join(path.dirname(path.resolve(config.output)), 'figma-components-index.json');
+    saveJson(indexPath, indexData);
 
     console.log(`\n${chalk.green('✅')} Complete! Processed ${processedCount} component(s)`);
     console.log(`📁 Output directory: ${config.output}`);
