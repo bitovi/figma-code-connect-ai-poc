@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Utility scripts for Figma Code Connect configuration and component data extraction",
   "bin": {
-    "superconnect": "scripts/runPipeline.js",
-    "superconnect-v3": "scripts/runPipelineV3.js"
+    "superconnect": "scripts/runPipelineV3.js"
   },
   "scripts": {
     "fetch:components": "node scripts/fetchComponents.js",
@@ -26,7 +25,7 @@
     "extract:overwrite": "node scripts/code-component-scanner.js --overwrite",
     "workflow:props": "npm run extract:props && echo 'Component props extracted to components-props/ directory'",
     "workflow:full": "npm run fetch:components && npm run build:config:file && npm run extract:props",
-    "pipeline:one-shot": "node scripts/runPipeline.js",
+    "pipeline:one-shot": "node scripts/runPipelineV3.js",
     "pipeline:v3": "node scripts/runPipelineV3.js",
     "pipeline:v3:harvest": "node scripts/runPipelineV3.js --skip-agent --skip-finalize",
     "pipeline:v3:agent": "node scripts/runPipelineV3.js --skip-figma --skip-finalize",
