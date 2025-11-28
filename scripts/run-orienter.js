@@ -18,8 +18,8 @@
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
-const { spawn } = require('child_process');
 const { Command } = require('commander');
+const { CodexCliAgentAdapter } = require('../src/agent/agent-adapter');
 
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
 
@@ -70,57 +70,6 @@ const buildPayload = (promptText, figmaIndex, repoSummary) =>
     ''
   ].join('\n');
 
-const sanitizeSlug = (value) =>
-  (value || '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '') || 'component';
-
-const openAgentLogStream = (dir, name) => {
-  if (!dir) return null;
-  ensureDir(dir);
-  const file = path.join(dir, `${sanitizeSlug(name)}.log`);
-  const stream = fs.createWriteStream(file, { flags: 'w' });
-  stream.write('=== AGENT OUTPUT ===\n');
-  return { stream, file };
-};
-
-const runAgent = (runner, payload, logStream, outputStream) =>
-  new Promise((resolve) => {
-    const child = spawn(runner, { shell: true });
-    const writeLog = (text) => {
-      if (logStream?.stream) {
-        logStream.stream.write(text);
-      }
-    };
-
-    const writeOutput = (text) => {
-      if (outputStream) {
-        outputStream.write(text);
-      }
-    };
-
-    child.stdout.on('data', (chunk) => {
-      const text = chunk.toString();
-      writeLog(text);
-      writeOutput(text);
-    });
-    child.stderr.on('data', (chunk) => {
-      const text = chunk.toString();
-      writeLog(text);
-    });
-
-    child.on('close', (code) => {
-      if (logStream?.stream) {
-        logStream.stream.end();
-      }
-      if (outputStream) {
-        outputStream.end();
-      }
-      resolve({ code: code || 0, logFile: logStream?.file || null });
-    });
-
-    child.stdin.write(payload);
-    child.stdin.end();
-  });
-
 const parseAgentJson = (text) => {
   const trimmed = (text || '').trim();
   if (!trimmed) return null;
@@ -155,12 +104,19 @@ async function main() {
     process.exit(1);
   }
 
+  const adapter = new CodexCliAgentAdapter({
+    runner: config.agentRunner,
+    logDir: config.agentLogDir
+  });
   ensureDir(path.dirname(config.output));
   const outputStream = fs.createWriteStream(config.output, { flags: 'w' }); // stomp existing
 
   const payload = buildPayload(promptText, figmaIndex, repoSummary);
-  const logStream = openAgentLogStream(config.agentLogDir, 'orienter');
-  const result = await runAgent(config.agentRunner, payload, logStream, outputStream);
+  const result = await adapter.orient({
+    payload,
+    outputStream,
+    logLabel: 'orienter'
+  });
   if (result.code !== 0) {
     console.error(`❌ Orienter agent failed with code ${result.code}`);
     process.exit(result.code);

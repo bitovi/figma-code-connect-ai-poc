@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Utility scripts for Figma Code Connect configuration and component data extraction",
   "bin": {
-    "superconnect": "scripts/run-pipeline.js"
+    "superconnect": "scripts/run-pipeline-4.js"
   },
   "scripts": {},
   "keywords": [

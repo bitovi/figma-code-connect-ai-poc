@@ -4,5 +4,5 @@ figma_url = "https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB/Chakra-UI?node-
 component_repo_path = "../chakra-ui/"
 
 [agent]
-#run_command = "codex exec --model gpt-5.1-codex-max --sandbox workspace-write"
+#run_command = "codex exec --model gpt-5.1-codex-max --sandbox read-only"
 run_command = "codex exec --model gpt-5.1-codex-mini --sandbox read-only"

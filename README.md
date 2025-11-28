@@ -12,6 +12,18 @@ And it outputs (in your repo):
 - Summary and intermediate files in `superconnect/`
 
 
+# Quickstart
+
+1. Install deps once: `npm install`
+2. Run the pipeline (from the repo root):
+   ```
+   npx superconnect --figma-url "<FIGMA_FILE_URL_OR_KEY>" --figma-token "<FIGMA_TOKEN>" --target <path-to-react-repo>
+   ```
+   - Skip `--figma-url` if `superconnect/figma-components-index.json` already exists and config covers it.
+   - Use `--force` to rerun all stages.
+3. Outputs land in `superconnect/` (figma data, repo summary, orientation, logs) and `codeconnect/` for generated `.figma.tsx`, plus `SUPERCONNECT_SUMMARY.md`.
+
+
 # Pipeline
 
 1. Figma scan (scripts/figma-scan.js)
@@ -38,7 +50,5 @@ And it outputs (in your repo):
 5. Finalizer (finalize.js)
   - In: contents of codeconnect/ and superconnect/
   - Out: figma.config.json, SUPERCONNECT_SUMMARY.md
-
-
 
 

@@ -19,8 +19,8 @@
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
-const { spawn } = require('child_process');
 const { Command } = require('commander');
+const { CodexCliAgentAdapter } = require('../src/agent/agent-adapter');
 
 const DEFAULT_CODECONNECT_DIR = 'codeconnect';
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
@@ -150,40 +150,6 @@ const buildAgentPayload = (promptText, componentMeta, componentJson, orienterEnt
   ].join('\n');
 };
 
-const runAgent = (payload, runner, cwd, logStream) =>
-  new Promise((resolve) => {
-    const child = spawn(runner, { shell: true, cwd });
-    let stdout = '';
-    let stderr = '';
-
-    const writeLog = (text) => {
-      if (logStream?.stream) {
-        logStream.stream.write(text);
-      }
-    };
-
-    child.stdout.on('data', (chunk) => {
-      const text = chunk.toString();
-      stdout += text;
-      writeLog(text);
-    });
-    child.stderr.on('data', (chunk) => {
-      const text = chunk.toString();
-      stderr += text;
-      writeLog(text);
-    });
-
-    child.on('close', (code) => {
-      if (logStream?.stream) {
-        logStream.stream.end();
-      }
-      resolve({ code: code || 0, stdout, stderr });
-    });
-
-    child.stdin.write(payload);
-    child.stdin.end();
-  });
-
 const extractJsonResponse = (text) => {
   const trimmed = text.trim();
   const fenced = trimmed.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
@@ -211,14 +177,6 @@ const writeLog = async (logDir, name, entry) => {
   const file = path.join(logDir, `${sanitizeSlug(name)}.json`);
   await fsp.writeFile(file, JSON.stringify(entry, null, 2), 'utf8');
   return file;
-};
-const openAgentLogStream = (dir, name) => {
-  if (!dir) return null;
-  ensureDir(dir);
-  const file = path.join(dir, `${sanitizeSlug(name) || 'component'}.log`);
-  const stream = fs.createWriteStream(file, { flags: 'w' });
-  stream.write('=== AGENT OUTPUT ===\n');
-  return { stream, file };
 };
 
 const parseArgs = (argv) => {
@@ -296,6 +254,11 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
     (componentMeta.name ? componentMeta.name.toLowerCase() : orienterName ? orienterName.toLowerCase() : null);
   const componentJson = componentKey ? ctx.figmaComponents[componentKey] || null : null;
 
+  const filesLabel = requiredPaths.join(', ');
+  console.log(
+    `• Codegen: ${logBaseName} (${requiredPaths.length} file${requiredPaths.length === 1 ? '' : 's'}): ${filesLabel}`
+  );
+
   const payload = buildAgentPayload(
     ctx.promptText,
     componentMeta,
@@ -305,8 +268,12 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
     ctx.codeconnectDir
   );
 
-  const logStream = openAgentLogStream(ctx.agentLogDir, logBaseName);
-  const agentResult = await runAgent(payload, ctx.agentRunner, ctx.repo, logStream);
+  const agentResult = await ctx.agent.codegen({
+    payload,
+    cwd: ctx.repo,
+    logLabel: logBaseName,
+    logDir: ctx.agentLogDir
+  });
   const parsed = extractJsonResponse(agentResult.stdout || agentResult.stderr || '');
 
   const logEntry = {
@@ -371,17 +338,22 @@ async function main() {
   }
 
   const orienterRecords = await parseJsonLines(config.orienter);
+  const agent = new CodexCliAgentAdapter({
+    runner: config.agentRunner,
+    logDir: config.agentLogDir,
+    cwd: config.repo
+  });
   const ctx = {
     repo: config.repo,
     figmaIndex,
     figmaComponents,
     promptText,
     codeconnectDir: config.codeconnectDir,
-    agentRunner: config.agentRunner,
     logDir: config.logDir,
     agentLogDir: config.agentLogDir,
     force: config.force,
     summaries: [],
+    agent,
     seen: new Set()
   };
 

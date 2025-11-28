@@ -7,8 +7,6 @@
  * 3) Orienter
  * 4) Codegen
  * 5) Finalizer (summary)
- *
- * Mirrors run-pipeline.js options and style, but drives the new stage scripts.
  */
 
 const fs = require('fs');
@@ -100,8 +98,7 @@ function parseArgv(argv) {
     .option('--figma-url <value>', 'Figma file URL or key (needed for figma scan when not cached)')
     .option('--figma-token <token>', 'Figma API token (or FIGMA_ACCESS_TOKEN/.env)')
     .option('--target <path>', 'Target repo to write Code Connect into')
-    .option('--force', 'Re-run stages even if outputs exist')
-    .option('--dry-run', 'Print planned commands without executing');
+    .option('--force', 'Re-run stages even if outputs exist');
   program.parse(argv);
   const opts = program.opts();
 
@@ -109,8 +106,7 @@ function parseArgv(argv) {
     figmaUrl: opts.figmaUrl || undefined,
     figmaToken: opts.figmaToken,
     target: opts.target ? path.resolve(opts.target) : undefined,
-    force: Boolean(opts.force),
-    dryRun: Boolean(opts.dryRun)
+    force: Boolean(opts.force)
   };
 }
 
@@ -191,11 +187,7 @@ function main() {
       `--output "${paths.figmaDir}"`,
       `--index "${paths.figmaIndex}"`
     ].join(' ');
-    if (args.dryRun) {
-      console.log(`(dry-run) ${cmd}`);
-    } else {
-      runCommand('Figma scan', cmd);
-    }
+    runCommand('Figma scan', cmd);
   } else {
     console.log(`${chalk.dim('•')} ${chalk.cyan('Figma scan')} (skipped, index present)`);
   }
@@ -207,11 +199,7 @@ function main() {
       '>',
       `"${paths.repoSummary}"`
     ].join(' ');
-    if (args.dryRun) {
-      console.log(`(dry-run) ${cmd}`);
-    } else {
-      runCommand('Repo summary', cmd, { shell: '/bin/zsh' });
-    }
+    runCommand('Repo summary', cmd, { shell: '/bin/zsh' });
   } else {
     console.log(`${chalk.dim('•')} ${chalk.cyan('Repo summary')} (skipped, summary present)`);
   }
@@ -223,11 +211,7 @@ function main() {
       `--repo-summary "${paths.repoSummary}"`,
       `--output "${paths.orientation}"`
     ].join(' ');
-    if (args.dryRun) {
-      console.log(`(dry-run) ${cmd}`);
-    } else {
-      runCommand('Orienter', cmd, { env: agentEnv });
-    }
+    runCommand('Orienter', cmd, { env: agentEnv });
   } else {
     console.log(`${chalk.dim('•')} ${chalk.cyan('Orienter')} (skipped, orientation present)`);
   }
@@ -241,25 +225,17 @@ function main() {
     ]
       .filter(Boolean)
       .join(' ');
-    if (args.dryRun) {
-      console.log(`(dry-run) ${codegenCmd}`);
-    } else {
-      runCommand('Codegen', codegenCmd, { cwd: paths.target, env: agentEnv });
-    }
+    runCommand('Codegen', codegenCmd, { cwd: paths.target, env: agentEnv });
   }
 
   {
     const cmd = [
-      `node ${path.join(paths.scriptDir, 'finalizer2.js')}`,
+      `node ${path.join(paths.scriptDir, 'finalize.js')}`,
       `--superconnect "${paths.superconnectDir}"`,
       `--codeconnect "${paths.codeconnectDir}"`,
       `--cwd "${paths.target}"`
     ].join(' ');
-    if (args.dryRun) {
-      console.log(`(dry-run) ${cmd}`);
-    } else {
-      runCommand('Finalize', cmd);
-    }
+    runCommand('Finalize', cmd);
   }
 
   console.log(`${chalk.green('✓')} Pipeline complete.`);

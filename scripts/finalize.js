@@ -185,7 +185,7 @@ const buildSummary = (context) => {
 const parseArgs = (argv) => {
   const program = new Command();
   program
-    .name('finalizer2')
+    .name('finalize')
     .option('--superconnect <dir>', 'Superconnect directory containing pipeline artifacts', 'superconnect')
     .option('--codeconnect <dir>', 'Codeconnect directory', 'codeconnect')
     .option('--cwd <dir>', 'Working directory to resolve paths from', '.')
