@@ -159,14 +159,33 @@ function main() {
     args.target ||
     (cfg.inputs?.component_repo_path ? path.resolve(cfg.inputs.component_repo_path) : path.resolve('.'));
   const figmaToken = args.figmaToken || loadEnvToken();
-  const agentRunner = process.env.AGENT_RUN_COMMAND || cfg.agent?.run_command || DEFAULT_AGENT_RUNNER;
+  const agentBackend = (cfg.agent?.backend || 'cli').toLowerCase() === 'openai' ? 'openai' : 'cli';
+  const cliCommand =
+    process.env.AGENT_RUN_COMMAND ||
+    cfg.agent?.cli_command ||
+    DEFAULT_AGENT_RUNNER;
+  const agentModel = cfg.agent?.model || null;
   if (!fs.existsSync(target) || !fs.statSync(target).isDirectory()) {
     console.error(`❌ Target repo not found or not a directory: ${target}`);
     process.exit(1);
   }
   const paths = resolvePaths({ ...args, figmaUrl, target, figmaToken });
   const agentEnv =
-    agentRunner ? { AGENT_RUN_COMMAND: agentRunner } : {};
+    agentBackend === 'openai'
+      ? {
+          AGENT_BACKEND: 'openai',
+          ...(agentModel ? { AGENT_MODEL: agentModel } : {})
+        }
+      : {
+          AGENT_BACKEND: 'cli',
+          AGENT_RUN_COMMAND: cliCommand
+        };
+
+  const agentLabel =
+    agentBackend === 'openai'
+      ? `openai${agentModel ? ` (model ${agentModel})` : ''}`
+      : `cli (${cliCommand})`;
+  console.log(`${chalk.dim('•')} ${chalk.cyan('Agent backend')}: ${agentLabel}`);
 
   ensureDir(paths.superconnectDir);
   ensureDir(paths.figmaDir);
@@ -174,6 +193,7 @@ function main() {
   const needFigmaScan = args.force || !fs.existsSync(paths.figmaIndex);
   const needRepoSummary = args.force || !fs.existsSync(paths.repoSummary);
   const needOrientation = args.force || !fs.existsSync(paths.orientation);
+  const rel = (p) => path.relative(process.cwd(), p) || p;
 
   if (needFigmaScan) {
     if (!paths.figmaUrl) {
@@ -189,7 +209,9 @@ function main() {
     ].join(' ');
     runCommand('Figma scan', cmd);
   } else {
-    console.log(`${chalk.dim('•')} ${chalk.cyan('Figma scan')} (skipped, index present)`);
+    console.log(
+      `${chalk.dim('•')} ${chalk.cyan('Figma scan')} (skipped, ${rel(paths.figmaIndex)} already present)`
+    );
   }
 
   if (needRepoSummary) {
@@ -201,7 +223,7 @@ function main() {
     ].join(' ');
     runCommand('Repo summary', cmd, { shell: '/bin/zsh' });
   } else {
-    console.log(`${chalk.dim('•')} ${chalk.cyan('Repo summary')} (skipped, summary present)`);
+    console.log(`${chalk.dim('•')} ${chalk.cyan('Repo summary')} (skipped, ${rel(paths.repoSummary)} present)`);
   }
 
   if (needOrientation) {
@@ -213,7 +235,9 @@ function main() {
     ].join(' ');
     runCommand('Orienter', cmd, { env: agentEnv });
   } else {
-    console.log(`${chalk.dim('•')} ${chalk.cyan('Orienter')} (skipped, orientation present)`);
+    console.log(
+      `${chalk.dim('•')} ${chalk.cyan('Orienter')} (skipped, ${rel(paths.orientation)} already present)`
+    );
   }
 
   {

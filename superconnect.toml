@@ -4,5 +4,13 @@ figma_url = "https://www.figma.com/design/mgzCV3zD3iWpctEI6UoUhB/Chakra-UI?node-
 component_repo_path = "../chakra-ui/"
 
 [agent]
-#run_command = "codex exec --model gpt-5.1-codex-max --sandbox read-only"
-run_command = "codex exec --model gpt-5.1-codex-mini --sandbox read-only"
+# backend = "cli"         # options: cli, openai
+# cli_command = "codex exec --model gpt-5.1-codex-mini --sandbox read-only"
+# cli_command = "codex exec --model gpt-5.1-codex --sandbox read-only"
+
+# 'openai' option uses OpenAI SDK and requires OPENAI_API_KEY environment variable
+backend = 'openai'
+model = "gpt-5.1-codex-mini"
+
+# 'claude' option uses Claude SDK and requires ANTHROPIC_API_KEY environment variable
+# model = ""

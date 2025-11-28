@@ -23,6 +23,14 @@ And it outputs (in your repo):
    - Use `--force` to rerun all stages.
 3. Outputs land in `superconnect/` (figma data, repo summary, orientation, logs) and `codeconnect/` for generated `.figma.tsx`, plus `SUPERCONNECT_SUMMARY.md`.
 
+Config (superconnect.toml):
+```
+[agent]
+backend = "cli" # or "openai"
+cli_command = "codex exec --model gpt-5.1-codex-mini --sandbox read-only" # used when backend=cli
+# model = "gpt-4.1-mini" # used when backend=openai (requires OPENAI_API_KEY env)
+```
+
 
 # Pipeline
 
@@ -50,5 +58,4 @@ And it outputs (in your repo):
 5. Finalizer (finalize.js)
   - In: contents of codeconnect/ and superconnect/
   - Out: figma.config.json, SUPERCONNECT_SUMMARY.md
-
 

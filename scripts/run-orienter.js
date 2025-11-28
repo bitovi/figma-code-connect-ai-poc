@@ -19,7 +19,7 @@ const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
 const { Command } = require('commander');
-const { CodexCliAgentAdapter } = require('../src/agent/agent-adapter');
+const { CodexCliAgentAdapter, OpenAIAgentAdapter } = require('../src/agent/agent-adapter');
 
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
 
@@ -53,7 +53,6 @@ const parseArgs = (argv) => {
     figmaIndex: path.resolve(opts.figmaIndex),
     repoSummary: path.resolve(opts.repoSummary),
     output: outputPath,
-    agentRunner: process.env.AGENT_RUN_COMMAND || DEFAULT_AGENT_RUNNER,
     agentLogDir: path.join(superconnectDir, 'orienter-logs')
   };
 };
@@ -85,12 +84,28 @@ const parseAgentJson = (text) => {
   }
 };
 
+const resolveBackend = () => {
+  const backend = (process.env.AGENT_BACKEND || 'cli').toLowerCase();
+  return backend === 'openai' ? 'openai' : 'cli';
+};
+
+const buildAdapter = (config) => {
+  const backend = resolveBackend();
+  if (backend === 'openai') {
+    return new OpenAIAgentAdapter({
+      model: process.env.AGENT_MODEL || undefined,
+      logDir: config.agentLogDir
+    });
+  }
+  const runner = process.env.AGENT_RUN_COMMAND || DEFAULT_AGENT_RUNNER;
+  return new CodexCliAgentAdapter({
+    runner,
+    logDir: config.agentLogDir
+  });
+};
+
 async function main() {
   const config = parseArgs(process.argv);
-  if (!config.agentRunner) {
-    console.error('❌ Agent runner is required to run the orienter agent.');
-    process.exit(1);
-  }
 
   const [promptText, figmaIndex, repoSummary] = await Promise.all([
     fsp.readFile(promptPath, 'utf8'),
@@ -104,10 +119,7 @@ async function main() {
     process.exit(1);
   }
 
-  const adapter = new CodexCliAgentAdapter({
-    runner: config.agentRunner,
-    logDir: config.agentLogDir
-  });
+  const adapter = buildAdapter(config);
   ensureDir(path.dirname(config.output));
   const outputStream = fs.createWriteStream(config.output, { flags: 'w' }); // stomp existing
 

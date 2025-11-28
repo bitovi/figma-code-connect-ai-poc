@@ -20,7 +20,8 @@ const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
 const { Command } = require('commander');
-const { CodexCliAgentAdapter } = require('../src/agent/agent-adapter');
+const chalk = require('chalk').default;
+const { CodexCliAgentAdapter, OpenAIAgentAdapter } = require('../src/agent/agent-adapter');
 
 const DEFAULT_CODECONNECT_DIR = 'codeconnect';
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
@@ -179,6 +180,28 @@ const writeLog = async (logDir, name, entry) => {
   return file;
 };
 
+const resolveBackend = () => {
+  const backend = (process.env.AGENT_BACKEND || 'cli').toLowerCase();
+  return backend === 'openai' ? 'openai' : 'cli';
+};
+
+const buildAdapter = (config) => {
+  const backend = resolveBackend();
+  if (backend === 'openai') {
+    return new OpenAIAgentAdapter({
+      model: process.env.AGENT_MODEL || undefined,
+      logDir: config.agentLogDir,
+      cwd: config.repo
+    });
+  }
+  const runner = process.env.AGENT_RUN_COMMAND || DEFAULT_AGENT_RUNNER;
+  return new CodexCliAgentAdapter({
+    runner,
+    logDir: config.agentLogDir,
+    cwd: config.repo
+  });
+};
+
 const parseArgs = (argv) => {
   const program = new Command();
   program
@@ -199,7 +222,6 @@ const parseArgs = (argv) => {
     orienter: path.resolve(opts.orienter),
     promptPath: defaultPromptPath,
     codeconnectDir: DEFAULT_CODECONNECT_DIR,
-    agentRunner: process.env.AGENT_RUN_COMMAND || DEFAULT_AGENT_RUNNER,
     logDir: path.join(superconnectDir, 'component-logs'),
     agentLogDir: path.join(superconnectDir, 'codegen-logs'),
     force: Boolean(opts.force)
@@ -255,9 +277,7 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
   const componentJson = componentKey ? ctx.figmaComponents[componentKey] || null : null;
 
   const filesLabel = requiredPaths.join(', ');
-  console.log(
-    `• Codegen: ${logBaseName} (${requiredPaths.length} file${requiredPaths.length === 1 ? '' : 's'}): ${filesLabel}`
-  );
+  console.log(`Generating ${chalk.cyan(logBaseName)} with reference to ${filesLabel}`);
 
   const payload = buildAgentPayload(
     ctx.promptText,
@@ -312,12 +332,6 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
 
 async function main() {
   const config = parseArgs(process.argv);
-  const agentRunner = config.agentRunner || DEFAULT_AGENT_RUNNER;
-  config.agentRunner = agentRunner;
-  if (!config.agentRunner) {
-    console.error('❌ Agent runner is required (set AGENT_RUN_COMMAND)');
-    process.exit(1);
-  }
   if (config.force) {
     [config.logDir, config.agentLogDir].forEach((dir) => {
       if (fs.existsSync(dir)) {
@@ -338,11 +352,7 @@ async function main() {
   }
 
   const orienterRecords = await parseJsonLines(config.orienter);
-  const agent = new CodexCliAgentAdapter({
-    runner: config.agentRunner,
-    logDir: config.agentLogDir,
-    cwd: config.repo
-  });
+  const agent = buildAdapter(config);
   const ctx = {
     repo: config.repo,
     figmaIndex,
