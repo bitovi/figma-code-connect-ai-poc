@@ -327,6 +327,9 @@ async function main() {
       schemaVersion: INDEX_SCHEMA_VERSION,
       fileName: fileData.name,
       fileKey: config.fileKey,
+      fileUrl: fileData?.document?.id
+        ? `https://www.figma.com/design/${config.fileKey}`
+        : `https://www.figma.com/file/${config.fileKey}`,
       version: fileData.version,
       lastModified: fileData.lastModified,
       exportDate: new Date().toISOString(),
