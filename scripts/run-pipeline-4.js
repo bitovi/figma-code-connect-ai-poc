@@ -159,12 +159,13 @@ function main() {
     args.target ||
     (cfg.inputs?.component_repo_path ? path.resolve(cfg.inputs.component_repo_path) : path.resolve('.'));
   const figmaToken = args.figmaToken || loadEnvToken();
-  const agentBackend = (cfg.agent?.backend || 'cli').toLowerCase() === 'openai' ? 'openai' : 'cli';
+  const backendRaw = (cfg.agent?.backend || 'cli').toLowerCase();
+  const agentBackend = backendRaw === 'openai' || backendRaw === 'claude' ? backendRaw : 'cli';
   const cliCommand =
     process.env.AGENT_RUN_COMMAND ||
     cfg.agent?.cli_command ||
     DEFAULT_AGENT_RUNNER;
-  const agentModel = cfg.agent?.model || null;
+  const agentModel = cfg.agent?.sdk_model || null;
   if (!fs.existsSync(target) || !fs.statSync(target).isDirectory()) {
     console.error(`❌ Target repo not found or not a directory: ${target}`);
     process.exit(1);
@@ -174,7 +175,12 @@ function main() {
     agentBackend === 'openai'
       ? {
           AGENT_BACKEND: 'openai',
-          ...(agentModel ? { AGENT_MODEL: agentModel } : {})
+          ...(agentModel ? { AGENT_SDK_MODEL: agentModel } : {})
+        }
+      : agentBackend === 'claude'
+      ? {
+          AGENT_BACKEND: 'claude',
+          ...(agentModel ? { AGENT_SDK_MODEL: agentModel } : {})
         }
       : {
           AGENT_BACKEND: 'cli',
@@ -184,6 +190,8 @@ function main() {
   const agentLabel =
     agentBackend === 'openai'
       ? `openai${agentModel ? ` (model ${agentModel})` : ''}`
+      : agentBackend === 'claude'
+      ? `claude${agentModel ? ` (model ${agentModel})` : ''}`
       : `cli (${cliCommand})`;
   console.log(`${chalk.dim('•')} ${chalk.cyan('Agent backend')}: ${agentLabel}`);
 

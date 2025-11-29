@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
 const OpenAI = require('openai');
+const Anthropic = require('@anthropic-ai/sdk');
 
 const ensureDir = (dir) => {
   if (!dir) return;
@@ -170,7 +171,79 @@ class OpenAIAgentAdapter {
   }
 }
 
+const extractClaudeText = (message) => {
+  if (!message || !Array.isArray(message.content)) return '';
+  for (const block of message.content) {
+    if (block.type === 'text' && typeof block.text === 'string') return block.text;
+  }
+  return '';
+};
+
+/**
+ * ClaudeAgentAdapter implements the AgentAdapter contract using the Claude (Anthropic) JS SDK.
+ */
+class ClaudeAgentAdapter {
+  constructor(options = {}) {
+    this.model = options.model || 'claude-3-haiku-20240307';
+    this.defaultLogDir = options.logDir || null;
+    this.defaultCwd = options.cwd;
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    this.client = apiKey ? new Anthropic({ apiKey }) : null;
+  }
+
+  orient({ payload, logLabel = 'orienter', outputStream = null, logDir } = {}) {
+    return this.run({
+      payload,
+      logLabel,
+      logDir,
+      outputStream
+    });
+  }
+
+  codegen({ payload, logLabel = 'component', cwd, logDir } = {}) {
+    return this.run({
+      payload,
+      logLabel,
+      logDir,
+      cwd
+    });
+  }
+
+  async run({ payload, logLabel, logDir, outputStream } = {}) {
+    const logStream = openLogStream(logDir || this.defaultLogDir, logLabel);
+    const writeLog = (text) => {
+      if (logStream?.stream) logStream.stream.write(text);
+    };
+    const writeOutput = (text) => {
+      if (outputStream) outputStream.write(text);
+    };
+    try {
+      if (!this.client) {
+        throw new Error('ANTHROPIC_API_KEY is required for ClaudeAgentAdapter');
+      }
+      const response = await this.client.messages.create({
+        model: this.model,
+        max_tokens: 4096,
+        messages: [{ role: 'user', content: payload }]
+      });
+      const stdout = extractClaudeText(response) || '';
+      writeLog(stdout);
+      writeOutput(stdout);
+      if (logStream?.stream) logStream.stream.end();
+      if (outputStream) outputStream.end();
+      return { code: 0, stdout, stderr: '', logFile: logStream?.file || null };
+    } catch (err) {
+      const message = err?.message || 'Unknown Claude error';
+      writeLog(`${message}\n`);
+      if (logStream?.stream) logStream.stream.end();
+      if (outputStream) outputStream.end();
+      return { code: 1, stdout: '', stderr: message, logFile: logStream?.file || null };
+    }
+  }
+}
+
 module.exports = {
   CodexCliAgentAdapter,
-  OpenAIAgentAdapter
+  OpenAIAgentAdapter,
+  ClaudeAgentAdapter
 };

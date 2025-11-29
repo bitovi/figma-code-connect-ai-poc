@@ -26,9 +26,10 @@ And it outputs (in your repo):
 Config (superconnect.toml):
 ```
 [agent]
-backend = "cli" # or "openai"
+backend = "cli" # or "openai" or "claude"
 cli_command = "codex exec --model gpt-5.1-codex-mini --sandbox read-only" # used when backend=cli
-# model = "gpt-4.1-mini" # used when backend=openai (requires OPENAI_API_KEY env)
+# sdk_model = "gpt-4.1-mini" # used when backend=openai (requires OPENAI_API_KEY env)
+# sdk_model = "claude-3-haiku-20240307" # used when backend=claude (requires ANTHROPIC_API_KEY env)
 ```
 
 
@@ -58,4 +59,3 @@ cli_command = "codex exec --model gpt-5.1-codex-mini --sandbox read-only" # used
 5. Finalizer (finalize.js)
   - In: contents of codeconnect/ and superconnect/
   - Out: figma.config.json, SUPERCONNECT_SUMMARY.md
-

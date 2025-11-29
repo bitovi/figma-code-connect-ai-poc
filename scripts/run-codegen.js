@@ -21,7 +21,7 @@ const fsp = require('fs/promises');
 const path = require('path');
 const { Command } = require('commander');
 const chalk = require('chalk').default;
-const { CodexCliAgentAdapter, OpenAIAgentAdapter } = require('../src/agent/agent-adapter');
+const { CodexCliAgentAdapter, OpenAIAgentAdapter, ClaudeAgentAdapter } = require('../src/agent/agent-adapter');
 
 const DEFAULT_CODECONNECT_DIR = 'codeconnect';
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
@@ -182,14 +182,22 @@ const writeLog = async (logDir, name, entry) => {
 
 const resolveBackend = () => {
   const backend = (process.env.AGENT_BACKEND || 'cli').toLowerCase();
-  return backend === 'openai' ? 'openai' : 'cli';
+  if (backend === 'openai') return 'openai';
+  if (backend === 'claude') return 'claude';
+  return 'cli';
 };
 
 const buildAdapter = (config) => {
   const backend = resolveBackend();
   if (backend === 'openai') {
     return new OpenAIAgentAdapter({
-      model: process.env.AGENT_MODEL || undefined,
+      model: process.env.AGENT_SDK_MODEL || undefined,
+      logDir: config.agentLogDir,
+      cwd: config.repo
+    });
+  } else if (backend === 'claude') {
+    return new ClaudeAgentAdapter({
+      model: process.env.AGENT_SDK_MODEL || undefined,
       logDir: config.agentLogDir,
       cwd: config.repo
     });
