@@ -76,7 +76,7 @@ function ensureDir(dir) {
 
 function runCommand(label, command, options = {}) {
   console.log(`${chalk.dim('•')} ${chalk.cyan(label)}`);
-  const { env: extraEnv, ...rest } = options || {};
+  const { env: extraEnv, allowInterrupt = false, ...rest } = options || {};
   const mergedEnv = { ...process.env, ...(extraEnv || {}) };
   const result = spawnSync(command, {
     stdio: 'inherit',
@@ -84,6 +84,10 @@ function runCommand(label, command, options = {}) {
     env: mergedEnv,
     ...rest
   });
+  if (result.signal === 'SIGINT' && allowInterrupt) {
+    console.warn(`⚠️  ${label} interrupted by SIGINT; continuing to finalize...`);
+    return;
+  }
   if (result.status !== 0) {
     console.error(`❌ ${label} failed with code ${result.status || 1}`);
     process.exit(result.status || 1);
@@ -152,6 +156,13 @@ function resolvePaths(config) {
 }
 
 function main() {
+  let interrupted = false;
+  process.on('SIGINT', () => {
+    if (interrupted) return;
+    interrupted = true;
+    console.log(`\n${chalk.yellow('Received SIGINT. Attempting graceful stop after current stage...')}`);
+  });
+
   const args = parseArgv(process.argv);
   const cfg = loadSuperconnectConfig();
   const figmaUrl = args.figmaUrl || cfg.inputs?.figma_url || undefined;
@@ -215,7 +226,7 @@ function main() {
       `--output "${paths.figmaDir}"`,
       `--index "${paths.figmaIndex}"`
     ].join(' ');
-    runCommand('Figma scan', cmd);
+    runCommand(`Figma scan → ${rel(paths.figmaIndex)}`, cmd);
   } else {
     console.log(
       `${chalk.dim('•')} ${chalk.cyan('Figma scan')} (skipped, ${rel(paths.figmaIndex)} already present)`
@@ -229,7 +240,7 @@ function main() {
       '>',
       `"${paths.repoSummary}"`
     ].join(' ');
-    runCommand('Repo summary', cmd, { shell: '/bin/zsh' });
+    runCommand(`Repo summary → ${rel(paths.repoSummary)}`, cmd, { shell: '/bin/zsh' });
   } else {
     console.log(`${chalk.dim('•')} ${chalk.cyan('Repo summary')} (skipped, ${rel(paths.repoSummary)} present)`);
   }
@@ -241,7 +252,7 @@ function main() {
       `--repo-summary "${paths.repoSummary}"`,
       `--output "${paths.orientation}"`
     ].join(' ');
-    runCommand('Orienter', cmd, { env: agentEnv });
+    runCommand(`Orienter → ${rel(paths.orientation)}`, cmd, { env: agentEnv });
   } else {
     console.log(
       `${chalk.dim('•')} ${chalk.cyan('Orienter')} (skipped, ${rel(paths.orientation)} already present)`
@@ -257,7 +268,11 @@ function main() {
     ]
       .filter(Boolean)
       .join(' ');
-    runCommand('Codegen', codegenCmd, { cwd: paths.target, env: agentEnv });
+    runCommand(
+      `Codegen (${rel(paths.orientation)} → ${rel(paths.codeconnectDir)})`,
+      codegenCmd,
+      { cwd: paths.target, env: agentEnv, allowInterrupt: true }
+    );
   }
 
   {
@@ -267,7 +282,7 @@ function main() {
       `--codeconnect "${paths.codeconnectDir}"`,
       `--cwd "${paths.target}"`
     ].join(' ');
-    runCommand('Finalize', cmd);
+    runCommand(`Finalize (summarizing ${rel(paths.superconnectDir)})`, cmd);
   }
 
   console.log(`${chalk.green('✓')} Pipeline complete.`);

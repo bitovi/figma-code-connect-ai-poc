@@ -151,6 +151,9 @@ class OpenAIAgentAdapter {
       if (!this.client) {
         throw new Error('OPENAI_API_KEY is required for OpenAIAgentAdapter');
       }
+      writeLog('=== AGENT INPUT ===\n');
+      writeLog(payload);
+      writeLog('\n\n=== AGENT OUTPUT ===\n');
       const response = await this.client.responses.create({
         model: this.model,
         input: payload
@@ -221,6 +224,9 @@ class ClaudeAgentAdapter {
       if (!this.client) {
         throw new Error('ANTHROPIC_API_KEY is required for ClaudeAgentAdapter');
       }
+      writeLog('=== AGENT INPUT ===\n');
+      writeLog(payload);
+      writeLog('\n\n=== AGENT OUTPUT ===\n');
       const response = await this.client.messages.create({
         model: this.model,
         max_tokens: 4096,

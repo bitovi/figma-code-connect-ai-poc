@@ -327,7 +327,7 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
       logEntry.codeconnectFile = path.relative(ctx.repo, targetPath);
     } else {
       const written = await writeCodeconnectFile(ctx.repo, ctx.codeconnectDir, fileName, parsed.codeconnectFileContent);
-      logEntry.status = parsed.status || 'built';
+      logEntry.status = 'built';
       logEntry.codeconnectFile = path.relative(ctx.repo, written);
       logEntry.overwritten = exists && ctx.force;
     }
@@ -361,6 +361,12 @@ async function main() {
 
   const orienterRecords = await parseJsonLines(config.orienter);
   const agent = buildAdapter(config);
+  let stopRequested = false;
+  process.on('SIGINT', () => {
+    if (stopRequested) return;
+    stopRequested = true;
+    console.log('\nReceived SIGINT. Finishing current component then stopping further codegen...');
+  });
   const ctx = {
     repo: config.repo,
     figmaIndex,
@@ -377,6 +383,10 @@ async function main() {
 
   const normalizedOrienter = orienterRecords.map(normalizeOrienterRecord).filter((rec) => rec.status === 'mapped');
   for (const orienterEntry of normalizedOrienter) {
+    if (stopRequested) {
+      console.log('Stopping codegen early due to interrupt request.');
+      break;
+    }
     await processOrienterEntry(orienterEntry, ctx);
   }
 

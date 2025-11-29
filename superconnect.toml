@@ -8,10 +8,10 @@ component_repo_path = "../chakra-ui/"
 # cli_command = "codex exec --model gpt-5.1-codex-mini --sandbox read-only"
 
 # Using OpenAI SDK (requires OPENAI_API_KEY environment var)
-backend = "openai"
-sdk_model = "gpt-5.1-codex-mini"
+# backend = "openai"
+# sdk_model = "gpt-5.1-codex-mini"
 
 # Using Claude SDK (requires ANTHROPIC_API_KEY environment var)
 # [agent]
-# backend = "claude"
-# sdk_model = "claude-haiku-4-5"
+backend = "claude"
+sdk_model = "claude-haiku-4-5"

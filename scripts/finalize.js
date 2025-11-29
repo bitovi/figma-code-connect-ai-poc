@@ -15,8 +15,8 @@ const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
 const { Command } = require('commander');
+const chalk = require('chalk').default;
 
-const DEFAULT_SUMMARY_NAME = 'SUPERCONNECT_SUMMARY.md';
 const readJsonSafe = async (filePath) => {
   try {
     const data = await fsp.readFile(filePath, 'utf8');
@@ -59,7 +59,8 @@ const VALUE_COL = 50;
 
 const formatRow = (statusEmoji, label, value, indent = '') => {
   const pad = Math.max(0, VALUE_COL - indent.length - 3); // emoji + space + space before value
-  return `${indent}${statusEmoji} ${label.padEnd(pad)} ${value}`;
+  const padded = label.padEnd(pad);
+  return `${indent}${statusEmoji} ${chalk.bold(padded)} ${chalk.cyan(value)}`;
 };
 
 const continuationRow = (indent = '', value = '') => {
@@ -110,7 +111,7 @@ const buildSummary = (context) => {
   lines.push('# SUPERCONNECT RUN SUMMARY');
   lines.push('');
 
-  lines.push('## Scanning Stage');
+  lines.push(chalk.bold('## Scanning Stage'));
   lines.push(
     formatRow(
       '🟢',
@@ -153,17 +154,17 @@ const buildSummary = (context) => {
   lines.push('');
 
   const codegenSummary = `(${context.orientationMapped} candidates from orientation step, ${context.builtCount} generated, ${context.skippedCount} skipped)`;
-  lines.push(`## Codegen Stage ${codegenSummary}`);
+  lines.push(chalk.bold(`## Codegen Stage ${codegenSummary}`));
   const agentRuns = context.builtCount + context.skippedCount;
   lines.push(formatRow('🟢', `${agentRuns} code generation agents ran, logs at:`, context.codegenLogsRel));
   lines.push(formatRow('🟢', `${agentRuns} code generation results at:`, context.componentLogsRel));
-  lines.push(`🟢 ${context.builtDetails.length} Code Connect files generated:`);
+  lines.push(`🟢 ${chalk.green(context.builtDetails.length)} Code Connect files generated:`);
   if (context.builtDetails.length) {
     context.builtDetails.forEach((item) => {
-      const name = (item.figmaName || '').padEnd(20);
+      const name = item.figmaName || '';
       const target = item.codeconnectFile || '(not written)';
-      const react = item.reactName ? ` (React: ${item.reactName})` : '';
-      lines.push(`    - ${name} → ${target}${react}`);
+      const react = item.reactName ? chalk.dim(` (React: ${item.reactName})`) : '';
+      lines.push(`    - ${chalk.green(name)} → ${chalk.cyan(target)}${react}`);
     });
   } else {
     lines.push('    - (none)');
@@ -172,8 +173,8 @@ const buildSummary = (context) => {
   if (context.skippedDetails.length) {
     context.skippedDetails.forEach((item) => {
       const name = item.figmaName || item.file || '(unknown)';
-      const reason = item.reason ? ` — ${item.reason}` : '';
-      lines.push(`    - ${name}${reason}`);
+      const reason = item.reason ? chalk.dim(` — ${item.reason}`) : '';
+      lines.push(`    - ${chalk.yellow(name)}${reason}`);
     });
   } else {
     lines.push('    - (none)');
@@ -201,7 +202,6 @@ const parseArgs = (argv) => {
     codeconnectDir: path.resolve(baseCwd, opts.codeconnect),
     componentLogsDir: path.join(superconnectDir, 'component-logs'),
     codegenLogsDir: path.join(superconnectDir, 'codegen-logs'),
-    summaryFile: path.resolve(baseCwd, DEFAULT_SUMMARY_NAME),
     superconnectDir,
     baseCwd
   };
@@ -240,8 +240,8 @@ async function main() {
     fs.statSync(config.codegenLogsDir).isDirectory() &&
     fs.readdirSync(config.codegenLogsDir).length > 0;
 
-  const builtDetails = componentLogs.filter((log) => log.status === 'built' && log.codeconnectFile);
-  const skippedDetails = componentLogs.filter((log) => log.status !== 'built');
+  const builtDetails = componentLogs.filter((log) => Boolean(log.codeconnectFile));
+  const skippedDetails = componentLogs.filter((log) => !log.codeconnectFile);
 
   const context = {
     figmaIndexRel: path.relative(config.baseCwd, config.figmaIndex) || config.figmaIndex,
@@ -269,9 +269,7 @@ async function main() {
   };
 
   const summary = buildSummary(context);
-  ensureDir(path.dirname(config.summaryFile));
-  await fsp.writeFile(config.summaryFile, summary, 'utf8');
-  console.log(`Summary written to ${config.summaryFile}`);
+  console.log(summary);
 }
 
 main().catch((err) => {
