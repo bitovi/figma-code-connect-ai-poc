@@ -44,7 +44,7 @@ const parseArgs = (argv) => {
     .requiredOption('--figma-index <file>', 'Path to figma-components-index.json')
     .requiredOption('--repo-summary <file>', 'Path to repo-summary.json')
     .option('--output <file>', 'Orientation JSONL output path', defaultOutput)
-    .option('--agent-backend <value>', 'Agent backend (cli|openai|claude)', 'cli')
+    .option('--agent-backend <value>', 'Agent backend (cli|openai|claude)', 'claude')
     .option('--agent-model <value>', 'Agent model for SDK backends')
     .option('--agent-max-tokens <value>', 'Max output tokens for agent responses')
     .option('--agent-cli <value>', 'Agent CLI command (when backend=cli)', DEFAULT_AGENT_RUNNER)
@@ -76,21 +76,6 @@ const buildPayload = (promptText, figmaIndex, repoSummary) =>
     JSON.stringify(repoSummary, null, 2),
     ''
   ].join('\n');
-
-const parseAgentJson = (text) => {
-  const trimmed = (text || '').trim();
-  if (!trimmed) return null;
-  const withoutFence = trimmed.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
-  try {
-    return JSON.parse(trimmed);
-  } catch {
-    try {
-      return JSON.parse(withoutFence);
-    } catch {
-      return null;
-    }
-  }
-};
 
 const parseMaxTokens = (value) => {
   const parsed = value ? parseInt(value, 10) : NaN;

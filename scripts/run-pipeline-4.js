@@ -11,10 +11,12 @@
 
 const fs = require('fs');
 const path = require('path');
-const { spawnSync } = require('child_process');
 const { Command } = require('commander');
-const readline = require('readline');
+const prompts = require('prompts');
+const execa = require('execa');
 const chalk = require('chalk').default;
+const TOML = require('@iarna/toml');
+const { figmaColor, codeColor, generatedColor, highlight } = require('./colors');
 
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
 const DEFAULT_CONFIG_FILE = 'superconnect.toml';
@@ -23,48 +25,17 @@ const DEFAULT_OPENAI_MODEL = 'gpt-5.1-codex-mini';
 const DEFAULT_BACKEND = 'claude';
 const DEFAULT_MAX_TOKENS = 12000;
 
-const figmaColor = (text) => chalk.red(text);
-const codeColor = (text) => chalk.cyan(text);
-const generatedColor = (text) => chalk.magenta(text);
-const highlight = (text) => chalk.whiteBright(text);
 const parseMaybeInt = (value) => {
   const n = value ? parseInt(value, 10) : NaN;
   return Number.isFinite(n) && n > 0 ? n : null;
 };
-
-function parseSimpleToml(text) {
-  const result = {};
-  let section = null;
-  const lines = text.split(/\r?\n/);
-  for (const raw of lines) {
-    const line = raw.trim();
-    if (!line || line.startsWith('#')) continue;
-    if (line.startsWith('[') && line.endsWith(']')) {
-      section = line.slice(1, -1).trim() || null;
-      if (section && !result[section]) result[section] = {};
-      continue;
-    }
-    const eq = line.indexOf('=');
-    if (eq === -1) continue;
-    const key = line.slice(0, eq).trim();
-    const valueRaw = line.slice(eq + 1).trim();
-    const valueWithoutComment = valueRaw.split('#')[0].trim();
-    const unquoted = valueWithoutComment.replace(/^"(.*)"$/, '$1');
-    if (section) {
-      result[section][key] = unquoted;
-    } else {
-      result[key] = unquoted;
-    }
-  }
-  return result;
-}
 
 function loadSuperconnectConfig(filePath = 'superconnect.toml') {
   const direct = path.resolve(process.cwd(), filePath);
   if (!fs.existsSync(direct)) return null;
   try {
     const raw = fs.readFileSync(direct, 'utf8');
-    return parseSimpleToml(raw);
+    return TOML.parse(raw);
   } catch (err) {
     console.warn(`⚠️  Failed to load ${direct}: ${err.message}`);
     return null;
@@ -92,106 +63,89 @@ function normalizeAgentConfig(agentSection = {}) {
   return { backend, model, cliCommand, maxTokens: resolvedMaxTokens };
 }
 
-async function promptForConfig() {
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-  const question = (q) => new Promise((resolve) => rl.question(q, (answer) => resolve(answer.trim())));
-
-  console.log(`${chalk.yellow('No superconnect.toml found in this directory.')}`);
-  const figmaUrl = await (async () => {
-    while (true) {
-      const value = await question(`${chalk.cyan('Enter Figma file URL or key')}: `);
-      if (value) return value;
-      console.log(chalk.red('Figma URL is required.'));
+function buildAgentSection(active, activeModel) {
+  const blocks = [
+    {
+      name: 'claude',
+      header: '# Using Claude SDK (requires ANTHROPIC_API_KEY environment var)',
+      lines: [
+        'backend = "claude"                  # options: cli, openai, claude',
+        `sdk_model = "${(active === 'claude' ? activeModel : null) || DEFAULT_CLAUDE_MODEL}"`
+      ]
+    },
+    {
+      name: 'openai',
+      header: '# Using OpenAI SDK (requires OPENAI_API_KEY environment var)',
+      lines: ['backend = "openai"', `sdk_model = "${(active === 'openai' ? activeModel : null) || DEFAULT_OPENAI_MODEL}"`]
+    },
+    {
+      name: 'cli',
+      header: '# Using CLI (Codex CLI)',
+      lines: ['backend = "cli"', `cli_command = "${DEFAULT_AGENT_RUNNER}"`]
     }
-  })();
+  ];
 
-  const repoPathInput = await question(
-    `${chalk.cyan('Enter component repo path')} [${chalk.dim('.')}]: `
+  return blocks.flatMap((block) => {
+    const isActive = block.name === active;
+    return [
+      block.header,
+      ...block.lines.map((line) => (isActive ? line : `# ${line}`)),
+      ''
+    ];
+  });
+}
+
+async function promptForConfig() {
+  console.log(`${chalk.yellow('No superconnect.toml found in this directory.')}`);
+  const responses = await prompts(
+    [
+      {
+        type: 'text',
+        name: 'figmaUrl',
+        message: 'Enter Figma file URL or key',
+        validate: (value) => (value && value.trim() ? true : 'Figma URL is required')
+      },
+      {
+        type: 'text',
+        name: 'repoPath',
+        message: 'Enter component repo path',
+        initial: '.'
+      },
+      {
+        type: 'select',
+        name: 'backend',
+        message: 'Agent backend',
+        choices: [
+          { title: 'claude (default)', value: 'claude' },
+          { title: 'openai', value: 'openai' },
+          { title: 'cli', value: 'cli' }
+        ],
+        initial: 0
+      }
+    ],
+    {
+      onCancel: () => {
+        console.log(chalk.red('Aborted.'));
+        process.exit(1);
+      }
+    }
   );
-  const repoPath = repoPathInput || '.';
 
-  const backendInput = await question(
-    `${chalk.cyan('Agent backend')} (default ${chalk.dim(DEFAULT_BACKEND)}): `
-  );
-  const backend = (backendInput || DEFAULT_BACKEND).toLowerCase();
-  const normalizedBackend =
-    backend === 'openai' || backend === 'claude' || backend === 'cli' ? backend : 'claude';
-
-  rl.close();
-
-  const active = normalizedBackend;
+  const active = responses.backend || DEFAULT_BACKEND;
   const chooseModel = (b) => {
     if (b === 'openai') return DEFAULT_OPENAI_MODEL;
-    if (b === 'cli') return DEFAULT_AGENT_RUNNER;
-    return DEFAULT_CLAUDE_MODEL;
+    if (b === 'claude') return DEFAULT_CLAUDE_MODEL;
+    return null;
   };
   const sdkModel = chooseModel(active);
   const maxTokens = DEFAULT_MAX_TOKENS;
 
-  const agentSection = [];
-  const pushActive = (header, lines) => {
-    agentSection.push(header);
-    lines.forEach((line) => agentSection.push(line));
-    agentSection.push('');
-  };
-  if (active === 'claude') {
-    pushActive(
-      '# Using Claude SDK (requires ANTHROPIC_API_KEY environment var)',
-      [
-        'backend = "claude"                  # options: cli, openai, claude',
-        `sdk_model = "${sdkModel}"`
-      ]
-    );
-    pushActive(
-      '# Using OpenAI SDK (requires OPENAI_API_KEY environment var)',
-      [
-        '# backend = "openai"',
-        `# sdk_model = "${DEFAULT_OPENAI_MODEL}"`
-      ]
-    );
-    agentSection.push('# Using CLI (Codex CLI)');
-    agentSection.push('# backend = "cli" ');
-    agentSection.push(`# cli_command = "${DEFAULT_AGENT_RUNNER}"`);
-  } else if (active === 'openai') {
-    pushActive(
-      '# Using OpenAI SDK (requires OPENAI_API_KEY environment var)',
-      [
-        'backend = "openai"',
-        `sdk_model = "${sdkModel}"`
-      ]
-    );
-    pushActive(
-      '# Using Claude SDK (requires ANTHROPIC_API_KEY environment var)',
-      [
-        '# backend = "claude"',
-        `# sdk_model = "${DEFAULT_CLAUDE_MODEL}"`
-      ]
-    );
-    agentSection.push('# Using CLI (Codex CLI)');
-    agentSection.push('# backend = "cli" ');
-    agentSection.push(`# cli_command = "${DEFAULT_AGENT_RUNNER}"`);
-  } else {
-    // cli active
-    pushActive('# Using CLI (Codex CLI)', [
-      'backend = "cli" ',
-      `cli_command = "${DEFAULT_AGENT_RUNNER}"`
-    ]);
-    pushActive(
-      '# Using Claude SDK (requires ANTHROPIC_API_KEY environment var)',
-      [
-        '# backend = "claude"',
-        `# sdk_model = "${DEFAULT_CLAUDE_MODEL}"`
-      ]
-    );
-    agentSection.push('# Using OpenAI SDK (requires OPENAI_API_KEY environment var)');
-    agentSection.push('# backend = "openai"');
-    agentSection.push(`# sdk_model = "${DEFAULT_OPENAI_MODEL}"`);
-  }
+  const agentSection = buildAgentSection(active, sdkModel);
 
   const toml = [
     '[inputs]',
-    `figma_url = "${figmaUrl}"`,
-    `component_repo_path = "${repoPath}"`,
+    `figma_url = "${responses.figmaUrl}"`,
+    `component_repo_path = "${responses.repoPath || '.'}"`,
     '',
     '[agent]',
     `max_tokens = ${maxTokens}`,
@@ -202,26 +156,28 @@ async function promptForConfig() {
   const outPath = path.resolve(DEFAULT_CONFIG_FILE);
   fs.writeFileSync(outPath, toml, 'utf8');
   console.log(`${chalk.green('✓')} Wrote ${DEFAULT_CONFIG_FILE}`);
-  return parseSimpleToml(toml);
+  return TOML.parse(toml);
 }
 
-function runCommand(label, command, options = {}) {
+async function runCommand(label, command, options = {}) {
   console.log(`${chalk.dim('•')} ${label}`);
   const { env: extraEnv, allowInterrupt = false, ...rest } = options || {};
   const mergedEnv = { ...process.env, ...(extraEnv || {}) };
-  const result = spawnSync(command, {
-    stdio: 'inherit',
-    shell: true,
-    env: mergedEnv,
-    ...rest
-  });
-  if (result.signal === 'SIGINT' && allowInterrupt) {
-    console.warn(`⚠️  ${label} interrupted by SIGINT; continuing to finalize...`);
-    return;
-  }
-  if (result.status !== 0) {
-    console.error(`❌ ${label} failed with code ${result.status || 1}`);
-    process.exit(result.status || 1);
+  try {
+    await execa.command(command, {
+      stdio: 'inherit',
+      shell: true,
+      env: mergedEnv,
+      ...rest
+    });
+  } catch (err) {
+    if (allowInterrupt && err.signal === 'SIGINT') {
+      console.warn(`⚠️  ${label} interrupted by SIGINT; continuing to finalize...`);
+      return;
+    }
+    const code = err.exitCode || 1;
+    console.error(`❌ ${label} failed with code ${code}`);
+    process.exit(code);
   }
 }
 
@@ -345,7 +301,7 @@ async function main() {
       `--output "${paths.figmaDir}"`,
       `--index "${paths.figmaIndex}"`
     ].join(' ');
-    runCommand(`${highlight('Figma scan')} → ${figmaColor(rel(paths.figmaIndex))}`, cmd);
+    await runCommand(`${highlight('Figma scan')} → ${figmaColor(rel(paths.figmaIndex))}`, cmd);
   } else {
     console.log(
       `${chalk.dim('•')} ${highlight('Figma scan')} (skipped, ${figmaColor(
@@ -361,7 +317,7 @@ async function main() {
       '>',
       `"${paths.repoSummary}"`
     ].join(' ');
-    runCommand(`${highlight('Repo summary')} → ${codeColor(rel(paths.repoSummary))}`, cmd, { shell: '/bin/zsh' });
+    await runCommand(`${highlight('Repo summary')} → ${codeColor(rel(paths.repoSummary))}`, cmd, { shell: '/bin/zsh' });
   } else {
     console.log(
       `${chalk.dim('•')} ${highlight('Repo summary')} (skipped, ${codeColor(
@@ -381,7 +337,7 @@ async function main() {
       agentConfig.maxTokens ? `--agent-max-tokens "${agentConfig.maxTokens}"` : '',
       agentConfig.backend === 'cli' ? `--agent-cli "${agentConfig.cliCommand}"` : ''
     ].join(' ');
-    runCommand(`${highlight('Orienter')} → ${codeColor(rel(paths.orientation))}`, cmd);
+    await runCommand(`${highlight('Orienter')} → ${codeColor(rel(paths.orientation))}`, cmd);
   } else {
     console.log(
       `${chalk.dim('•')} ${highlight('Orienter')} (skipped, ${codeColor(
@@ -403,7 +359,7 @@ async function main() {
     ]
       .filter(Boolean)
       .join(' ');
-    runCommand(
+    await runCommand(
       `${highlight('Code Generation')} (${codeColor(rel(paths.orientation))} → ${generatedColor(rel(paths.codeconnectDir))})`,
       codegenCmd,
       { cwd: paths.target, allowInterrupt: true }
@@ -417,7 +373,7 @@ async function main() {
       `--codeconnect "${paths.codeconnectDir}"`,
       `--cwd "${paths.target}"`
     ].join(' ');
-    runCommand(`${highlight('Finalize')} (summarizing ${generatedColor(rel(paths.superconnectDir))})`, cmd);
+    await runCommand(`${highlight('Finalize')} (summarizing ${generatedColor(rel(paths.superconnectDir))})`, cmd);
   }
 
   console.log(`${chalk.green('✓')} Pipeline complete.`);
