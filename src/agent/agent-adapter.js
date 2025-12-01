@@ -118,9 +118,8 @@ const extractResponseText = (response) => {
  */
 class OpenAIAgentAdapter {
   constructor(options = {}) {
-    const envMax = process.env.AGENT_MAX_TOKENS || process.env.AGENT_MAX_OUTPUT_TOKENS;
-    this.model = options.model || 'gpt-4.1-mini';
-    this.maxTokens = parseMaxTokens(options.maxTokens, parseMaxTokens(envMax, 12000));
+    this.model = options.model || 'gpt-5.1-codex-mini';
+    this.maxTokens = parseMaxTokens(options.maxTokens, null);
     this.defaultLogDir = options.logDir || null;
     this.defaultCwd = options.cwd;
     const apiKey = process.env.OPENAI_API_KEY;
@@ -195,9 +194,8 @@ const extractClaudeText = (message) => {
  */
 class ClaudeAgentAdapter {
   constructor(options = {}) {
-    const envMax = process.env.AGENT_MAX_TOKENS || process.env.AGENT_MAX_OUTPUT_TOKENS;
     this.model = options.model || 'claude-3-haiku-20240307';
-    this.maxTokens = parseMaxTokens(options.maxTokens, parseMaxTokens(envMax, 12000));
+    this.maxTokens = parseMaxTokens(options.maxTokens, 12000);
     this.defaultLogDir = options.logDir || null;
     this.defaultCwd = options.cwd;
     const apiKey = process.env.ANTHROPIC_API_KEY;

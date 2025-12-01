@@ -13,9 +13,24 @@ const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
 const { Command } = require('commander');
+const readline = require('readline');
 const chalk = require('chalk').default;
 
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
+const DEFAULT_CONFIG_FILE = 'superconnect.toml';
+const DEFAULT_CLAUDE_MODEL = 'claude-haiku-4-5';
+const DEFAULT_OPENAI_MODEL = 'gpt-5.1-codex-mini';
+const DEFAULT_BACKEND = 'claude';
+const DEFAULT_MAX_TOKENS = 12000;
+
+const figmaColor = (text) => chalk.red(text);
+const codeColor = (text) => chalk.cyan(text);
+const generatedColor = (text) => chalk.magenta(text);
+const highlight = (text) => chalk.whiteBright(text);
+const parseMaybeInt = (value) => {
+  const n = value ? parseInt(value, 10) : NaN;
+  return Number.isFinite(n) && n > 0 ? n : null;
+};
 
 function parseSimpleToml(text) {
   const result = {};
@@ -33,7 +48,8 @@ function parseSimpleToml(text) {
     if (eq === -1) continue;
     const key = line.slice(0, eq).trim();
     const valueRaw = line.slice(eq + 1).trim();
-    const unquoted = valueRaw.replace(/^"(.*)"$/, '$1');
+    const valueWithoutComment = valueRaw.split('#')[0].trim();
+    const unquoted = valueWithoutComment.replace(/^"(.*)"$/, '$1');
     if (section) {
       result[section][key] = unquoted;
     } else {
@@ -43,29 +59,15 @@ function parseSimpleToml(text) {
   return result;
 }
 
-function findConfigUpwards(startDir, filename) {
-  let dir = startDir;
-  while (true) {
-    const candidate = path.join(dir, filename);
-    if (fs.existsSync(candidate)) return candidate;
-    const parent = path.dirname(dir);
-    if (parent === dir) break;
-    dir = parent;
-  }
-  return null;
-}
-
 function loadSuperconnectConfig(filePath = 'superconnect.toml') {
-  const direct = path.resolve(filePath);
-  const located =
-    fs.existsSync(direct) ? direct : findConfigUpwards(process.cwd(), filePath) || null;
-  if (!located) return {};
+  const direct = path.resolve(process.cwd(), filePath);
+  if (!fs.existsSync(direct)) return null;
   try {
-    const raw = fs.readFileSync(located, 'utf8');
+    const raw = fs.readFileSync(direct, 'utf8');
     return parseSimpleToml(raw);
   } catch (err) {
-    console.warn(`⚠️  Failed to load ${located}: ${err.message}`);
-    return {};
+    console.warn(`⚠️  Failed to load ${direct}: ${err.message}`);
+    return null;
   }
 }
 
@@ -74,8 +76,137 @@ function ensureDir(dir) {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
+function normalizeAgentConfig(agentSection = {}) {
+  const backendRaw = (agentSection.backend || DEFAULT_BACKEND).toLowerCase();
+  const backend = backendRaw === 'openai' || backendRaw === 'claude' || backendRaw === 'cli' ? backendRaw : DEFAULT_BACKEND;
+  const model =
+    agentSection.sdk_model ||
+    (backend === 'openai'
+      ? DEFAULT_OPENAI_MODEL
+      : backend === 'claude'
+      ? DEFAULT_CLAUDE_MODEL
+      : null);
+  const cliCommand = agentSection.cli_command || DEFAULT_AGENT_RUNNER;
+  const maxTokens = parseMaybeInt(agentSection.max_tokens);
+  const resolvedMaxTokens = backend === 'claude' ? maxTokens || DEFAULT_MAX_TOKENS : maxTokens || null;
+  return { backend, model, cliCommand, maxTokens: resolvedMaxTokens };
+}
+
+async function promptForConfig() {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  const question = (q) => new Promise((resolve) => rl.question(q, (answer) => resolve(answer.trim())));
+
+  console.log(`${chalk.yellow('No superconnect.toml found in this directory.')}`);
+  const figmaUrl = await (async () => {
+    while (true) {
+      const value = await question(`${chalk.cyan('Enter Figma file URL or key')}: `);
+      if (value) return value;
+      console.log(chalk.red('Figma URL is required.'));
+    }
+  })();
+
+  const repoPathInput = await question(
+    `${chalk.cyan('Enter component repo path')} [${chalk.dim('.')}]: `
+  );
+  const repoPath = repoPathInput || '.';
+
+  const backendInput = await question(
+    `${chalk.cyan('Agent backend')} (default ${chalk.dim(DEFAULT_BACKEND)}): `
+  );
+  const backend = (backendInput || DEFAULT_BACKEND).toLowerCase();
+  const normalizedBackend =
+    backend === 'openai' || backend === 'claude' || backend === 'cli' ? backend : 'claude';
+
+  rl.close();
+
+  const active = normalizedBackend;
+  const chooseModel = (b) => {
+    if (b === 'openai') return DEFAULT_OPENAI_MODEL;
+    if (b === 'cli') return DEFAULT_AGENT_RUNNER;
+    return DEFAULT_CLAUDE_MODEL;
+  };
+  const sdkModel = chooseModel(active);
+  const maxTokens = DEFAULT_MAX_TOKENS;
+
+  const agentSection = [];
+  const pushActive = (header, lines) => {
+    agentSection.push(header);
+    lines.forEach((line) => agentSection.push(line));
+    agentSection.push('');
+  };
+  if (active === 'claude') {
+    pushActive(
+      '# Using Claude SDK (requires ANTHROPIC_API_KEY environment var)',
+      [
+        'backend = "claude"                  # options: cli, openai, claude',
+        `sdk_model = "${sdkModel}"`
+      ]
+    );
+    pushActive(
+      '# Using OpenAI SDK (requires OPENAI_API_KEY environment var)',
+      [
+        '# backend = "openai"',
+        `# sdk_model = "${DEFAULT_OPENAI_MODEL}"`
+      ]
+    );
+    agentSection.push('# Using CLI (Codex CLI)');
+    agentSection.push('# backend = "cli" ');
+    agentSection.push(`# cli_command = "${DEFAULT_AGENT_RUNNER}"`);
+  } else if (active === 'openai') {
+    pushActive(
+      '# Using OpenAI SDK (requires OPENAI_API_KEY environment var)',
+      [
+        'backend = "openai"',
+        `sdk_model = "${sdkModel}"`
+      ]
+    );
+    pushActive(
+      '# Using Claude SDK (requires ANTHROPIC_API_KEY environment var)',
+      [
+        '# backend = "claude"',
+        `# sdk_model = "${DEFAULT_CLAUDE_MODEL}"`
+      ]
+    );
+    agentSection.push('# Using CLI (Codex CLI)');
+    agentSection.push('# backend = "cli" ');
+    agentSection.push(`# cli_command = "${DEFAULT_AGENT_RUNNER}"`);
+  } else {
+    // cli active
+    pushActive('# Using CLI (Codex CLI)', [
+      'backend = "cli" ',
+      `cli_command = "${DEFAULT_AGENT_RUNNER}"`
+    ]);
+    pushActive(
+      '# Using Claude SDK (requires ANTHROPIC_API_KEY environment var)',
+      [
+        '# backend = "claude"',
+        `# sdk_model = "${DEFAULT_CLAUDE_MODEL}"`
+      ]
+    );
+    agentSection.push('# Using OpenAI SDK (requires OPENAI_API_KEY environment var)');
+    agentSection.push('# backend = "openai"');
+    agentSection.push(`# sdk_model = "${DEFAULT_OPENAI_MODEL}"`);
+  }
+
+  const toml = [
+    '[inputs]',
+    `figma_url = "${figmaUrl}"`,
+    `component_repo_path = "${repoPath}"`,
+    '',
+    '[agent]',
+    `max_tokens = ${maxTokens}`,
+    ...agentSection,
+    ''
+  ].join('\n');
+
+  const outPath = path.resolve(DEFAULT_CONFIG_FILE);
+  fs.writeFileSync(outPath, toml, 'utf8');
+  console.log(`${chalk.green('✓')} Wrote ${DEFAULT_CONFIG_FILE}`);
+  return parseSimpleToml(toml);
+}
+
 function runCommand(label, command, options = {}) {
-  console.log(`${chalk.dim('•')} ${chalk.cyan(label)}`);
+  console.log(`${chalk.dim('•')} ${label}`);
   const { env: extraEnv, allowInterrupt = false, ...rest } = options || {};
   const mergedEnv = { ...process.env, ...(extraEnv || {}) };
   const result = spawnSync(command, {
@@ -155,7 +286,7 @@ function resolvePaths(config) {
   };
 }
 
-function main() {
+async function main() {
   let interrupted = false;
   process.on('SIGINT', () => {
     if (interrupted) return;
@@ -164,47 +295,35 @@ function main() {
   });
 
   const args = parseArgv(process.argv);
-  const cfg = loadSuperconnectConfig();
+  let cfg = loadSuperconnectConfig(DEFAULT_CONFIG_FILE);
+  if (cfg) {
+    console.log(`${chalk.green('✓')} Using ${highlight(DEFAULT_CONFIG_FILE)} in ${process.cwd()}`);
+  } else {
+    cfg = await promptForConfig();
+    if (!cfg) {
+      console.error('❌ Failed to initialize superconnect.toml');
+      process.exit(1);
+    }
+  }
   const figmaUrl = args.figmaUrl || cfg.inputs?.figma_url || undefined;
   const target =
     args.target ||
     (cfg.inputs?.component_repo_path ? path.resolve(cfg.inputs.component_repo_path) : path.resolve('.'));
   const figmaToken = args.figmaToken || loadEnvToken();
-  const backendRaw = (cfg.agent?.backend || 'cli').toLowerCase();
-  const agentBackend = backendRaw === 'openai' || backendRaw === 'claude' ? backendRaw : 'cli';
-  const cliCommand =
-    process.env.AGENT_RUN_COMMAND ||
-    cfg.agent?.cli_command ||
-    DEFAULT_AGENT_RUNNER;
-  const agentModel = cfg.agent?.sdk_model || null;
+  const agentConfig = normalizeAgentConfig(cfg.agent || {});
   if (!fs.existsSync(target) || !fs.statSync(target).isDirectory()) {
     console.error(`❌ Target repo not found or not a directory: ${target}`);
     process.exit(1);
   }
   const paths = resolvePaths({ ...args, figmaUrl, target, figmaToken });
-  const agentEnv =
-    agentBackend === 'openai'
-      ? {
-          AGENT_BACKEND: 'openai',
-          ...(agentModel ? { AGENT_SDK_MODEL: agentModel } : {})
-        }
-      : agentBackend === 'claude'
-      ? {
-          AGENT_BACKEND: 'claude',
-          ...(agentModel ? { AGENT_SDK_MODEL: agentModel } : {})
-        }
-      : {
-          AGENT_BACKEND: 'cli',
-          AGENT_RUN_COMMAND: cliCommand
-        };
 
   const agentLabel =
-    agentBackend === 'openai'
-      ? `openai${agentModel ? ` (model ${agentModel})` : ''}`
-      : agentBackend === 'claude'
-      ? `claude${agentModel ? ` (model ${agentModel})` : ''}`
-      : `cli (${cliCommand})`;
-  console.log(`${chalk.dim('•')} ${chalk.cyan('Agent backend')}: ${agentLabel}`);
+    agentConfig.backend === 'openai'
+      ? `openai${agentConfig.model ? ` (model ${agentConfig.model})` : ''}`
+      : agentConfig.backend === 'claude'
+      ? `claude${agentConfig.model ? ` (model ${agentConfig.model})` : ''}`
+      : `cli (${agentConfig.cliCommand})`;
+  console.log(`${chalk.dim('•')} ${highlight('Agent backend')}: ${highlight(agentLabel)}`);
 
   ensureDir(paths.superconnectDir);
   ensureDir(paths.figmaDir);
@@ -226,10 +345,12 @@ function main() {
       `--output "${paths.figmaDir}"`,
       `--index "${paths.figmaIndex}"`
     ].join(' ');
-    runCommand(`Figma scan → ${rel(paths.figmaIndex)}`, cmd);
+    runCommand(`${highlight('Figma scan')} → ${figmaColor(rel(paths.figmaIndex))}`, cmd);
   } else {
     console.log(
-      `${chalk.dim('•')} ${chalk.cyan('Figma scan')} (skipped, ${rel(paths.figmaIndex)} already present)`
+      `${chalk.dim('•')} ${highlight('Figma scan')} (skipped, ${figmaColor(
+        rel(paths.figmaIndex)
+      )} already present)`
     );
   }
 
@@ -240,9 +361,13 @@ function main() {
       '>',
       `"${paths.repoSummary}"`
     ].join(' ');
-    runCommand(`Repo summary → ${rel(paths.repoSummary)}`, cmd, { shell: '/bin/zsh' });
+    runCommand(`${highlight('Repo summary')} → ${codeColor(rel(paths.repoSummary))}`, cmd, { shell: '/bin/zsh' });
   } else {
-    console.log(`${chalk.dim('•')} ${chalk.cyan('Repo summary')} (skipped, ${rel(paths.repoSummary)} present)`);
+    console.log(
+      `${chalk.dim('•')} ${highlight('Repo summary')} (skipped, ${codeColor(
+        rel(paths.repoSummary)
+      )} present)`
+    );
   }
 
   if (needOrientation) {
@@ -250,12 +375,18 @@ function main() {
       `node ${path.join(paths.scriptDir, 'run-orienter.js')}`,
       `--figma-index "${paths.figmaIndex}"`,
       `--repo-summary "${paths.repoSummary}"`,
-      `--output "${paths.orientation}"`
+      `--output "${paths.orientation}"`,
+      `--agent-backend "${agentConfig.backend}"`,
+      agentConfig.model ? `--agent-model "${agentConfig.model}"` : '',
+      agentConfig.maxTokens ? `--agent-max-tokens "${agentConfig.maxTokens}"` : '',
+      agentConfig.backend === 'cli' ? `--agent-cli "${agentConfig.cliCommand}"` : ''
     ].join(' ');
-    runCommand(`Orienter → ${rel(paths.orientation)}`, cmd, { env: agentEnv });
+    runCommand(`${highlight('Orienter')} → ${codeColor(rel(paths.orientation))}`, cmd);
   } else {
     console.log(
-      `${chalk.dim('•')} ${chalk.cyan('Orienter')} (skipped, ${rel(paths.orientation)} already present)`
+      `${chalk.dim('•')} ${highlight('Orienter')} (skipped, ${codeColor(
+        rel(paths.orientation)
+      )} already present)`
     );
   }
 
@@ -264,14 +395,18 @@ function main() {
       `node ${path.join(paths.scriptDir, 'run-codegen.js')}`,
       `--figma-index "${paths.figmaIndex}"`,
       `--orienter "${paths.orientation}"`,
+      `--agent-backend "${agentConfig.backend}"`,
+      agentConfig.model ? `--agent-model "${agentConfig.model}"` : '',
+      agentConfig.maxTokens ? `--agent-max-tokens "${agentConfig.maxTokens}"` : '',
+      agentConfig.backend === 'cli' ? `--agent-cli "${agentConfig.cliCommand}"` : '',
       args.force ? '--force' : ''
     ]
       .filter(Boolean)
       .join(' ');
     runCommand(
-      `Codegen (${rel(paths.orientation)} → ${rel(paths.codeconnectDir)})`,
+      `${highlight('Code Generation')} (${codeColor(rel(paths.orientation))} → ${generatedColor(rel(paths.codeconnectDir))})`,
       codegenCmd,
-      { cwd: paths.target, env: agentEnv, allowInterrupt: true }
+      { cwd: paths.target, allowInterrupt: true }
     );
   }
 
@@ -282,10 +417,13 @@ function main() {
       `--codeconnect "${paths.codeconnectDir}"`,
       `--cwd "${paths.target}"`
     ].join(' ');
-    runCommand(`Finalize (summarizing ${rel(paths.superconnectDir)})`, cmd);
+    runCommand(`${highlight('Finalize')} (summarizing ${generatedColor(rel(paths.superconnectDir))})`, cmd);
   }
 
   console.log(`${chalk.green('✓')} Pipeline complete.`);
 }
 
-main();
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

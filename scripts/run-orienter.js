@@ -44,6 +44,10 @@ const parseArgs = (argv) => {
     .requiredOption('--figma-index <file>', 'Path to figma-components-index.json')
     .requiredOption('--repo-summary <file>', 'Path to repo-summary.json')
     .option('--output <file>', 'Orientation JSONL output path', defaultOutput)
+    .option('--agent-backend <value>', 'Agent backend (cli|openai|claude)', 'cli')
+    .option('--agent-model <value>', 'Agent model for SDK backends')
+    .option('--agent-max-tokens <value>', 'Max output tokens for agent responses')
+    .option('--agent-cli <value>', 'Agent CLI command (when backend=cli)', DEFAULT_AGENT_RUNNER)
     .allowExcessArguments(false);
   program.parse(argv);
   const opts = program.opts();
@@ -53,7 +57,11 @@ const parseArgs = (argv) => {
     figmaIndex: path.resolve(opts.figmaIndex),
     repoSummary: path.resolve(opts.repoSummary),
     output: outputPath,
-    agentLogDir: path.join(superconnectDir, 'orienter-logs')
+    agentLogDir: path.join(superconnectDir, 'orienter-logs'),
+    agentBackend: (opts.agentBackend || 'cli').toLowerCase(),
+    agentModel: opts.agentModel || undefined,
+    agentMaxTokens: parseMaxTokens(opts.agentMaxTokens),
+    agentCli: opts.agentCli || DEFAULT_AGENT_RUNNER
   };
 };
 
@@ -84,38 +92,28 @@ const parseAgentJson = (text) => {
   }
 };
 
-const resolveBackend = () => {
-  const backend = (process.env.AGENT_BACKEND || 'cli').toLowerCase();
-  if (backend === 'openai') return 'openai';
-  if (backend === 'claude') return 'claude';
-  return 'cli';
-};
-
 const parseMaxTokens = (value) => {
   const parsed = value ? parseInt(value, 10) : NaN;
   return Number.isFinite(parsed) && parsed > 0 ? parsed : undefined;
 };
 
 const buildAdapter = (config) => {
-  const backend = resolveBackend();
-  const maxTokens =
-    parseMaxTokens(process.env.AGENT_MAX_TOKENS) ||
-    parseMaxTokens(process.env.AGENT_MAX_OUTPUT_TOKENS) ||
-    undefined;
+  const backend = config.agentBackend;
+  const maxTokens = config.agentMaxTokens || undefined;
   if (backend === 'openai') {
     return new OpenAIAgentAdapter({
-      model: process.env.AGENT_SDK_MODEL || undefined,
+      model: config.agentModel || undefined,
       logDir: config.agentLogDir,
       maxTokens
     });
   } else if (backend === 'claude') {
     return new ClaudeAgentAdapter({
-      model: process.env.AGENT_SDK_MODEL || undefined,
+      model: config.agentModel || undefined,
       logDir: config.agentLogDir,
       maxTokens
     });
   }
-  const runner = process.env.AGENT_RUN_COMMAND || DEFAULT_AGENT_RUNNER;
+  const runner = config.agentCli || DEFAULT_AGENT_RUNNER;
   return new CodexCliAgentAdapter({
     runner,
     logDir: config.agentLogDir

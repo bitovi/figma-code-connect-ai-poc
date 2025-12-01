@@ -266,7 +266,7 @@ async function main() {
 
   try {
     const fileData = await figmaRequest(`/v1/files/${config.fileKey}`, config.token);
-    console.log(`${chalk.green('✓')} File loaded: ${fileData.name}`);
+    console.log(`${chalk.green('✓')} Figma file loaded: ${fileData.name}`);
     console.log(`  Version: ${fileData.version}`);
     console.log(`  Last Modified: ${fileData.lastModified}`);
 
@@ -274,33 +274,41 @@ async function main() {
     console.log('\nProcessing pages in Figma document:');
     pages.forEach((page) => console.log(`  - ${chalk.cyan(page.name)}`));
 
-    const allComponentSets = pages.flatMap((page) => findComponentSets(page));
+  const allComponentSets = pages.flatMap((page) => findComponentSets(page));
+  const visibleSets = allComponentSets.filter(({ node }) => !isHiddenComponent(node.name));
+  const variantEntries = [];
+  let longestLabel = 0;
 
-    console.log(`\n${chalk.green('✓')} Found ${allComponentSets.length} component sets`);
-
-  let processedCount = 0;
-  const componentsMeta = [];
-  const usedFilenames = new Set();
-  for (const { node: componentSet, breadcrumbs } of allComponentSets) {
-    if (isHiddenComponent(componentSet.name)) continue;
-    const variantData = extractVariants(componentSet, breadcrumbs);
-    const properties = Object.keys(variantData.variantProperties).join(', ');
-
-    const baseName = sanitizeFilename(componentSet.name) || 'component';
-    let filename = baseName;
-    let suffix = 1;
-    while (usedFilenames.has(filename)) {
-      filename = `${baseName}_${suffix}`;
-      suffix += 1;
+    for (const { node: componentSet, breadcrumbs } of visibleSets) {
+      const variantData = extractVariants(componentSet, breadcrumbs);
+      const label = `${componentSet.name} (${variantData.totalVariants} variants)`;
+      longestLabel = Math.max(longestLabel, label.length);
+      variantEntries.push({ componentSet, breadcrumbs, variantData });
     }
-    usedFilenames.add(filename);
+
+    console.log(`\n${chalk.green('✓')} Found ${variantEntries.length} component sets`);
+
+    let processedCount = 0;
+    const componentsMeta = [];
+    const usedFilenames = new Set();
+
+    for (const entry of variantEntries) {
+      const { componentSet, variantData } = entry;
+      const baseName = sanitizeFilename(componentSet.name) || 'component';
+      let filename = baseName;
+      let suffix = 1;
+      while (usedFilenames.has(filename)) {
+        filename = `${baseName}_${suffix}`;
+        suffix += 1;
+      }
+      usedFilenames.add(filename);
 
     const jsonPath = path.join(config.output, `${filename}.json`);
-      saveJson(jsonPath, variantData, { logMessage: false });
-      const relativePath = path.relative(process.cwd(), jsonPath) || jsonPath;
-      console.log(
-        `${chalk.cyan(componentSet.name)} (${variantData.totalVariants} variants) [properties: ${properties}] => ${relativePath}`
-      );
+    saveJson(jsonPath, variantData, { logMessage: false });
+    const relativePath = path.relative(process.cwd(), jsonPath) || jsonPath;
+    const label = `${componentSet.name} (${variantData.totalVariants} variants)`.padEnd(longestLabel + 1);
+    console.log(`${chalk.redBright(label)}→ ${chalk.redBright(relativePath)}`);
+
       const componentName = variantData.componentName;
       const meta = {
         name: variantData.componentName,

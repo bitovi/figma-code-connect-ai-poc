@@ -1,21 +1,29 @@
 #!/usr/bin/env node
 
 /**
- * Finalizer v2: summarize a Superconnect run.
+ * Finalizer: summarize a Superconnect run.
  *
  * Inputs:
- *  - superconnect directory (contains figma-components-index.json, component-logs, codegen-logs, orientation.jsonl)
- *  - codeconnect directory
+ *  - superconnect directory (figma-components-index.json, component-logs, codegen-logs, orientation.jsonl)
+ *  - codeconnect directory (generated *.figma.tsx)
  *
- * Output:
- *  - SUPERCONNECT_SUMMARY.md at repo root (always overwritten)
+ * Outputs:
+ *  - Colorized summary printed to stdout
+ *  - figma.config.json at repo root pointing Code Connect to generated files
  */
 
 const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
 const { Command } = require('commander');
+const { generate } = require('fast-glob/out/managers/tasks');
 const chalk = require('chalk').default;
+
+const figmaColor = (text) => chalk.redBright(text);
+const codeColor = (text) => chalk.cyanBright(text);
+const generatedColor = (text) => chalk.magentaBright(text);
+const highlight = (text) => chalk.whiteBright(text);
+const METADATA_FILE_NAME = 'figma.config.json';
 
 const readJsonSafe = async (filePath) => {
   try {
@@ -60,7 +68,7 @@ const VALUE_COL = 50;
 const formatRow = (statusEmoji, label, value, indent = '') => {
   const pad = Math.max(0, VALUE_COL - indent.length - 3); // emoji + space + space before value
   const padded = label.padEnd(pad);
-  return `${indent}${statusEmoji} ${chalk.bold(padded)} ${chalk.cyan(value)}`;
+  return `${indent}${statusEmoji} ${chalk.bold(padded)} ${value}`;
 };
 
 const continuationRow = (indent = '', value = '') => {
@@ -108,36 +116,37 @@ const buildSummary = (context) => {
       ? '🟡 (partial)'
       : '🔴 (failed)';
 
-  lines.push('# SUPERCONNECT RUN SUMMARY');
+  lines.push('');
+  lines.push(highlight('=== SUPERCONNECT RUN SUMMARY ==='));
   lines.push('');
 
-  lines.push(chalk.bold('## Scanning Stage'));
+  lines.push(chalk.bold('=== SCANNING STAGE'));
   lines.push(
     formatRow(
       '🟢',
-      'Read from Figma:',
-      context.figmaUrl || context.figmaFileKey || context.figmaFileName || context.figmaIndexRel
+      `Read from ${figmaColor('Figma')}:`,
+      figmaColor(context.figmaUrl || context.figmaFileKey || context.figmaFileName || context.figmaIndexRel)
     )
   );
   lines.push(
     formatRow(
       '🟢',
-      `Wrote Figma index file (${context.figmaCount} components):`,
-      context.figmaIndexRel
+      `Wrote ${figmaColor('Figma')} index file (${context.figmaCount} components):`,
+      figmaColor(context.figmaIndexRel)
     )
   );
   lines.push(
     formatRow(
       '🟢',
       `Wrote extracts for ${context.figmaCount} components:`,
-      context.figmaComponentsDirRel || '(not found)'
+      figmaColor(context.figmaComponentsDirRel || '(not found)')
     )
   );
   lines.push(
     formatRow(
       context.repoSummaryExists ? '🟢' : '🟡',
       'Generated repo overview:',
-      context.repoSummaryRel || '(not found)'
+      codeColor(context.repoSummaryRel || '(not found)')
     )
   );
   lines.push(
@@ -148,23 +157,29 @@ const buildSummary = (context) => {
         ? '🟡'
         : '🔴',
       `Generated orientation info for ${context.orientationMapped}/${context.figmaCount}:`,
-      context.orientationRel
+      codeColor(context.orientationRel)
     )
   );
   lines.push('');
 
   const codegenSummary = `(${context.orientationMapped} candidates from orientation step, ${context.builtCount} generated, ${context.skippedCount} skipped)`;
-  lines.push(chalk.bold(`## Codegen Stage ${codegenSummary}`));
+  lines.push(highlight(`=== CODE GENERATION STAGE ${codegenSummary}`));
   const agentRuns = context.builtCount + context.skippedCount;
-  lines.push(formatRow('🟢', `${agentRuns} code generation agents ran, logs at:`, context.codegenLogsRel));
-  lines.push(formatRow('🟢', `${agentRuns} code generation results at:`, context.componentLogsRel));
-  lines.push(`🟢 ${chalk.green(context.builtDetails.length)} Code Connect files generated:`);
+  lines.push(
+    formatRow('🟢', `${agentRuns} code generation agents ran, logs at:`, generatedColor(context.codegenLogsRel))
+  );
+  lines.push(
+    formatRow('🟢', `${agentRuns} code generation results at:`, generatedColor(context.componentLogsRel))
+  );
+  lines.push(`🟢 ${highlight(context.builtDetails.length)} Code Connect files generated:`);
   if (context.builtDetails.length) {
+    const longestName = Math.max(...context.builtDetails.map((item) => (item.figmaName || '').length), 0);
     context.builtDetails.forEach((item) => {
       const name = item.figmaName || '';
       const target = item.codeconnectFile || '(not written)';
-      const react = item.reactName ? chalk.dim(` (React: ${item.reactName})`) : '';
-      lines.push(`    - ${chalk.green(name)} → ${chalk.cyan(target)}${react}`);
+      const react = item.reactName ? codeColor(` (maps to React: ${item.reactName})`) : '';
+      const paddedName = generatedColor(name.padEnd(longestName + 1));
+      lines.push(`    - ${paddedName}→ ${generatedColor(target)}${react}`);
     });
   } else {
     lines.push('    - (none)');
@@ -174,7 +189,7 @@ const buildSummary = (context) => {
     context.skippedDetails.forEach((item) => {
       const name = item.figmaName || item.file || '(unknown)';
       const reason = item.reason ? chalk.dim(` — ${item.reason}`) : '';
-      lines.push(`    - ${chalk.yellow(name)}${reason}`);
+      lines.push(`    - ${highlight(name)}${reason}`);
     });
   } else {
     lines.push('    - (none)');
@@ -269,7 +284,23 @@ async function main() {
   };
 
   const summary = buildSummary(context);
+  const metadata = {
+    schemaVersion: 1,
+    figma: {
+      fileKey: figmaIndex.fileKey || null,
+      fileName: figmaIndex.fileName || null
+    },
+    codeconnect: {
+      rootDir: path.relative(config.baseCwd, config.codeconnectDir) || config.codeconnectDir,
+      files: context.codegenFiles
+    }
+  };
+  const metadataPath = path.join(config.baseCwd, METADATA_FILE_NAME);
+  ensureDir(path.dirname(metadataPath));
+  await fsp.writeFile(metadataPath, JSON.stringify(metadata, null, 2), 'utf8');
+
   console.log(summary);
+  console.log(`${chalk.green('✓')} Wrote ${metadataPath}`);
 }
 
 main().catch((err) => {

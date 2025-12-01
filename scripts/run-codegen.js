@@ -180,33 +180,25 @@ const writeLog = async (logDir, name, entry) => {
   return file;
 };
 
-const resolveBackend = () => {
-  const backend = (process.env.AGENT_BACKEND || 'cli').toLowerCase();
-  if (backend === 'openai') return 'openai';
-  if (backend === 'claude') return 'claude';
-  return 'cli';
-};
-
 const buildAdapter = (config) => {
-  const backend = resolveBackend();
-  const maxTokens =
-    parseInt(process.env.AGENT_MAX_TOKENS || process.env.AGENT_MAX_OUTPUT_TOKENS, 10) || undefined;
+  const backend = config.agentBackend;
+  const maxTokens = config.agentMaxTokens || undefined;
   if (backend === 'openai') {
     return new OpenAIAgentAdapter({
-      model: process.env.AGENT_SDK_MODEL || undefined,
+      model: config.agentModel || undefined,
       logDir: config.agentLogDir,
       cwd: config.repo,
       maxTokens
     });
   } else if (backend === 'claude') {
     return new ClaudeAgentAdapter({
-      model: process.env.AGENT_SDK_MODEL || undefined,
+      model: config.agentModel || undefined,
       logDir: config.agentLogDir,
       cwd: config.repo,
       maxTokens
     });
   }
-  const runner = process.env.AGENT_RUN_COMMAND || DEFAULT_AGENT_RUNNER;
+  const runner = config.agentCli || DEFAULT_AGENT_RUNNER;
   return new CodexCliAgentAdapter({
     runner,
     logDir: config.agentLogDir,
@@ -221,6 +213,10 @@ const parseArgs = (argv) => {
     .requiredOption('--figma-index <file>', 'Path to figma-components-index.json')
     .requiredOption('--orienter <file>', 'Orienter JSONL output (one JSON object per line)')
     .option('--force', 'Overwrite existing *.figma.tsx files', false)
+    .option('--agent-backend <value>', 'Agent backend (cli|openai|claude)', 'cli')
+    .option('--agent-model <value>', 'Agent model for SDK backends')
+    .option('--agent-max-tokens <value>', 'Max output tokens for agent responses')
+    .option('--agent-cli <value>', 'Agent CLI command (when backend=cli)', DEFAULT_AGENT_RUNNER)
     .allowExcessArguments(false);
   program.parse(argv);
   const opts = program.opts();
@@ -236,7 +232,11 @@ const parseArgs = (argv) => {
     codeconnectDir: DEFAULT_CODECONNECT_DIR,
     logDir: path.join(superconnectDir, 'component-logs'),
     agentLogDir: path.join(superconnectDir, 'codegen-logs'),
-    force: Boolean(opts.force)
+    force: Boolean(opts.force),
+    agentBackend: (opts.agentBackend || 'cli').toLowerCase(),
+    agentModel: opts.agentModel || undefined,
+    agentMaxTokens: parseInt(opts.agentMaxTokens, 10) || undefined,
+    agentCli: opts.agentCli || DEFAULT_AGENT_RUNNER
   };
 };
 
@@ -288,8 +288,8 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
     (componentMeta.name ? componentMeta.name.toLowerCase() : orienterName ? orienterName.toLowerCase() : null);
   const componentJson = componentKey ? ctx.figmaComponents[componentKey] || null : null;
 
-  const filesLabel = requiredPaths.join(', ');
-  console.log(`Generating ${chalk.cyan(logBaseName)} with reference to ${filesLabel}`);
+const filesLabel = requiredPaths.map((p) => chalk.cyanBright(p)).join(', ');
+  console.log(`Generating ${chalk.magentaBright(logBaseName)} with reference to ${filesLabel}`);
 
   const payload = buildAgentPayload(
     ctx.promptText,
