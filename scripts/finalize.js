@@ -12,8 +12,7 @@
  *  - figma.config.json at repo root pointing Code Connect to generated files
  */
 
-const fs = require('fs');
-const fsp = require('fs/promises');
+const fs = require('fs-extra');
 const path = require('path');
 const { Command } = require('commander');
 const { generate } = require('fast-glob/out/managers/tasks');
@@ -23,18 +22,11 @@ const { figmaColor, codeColor, generatedColor, highlight } = require('./colors')
 const stripAnsi = (value = '') => value.replace(/\u001b\[[0-9;]*m/g, '');
 const METADATA_FILE_NAME = 'figma.config.json';
 
-const readJsonSafe = async (filePath) => {
-  try {
-    const data = await fsp.readFile(filePath, 'utf8');
-    return JSON.parse(data);
-  } catch {
-    return null;
-  }
-};
+const readJsonSafe = (filePath) => fs.readJson(filePath).catch(() => null);
 
 const readJsonLines = async (filePath) => {
   try {
-    const data = await fsp.readFile(filePath, 'utf8');
+    const data = await fs.readFile(filePath, 'utf8');
     return data
       .split(/\r?\n/)
       .map((line) => line.trim())
@@ -50,10 +42,6 @@ const readJsonLines = async (filePath) => {
   } catch {
     return [];
   }
-};
-
-const ensureDir = (dir) => {
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 };
 
 const listCodeconnectFiles = (dir) => {
@@ -309,8 +297,8 @@ async function main() {
     }
   };
   const metadataPath = path.join(config.baseCwd, METADATA_FILE_NAME);
-  ensureDir(path.dirname(metadataPath));
-  await fsp.writeFile(metadataPath, JSON.stringify(metadata, null, 2), 'utf8');
+  fs.ensureDirSync(path.dirname(metadataPath));
+  await fs.writeJson(metadataPath, metadata, { spaces: 2 });
 
   console.log(summary);
   console.log(`${chalk.green('✓')} Wrote ${metadataPath}`);

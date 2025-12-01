@@ -15,8 +15,7 @@
  *  - Always overwrites the output file
  */
 
-const fs = require('fs');
-const fsp = require('fs/promises');
+const fs = require('fs-extra');
 const path = require('path');
 const { Command } = require('commander');
 const { CodexCliAgentAdapter, OpenAIAgentAdapter, ClaudeAgentAdapter } = require('../src/agent/agent-adapter');
@@ -26,16 +25,7 @@ const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox re
 const promptPath = path.join(__dirname, '..', 'prompts', 'orienter.md');
 const defaultOutput = path.join(process.cwd(), 'superconnect', 'orientation.jsonl');
 
-const ensureDir = (dir) => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-};
-
-const readJson = async (filePath) => {
-  const data = await fsp.readFile(filePath, 'utf8');
-  return JSON.parse(data);
-};
+const readJson = (filePath) => fs.readJson(filePath);
 
 const parseArgs = (argv) => {
   const program = new Command();
@@ -124,7 +114,7 @@ async function main() {
   const config = parseArgs(process.argv);
 
   const [promptText, figmaIndex, repoSummary] = await Promise.all([
-    fsp.readFile(promptPath, 'utf8'),
+    fs.readFile(promptPath, 'utf8'),
     readJson(config.figmaIndex),
     readJson(config.repoSummary)
   ]);
@@ -136,7 +126,7 @@ async function main() {
   }
 
   const adapter = buildAdapter(config);
-  ensureDir(path.dirname(config.output));
+  fs.ensureDirSync(path.dirname(config.output));
   const outputStream = fs.createWriteStream(config.output, { flags: 'w' }); // stomp existing
 
   const payload = buildPayload(promptText, figmaIndex, repoSummary);

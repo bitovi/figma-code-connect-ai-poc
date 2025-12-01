@@ -1,20 +1,15 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const { spawn } = require('child_process');
 const OpenAI = require('openai');
 const Anthropic = require('@anthropic-ai/sdk');
-
-const ensureDir = (dir) => {
-  if (!dir) return;
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-};
 
 const sanitizeSlug = (value, fallback = 'component') =>
   (value || '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '') || fallback;
 
 const openLogStream = (dir, name) => {
   if (!dir) return null;
-  ensureDir(dir);
+  fs.ensureDirSync(dir);
   const file = path.join(dir, `${sanitizeSlug(name)}.log`);
   const stream = fs.createWriteStream(file, { flags: 'w' });
   stream.write('=== AGENT OUTPUT ===\n');

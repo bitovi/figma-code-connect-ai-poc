@@ -16,8 +16,7 @@
  *  - Write the returned *.figma.tsx and a compact JSON log
  */
 
-const fs = require('fs');
-const fsp = require('fs/promises');
+const fs = require('fs-extra');
 const path = require('path');
 const { Command } = require('commander');
 const { CodexCliAgentAdapter, OpenAIAgentAdapter, ClaudeAgentAdapter } = require('../src/agent/agent-adapter');
@@ -29,17 +28,9 @@ const defaultPromptPath = path.join(__dirname, '..', 'prompts', 'single-codegen.
 
 const readJsonSafe = async (filePath) => {
   try {
-    const data = await fsp.readFile(filePath, 'utf8');
-    return JSON.parse(data);
+    return await fs.readJson(filePath);
   } catch {
     return null;
-  }
-};
-
-const ensureDir = (dir) => {
-  if (!dir) return;
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
   }
 };
 
@@ -50,7 +41,7 @@ const sanitizeSlug = (value, fallback = 'component') => {
 
 const parseJsonLines = async (filePath) => {
   try {
-    const text = await fsp.readFile(filePath, 'utf8');
+    const text = await fs.readFile(filePath, 'utf8');
     return text
       .split(/\r?\n/)
       .map((line) => line.trim())
@@ -109,7 +100,7 @@ const readRequestedFiles = async (repoRoot, requested) => {
     uniquePaths.map(async (relPath) => {
       const absolute = path.join(repoRoot, relPath);
       try {
-        const content = await fsp.readFile(absolute, 'utf8');
+        const content = await fs.readFile(absolute, 'utf8');
         return { path: relPath, content };
       } catch (err) {
         return { path: relPath, error: err.message };
@@ -167,16 +158,16 @@ const extractJsonResponse = (text) => {
 
 const writeCodeconnectFile = async (repoRoot, dir, fileName, contents) => {
   const safeDir = path.join(repoRoot, dir || DEFAULT_CODECONNECT_DIR);
-  ensureDir(safeDir);
+  await fs.ensureDir(safeDir);
   const target = path.join(safeDir, fileName);
-  await fsp.writeFile(target, contents, 'utf8');
+  await fs.writeFile(target, contents, 'utf8');
   return target;
 };
 
 const writeLog = async (logDir, name, entry) => {
-  ensureDir(logDir);
+  await fs.ensureDir(logDir);
   const file = path.join(logDir, `${sanitizeSlug(name)}.json`);
-  await fsp.writeFile(file, JSON.stringify(entry, null, 2), 'utf8');
+  await fs.writeJson(file, entry, { spaces: 2 });
   return file;
 };
 
@@ -356,7 +347,7 @@ async function main() {
   const [figmaIndex, figmaComponents, promptText] = await Promise.all([
     readJsonSafe(config.figmaIndex),
     loadFigmaComponents(config.figmaDir),
-    fsp.readFile(config.promptPath, 'utf8')
+    fs.readFile(config.promptPath, 'utf8')
   ]);
 
   if (!figmaIndex?.components) {

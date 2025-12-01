@@ -9,7 +9,7 @@
  * 5) Finalizer (summary)
  */
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const { spawnSync } = require('child_process');
 const { Command } = require('commander');
@@ -66,11 +66,6 @@ function loadSuperconnectConfig(filePath = 'superconnect.toml') {
     console.warn(`⚠️  Failed to load ${direct}: ${err.message}`);
     return null;
   }
-}
-
-function ensureDir(dir) {
-  if (!dir) return;
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
 function normalizeAgentConfig(agentSection = {}) {
@@ -322,8 +317,8 @@ async function main() {
       : `cli (${agentConfig.cliCommand})`;
   console.log(`${chalk.dim('•')} ${highlight('Agent backend')}: ${highlight(agentLabel)}`);
 
-  ensureDir(paths.superconnectDir);
-  ensureDir(paths.figmaDir);
+  fs.ensureDirSync(paths.superconnectDir);
+  fs.ensureDirSync(paths.figmaDir);
 
   const needFigmaScan = args.force || !fs.existsSync(paths.figmaIndex);
   const needRepoSummary = args.force || !fs.existsSync(paths.repoSummary);
