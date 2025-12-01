@@ -16,10 +16,13 @@ const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
 const { Command } = require('commander');
-const Table = require('cli-table3');
+const { generate } = require('fast-glob/out/managers/tasks');
 const chalk = require('chalk').default;
-const fg = require('fast-glob');
-const { figmaColor, codeColor, generatedColor, highlight } = require('./colors');
+
+const figmaColor = (text) => chalk.redBright(text);
+const codeColor = (text) => chalk.cyanBright(text);
+const generatedColor = (text) => chalk.magentaBright(text);
+const highlight = (text) => chalk.whiteBright(text);
 const METADATA_FILE_NAME = 'figma.config.json';
 
 const readJsonSafe = async (filePath) => {
@@ -56,45 +59,36 @@ const ensureDir = (dir) => {
 };
 
 const listCodeconnectFiles = (dir) => {
-  if (!dir) return [];
-  return fg
-    .sync('*.figma.tsx', { cwd: dir, absolute: true })
-    .map((file) => path.resolve(file));
+  if (!dir || !fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) return [];
+  return fs.readdirSync(dir).filter((f) => f.endsWith('.figma.tsx')).map((f) => path.join(dir, f));
 };
 
-const createTable = () =>
-  new Table({
-    colWidths: [3, 32, 60],
-    wordWrap: true,
-    style: { border: [], head: [], 'padding-left': 0, 'padding-right': 1 },
-    chars: {
-      top: '',
-      'top-mid': '',
-      'top-left': '',
-      'top-right': '',
-      bottom: '',
-      'bottom-mid': '',
-      'bottom-left': '',
-      'bottom-right': '',
-      left: '',
-      'left-mid': '',
-      mid: '',
-      'mid-mid': '',
-      right: '',
-      'right-mid': '',
-      middle: ' '
-    }
-  });
+const VALUE_COL = 50;
+
+const formatRow = (statusEmoji, label, value, indent = '') => {
+  const pad = Math.max(0, VALUE_COL - indent.length - 3); // emoji + space + space before value
+  const padded = label.padEnd(pad);
+  return `${indent}${statusEmoji} ${chalk.bold(padded)} ${value}`;
+};
+
+const continuationRow = (indent = '', value = '') => {
+  const pad = Math.max(0, VALUE_COL - indent.length - 3);
+  return `${indent}${' '.repeat(pad + 3)}${value}`;
+};
 
 const readComponentLogs = async (dir) => {
-  if (!dir) return [];
-  const files = fg.sync('*.json', { cwd: dir, absolute: true });
+  if (!dir || !fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) return [];
+  const entries = fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith('.json'))
+    .map((file) => ({ file, full: path.join(dir, file) }));
+
   const results = [];
-  for (const full of files) {
-    const data = await readJsonSafe(full);
+  for (const entry of entries) {
+    const data = await readJsonSafe(entry.full);
     if (!data) continue;
     results.push({
-      file: path.basename(full),
+      file: entry.file,
       figmaName: data.figmaName || null,
       figmaId: data.figmaId || null,
       status: data.status || null,
@@ -109,34 +103,54 @@ const readComponentLogs = async (dir) => {
 
 const buildSummary = (context) => {
   const lines = [];
+  const scanStatus =
+    context.orientationMapped >= context.figmaCount && context.figmaCount > 0
+      ? '🟢 (complete)'
+      : context.orientationMapped > 0
+      ? '🟡 (partial)'
+      : '🔴 (failed)';
+  const codegenStatus =
+    context.builtCount >= context.orientationMapped && context.orientationMapped > 0
+      ? '🟢 (complete)'
+      : context.builtCount > 0
+      ? '🟡 (partial)'
+      : '🔴 (failed)';
+
   lines.push('');
   lines.push(highlight('=== SUPERCONNECT RUN SUMMARY ==='));
   lines.push('');
 
   lines.push(chalk.bold('=== SCANNING STAGE'));
-  const scanTable = createTable();
-  scanTable.push(
-    [
+  lines.push(
+    formatRow(
       '🟢',
       `Read from ${figmaColor('Figma')}:`,
       figmaColor(context.figmaUrl || context.figmaFileKey || context.figmaFileName || context.figmaIndexRel)
-    ],
-    [
+    )
+  );
+  lines.push(
+    formatRow(
       '🟢',
       `Wrote ${figmaColor('Figma')} index file (${context.figmaCount} components):`,
       figmaColor(context.figmaIndexRel)
-    ],
-    [
+    )
+  );
+  lines.push(
+    formatRow(
       '🟢',
       `Wrote extracts for ${context.figmaCount} components:`,
       figmaColor(context.figmaComponentsDirRel || '(not found)')
-    ],
-    [
+    )
+  );
+  lines.push(
+    formatRow(
       context.repoSummaryExists ? '🟢' : '🟡',
       'Generated repo overview:',
       codeColor(context.repoSummaryRel || '(not found)')
-    ],
-    [
+    )
+  );
+  lines.push(
+    formatRow(
       context.orientationMapped >= context.figmaCount
         ? '🟢'
         : context.orientationMapped > 0
@@ -144,43 +158,39 @@ const buildSummary = (context) => {
         : '🔴',
       `Generated orientation info for ${context.orientationMapped}/${context.figmaCount}:`,
       codeColor(context.orientationRel)
-    ]
+    )
   );
-  lines.push(scanTable.toString());
   lines.push('');
 
   const codegenSummary = `(${context.orientationMapped} candidates from orientation step, ${context.builtCount} generated, ${context.skippedCount} skipped)`;
   lines.push(highlight(`=== CODE GENERATION STAGE ${codegenSummary}`));
   const agentRuns = context.builtCount + context.skippedCount;
-  const codegenTable = createTable();
-  codegenTable.push(
-    ['🟢', `${agentRuns} code generation agents ran, logs at:`, generatedColor(context.codegenLogsRel)],
-    ['🟢', `${agentRuns} code generation results at:`, generatedColor(context.componentLogsRel)]
+  lines.push(
+    formatRow('🟢', `${agentRuns} code generation agents ran, logs at:`, generatedColor(context.codegenLogsRel))
   );
-  lines.push(codegenTable.toString());
-
+  lines.push(
+    formatRow('🟢', `${agentRuns} code generation results at:`, generatedColor(context.componentLogsRel))
+  );
   lines.push(`🟢 ${highlight(context.builtDetails.length)} Code Connect files generated:`);
   if (context.builtDetails.length) {
-    const builtTable = createTable();
+    const longestName = Math.max(...context.builtDetails.map((item) => (item.figmaName || '').length), 0);
     context.builtDetails.forEach((item) => {
-      const name = generatedColor(item.figmaName || '');
-      const target = generatedColor(item.codeconnectFile || '(not written)');
+      const name = item.figmaName || '';
+      const target = item.codeconnectFile || '(not written)';
       const react = item.reactName ? codeColor(` (maps to React: ${item.reactName})`) : '';
-      builtTable.push([' ', `${name} →`, `${target}${react}`]);
+      const paddedName = generatedColor(name.padEnd(longestName + 1));
+      lines.push(`    - ${paddedName}→ ${generatedColor(target)}${react}`);
     });
-    lines.push(builtTable.toString());
   } else {
     lines.push('    - (none)');
   }
   lines.push(`🟡 Declined to codegen for ${context.skippedDetails.length} component candidates:`);
   if (context.skippedDetails.length) {
-    const skippedTable = createTable();
     context.skippedDetails.forEach((item) => {
-      const name = highlight(item.figmaName || item.file || '(unknown)');
+      const name = item.figmaName || item.file || '(unknown)';
       const reason = item.reason ? chalk.dim(` — ${item.reason}`) : '';
-      skippedTable.push([' ', name, reason]);
+      lines.push(`    - ${highlight(name)}${reason}`);
     });
-    lines.push(skippedTable.toString());
   } else {
     lines.push('    - (none)');
   }

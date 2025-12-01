@@ -20,8 +20,8 @@ const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
 const { Command } = require('commander');
+const chalk = require('chalk').default;
 const { CodexCliAgentAdapter, OpenAIAgentAdapter, ClaudeAgentAdapter } = require('../src/agent/agent-adapter');
-const { codeColor, generatedColor } = require('./colors');
 
 const DEFAULT_CODECONNECT_DIR = 'codeconnect';
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
@@ -213,7 +213,7 @@ const parseArgs = (argv) => {
     .requiredOption('--figma-index <file>', 'Path to figma-components-index.json')
     .requiredOption('--orienter <file>', 'Orienter JSONL output (one JSON object per line)')
     .option('--force', 'Overwrite existing *.figma.tsx files', false)
-    .option('--agent-backend <value>', 'Agent backend (cli|openai|claude)', 'claude')
+    .option('--agent-backend <value>', 'Agent backend (cli|openai|claude)', 'cli')
     .option('--agent-model <value>', 'Agent model for SDK backends')
     .option('--agent-max-tokens <value>', 'Max output tokens for agent responses')
     .option('--agent-cli <value>', 'Agent CLI command (when backend=cli)', DEFAULT_AGENT_RUNNER)
@@ -233,7 +233,7 @@ const parseArgs = (argv) => {
     logDir: path.join(superconnectDir, 'component-logs'),
     agentLogDir: path.join(superconnectDir, 'codegen-logs'),
     force: Boolean(opts.force),
-    agentBackend: (opts.agentBackend || 'claude').toLowerCase(),
+    agentBackend: (opts.agentBackend || 'cli').toLowerCase(),
     agentModel: opts.agentModel || undefined,
     agentMaxTokens: parseInt(opts.agentMaxTokens, 10) || undefined,
     agentCli: opts.agentCli || DEFAULT_AGENT_RUNNER
@@ -288,8 +288,8 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
     (componentMeta.name ? componentMeta.name.toLowerCase() : orienterName ? orienterName.toLowerCase() : null);
   const componentJson = componentKey ? ctx.figmaComponents[componentKey] || null : null;
 
-  const filesLabel = requiredPaths.map((p) => codeColor(p)).join(', ');
-  console.log(`Generating ${generatedColor(logBaseName)} with reference to ${filesLabel}`);
+const filesLabel = requiredPaths.map((p) => chalk.cyanBright(p)).join(', ');
+  console.log(`Generating ${chalk.magentaBright(logBaseName)} with reference to ${filesLabel}`);
 
   const payload = buildAgentPayload(
     ctx.promptText,

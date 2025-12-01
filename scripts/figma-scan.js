@@ -21,7 +21,6 @@ const { fetch } = require('undici');
 const { Command } = require('commander');
 const chalk = require('chalk').default;
 const stringifyCompact = require('json-stringify-pretty-compact').default;
-const { figmaColor } = require('./colors');
 
 const SCHEMA_VERSION = 'figma-component@1';
 const INDEX_SCHEMA_VERSION = 'figma-component-index@1';
@@ -308,7 +307,7 @@ async function main() {
     saveJson(jsonPath, variantData, { logMessage: false });
     const relativePath = path.relative(process.cwd(), jsonPath) || jsonPath;
     const label = `${componentSet.name} (${variantData.totalVariants} variants)`.padEnd(longestLabel + 1);
-    console.log(`${figmaColor(label)}→ ${figmaColor(relativePath)}`);
+    console.log(`${chalk.redBright(label)}→ ${chalk.redBright(relativePath)}`);
 
       const componentName = variantData.componentName;
       const meta = {
