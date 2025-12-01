@@ -189,17 +189,21 @@ const resolveBackend = () => {
 
 const buildAdapter = (config) => {
   const backend = resolveBackend();
+  const maxTokens =
+    parseInt(process.env.AGENT_MAX_TOKENS || process.env.AGENT_MAX_OUTPUT_TOKENS, 10) || undefined;
   if (backend === 'openai') {
     return new OpenAIAgentAdapter({
       model: process.env.AGENT_SDK_MODEL || undefined,
       logDir: config.agentLogDir,
-      cwd: config.repo
+      cwd: config.repo,
+      maxTokens
     });
   } else if (backend === 'claude') {
     return new ClaudeAgentAdapter({
       model: process.env.AGENT_SDK_MODEL || undefined,
       logDir: config.agentLogDir,
-      cwd: config.repo
+      cwd: config.repo,
+      maxTokens
     });
   }
   const runner = process.env.AGENT_RUN_COMMAND || DEFAULT_AGENT_RUNNER;

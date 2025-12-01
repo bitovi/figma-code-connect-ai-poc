@@ -21,6 +21,11 @@ const openLogStream = (dir, name) => {
   return { stream, file };
 };
 
+const parseMaxTokens = (value, fallback) => {
+  const parsed = value ? parseInt(value, 10) : NaN;
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+};
+
 /**
  * AgentAdapter interface (contract):
  *  - orient({ payload, logLabel?, outputStream?, logDir? }) -> Promise<{ code, stdout, stderr, logFile }>
@@ -113,7 +118,9 @@ const extractResponseText = (response) => {
  */
 class OpenAIAgentAdapter {
   constructor(options = {}) {
+    const envMax = process.env.AGENT_MAX_TOKENS || process.env.AGENT_MAX_OUTPUT_TOKENS;
     this.model = options.model || 'gpt-4.1-mini';
+    this.maxTokens = parseMaxTokens(options.maxTokens, parseMaxTokens(envMax, 12000));
     this.defaultLogDir = options.logDir || null;
     this.defaultCwd = options.cwd;
     const apiKey = process.env.OPENAI_API_KEY;
@@ -156,7 +163,8 @@ class OpenAIAgentAdapter {
       writeLog('\n\n=== AGENT OUTPUT ===\n');
       const response = await this.client.responses.create({
         model: this.model,
-        input: payload
+        input: payload,
+        max_output_tokens: this.maxTokens
       });
       const stdout = extractResponseText(response) || '';
       writeLog(stdout);
@@ -187,7 +195,9 @@ const extractClaudeText = (message) => {
  */
 class ClaudeAgentAdapter {
   constructor(options = {}) {
+    const envMax = process.env.AGENT_MAX_TOKENS || process.env.AGENT_MAX_OUTPUT_TOKENS;
     this.model = options.model || 'claude-3-haiku-20240307';
+    this.maxTokens = parseMaxTokens(options.maxTokens, parseMaxTokens(envMax, 12000));
     this.defaultLogDir = options.logDir || null;
     this.defaultCwd = options.cwd;
     const apiKey = process.env.ANTHROPIC_API_KEY;
@@ -229,7 +239,7 @@ class ClaudeAgentAdapter {
       writeLog('\n\n=== AGENT OUTPUT ===\n');
       const response = await this.client.messages.create({
         model: this.model,
-        max_tokens: 4096,
+        max_tokens: this.maxTokens,
         messages: [{ role: 'user', content: payload }]
       });
       const stdout = extractClaudeText(response) || '';

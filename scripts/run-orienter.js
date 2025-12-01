@@ -91,17 +91,28 @@ const resolveBackend = () => {
   return 'cli';
 };
 
+const parseMaxTokens = (value) => {
+  const parsed = value ? parseInt(value, 10) : NaN;
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : undefined;
+};
+
 const buildAdapter = (config) => {
   const backend = resolveBackend();
+  const maxTokens =
+    parseMaxTokens(process.env.AGENT_MAX_TOKENS) ||
+    parseMaxTokens(process.env.AGENT_MAX_OUTPUT_TOKENS) ||
+    undefined;
   if (backend === 'openai') {
     return new OpenAIAgentAdapter({
       model: process.env.AGENT_SDK_MODEL || undefined,
-      logDir: config.agentLogDir
+      logDir: config.agentLogDir,
+      maxTokens
     });
   } else if (backend === 'claude') {
     return new ClaudeAgentAdapter({
       model: process.env.AGENT_SDK_MODEL || undefined,
-      logDir: config.agentLogDir
+      logDir: config.agentLogDir,
+      maxTokens
     });
   }
   const runner = process.env.AGENT_RUN_COMMAND || DEFAULT_AGENT_RUNNER;
