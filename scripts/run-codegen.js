@@ -20,8 +20,8 @@ const fs = require('fs');
 const fsp = require('fs/promises');
 const path = require('path');
 const { Command } = require('commander');
-const chalk = require('chalk').default;
 const { CodexCliAgentAdapter, OpenAIAgentAdapter, ClaudeAgentAdapter } = require('../src/agent/agent-adapter');
+const { figmaColor, codeColor, generatedColor, highlight } = require('./colors');
 
 const DEFAULT_CODECONNECT_DIR = 'codeconnect';
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
@@ -288,8 +288,9 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
     (componentMeta.name ? componentMeta.name.toLowerCase() : orienterName ? orienterName.toLowerCase() : null);
   const componentJson = componentKey ? ctx.figmaComponents[componentKey] || null : null;
 
-const filesLabel = requiredPaths.map((p) => chalk.cyanBright(p)).join(', ');
-  console.log(`Generating ${chalk.magentaBright(logBaseName)} with reference to ${filesLabel}`);
+  const filesLabel = requiredPaths.map((p) => codeColor(p)).join(', ');
+  console.log(`Generating ${generatedColor(logBaseName)}`);
+  console.log(`    ... looking at ${filesLabel}`);
 
   const payload = buildAgentPayload(
     ctx.promptText,

@@ -15,6 +15,7 @@ const { spawnSync } = require('child_process');
 const { Command } = require('commander');
 const readline = require('readline');
 const chalk = require('chalk').default;
+const { figmaColor, codeColor, generatedColor, highlight } = require('./colors');
 
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
 const DEFAULT_CONFIG_FILE = 'superconnect.toml';
@@ -23,10 +24,6 @@ const DEFAULT_OPENAI_MODEL = 'gpt-5.1-codex-mini';
 const DEFAULT_BACKEND = 'claude';
 const DEFAULT_MAX_TOKENS = 12000;
 
-const figmaColor = (text) => chalk.red(text);
-const codeColor = (text) => chalk.cyan(text);
-const generatedColor = (text) => chalk.magenta(text);
-const highlight = (text) => chalk.whiteBright(text);
 const parseMaybeInt = (value) => {
   const n = value ? parseInt(value, 10) : NaN;
   return Number.isFinite(n) && n > 0 ? n : null;
@@ -361,10 +358,10 @@ async function main() {
       '>',
       `"${paths.repoSummary}"`
     ].join(' ');
-    runCommand(`${highlight('Repo summary')} → ${codeColor(rel(paths.repoSummary))}`, cmd, { shell: '/bin/zsh' });
+    runCommand(`${highlight('Repo overview')} → ${codeColor(rel(paths.repoSummary))}`, cmd, { shell: '/bin/zsh' });
   } else {
     console.log(
-      `${chalk.dim('•')} ${highlight('Repo summary')} (skipped, ${codeColor(
+      `${chalk.dim('•')} ${highlight('Repo overview')} (skipped, ${codeColor(
         rel(paths.repoSummary)
       )} present)`
     );
@@ -381,10 +378,10 @@ async function main() {
       agentConfig.maxTokens ? `--agent-max-tokens "${agentConfig.maxTokens}"` : '',
       agentConfig.backend === 'cli' ? `--agent-cli "${agentConfig.cliCommand}"` : ''
     ].join(' ');
-    runCommand(`${highlight('Orienter')} → ${codeColor(rel(paths.orientation))}`, cmd);
+    runCommand(`${highlight('Repo orientation')} → ${codeColor(rel(paths.orientation))}`, cmd);
   } else {
     console.log(
-      `${chalk.dim('•')} ${highlight('Orienter')} (skipped, ${codeColor(
+      `${chalk.dim('•')} ${highlight('Repo orientation')} (skipped, ${codeColor(
         rel(paths.orientation)
       )} already present)`
     );
@@ -404,7 +401,7 @@ async function main() {
       .filter(Boolean)
       .join(' ');
     runCommand(
-      `${highlight('Code Generation')} (${codeColor(rel(paths.orientation))} → ${generatedColor(rel(paths.codeconnectDir))})`,
+      `${highlight('Code generation')} (${codeColor(rel(paths.orientation))} → ${generatedColor(rel(paths.codeconnectDir))})`,
       codegenCmd,
       { cwd: paths.target, allowInterrupt: true }
     );

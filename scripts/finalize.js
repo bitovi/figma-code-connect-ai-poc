@@ -19,10 +19,8 @@ const { Command } = require('commander');
 const { generate } = require('fast-glob/out/managers/tasks');
 const chalk = require('chalk').default;
 
-const figmaColor = (text) => chalk.redBright(text);
-const codeColor = (text) => chalk.cyanBright(text);
-const generatedColor = (text) => chalk.magentaBright(text);
-const highlight = (text) => chalk.whiteBright(text);
+const { figmaColor, codeColor, generatedColor, highlight } = require('./colors');
+const stripAnsi = (value = '') => value.replace(/\u001b\[[0-9;]*m/g, '');
 const METADATA_FILE_NAME = 'figma.config.json';
 
 const readJsonSafe = async (filePath) => {
@@ -66,8 +64,10 @@ const listCodeconnectFiles = (dir) => {
 const VALUE_COL = 50;
 
 const formatRow = (statusEmoji, label, value, indent = '') => {
-  const pad = Math.max(0, VALUE_COL - indent.length - 3); // emoji + space + space before value
-  const padded = label.padEnd(pad);
+  const target = Math.max(0, VALUE_COL - indent.length - 3); // emoji + space + space before value
+  const visible = stripAnsi(label);
+  const pad = Math.max(0, target - visible.length);
+  const padded = `${label}${' '.repeat(pad)}`;
   return `${indent}${statusEmoji} ${chalk.bold(padded)} ${value}`;
 };
 
@@ -117,31 +117,33 @@ const buildSummary = (context) => {
       : '🔴 (failed)';
 
   lines.push('');
-  lines.push(highlight('=== SUPERCONNECT RUN SUMMARY ==='));
+  lines.push(highlight('====== SUPERCONNECT RUN SUMMARY ======'));
   lines.push('');
 
-  lines.push(chalk.bold('=== SCANNING STAGE'));
+  lines.push(figmaColor(chalk.bold('=== FIGMA SCANNING ===')));
   lines.push(
     formatRow(
       '🟢',
-      `Read from ${figmaColor('Figma')}:`,
+      `Read from Figma:`,
       figmaColor(context.figmaUrl || context.figmaFileKey || context.figmaFileName || context.figmaIndexRel)
     )
   );
   lines.push(
     formatRow(
       '🟢',
-      `Wrote ${figmaColor('Figma')} index file (${context.figmaCount} components):`,
+      `Wrote Figma index file (${context.figmaCount} components):`,
       figmaColor(context.figmaIndexRel)
     )
   );
   lines.push(
     formatRow(
       '🟢',
-      `Wrote extracts for ${context.figmaCount} components:`,
+      `Wrote extracts for ${context.figmaCount} Figma components:`,
       figmaColor(context.figmaComponentsDirRel || '(not found)')
     )
   );
+  lines.push('');
+  lines.push(codeColor(chalk.bold('=== REACT REPO SCANNING ===')));
   lines.push(
     formatRow(
       context.repoSummaryExists ? '🟢' : '🟡',
@@ -156,35 +158,46 @@ const buildSummary = (context) => {
         : context.orientationMapped > 0
         ? '🟡'
         : '🔴',
-      `Generated orientation info for ${context.orientationMapped}/${context.figmaCount}:`,
+      `Generated orientation info for ${highlight(context.orientationMapped)}/${highlight(context.figmaCount)}:`,
       codeColor(context.orientationRel)
     )
   );
   lines.push('');
 
-  const codegenSummary = `(${context.orientationMapped} candidates from orientation step, ${context.builtCount} generated, ${context.skippedCount} skipped)`;
-  lines.push(highlight(`=== CODE GENERATION STAGE ${codegenSummary}`));
+  lines.push(generatedColor(`=== CODE GENERATION SUMMARY ===`));
   const agentRuns = context.builtCount + context.skippedCount;
   lines.push(
-    formatRow('🟢', `${agentRuns} code generation agents ran, logs at:`, generatedColor(context.codegenLogsRel))
+    formatRow(
+      '🟢',
+      `${highlight(agentRuns)} code generation agents ran, logs at:`,
+      generatedColor(context.codegenLogsRel)
+    )
   );
   lines.push(
-    formatRow('🟢', `${agentRuns} code generation results at:`, generatedColor(context.componentLogsRel))
+    formatRow('🟢', `${highlight(agentRuns)} code generation results at:`, generatedColor(context.componentLogsRel))
   );
   lines.push(`🟢 ${highlight(context.builtDetails.length)} Code Connect files generated:`);
   if (context.builtDetails.length) {
     const longestName = Math.max(...context.builtDetails.map((item) => (item.figmaName || '').length), 0);
-    context.builtDetails.forEach((item) => {
+    const formatted = context.builtDetails.map((item) => {
       const name = item.figmaName || '';
       const target = item.codeconnectFile || '(not written)';
       const react = item.reactName ? codeColor(` (maps to React: ${item.reactName})`) : '';
-      const paddedName = generatedColor(name.padEnd(longestName + 1));
-      lines.push(`    - ${paddedName}→ ${generatedColor(target)}${react}`);
+      const paddedNameRaw = name.padEnd(longestName + 1);
+      const leftRaw = `${paddedNameRaw}→ ${target}`;
+      const left = `${generatedColor(paddedNameRaw)}→ ${generatedColor(target)}`;
+      return { leftRaw, left, react };
+    });
+    const longestLeft = Math.max(...formatted.map((item) => item.leftRaw.length), 0);
+    formatted.forEach(({ leftRaw, left, react }) => {
+      const gap = longestLeft - leftRaw.length;
+      const spacer = gap > 0 ? ' '.repeat(gap) : '';
+      lines.push(`    - ${left}${spacer}${react}`);
     });
   } else {
     lines.push('    - (none)');
   }
-  lines.push(`🟡 Declined to codegen for ${context.skippedDetails.length} component candidates:`);
+  lines.push(`🟡 Declined to codegen for ${highlight(context.skippedDetails.length)} component candidates:`);
   if (context.skippedDetails.length) {
     context.skippedDetails.forEach((item) => {
       const name = item.figmaName || item.file || '(unknown)';

@@ -21,6 +21,7 @@ const { fetch } = require('undici');
 const { Command } = require('commander');
 const chalk = require('chalk').default;
 const stringifyCompact = require('json-stringify-pretty-compact').default;
+const { figmaColor } = require('./colors');
 
 const SCHEMA_VERSION = 'figma-component@1';
 const INDEX_SCHEMA_VERSION = 'figma-component-index@1';
@@ -241,7 +242,7 @@ function saveJson(filePath, data, options = {}) {
   const relativePath = path.relative(process.cwd(), filePath) || filePath;
   const { logMessage } = options;
   if (logMessage !== false) {
-    const message = typeof logMessage === 'string' ? logMessage : `      Saved: ${relativePath}`;
+    const message = typeof logMessage === 'string' ? logMessage : `\n${chalk.green('✓')} Saved: ${relativePath}`;
     console.log(message);
   }
 }
@@ -261,8 +262,8 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(chalk.bold('🎨 Fetching Figma file...'));
-  console.log(`File Key: ${chalk.cyan(config.fileKey)}`);
+  console.log(chalk.bold('Fetching Figma file...'));
+  console.log(`File Key: ${figmaColor(config.fileKey)}`);
 
   try {
     const fileData = await figmaRequest(`/v1/files/${config.fileKey}`, config.token);
@@ -272,7 +273,7 @@ async function main() {
 
     const pages = fileData.document.children;
     console.log('\nProcessing pages in Figma document:');
-    pages.forEach((page) => console.log(`  - ${chalk.cyan(page.name)}`));
+    pages.forEach((page) => console.log(`  - ${figmaColor(page.name)}`));
 
   const allComponentSets = pages.flatMap((page) => findComponentSets(page));
   const visibleSets = allComponentSets.filter(({ node }) => !isHiddenComponent(node.name));
@@ -286,7 +287,7 @@ async function main() {
       variantEntries.push({ componentSet, breadcrumbs, variantData });
     }
 
-    console.log(`\n${chalk.green('✓')} Found ${variantEntries.length} component sets`);
+    console.log(`\n${chalk.green('✓')} Found ${variantEntries.length} Figma component sets`);
 
     let processedCount = 0;
     const componentsMeta = [];
@@ -307,7 +308,7 @@ async function main() {
     saveJson(jsonPath, variantData, { logMessage: false });
     const relativePath = path.relative(process.cwd(), jsonPath) || jsonPath;
     const label = `${componentSet.name} (${variantData.totalVariants} variants)`.padEnd(longestLabel + 1);
-    console.log(`${chalk.redBright(label)}→ ${chalk.redBright(relativePath)}`);
+    console.log(`${figmaColor(label)}→ ${figmaColor(relativePath)}`);
 
       const componentName = variantData.componentName;
       const meta = {
@@ -363,7 +364,6 @@ async function main() {
     saveJson(indexPath, indexData);
 
     console.log(`\n${chalk.green('✅')} Complete! Processed ${processedCount} component(s)`);
-    console.log(`📁 Output directory: ${config.output}`);
   } catch (error) {
     console.error(`\n${chalk.red('❌ Error:')} ${error.message}`);
     process.exit(1);
