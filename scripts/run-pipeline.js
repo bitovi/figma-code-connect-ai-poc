@@ -220,7 +220,7 @@ function runCommand(label, command, options = {}) {
 function parseArgv(argv) {
   const program = new Command();
   program
-    .name('run-pipeline-4')
+    .name('run-pipeline')
     .usage('[options]')
     .option('--figma-url <value>', 'Figma file URL or key (needed for figma scan when not cached)')
     .option('--figma-token <token>', 'Figma API token (or FIGMA_ACCESS_TOKEN/.env)')
