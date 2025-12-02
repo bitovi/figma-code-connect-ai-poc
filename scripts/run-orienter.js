@@ -67,21 +67,6 @@ const buildPayload = (promptText, figmaIndex, repoSummary) =>
     ''
   ].join('\n');
 
-const parseAgentJson = (text) => {
-  const trimmed = (text || '').trim();
-  if (!trimmed) return null;
-  const withoutFence = trimmed.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
-  try {
-    return JSON.parse(trimmed);
-  } catch {
-    try {
-      return JSON.parse(withoutFence);
-    } catch {
-      return null;
-    }
-  }
-};
-
 const parseMaxTokens = (value) => {
   const parsed = value ? parseInt(value, 10) : NaN;
   return Number.isFinite(parsed) && parsed > 0 ? parsed : undefined;
@@ -126,6 +111,7 @@ async function main() {
   }
 
   const adapter = buildAdapter(config);
+
   fs.ensureDirSync(path.dirname(config.output));
   const outputStream = fs.createWriteStream(config.output, { flags: 'w' }); // stomp existing
 

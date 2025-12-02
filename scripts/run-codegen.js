@@ -45,6 +45,25 @@ const toTokenName = (value) =>
     .replace(/^_+|_+$/g, '')
     .toUpperCase()}>`;
 
+const stripExtension = (p) => p.replace(/\.[^/.]+$/, '');
+const importExists = (repoRoot, importPath) => {
+  if (!importPath) return false;
+  const base = path.resolve(repoRoot, stripExtension(importPath));
+  const exts = ['', '.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs'];
+  return exts.some((ext) => fs.existsSync(`${base}${ext}`));
+};
+
+const normalizeImportPath = (schemaPath, fallbackPaths, repoRoot) => {
+  if (!schemaPath) return schemaPath;
+  const cleaned = schemaPath.replace(/^\.\/+/, '');
+  if (importExists(repoRoot, cleaned)) return cleaned;
+  for (const candidate of fallbackPaths || []) {
+    const cleanCandidate = stripExtension(candidate);
+    if (importExists(repoRoot, cleanCandidate)) return cleanCandidate;
+  }
+  return cleaned;
+};
+
 const buildFigmaNodeUrl = (fileKey, fileName, nodeId) => {
   if (!fileKey || !nodeId) return null;
   const safeName = fileName ? encodeURIComponent(fileName) : 'file';
@@ -124,15 +143,17 @@ const readRequestedFiles = async (repoRoot, requested) => {
   return results;
 };
 
-const buildAgentPayload = (
-  promptText,
-  componentMeta,
-  componentJson,
-  orienterEntry,
-  files,
-  codeConnectDir,
-  figmaInfo
-) => {
+const buildAgentPayload = (promptText, componentMeta, componentJson, orienterEntry, files, figmaInfo) => {
+  const componentData = componentJson?.data || null;
+  const figmaCompact = componentData
+    ? {
+        componentSetId: componentData.componentSetId || componentData.componentId || null,
+        componentName: componentData.componentName || componentData.name || null,
+        variantProperties: componentData.variantProperties || null,
+        variantValueEnums: componentData.variantValueEnums || null,
+        totalVariants: componentData.totalVariants || null
+      }
+    : null;
   const serializedFiles = files
     .map((file) => {
       if (file.error) {
@@ -143,8 +164,12 @@ const buildAgentPayload = (
     .join('\n\n');
 
   const figmaBlock = {
-    indexEntry: componentMeta,
-    componentJson: componentJson?.data || null,
+    indexEntry: {
+      name: componentMeta?.name || null,
+      id: componentMeta?.id || null,
+      variantCount: componentMeta?.variantCount || null
+    },
+    componentJson: figmaCompact,
     figmaFile: figmaInfo?.file || null,
     nodeUrl: figmaInfo?.nodeUrl || null
   };
@@ -167,16 +192,36 @@ const buildAgentPayload = (
 };
 
 const extractJsonResponse = (text) => {
+  if (!text) return null;
   const trimmed = text.trim();
-  const fenced = trimmed.replace(/^```(?:json)?/i, '').replace(/```$/, '').trim();
+
+  // Prefer the first fenced code block
+  const fencedMatch = trimmed.match(/```(?:json)?\\s*([\\s\\S]*?)```/i);
+  if (fencedMatch && fencedMatch[1]) {
+    const candidate = fencedMatch[1].trim();
+    try {
+      return JSON.parse(candidate);
+    } catch {
+      // fall through
+    }
+  }
+
+  // Try the whole output
   try {
     return JSON.parse(trimmed);
   } catch {
-    try {
-      return JSON.parse(fenced);
-    } catch {
-      return null;
+    // Try from the first { to the last } as a last resort
+    const first = trimmed.indexOf('{');
+    const last = trimmed.lastIndexOf('}');
+    if (first !== -1 && last !== -1 && last > first) {
+      const slice = trimmed.slice(first, last + 1);
+      try {
+        return JSON.parse(slice);
+      } catch {
+        return null;
+      }
     }
+    return null;
   }
 };
 
@@ -378,7 +423,7 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
   const componentJson = componentKey ? ctx.figmaComponents[componentKey] || null : null;
 
   const filesLabel = requiredPaths.map((p) => codeColor(p)).join(', ');
-  console.log(`Generating ${generatedColor(logBaseName)}`);
+  console.log(`Generating Code Connect mapping for ${generatedColor(logBaseName)}`);
   console.log(`    ... looking at ${filesLabel}`);
 
   const figmaInfo = {
@@ -389,7 +434,7 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
     nodeUrl: buildFigmaNodeUrl(ctx.figmaIndex.fileKey, ctx.figmaIndex.fileName, componentMeta.id || null)
   };
 
-  const payload = buildAgentPayload(ctx.promptText, componentMeta, componentJson, normalized, files, ctx.codeConnectDir, figmaInfo);
+  const payload = buildAgentPayload(ctx.promptText, componentMeta, componentJson, normalized, files, figmaInfo);
 
   const agentResult = await ctx.agent.codegen({
     payload,
@@ -413,6 +458,11 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
 
   if (parsed?.status === 'built') {
     const schema = parsed;
+    const resolvedImportPath = normalizeImportPath(schema.reactImport?.path, requiredPaths, ctx.repo);
+    if (schema.reactImport && resolvedImportPath) {
+      schema.reactImport.path = resolvedImportPath;
+    }
+
     const fileName =
       schema.codeConnectFileName ||
       `${sanitizeSlug(componentMeta.name || normalized.figmaComponentName || 'component')}.figma.tsx`;
@@ -438,7 +488,10 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
   }
 
   if (!parsed && logEntry.status !== 'built') {
-    logEntry.reason = logEntry.reason || 'Agent response was not valid JSON (see mapping-agent log).';
+    const snippet = (rawAgentOutput || '').split('\n').slice(-10).join(' ').trim();
+    const suffix = snippet ? ` (tail: ${snippet.slice(0, 200)})` : '';
+    logEntry.reason =
+      logEntry.reason || `Agent response was not valid JSON (see mapping-agent log)${suffix}`;
   } else if (parsed && logEntry.status !== 'built' && !logEntry.reason) {
     logEntry.reason = 'Agent returned a non-built status without a reason.';
   }
