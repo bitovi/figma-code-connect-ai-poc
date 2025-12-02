@@ -9,8 +9,10 @@ const sanitizeSlug = (value, fallback = 'component') =>
 
 const openLogStream = (dir, name) => {
   if (!dir) return null;
-  fs.ensureDirSync(dir);
-  const file = path.join(dir, `${sanitizeSlug(name)}.log`);
+  const isFile = path.extname(dir) !== '';
+  const file = isFile ? dir : path.join(dir, `${sanitizeSlug(name)}.log`);
+  const parent = isFile ? path.dirname(file) : dir;
+  fs.ensureDirSync(parent);
   const stream = fs.createWriteStream(file, { flags: 'w' });
   stream.write('=== AGENT OUTPUT ===\n');
   return { stream, file };

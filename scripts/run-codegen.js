@@ -24,7 +24,7 @@ const { figmaColor, codeColor, generatedColor, highlight } = require('./colors')
 
 const DEFAULT_CODECONNECT_DIR = 'codeConnect';
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
-const defaultPromptPath = path.join(__dirname, '..', 'prompts', 'single-codegen.md');
+const defaultPromptPath = path.join(__dirname, '..', 'prompts', 'schema-mapping-agent.md');
 
 const readJsonSafe = async (filePath) => {
   try {
@@ -39,31 +39,18 @@ const sanitizeSlug = (value, fallback = 'component') => {
   return base || fallback;
 };
 
+const toTokenName = (value) =>
+  `<FIGMA_${(value || 'node')
+    .replace(/[^a-zA-Z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .toUpperCase()}>`;
+
 const buildFigmaNodeUrl = (fileKey, fileName, nodeId) => {
   if (!fileKey || !nodeId) return null;
   const safeName = fileName ? encodeURIComponent(fileName) : 'file';
   const normalizedNodeId = nodeId.replace(/:/g, '-');
   const encodedNodeId = encodeURIComponent(normalizedNodeId);
   return `https://www.figma.com/design/${fileKey}/${safeName}?node-id=${encodedNodeId}`;
-};
-
-const normalizeEnumArrays = (code = '') => {
-  const enumRegex = /figma\.enum\(\s*(['"])([^'"]+)\1\s*,\s*\[([^\]]*?)\]\s*\)/g;
-  return code.replace(enumRegex, (match, _quote, key, rawValues) => {
-    const values = rawValues
-      .split(',')
-      .map((v) => v.trim().replace(/^['"]|['"]$/g, ''))
-      .filter(Boolean);
-    if (!values.length) return match;
-    const entries = values.map((v) => `'${v}': '${v}'`).join(', ');
-    return `figma.enum('${key}', { ${entries} })`;
-  });
-};
-
-const stripDerivedExpressions = (code = '') => {
-  // Remove ternaries or comparisons inside JSX expressions to appease strict parsers.
-  const stripTernaries = code.replace(/\{[^{}?]*\?[^{}:]*:[^{}]*\}/g, '{null}');
-  return stripTernaries.replace(/\{[^{}]*===.*?\}/g, '{null}');
 };
 
 const parseJsonLines = async (filePath) => {
@@ -193,6 +180,80 @@ const extractJsonResponse = (text) => {
   }
 };
 
+const renderTsxFromSchema = (schema, figmaVariantProperties = null, tokenName = null) => {
+  const lines = [];
+  lines.push("import figma from '@figma/code-connect';");
+
+  const named = Array.isArray(schema.reactImport?.named) ? schema.reactImport.named : [];
+  const hasDefault = schema.reactImport?.default;
+  const importPath = schema.reactImport?.path;
+  if (importPath) {
+    const parts = [];
+    if (hasDefault) parts.push(hasDefault);
+    if (named.length) parts.push(`{ ${named.join(', ')} }`);
+    const importClause = parts.join(', ');
+    lines.push(`import ${importClause || '{ }'} from '${importPath}';`);
+  }
+
+  const propEntries = Array.isArray(schema.props) ? schema.props : [];
+  const validVariantKeys =
+    figmaVariantProperties && typeof figmaVariantProperties === 'object'
+      ? new Set(Object.keys(figmaVariantProperties))
+      : null;
+  const filteredProps =
+    validVariantKeys && validVariantKeys.size > 0
+      ? propEntries.filter((p) => !p.figmaKey || validVariantKeys.has(p.figmaKey))
+      : propEntries;
+  const renderProp = (prop) => {
+    if (prop.kind === 'enum') {
+      const mapping = prop.valueMapping || {};
+      const entries = Object.entries(mapping)
+        .map(([k, v]) => `'${k}': '${v}'`)
+        .join(', ');
+      return `${prop.name}: figma.enum('${prop.figmaKey}', { ${entries} })`;
+    }
+    if (prop.kind === 'boolean') return `${prop.name}: figma.boolean('${prop.figmaKey}')`;
+    if (prop.kind === 'string') return `${prop.name}: figma.string('${prop.figmaKey}')`;
+    if (prop.kind === 'instance') return `${prop.name}: figma.instance('${prop.figmaKey}')`;
+    return null;
+  };
+
+  const propLines = filteredProps
+    .map(renderProp)
+    .filter(Boolean)
+    .map((line) => `      ${line},`);
+
+  const exampleProps = schema.exampleProps && typeof schema.exampleProps === 'object' ? schema.exampleProps : {};
+  const buildAttr = (prop) => {
+    const value = exampleProps[prop.name] !== undefined ? exampleProps[prop.name] : prop.defaultValue;
+    if (value === undefined) return null;
+    if (typeof value === 'boolean') return value ? `${prop.name}` : `${prop.name}={false}`;
+    return `${prop.name}={${JSON.stringify(value)}}`;
+  };
+  const exampleAttrs = filteredProps
+    .map(buildAttr)
+    .filter(Boolean)
+    .map((attr) => ` ${attr}`)
+    .join('');
+
+  lines.push('');
+  lines.push('/**');
+  lines.push(` * Code Connect mapping for ${schema.figmaComponentName || schema.reactComponentName || 'Component'}`);
+  lines.push(' */');
+  lines.push(
+    `figma.connect(${schema.reactComponentName}, '${tokenName || schema.figmaNodeUrl}', {`
+  );
+  lines.push('  props: {');
+  propLines.forEach((l) => lines.push(l));
+  lines.push('  },');
+  lines.push('  example: () => (');
+  lines.push(`    <${schema.reactComponentName}${exampleAttrs} />`);
+  lines.push('  ),');
+  lines.push('});');
+
+  return lines.join('\n');
+};
+
 const writeCodeConnectFile = async (repoRoot, dir, fileName, contents) => {
   const safeDir = path.join(repoRoot, dir || DEFAULT_CODECONNECT_DIR);
   await fs.ensureDir(safeDir);
@@ -203,7 +264,7 @@ const writeCodeConnectFile = async (repoRoot, dir, fileName, contents) => {
 
 const writeLog = async (logDir, name, entry) => {
   await fs.ensureDir(logDir);
-  const file = path.join(logDir, `${sanitizeSlug(name)}.json`);
+  const file = path.join(logDir, `${sanitizeSlug(name)}-codegen-result.json`);
   await fs.writeJson(file, entry, { spaces: 2 });
   return file;
 };
@@ -258,8 +319,8 @@ const parseArgs = (argv) => {
     orienter: path.resolve(opts.orienter),
     promptPath: defaultPromptPath,
     codeConnectDir: DEFAULT_CODECONNECT_DIR,
-    logDir: path.join(superconnectDir, 'component-logs'),
-    agentLogDir: path.join(superconnectDir, 'codegen-logs'),
+    logDir: path.join(superconnectDir, 'codegen-logs'),
+    agentLogDir: path.join(superconnectDir, 'mapping-agent-logs'),
     force: Boolean(opts.force),
     agentBackend: (opts.agentBackend || 'cli').toLowerCase(),
     agentModel: opts.agentModel || undefined,
@@ -336,23 +397,31 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
     logLabel: logBaseName,
     logDir: ctx.agentLogDir
   });
-  const parsed = extractJsonResponse(agentResult.stdout || agentResult.stderr || '');
+  const rawAgentOutput = agentResult.stdout || agentResult.stderr || '';
+  const parsed = extractJsonResponse(rawAgentOutput);
 
   const logEntry = {
     figmaName: componentMeta.name || null,
     figmaId: componentMeta.id || null,
     status: parsed?.status || 'error',
-    reason: parsed?.reason || null,
-    confidence: parsed?.confidence ?? null,
+    reason: parsed?.reason || undefined,
+    confidence: parsed?.confidence ?? undefined,
     reactComponentName: parsed?.reactComponentName || parsed?.reactName || null,
     missingFiles,
     agentExitCode: agentResult.code
   };
 
-  if (parsed?.codeConnectFileContent) {
-    const normalizedContent = stripDerivedExpressions(normalizeEnumArrays(parsed.codeConnectFileContent));
+  if (parsed?.status === 'built') {
+    const schema = parsed;
     const fileName =
-      parsed.codeConnectFileName || `${sanitizeSlug(componentMeta.name || normalized.figmaComponentName || 'component')}.figma.tsx`;
+      schema.codeConnectFileName ||
+      `${sanitizeSlug(componentMeta.name || normalized.figmaComponentName || 'component')}.figma.tsx`;
+    const figmaToken = schema.figmaComponentName ? toTokenName(schema.figmaComponentName) : null;
+    const tsx = renderTsxFromSchema(
+      schema,
+      componentJson?.data?.variantProperties || componentJson?.variantProperties || null,
+      figmaToken
+    );
     const targetPath = path.join(ctx.repo, ctx.codeConnectDir, fileName);
     const exists = fs.existsSync(targetPath);
     if (exists && !ctx.force) {
@@ -361,18 +430,21 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
         logEntry.reason || 'Existing Code Connect file present (rerun with --force to overwrite)';
       logEntry.codeConnectFile = path.relative(ctx.repo, targetPath);
     } else {
-      const written = await writeCodeConnectFile(
-        ctx.repo,
-        ctx.codeConnectDir,
-        fileName,
-        normalizedContent
-      );
+      const written = await writeCodeConnectFile(ctx.repo, ctx.codeConnectDir, fileName, tsx);
       logEntry.status = 'built';
       logEntry.codeConnectFile = path.relative(ctx.repo, written);
       logEntry.overwritten = exists && ctx.force;
     }
   }
 
+  if (!parsed && logEntry.status !== 'built') {
+    logEntry.reason = logEntry.reason || 'Agent response was not valid JSON (see mapping-agent log).';
+  } else if (parsed && logEntry.status !== 'built' && !logEntry.reason) {
+    logEntry.reason = 'Agent returned a non-built status without a reason.';
+  }
+
+  if (logEntry.reason === undefined) delete logEntry.reason;
+  if (logEntry.confidence === undefined) delete logEntry.confidence;
   await writeLog(ctx.logDir, logBaseName, logEntry);
   ctx.summaries.push(logEntry);
   return logEntry;

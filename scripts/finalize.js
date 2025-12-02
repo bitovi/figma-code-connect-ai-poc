@@ -4,7 +4,7 @@
  * Finalizer: summarize a Superconnect run.
  *
  * Inputs:
- *  - superconnect directory (figma-components-index.json, component-logs, codegen-logs, orientation.jsonl)
+ *  - superconnect directory (figma-components-index.json, codegen-logs, mapping-agent-logs, orientation.jsonl)
  *  - codeConnect directory (generated *.figma.tsx)
  *
  * Outputs:
@@ -48,6 +48,12 @@ const listCodeConnectFiles = (dir) => {
   if (!dir || !fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) return [];
   return fs.readdirSync(dir).filter((f) => f.endsWith('.figma.tsx')).map((f) => path.join(dir, f));
 };
+
+const toTokenName = (value) =>
+  `<FIGMA_${(value || 'node')
+    .replace(/[^a-zA-Z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+    .toUpperCase()}>`;
 
 const VALUE_COL = 50;
 
@@ -216,8 +222,8 @@ const parseArgs = (argv) => {
     figmaIndex,
     orientation: path.join(superconnectDir, 'orientation.jsonl'),
     codeConnectDir: path.resolve(baseCwd, opts.codeConnect),
-    componentLogsDir: path.join(superconnectDir, 'component-logs'),
-    codegenLogsDir: path.join(superconnectDir, 'codegen-logs'),
+    componentLogsDir: path.join(superconnectDir, 'codegen-logs'),
+    codegenLogsDir: path.join(superconnectDir, 'mapping-agent-logs'),
     superconnectDir,
     baseCwd
   };
@@ -287,15 +293,38 @@ async function main() {
   const summary = buildSummary(context);
   const includeGlob = 'codeConnect/**/*.figma.tsx';
   const sourceGlobs = ['packages/**/*.{ts,tsx}', 'apps/**/*.{ts,tsx}'];
-  const label = 'Chakra UI';
+  const figmaFileUrl = figmaIndex.fileKey ? `https://www.figma.com/design/${figmaIndex.fileKey}` : null;
+
+  const buildDocumentSubstitutions = (details, baseUrl) => {
+    if (!baseUrl) return undefined;
+    const substitutions = { '<FIGMA_ICONS_BASE>': baseUrl };
+    const sorted = [...details].sort((a, b) => (a.figmaName || '').localeCompare(b.figmaName || ''));
+    sorted.forEach((log) => {
+      if (!log.figmaId || !log.figmaName) return;
+      const nodeUrl = `${baseUrl}?node-id=${(log.figmaId || '').replace(/:/g, '-')}`;
+      const nameToken = toTokenName(log.figmaName);
+      substitutions[nameToken] = nodeUrl;
+    });
+    return substitutions;
+  };
+
+  const codeConnectConfig = {
+    include: [includeGlob, ...sourceGlobs],
+    exclude: ['**/node_modules/**', '**/dist/**', '**/.next/**'],
+    parser: 'react',
+    label: 'react'
+  };
+  if (figmaFileUrl) {
+    codeConnectConfig.interactiveSetupFigmaFileUrl = figmaFileUrl;
+  }
+  const substitutions = buildDocumentSubstitutions(builtDetails, figmaFileUrl);
+  if (substitutions) {
+    codeConnectConfig.documentUrlSubstitutions = substitutions;
+  }
+
   const metadata = {
     schemaVersion: 1,
-    codeConnect: {
-      include: [includeGlob, ...sourceGlobs],
-      exclude: ['**/node_modules/**', '**/dist/**', '**/.next/**'],
-      parser: 'react',
-      label
-    }
+    codeConnect: codeConnectConfig
   };
   const metadataPath = path.join(config.baseCwd, METADATA_FILE_NAME);
   fs.ensureDirSync(path.dirname(metadataPath));

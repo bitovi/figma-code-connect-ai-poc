@@ -47,7 +47,7 @@ const parseArgs = (argv) => {
     figmaIndex: path.resolve(opts.figmaIndex),
     repoSummary: path.resolve(opts.repoSummary),
     output: outputPath,
-    agentLogDir: path.join(superconnectDir, 'orienter-logs'),
+    agentLogDir: path.join(superconnectDir, 'orienter-agent.log'),
     agentBackend: (opts.agentBackend || 'cli').toLowerCase(),
     agentModel: opts.agentModel || undefined,
     agentMaxTokens: parseMaxTokens(opts.agentMaxTokens),

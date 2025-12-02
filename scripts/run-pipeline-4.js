@@ -258,8 +258,8 @@ function resolvePaths(config) {
   const figmaIndex = path.join(superconnectDir, 'figma-components-index.json');
   const repoSummary = path.join(superconnectDir, 'repo-summary.json');
   const orientation = path.join(superconnectDir, 'orientation.jsonl');
-  const agentLogDir = path.join(superconnectDir, 'orienter-logs');
-  const codegenLogDir = path.join(superconnectDir, 'codegen-logs');
+  const agentLogDir = path.join(superconnectDir, 'orienter-agent.log');
+  const codegenLogDir = path.join(superconnectDir, 'mapping-agent-logs');
   const codeConnectDir = path.join(target, 'codeConnect');
   const summaryFile = path.join(config.target, 'SUPERCONNECT_SUMMARY.md');
 
