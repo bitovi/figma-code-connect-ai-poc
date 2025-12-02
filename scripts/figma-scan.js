@@ -363,7 +363,7 @@ async function main() {
       : path.join(path.dirname(path.resolve(config.output)), 'figma-components-index.json');
     saveJson(indexPath, indexData);
 
-    console.log(`\n${chalk.green('✅')} Complete! Processed ${processedCount} component(s)`);
+    console.log(`\n${chalk.green('✓')} Complete! Processed ${processedCount} component(s)`);
   } catch (error) {
     console.error(`\n${chalk.red('❌ Error:')} ${error.message}`);
     process.exit(1);

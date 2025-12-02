@@ -24,7 +24,7 @@ const DEFAULT_IGNORES = [
   '**/.next/**',
   '**/out/**',
   '**/storybook-static/**',
-  '**/codeconnect/**',
+  '**/codeConnect/**',
   '**/coverage/**',
   // Ignore generated & type files
   '**/*.d.ts',
@@ -106,7 +106,7 @@ const summarizeTsconfigs = async (root) => {
   return { primary, all };
 };
 
-const summarizeCodeconnect = async (root) => {
+const summarizeCodeConnect = async (root) => {
   const configs = await listMatches(['figma.config.json', '**/figma.config.json'], { cwd: root, limit: 20 });
   const files = await listMatches(['**/*.figma.tsx'], { cwd: root, limit: 20 });
   return {
@@ -277,7 +277,7 @@ const summarize = async (root) => {
   const [
     pkg,
     tsconfig,
-    codeconnect,
+    codeConnect,
     componentRoots,
     themes,
     locks,
@@ -286,7 +286,7 @@ const summarize = async (root) => {
   ] = await Promise.all([
     summarizePackageJson(root),
     summarizeTsconfigs(root),
-    summarizeCodeconnect(root),
+    summarizeCodeConnect(root),
     summarizeComponentRoots(root),
     summarizeThemes(root),
     summarizeLocks(root),
@@ -301,7 +301,7 @@ const summarize = async (root) => {
     root,
     packageJson: pkg,
     tsconfig,
-    codeconnect,
+    codeConnect,
     components: { roots: componentRoots },
     themes,
     component_source_files: selectedFiles,

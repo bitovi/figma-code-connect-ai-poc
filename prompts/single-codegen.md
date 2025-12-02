@@ -17,21 +17,24 @@ Your goal: Generate a **Code Connect v2** mapping for this single Figma componen
 ## Code Connect v2 template + quality bar
 Generate a readable file, not just bare props. Include:
 - A compact top-level comment summarizing the mapping and listing the Figma axes you actually map
-- `connect` call with mapped props, each with a compact comment explaining which Figma property it maps to
+- Default import `figma` from `@figma/code-connect`, and use `figma.connect(...)` (do not use named imports)
+- Use the provided Figma node URL in the `figma.connect` call (do not invent a URL)
+- Use `figma.enum("key", { FigmaValue: "reactValue" })` with an object literal; if Figma and React values match, use the same string for both sides
 - An `example` function that renders the component with the mapped props, plus a short comment above `example` describing its intent
+- In `example`, only destructure and pass props that are declared under `props`; avoid extra expressions (no conditional labels or derived strings)
 
 Template:
 ```ts
-import { connect, figma } from '@figma/code-connect';
+import figma from '@figma/code-connect';
 import { ReactName } from '<resolved-import>';
 
-connect(ReactName, 'FigmaName', {
+figma.connect(ReactName, 'https://www.figma.com/design/<fileKey>/<fileName>?node-id=<nodeId>', {
   props: {
     // map real axes; keep names aligned to Figma keys and React props
     /**
      * Maps Figma "Variant" property to React variant prop
      */
-    variant: figma.enum('variant', ['solid', 'outline']),
+    variant: figma.enum('variant', { solid: 'solid', outline: 'outline' }),
     /**
      * Maps Figma "Size" property to React size prop
      */
@@ -78,8 +81,8 @@ connect(ReactName, 'FigmaName', {
   "figmaComponentId": "...",
   "reactComponentName": "...",
   "confidence": 0.0-1.0,
-  "codeconnectFileName": "Component.figma.tsx",
-  "codeconnectFileContent": "import { ... }... // full TSX code as a single string"
+  "codeConnectFileName": "Component.figma.tsx",
+  "codeConnectFileContent": "import figma from '@figma/code-connect'; ... // full TSX code as a single string"
 }
 
 Remember, your only job is:

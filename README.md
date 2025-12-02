@@ -8,16 +8,21 @@ Superconnect is an AI-enhanced tool that turns a Figma design system file and a 
 
 # Quickstart
 
-  1. Install dependencies
+  1. Install dependencies (in this repo)
      npm install
- 
-  2. Set up your environment variables
+  
+  2. Link the CLI globally (so you can run it from any React repo)
+     npm link
+  
+  3. Set up your environment variables
       - Figma: Set FIGMA_ACCESS_TOKEN in your environment to allow the script to access your design system Figma file
       - Agent backend: Claude (default): requires ANTHROPIC_API_KEY, OpenAI requires OPENAI_API_KEY
 
-  3. Run it
+  4. Run it from your React repo root
 
-     npx superconnect
+     superconnect
+     # or if you prefer npx with the linked binary:
+     npx --no-install superconnect
 
       If superconnect.toml is missing in the current directory, you’ll be prompted for:
         - Figma URL or file key
@@ -27,12 +32,12 @@ Superconnect is an AI-enhanced tool that turns a Figma design system file and a 
       This will:
         - Scan your Figma file and find all the components
         - Scan your repo
-        - Run code generation to produce codeconnect/*.figma.tsx
+        - Run code generation to produce codeConnect/*.figma.tsx
         - Report on which components it was able to code gen, which it wasn't, and why
         - Write figma.config.json in the repo root for Code Connect to discover generated files
 
   4. Wire it up in Figma and view Code Connect output
-      - Add the new codeconnect/*.figma.tsx files to git and push to your main branch
+      - Add the new codeConnect/*.figma.tsx files to git and push to your main branch
       - Open your design system file in Figma
       - In Figma Dev/Code view, add your code repo as a Code Connect source
       - Navigate to a component that Superconnect successfully generated
@@ -64,7 +69,7 @@ Superconnect runs five logical stages:
           - superconnect/orientation.jsonl
           - superconnect/figma-components/{component}.json
           - Source files from the component repo
-      - Output: codeconnect/{component}.figma.tsx
+      - Output: codeConnect/{component}.figma.tsx
   5. Finalizer (scripts/finalize.js)
       - Input: everything above
       - Output: A human-friendly run summary printed to stdout (no file), with colored sections and stats, plus figma.config.json written at the repo root
@@ -100,7 +105,7 @@ Running the full pipeline (once configured) produces (in your component repo):
     - orientation.jsonl: agent suggestions for which files to read for each Figma component
     - component-logs/*.json: per-component codegen decisions and metadata
     - orienter-logs/*.log, codegen-logs/*.log: raw agent interaction logs
-- In codeconnect/
+- In codeConnect/
     - *.figma.tsx files for each successfully mapped component, ready for Code Connect
 - At repo root:
     - figma.config.json pointing Code Connect to generated files
@@ -116,7 +121,7 @@ The pipeline is designed for graceful partial runs:
 
 - Ctrl+C during codegen
     - Codegen finishes the current component, then stops processing more
-    - superconnect/component-logs/ and codeconnect/ contain whatever was completed so far
+    - superconnect/component-logs/ and codeConnect/ contain whatever was completed so far
     - The pipeline still runs the finalizer, so you get an accurate summary of what was built versus skipped
 - Rerunning without --force
     - Figma scan, repo summary, and orienter are skipped if their outputs already exist

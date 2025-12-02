@@ -193,7 +193,7 @@ async function promptForConfig() {
 
   const outPath = path.resolve(DEFAULT_CONFIG_FILE);
   fs.writeFileSync(outPath, toml, 'utf8');
-  console.log(`${chalk.green('✓')} Wrote ${DEFAULT_CONFIG_FILE}`);
+  console.log(`${chalk.green('✓')} Wrote your configs to ${DEFAULT_CONFIG_FILE}. When you next run in this directory, we'll read from that instead.`);
   return parseSimpleToml(toml);
 }
 
@@ -260,7 +260,7 @@ function resolvePaths(config) {
   const orientation = path.join(superconnectDir, 'orientation.jsonl');
   const agentLogDir = path.join(superconnectDir, 'orienter-logs');
   const codegenLogDir = path.join(superconnectDir, 'codegen-logs');
-  const codeconnectDir = path.join(target, 'codeconnect');
+  const codeConnectDir = path.join(target, 'codeConnect');
   const summaryFile = path.join(config.target, 'SUPERCONNECT_SUMMARY.md');
 
   return {
@@ -273,7 +273,7 @@ function resolvePaths(config) {
     orientation,
     agentLogDir,
     codegenLogDir,
-    codeconnectDir,
+    codeConnectDir,
     summaryFile
   };
 }
@@ -287,6 +287,16 @@ async function main() {
   });
 
   const args = parseArgv(process.argv);
+  const prospectiveTarget = args.target ? path.resolve(args.target) : path.resolve('.');
+  const prospectiveFigmaIndex = path.join(prospectiveTarget, 'superconnect', 'figma-components-index.json');
+  const figmaIndexMissing = !fs.existsSync(prospectiveFigmaIndex);
+
+  if (figmaIndexMissing && !args.figmaToken && !loadEnvToken()) {
+    console.error('❌ FIGMA_ACCESS_TOKEN is required to run the Figma scan.');
+    console.error('   Set FIGMA_ACCESS_TOKEN in your environment or .env, or pass --figma-token.');
+    process.exit(1);
+  }
+
   let cfg = loadSuperconnectConfig(DEFAULT_CONFIG_FILE);
   if (cfg) {
     console.log(`${chalk.green('✓')} Using ${highlight(DEFAULT_CONFIG_FILE)} in ${process.cwd()}`);
@@ -324,6 +334,12 @@ async function main() {
   const needRepoSummary = args.force || !fs.existsSync(paths.repoSummary);
   const needOrientation = args.force || !fs.existsSync(paths.orientation);
   const rel = (p) => path.relative(process.cwd(), p) || p;
+
+  if (needFigmaScan && !figmaToken) {
+    console.error('❌ FIGMA_ACCESS_TOKEN is required to run the Figma scan.');
+    console.error('   Set FIGMA_ACCESS_TOKEN in your environment or .env, or pass --figma-token.');
+    process.exit(1);
+  }
 
   if (needFigmaScan) {
     if (!paths.figmaUrl) {
@@ -396,7 +412,7 @@ async function main() {
       .filter(Boolean)
       .join(' ');
     runCommand(
-      `${highlight('Code generation')} (${codeColor(rel(paths.orientation))} → ${generatedColor(rel(paths.codeconnectDir))})`,
+      `${highlight('Code generation')} (${codeColor(rel(paths.orientation))} → ${generatedColor(rel(paths.codeConnectDir))})`,
       codegenCmd,
       { cwd: paths.target, allowInterrupt: true }
     );
@@ -406,7 +422,7 @@ async function main() {
     const cmd = [
       `node ${path.join(paths.scriptDir, 'finalize.js')}`,
       `--superconnect "${paths.superconnectDir}"`,
-      `--codeconnect "${paths.codeconnectDir}"`,
+      `--codeConnect "${paths.codeConnectDir}"`,
       `--cwd "${paths.target}"`
     ].join(' ');
     runCommand(`${highlight('Finalize')} (summarizing ${generatedColor(rel(paths.superconnectDir))})`, cmd);

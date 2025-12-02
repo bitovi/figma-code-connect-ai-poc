@@ -5,7 +5,7 @@
  *
  * Inputs:
  *  - superconnect directory (figma-components-index.json, component-logs, codegen-logs, orientation.jsonl)
- *  - codeconnect directory (generated *.figma.tsx)
+ *  - codeConnect directory (generated *.figma.tsx)
  *
  * Outputs:
  *  - Colorized summary printed to stdout
@@ -44,7 +44,7 @@ const readJsonLines = async (filePath) => {
   }
 };
 
-const listCodeconnectFiles = (dir) => {
+const listCodeConnectFiles = (dir) => {
   if (!dir || !fs.existsSync(dir) || !fs.statSync(dir).isDirectory()) return [];
   return fs.readdirSync(dir).filter((f) => f.endsWith('.figma.tsx')).map((f) => path.join(dir, f));
 };
@@ -82,7 +82,7 @@ const readComponentLogs = async (dir) => {
       status: data.status || null,
       reactName: data.reactComponentName || null,
       reason: data.reason || null,
-      codeconnectFile: data.codeconnectFile || null,
+      codeConnectFile: data.codeConnectFile || null,
       confidence: data.confidence ?? null
     });
   }
@@ -169,7 +169,7 @@ const buildSummary = (context) => {
     const longestName = Math.max(...context.builtDetails.map((item) => (item.figmaName || '').length), 0);
     const formatted = context.builtDetails.map((item) => {
       const name = item.figmaName || '';
-      const target = item.codeconnectFile || '(not written)';
+      const target = item.codeConnectFile || '(not written)';
       const react = item.reactName ? codeColor(` (maps to React: ${item.reactName})`) : '';
       const paddedNameRaw = name.padEnd(longestName + 1);
       const leftRaw = `${paddedNameRaw}→ ${target}`;
@@ -204,7 +204,7 @@ const parseArgs = (argv) => {
   program
     .name('finalize')
     .option('--superconnect <dir>', 'Superconnect directory containing pipeline artifacts', 'superconnect')
-    .option('--codeconnect <dir>', 'Codeconnect directory', 'codeconnect')
+    .option('--codeConnect <dir>', 'CodeConnect directory', 'codeConnect')
     .option('--cwd <dir>', 'Working directory to resolve paths from', '.')
     .allowExcessArguments(false);
   program.parse(argv);
@@ -215,7 +215,7 @@ const parseArgs = (argv) => {
   return {
     figmaIndex,
     orientation: path.join(superconnectDir, 'orientation.jsonl'),
-    codeconnectDir: path.resolve(baseCwd, opts.codeconnect),
+    codeConnectDir: path.resolve(baseCwd, opts.codeConnect),
     componentLogsDir: path.join(superconnectDir, 'component-logs'),
     codegenLogsDir: path.join(superconnectDir, 'codegen-logs'),
     superconnectDir,
@@ -247,23 +247,23 @@ async function main() {
   const componentLogs = componentLogsRaw.filter((log) => {
     if (log.figmaId && orientationIdSet.has(log.figmaId)) return true;
     if (log.figmaName && orientationNameSet.has(log.figmaName.toLowerCase())) return true;
-    if (log.codeconnectFile) return true;
+    if (log.codeConnectFile) return true;
     return false;
   });
-  const codegenFiles = listCodeconnectFiles(config.codeconnectDir);
+  const codegenFiles = listCodeConnectFiles(config.codeConnectDir);
   const codegenLogsPresent =
     fs.existsSync(config.codegenLogsDir) &&
     fs.statSync(config.codegenLogsDir).isDirectory() &&
     fs.readdirSync(config.codegenLogsDir).length > 0;
 
-  const builtDetails = componentLogs.filter((log) => Boolean(log.codeconnectFile));
-  const skippedDetails = componentLogs.filter((log) => !log.codeconnectFile);
+  const builtDetails = componentLogs.filter((log) => Boolean(log.codeConnectFile));
+  const skippedDetails = componentLogs.filter((log) => !log.codeConnectFile);
 
   const context = {
     figmaIndexRel: path.relative(config.baseCwd, config.figmaIndex) || config.figmaIndex,
     componentLogsRel: path.relative(config.baseCwd, config.componentLogsDir) || config.componentLogsDir,
     codegenLogsRel: path.relative(config.baseCwd, config.codegenLogsDir) || config.codegenLogsDir,
-    codeconnectRel: path.relative(config.baseCwd, config.codeconnectDir) || config.codeconnectDir,
+    codeConnectRel: path.relative(config.baseCwd, config.codeConnectDir) || config.codeConnectDir,
     orientationRel: path.relative(config.baseCwd, config.orientation) || config.orientation,
     figmaCount: Array.isArray(figmaIndex.components) ? figmaIndex.components.length : 0,
     orientationTotal: orientationEntries.length,
@@ -285,20 +285,21 @@ async function main() {
   };
 
   const summary = buildSummary(context);
+  const includeGlob = 'codeConnect/**/*.figma.tsx';
+  const sourceGlobs = ['packages/**/*.{ts,tsx}', 'apps/**/*.{ts,tsx}'];
+  const label = 'Chakra UI';
   const metadata = {
     schemaVersion: 1,
-    figma: {
-      fileKey: figmaIndex.fileKey || null,
-      fileName: figmaIndex.fileName || null
-    },
-    codeconnect: {
-      rootDir: path.relative(config.baseCwd, config.codeconnectDir) || config.codeconnectDir,
-      files: context.codegenFiles
+    codeConnect: {
+      include: [includeGlob, ...sourceGlobs],
+      exclude: ['**/node_modules/**', '**/dist/**', '**/.next/**'],
+      parser: 'react',
+      label
     }
   };
   const metadataPath = path.join(config.baseCwd, METADATA_FILE_NAME);
   fs.ensureDirSync(path.dirname(metadataPath));
-  await fs.writeJson(metadataPath, metadata, { spaces: 2 });
+  await fs.writeJson(metadataPath, metadata, { spaces: 2, flag: 'w' });
 
   console.log(summary);
   console.log(`${chalk.green('✓')} Wrote ${metadataPath}`);

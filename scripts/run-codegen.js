@@ -22,7 +22,7 @@ const { Command } = require('commander');
 const { CodexCliAgentAdapter, OpenAIAgentAdapter, ClaudeAgentAdapter } = require('../src/agent/agent-adapter');
 const { figmaColor, codeColor, generatedColor, highlight } = require('./colors');
 
-const DEFAULT_CODECONNECT_DIR = 'codeconnect';
+const DEFAULT_CODECONNECT_DIR = 'codeConnect';
 const DEFAULT_AGENT_RUNNER = 'codex exec --model gpt-5.1-codex-mini --sandbox read-only';
 const defaultPromptPath = path.join(__dirname, '..', 'prompts', 'single-codegen.md');
 
@@ -37,6 +37,33 @@ const readJsonSafe = async (filePath) => {
 const sanitizeSlug = (value, fallback = 'component') => {
   const base = (value || '').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '');
   return base || fallback;
+};
+
+const buildFigmaNodeUrl = (fileKey, fileName, nodeId) => {
+  if (!fileKey || !nodeId) return null;
+  const safeName = fileName ? encodeURIComponent(fileName) : 'file';
+  const normalizedNodeId = nodeId.replace(/:/g, '-');
+  const encodedNodeId = encodeURIComponent(normalizedNodeId);
+  return `https://www.figma.com/design/${fileKey}/${safeName}?node-id=${encodedNodeId}`;
+};
+
+const normalizeEnumArrays = (code = '') => {
+  const enumRegex = /figma\.enum\(\s*(['"])([^'"]+)\1\s*,\s*\[([^\]]*?)\]\s*\)/g;
+  return code.replace(enumRegex, (match, _quote, key, rawValues) => {
+    const values = rawValues
+      .split(',')
+      .map((v) => v.trim().replace(/^['"]|['"]$/g, ''))
+      .filter(Boolean);
+    if (!values.length) return match;
+    const entries = values.map((v) => `'${v}': '${v}'`).join(', ');
+    return `figma.enum('${key}', { ${entries} })`;
+  });
+};
+
+const stripDerivedExpressions = (code = '') => {
+  // Remove ternaries or comparisons inside JSX expressions to appease strict parsers.
+  const stripTernaries = code.replace(/\{[^{}?]*\?[^{}:]*:[^{}]*\}/g, '{null}');
+  return stripTernaries.replace(/\{[^{}]*===.*?\}/g, '{null}');
 };
 
 const parseJsonLines = async (filePath) => {
@@ -110,7 +137,15 @@ const readRequestedFiles = async (repoRoot, requested) => {
   return results;
 };
 
-const buildAgentPayload = (promptText, componentMeta, componentJson, orienterEntry, files, codeconnectDir) => {
+const buildAgentPayload = (
+  promptText,
+  componentMeta,
+  componentJson,
+  orienterEntry,
+  files,
+  codeConnectDir,
+  figmaInfo
+) => {
   const serializedFiles = files
     .map((file) => {
       if (file.error) {
@@ -122,7 +157,9 @@ const buildAgentPayload = (promptText, componentMeta, componentJson, orienterEnt
 
   const figmaBlock = {
     indexEntry: componentMeta,
-    componentJson: componentJson?.data || null
+    componentJson: componentJson?.data || null,
+    figmaFile: figmaInfo?.file || null,
+    nodeUrl: figmaInfo?.nodeUrl || null
   };
 
   return [
@@ -156,7 +193,7 @@ const extractJsonResponse = (text) => {
   }
 };
 
-const writeCodeconnectFile = async (repoRoot, dir, fileName, contents) => {
+const writeCodeConnectFile = async (repoRoot, dir, fileName, contents) => {
   const safeDir = path.join(repoRoot, dir || DEFAULT_CODECONNECT_DIR);
   await fs.ensureDir(safeDir);
   const target = path.join(safeDir, fileName);
@@ -220,7 +257,7 @@ const parseArgs = (argv) => {
     figmaIndex: figmaIndexPath,
     orienter: path.resolve(opts.orienter),
     promptPath: defaultPromptPath,
-    codeconnectDir: DEFAULT_CODECONNECT_DIR,
+    codeConnectDir: DEFAULT_CODECONNECT_DIR,
     logDir: path.join(superconnectDir, 'component-logs'),
     agentLogDir: path.join(superconnectDir, 'codegen-logs'),
     force: Boolean(opts.force),
@@ -283,14 +320,15 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
   console.log(`Generating ${generatedColor(logBaseName)}`);
   console.log(`    ... looking at ${filesLabel}`);
 
-  const payload = buildAgentPayload(
-    ctx.promptText,
-    componentMeta,
-    componentJson,
-    normalized,
-    files,
-    ctx.codeconnectDir
-  );
+  const figmaInfo = {
+    file: {
+      key: ctx.figmaIndex.fileKey || null,
+      name: ctx.figmaIndex.fileName || null
+    },
+    nodeUrl: buildFigmaNodeUrl(ctx.figmaIndex.fileKey, ctx.figmaIndex.fileName, componentMeta.id || null)
+  };
+
+  const payload = buildAgentPayload(ctx.promptText, componentMeta, componentJson, normalized, files, ctx.codeConnectDir, figmaInfo);
 
   const agentResult = await ctx.agent.codegen({
     payload,
@@ -311,20 +349,26 @@ const processOrienterEntry = async (orienterEntry, ctx) => {
     agentExitCode: agentResult.code
   };
 
-  if (parsed?.codeconnectFileContent) {
+  if (parsed?.codeConnectFileContent) {
+    const normalizedContent = stripDerivedExpressions(normalizeEnumArrays(parsed.codeConnectFileContent));
     const fileName =
-      parsed.codeconnectFileName || `${sanitizeSlug(componentMeta.name || normalized.figmaComponentName || 'component')}.figma.tsx`;
-    const targetPath = path.join(ctx.repo, ctx.codeconnectDir, fileName);
+      parsed.codeConnectFileName || `${sanitizeSlug(componentMeta.name || normalized.figmaComponentName || 'component')}.figma.tsx`;
+    const targetPath = path.join(ctx.repo, ctx.codeConnectDir, fileName);
     const exists = fs.existsSync(targetPath);
     if (exists && !ctx.force) {
       logEntry.status = 'skipped';
       logEntry.reason =
         logEntry.reason || 'Existing Code Connect file present (rerun with --force to overwrite)';
-      logEntry.codeconnectFile = path.relative(ctx.repo, targetPath);
+      logEntry.codeConnectFile = path.relative(ctx.repo, targetPath);
     } else {
-      const written = await writeCodeconnectFile(ctx.repo, ctx.codeconnectDir, fileName, parsed.codeconnectFileContent);
+      const written = await writeCodeConnectFile(
+        ctx.repo,
+        ctx.codeConnectDir,
+        fileName,
+        normalizedContent
+      );
       logEntry.status = 'built';
-      logEntry.codeconnectFile = path.relative(ctx.repo, written);
+      logEntry.codeConnectFile = path.relative(ctx.repo, written);
       logEntry.overwritten = exists && ctx.force;
     }
   }
@@ -368,7 +412,7 @@ async function main() {
     figmaIndex,
     figmaComponents,
     promptText,
-    codeconnectDir: config.codeconnectDir,
+    codeConnectDir: config.codeConnectDir,
     logDir: config.logDir,
     agentLogDir: config.agentLogDir,
     force: config.force,
