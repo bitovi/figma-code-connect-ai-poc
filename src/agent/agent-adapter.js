@@ -256,5 +256,7 @@ class ClaudeAgentAdapter {
 module.exports = {
   CodexCliAgentAdapter,
   OpenAIAgentAdapter,
-  ClaudeAgentAdapter
+  ClaudeAgentAdapter,
+  sanitizeSlug,
+  parseMaxTokens
 };
