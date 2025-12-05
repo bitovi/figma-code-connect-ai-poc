@@ -27,7 +27,7 @@ Superconnect is an AI-enhanced tool that turns a Figma design system file and a 
       If superconnect.toml is missing in the current directory, you’ll be prompted for:
         - Figma URL or file key
         - React Component repo path root
-        - Agent backend (default to claude with claude-haiku-4-5)
+        - Agent backend (claude with claude-haiku-4-5 by default)
 
       This will:
         - Scan your Figma file and find all the components
@@ -44,6 +44,10 @@ Superconnect is an AI-enhanced tool that turns a Figma design system file and a 
       - Open the Code / Code Connect panel:
           - Select the corresponding Code Connect mapping
           - You should see the generated JSX and props schema in the Code Connect UI, linked to the selected Figma component
+
+  5. Scope codegen when needed
+      - Use `--only` / `--exclude` to limit codegen to specific components (names/IDs, globs allowed)
+      - Example: `superconnect --only Button` regenerates only Button
 
 # Configuration
 
@@ -89,8 +93,6 @@ Superconnect abstracts the “agent” through adapters; you choose the backend 
     - Requires OPENAI_API_KEY
     - sdk_model sets the OpenAI model (e.g., gpt-5.1-codex-mini)
     - max_tokens caps response length
-- CLI / Codex (backend = "cli")
-    - Spawns a shell command (cli_command) to run in "codex exec" style -- reads the prompt on stdin and writes JSON to stdout
 
 Agents log to superconnect/orienter-logs and superconnect/codegen-logs
 
@@ -131,5 +133,6 @@ The pipeline is designed for graceful partial runs:
 - Rerunning with --force
     - Clears relevant logs and lets codegen overwrite existing .figma.tsx files
     - Upstream stages are re-run as needed (Figma scan, summary, orientation)
+    - You can combine with scoping, e.g., `superconnect --only Button --force` to regenerate just Button
 
 This makes it safe to interrupt, inspect, tweak prompts/config, and then rerun the pipeline without losing context
