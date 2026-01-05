@@ -11,7 +11,7 @@
  * See: https://docs.claude.com/en/api/agent-sdk/typescript
  */
 
-import { Agent } from '@anthropic-ai/claude-agent-sdk';
+import { query } from '@anthropic-ai/claude-agent-sdk';
 import dotenv from 'dotenv';
 
 // Load environment variables
@@ -29,22 +29,26 @@ async function main() {
     console.log("Starting Claude Agent...");
     console.log("=".repeat(50));
     
-    // Create an agent instance
-    const agent = new Agent({
-      apiKey: process.env.ANTHROPIC_API_KEY,
-      systemPrompt: "You are a helpful assistant that can read files and perform calculations. When asked to perform a calculation, provide the numerical answer.",
+    // Use the query function from the SDK
+    const q = query({
+      prompt: "Please read the file 'my-prompt.md' in the current directory and follow the instructions in it. Provide the answer to what it asks.",
+      options: {
+        systemPrompt: "You are a helpful assistant that can read files and perform calculations. When asked to perform a calculation, provide the numerical answer.",
+        maxTurns: 50,
+      }
     });
 
-    // Run the agent with the prompt
-    const result = await agent.run({
-      prompt: "Please read the file 'my-prompt.md' in the current directory and follow the instructions in it. Provide the answer to what it asks.",
-      maxTurns: 5,
-    });
+    // Collect results from the async iterator
+    let finalResult = null;
+    for await (const message of q) {
+      console.log("Message:", JSON.stringify(message, null, 2));
+      finalResult = message;
+    }
 
     console.log("\n" + "=".repeat(50));
     console.log("Final Result:");
     console.log("=".repeat(50));
-    console.log(result);
+    console.log(finalResult);
     console.log("=".repeat(50));
     
   } catch (error) {
